@@ -1,0 +1,68 @@
+/* 色設定ファイル                     */
+
+/* タイムラインを白背景、黒文字にする */
+
+div.contents.timeline .lines div.item {
+	background: #ffffff !important;
+	color: #000000 !important;
+}
+
+div.contents.timeline .lines div.item.new {
+	background: #c0e8f8 !important;
+}
+
+div.contents.timeline .lines div.item.res > .tweet {
+	background: #f0f0f0 !important;
+}
+
+div.contents.timeline .lines div.item.res > .tail {
+	display: block;
+	border-top: 8px solid #f0f0f0 !important;
+}
+
+div.contents.timeline .lines div.item > .tweet .tweet_text .anchor {
+	color: #2dadcf !important;
+}
+
+div.contents.timeline .lines div.item > .tweet .headcontainer .namedate .anchor {
+	color: #000000 !important;	/* .item color */
+}
+
+div.contents.timeline .lines div.item > .tweet .menubox > .btn {
+	color: #404040;
+	border: 1px solid #b0b0b0;
+	box-shadow: 1px 1px 2px #ffffff inset !important;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#dddddd));
+}
+
+div.contents.timeline .lines div.item > .tweet .menubox > .btn.disabled {
+	color: #c0c0c0;
+}
+
+div.contents.timeline .lines div.item > .tweet .menubox > .btn:hover {
+	box-shadow: 1px 1px 2px #eeeeee inset !important;
+	background: -webkit-gradient(linear, left top, left bottom, from(#eeeeee), to(#cccccc));
+}
+
+div.contents.timeline .lines div.item > .tweet .menubox > .btn:active {
+	box-shadow: none !important;
+	background: -webkit-gradient(linear, left top, left bottom, from(#bbbbbb), to(#dddddd));
+}
+
+div.contents.timeline .lines div.item > .tweet .menubox > .btn.disabled:hover {
+	box-shadow: 1px 1px 2px #ffffff inset !important;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#dddddd));
+}
+
+div.contents.timeline .lines div.item > .tweet .headcontainer .options {
+	background: #ffffff !important;
+}
+
+div.contents.timeline .lines div.item.new > .tweet .headcontainer .options {
+	background: #c0e8f8 !important;
+}
+
+div.contents.timeline .lines div.item.res > .tweet .headcontainer .options {
+	background: #f0f0f0 !important;
+}
+

@@ -1,0 +1,40 @@
+/* ツイ消しコレクション */
+div.contents.twdelete_collection {
+	word-break: break-all;
+	word-wrap: break-word;
+	white-space: nowrap;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	height: 100%;
+}
+
+/* ヘッダ部 */
+#twdelete_collection_head {
+	width: 100%;
+	padding: 6px 0;
+	background: #202020;
+}
+
+#twdelete_collection_head > span {
+	font-size: 1.2rem;
+	font-weight: bold;
+	text-shadow: 4px 4px 8px #444444;
+	margin: 0 8px;
+}
+
+#twdelete_collection_head > span > span {
+	font-size: 1.5rem;
+}
+
+/* リスト部 */
+#twdelete_collection_list {
+	width: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	white-space: normal;
+}
+
+#twdelete_collection_list > .twd {
+	margin: 4px 2px;
+}
+
