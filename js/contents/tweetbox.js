@@ -5,7 +5,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 Contents.tweetbox = function( cp )
 {
-	var SAVEDRAFT_MAX = 50;
+	var SAVEDRAFT_MAX = 100;
 	var p = $( '#' + cp.id );
 	var cont = p.find( 'div.contents' );
 	var atimg = false;

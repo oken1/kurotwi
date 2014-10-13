@@ -211,7 +211,7 @@
   twttr.txt.regexen.validHashtag = regexSupplant(/(#{hashtagBoundary})(#{hashSigns})(#{hashtagAlphaNumeric}*#{hashtagAlpha}#{hashtagAlphaNumeric}*)/gi);
 
   // Mention related regex collection
-  twttr.txt.regexen.validMentionPrecedingChars = /(?:^|[^a-zA-Z0-9_!#$%&*@＠]|RT:?)/;
+  twttr.txt.regexen.validMentionPrecedingChars = /(?:^|[^a-zA-Z0-9_!#$%&*@＠]|(?:rt|RT|rT|Rt):?)/;
   twttr.txt.regexen.atSigns = /[@＠]/;
   twttr.txt.regexen.validMentionOrList = regexSupplant(
     '(#{validMentionPrecedingChars})' +  // $1: Preceding character
@@ -229,27 +229,74 @@
   twttr.txt.regexen.validDomainChars = regexSupplant(/[^#{invalidDomainChars}]/);
   twttr.txt.regexen.validSubdomain = regexSupplant(/(?:(?:#{validDomainChars}(?:[_-]|#{validDomainChars})*)?#{validDomainChars}\.)/);
   twttr.txt.regexen.validDomainName = regexSupplant(/(?:(?:#{validDomainChars}(?:-|#{validDomainChars})*)?#{validDomainChars}\.)/);
-  twttr.txt.regexen.validGTLD = regexSupplant(/(?:(?:aero|asia|biz|cat|com|coop|edu|gov|info|int|jobs|mil|mobi|museum|name|net|org|pro|tel|travel|xxx)(?=[^0-9a-zA-Z]|$))/);
+  twttr.txt.regexen.validGTLD = regexSupplant(RegExp(
+    '(?:(?:' +
+    'academy|accountants|active|actor|aero|agency|airforce|archi|army|arpa|asia|associates|attorney|audio|autos|axa|' +
+    'bar|bargains|bayern|beer|berlin|best|bid|bike|bio|biz|black|blackfriday|blue|bmw|boutique|brussels|build|' +
+    'builders|buzz|bzh|cab|camera|camp|cancerresearch|capetown|capital|cards|care|career|careers|cash|cat|catering|' +
+    'center|ceo|cheap|christmas|church|citic|claims|cleaning|clinic|clothing|club|codes|coffee|college|cologne|com|' +
+    'community|company|computer|condos|construction|consulting|contractors|cooking|cool|coop|country|credit|' +
+    'creditcard|cruises|cuisinella|dance|dating|degree|democrat|dental|dentist|desi|diamonds|digital|direct|' +
+    'directory|discount|dnp|domains|durban|edu|education|email|engineer|engineering|enterprises|equipment|estate|eus|' +
+    'events|exchange|expert|exposed|fail|farm|feedback|finance|financial|fish|fishing|fitness|flights|florist|foo|' +
+    'foundation|frogans|fund|furniture|futbol|gal|gallery|gift|gives|glass|global|globo|gmo|gop|gov|graphics|gratis|' +
+    'green|gripe|guide|guitars|guru|hamburg|haus|hiphop|hiv|holdings|holiday|homes|horse|host|house|immobilien|' +
+    'industries|info|ink|institute|insure|int|international|investments|jetzt|jobs|joburg|juegos|kaufen|kim|kitchen|' +
+    'kiwi|koeln|kred|land|lawyer|lease|lgbt|life|lighting|limited|limo|link|loans|london|lotto|luxe|luxury|maison|' +
+    'management|mango|market|marketing|media|meet|menu|miami|mil|mini|mobi|moda|moe|monash|mortgage|moscow|' +
+    'motorcycles|museum|nagoya|name|navy|net|neustar|nhk|ninja|nyc|okinawa|onl|org|organic|ovh|paris|partners|parts|' +
+    'photo|photography|photos|physio|pics|pictures|pink|place|plumbing|post|press|pro|productions|properties|pub|' +
+    'qpon|quebec|recipes|red|rehab|reise|reisen|ren|rentals|repair|report|republican|rest|reviews|rich|rio|rocks|' +
+    'rodeo|ruhr|ryukyu|saarland|schmidt|schule|scot|services|sexy|shiksha|shoes|singles|social|software|sohu|solar|' +
+    'solutions|soy|space|spiegel|supplies|supply|support|surf|surgery|suzuki|systems|tattoo|tax|technology|tel|' +
+    'tienda|tips|tirol|today|tokyo|tools|town|toys|trade|training|travel|university|uno|vacations|vegas|ventures|' +
+    'versicherung|vet|viajes|villas|vision|vlaanderen|vodka|vote|voting|voto|voyage|wang|watch|webcam|website|wed|' +
+    'wien|wiki|works|wtc|wtf|xxx|xyz|yachts|yokohama|zone|дети|москва|онлайн|орг|сайт|بازار|شبكة|موقع|संगठन|みんな|世界|' +
+    '中信|中文网|公司|公益|商城|商标|在线|我爱你|政务|机构|游戏|移动|组织机构|网址|网络|集团|삼성' +
+    ')(?=[^0-9a-zA-Z@]|$))'));
   twttr.txt.regexen.validCCTLD = regexSupplant(RegExp(
-        "(?:(?:ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|" +
-        "ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|" +
-        "ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|" +
-        "ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|" +
-        "na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|" +
-        "sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|" +
-        "ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|za|zm|zw)(?=[^0-9a-zA-Z]|$))"));
+    '(?:(?:' +
+    'ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bl|bm|bn|bo|bq|br|bs|bt|bv|bw|' +
+    'by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cu|cv|cw|cx|cy|cz|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|' +
+    'fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|' +
+    'is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mf|mg|mh|mk|ml|' +
+    'mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|' +
+    'ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|' +
+    'tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|um|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|za|zm|zw|мкд|мон|рф|' +
+    'срб|укр|қаз|الاردن|الجزائر|السعودية|المغرب|امارات|ایران|بھارت|تونس|سودان|سورية|عمان|فلسطين|قطر|مصر|مليسيا|' +
+    'پاکستان|भारत|বাংলা|ভারত|ਭਾਰਤ|ભારત|இந்தியா|இலங்கை|சிங்கப்பூர்|భారత్|ලංකා|ไทย|გე|中国|中國|台湾|台灣|新加坡|香港|한국' +
+    ')(?=[^0-9a-zA-Z@]|$))'));
   twttr.txt.regexen.validPunycode = regexSupplant(/(?:xn--[0-9a-z]+)/);
+  twttr.txt.regexen.validSpecialCCTLD = regexSupplant(RegExp(
+    '(?:(?:co|tv)(?=[^0-9a-zA-Z@]|$))'));
   twttr.txt.regexen.validDomain = regexSupplant(/(?:#{validSubdomain}*#{validDomainName}(?:#{validGTLD}|#{validCCTLD}|#{validPunycode}))/);
   twttr.txt.regexen.validAsciiDomain = regexSupplant(/(?:(?:[\-a-z0-9#{latinAccentChars}]+)\.)+(?:#{validGTLD}|#{validCCTLD}|#{validPunycode})/gi);
-  twttr.txt.regexen.invalidShortDomain = regexSupplant(/^#{validDomainName}#{validCCTLD}$/);
+  twttr.txt.regexen.invalidShortDomain = regexSupplant(/^#{validDomainName}#{validCCTLD}$/i);
+  twttr.txt.regexen.validSpecialShortDomain = regexSupplant(/^#{validDomainName}#{validSpecialCCTLD}$/i);
 
   twttr.txt.regexen.validPortNumber = regexSupplant(/[0-9]+/);
 
   twttr.txt.regexen.validGeneralUrlPathChars = regexSupplant(/[a-z0-9!\*';:=\+,\.\$\/%#\[\]\-_~@|&#{latinAccentChars}]/i);
-  // Allow URL paths to contain balanced parens
+  // Allow URL paths to contain up to two nested levels of balanced parens
   //  1. Used in Wikipedia URLs like /Primer_(film)
   //  2. Used in IIS sessions like /S(dfd346)/
-  twttr.txt.regexen.validUrlBalancedParens = regexSupplant(/\(#{validGeneralUrlPathChars}+\)/i);
+  //  3. Used in Rdio URLs like /track/We_Up_(Album_Version_(Edited))/
+  twttr.txt.regexen.validUrlBalancedParens = regexSupplant(
+    '\\('                                   +
+      '(?:'                                 +
+        '#{validGeneralUrlPathChars}+'      +
+        '|'                                 +
+        // allow one nested level of balanced parentheses
+        '(?:'                               +
+          '#{validGeneralUrlPathChars}*'    +
+          '\\('                             +
+            '#{validGeneralUrlPathChars}+'  +
+          '\\)'                             +
+          '#{validGeneralUrlPathChars}*'    +
+        ')'                                 +
+      ')'                                   +
+    '\\)'
+  , 'i');
   // Valid end-of-path chracters (so /foo. does not gobble the period).
   // 1. Allow =&# for empty URL parameters and other URL-join artifacts
   twttr.txt.regexen.validUrlPathEndingChars = regexSupplant(/[\+\-a-z0-9=_#\/#{latinAccentChars}]|(?:#{validUrlBalancedParens})/i);
@@ -660,22 +707,34 @@
   };
 
   twttr.txt.autoLinkWithJSON = function(text, json, options) {
+    // map JSON entity to twitter-text entity
+    if (json.user_mentions) {
+      for (var i = 0; i < json.user_mentions.length; i++) {
+        // this is a @mention
+        json.user_mentions[i].screenName = json.user_mentions[i].screen_name;
+      }
+    }
+    
+    if (json.hashtags) {
+      for (var i = 0; i < json.hashtags.length; i++) {
+        // this is a #hashtag
+        json.hashtags[i].hashtag = json.hashtags[i].text;
+      }
+    }
+    
+    if (json.symbols) {
+      for (var i = 0; i < json.symbols.length; i++) {
+        // this is a $CASH tag
+        json.symbols[i].cashtag = json.symbols[i].text;
+      }
+    }
+    
     // concatenate all entities
     var entities = [];
     for (var key in json) {
       entities = entities.concat(json[key]);
     }
-    // map JSON entity to twitter-text entity
-    for (var i = 0; i < entities.length; i++) {
-      entity = entities[i];
-      if (entity.screen_name) {
-        // this is @mention
-        entity.screenName = entity.screen_name;
-      } else if (entity.text) {
-        // this is #hashtag
-        entity.hashtag = entity.text;
-      }
-    }
+
     // modify indices to UTF-16
     twttr.txt.modifyIndicesFromUnicodeToUTF16(text, entities);
 
@@ -838,7 +897,6 @@
     if (!options) {
       options = {extractUrlsWithoutProtocol: true};
     }
-
     if (!text || (options.extractUrlsWithoutProtocol ? !text.match(/\./) : !text.match(/:/))) {
       return [];
     }
@@ -858,7 +916,6 @@
           continue;
         }
         var lastUrl = null,
-            lastUrlInvalidMatch = false,
             asciiEndPosition = 0;
         domain.replace(twttr.txt.regexen.validAsciiDomain, function(asciiDomain) {
           var asciiStartPosition = domain.indexOf(asciiDomain, asciiEndPosition);
@@ -867,8 +924,9 @@
             url: asciiDomain,
             indices: [startPosition + asciiStartPosition, startPosition + asciiEndPosition]
           };
-          lastUrlInvalidMatch = asciiDomain.match(twttr.txt.regexen.invalidShortDomain);
-          if (!lastUrlInvalidMatch) {
+          if (path
+              || asciiDomain.match(twttr.txt.regexen.validSpecialShortDomain)
+              || !asciiDomain.match(twttr.txt.regexen.invalidShortDomain)) {
             urls.push(lastUrl);
           }
         });
@@ -880,9 +938,6 @@
 
         // lastUrl only contains domain. Need to add path and query if they exist.
         if (path) {
-          if (lastUrlInvalidMatch) {
-            urls.push(lastUrl);
-          }
           lastUrl.url = url.replace(domain, lastUrl.url);
           lastUrl.indices[1] = endPosition;
         }
@@ -1314,6 +1369,10 @@
 
   if (typeof module != 'undefined' && module.exports) {
     module.exports = twttr.txt;
+  }
+
+  if (typeof define == 'function' && define.amd) {
+    define([], twttr.txt);
   }
 
   if (typeof window != 'undefined') {
