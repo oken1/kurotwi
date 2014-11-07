@@ -67,6 +67,11 @@ Contents.image = function( cp )
 			p.css( { width: nw, height: nh, left: ( $( 'body' ).outerWidth() - nw ) / 2 + $( document ).scrollLeft() } )
 				.trigger( 'resize' );
 
+			// 画像ダブルクリックで閉じる
+			cont.find( 'img.image' ).dblclick( function( e ) {
+				p.find( '.close' ).trigger( 'click', [false] );
+			} );
+
 			////////////////////////////////////////
 			// パネルサイズに合わせる
 			////////////////////////////////////////

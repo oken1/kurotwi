@@ -39,6 +39,10 @@ img {
 	color: #ffffff;	/* color set: 全体のフォント */
 }
 
+/* 絵文字 */
+.emoji {
+	height: 1rem;
+}
 
 /* URL展開中 */
 .expand {

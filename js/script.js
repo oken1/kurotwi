@@ -1612,6 +1612,11 @@ function MakeTimeline( json, account_id )
 		}
 	}
 
+	// 絵文字表示
+	{
+		text = twemoji.parse( text );
+	}
+
 	var assign = {
 		status_id: id,
 		icon: json.user.profile_image_url_https,
@@ -1687,6 +1692,11 @@ function MakeTimeline_DM( json, type, account_id )
 	// 相互、一方フォローマーク
 	var isfriend = IsFriend( account_id, user_id ) ;
 	var isfollower = IsFollower( account_id, user_id );
+
+	// 絵文字表示
+	{
+		text = twemoji.parse( text );
+	}
 
 	var assign = {
 		icon: sendrec.profile_image_url_https,

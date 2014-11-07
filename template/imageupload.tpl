@@ -4,7 +4,9 @@
 	<div id='imageuploadbox_service'>
 		(i18n_0051)
 		<div>
-			<div><input type='radio' name='imageupload_service' value='0' {if $service==0}checked{/if}><a href='http://twitpic.com/' target='_blank' class='anchor'>Twitpic</a></div>
+			<!--
+				<div><input type='radio' name='imageupload_service' value='0' {if $service==0}checked{/if}><a href='http://twitpic.com/' target='_blank' class='anchor'>Twitpic</a></div>
+			-->
 			<div><input type='radio' name='imageupload_service' value='1' {if $service==1}checked{/if}><a href='http://p.twipple.jp/' target='_blank' class='anchor'>(i18n_0082)</a></div>
 			<div><input type='radio' name='imageupload_service' value='2' {if $service==2}checked{/if}><a href='http://yfrog.com/' target='_blank' class='anchor'>yfrog</a></div>
 		</div>

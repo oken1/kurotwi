@@ -863,14 +863,24 @@ chrome.extension.onMessage.addListener(
 					dataType: 'html',
 					type: 'GET',
 					success: function ( data, status, xhr ) {
-						if ( data.match( /<meta name="twitter:image" content="(.*)"\s*\/?>/ ) )
+
+						var _d = data.match( /<meta.*?\/+>/g );
+
+						for ( var i = 0, _len = _d.length ; i < _len ; i++ )
 						{
-							var imgurl = RegExp.$1;
-							sendres( { thumb: imgurl.replace( /\/\/gyazo\.com\//, '//gyazo.com/thumb/' ), original: imgurl } );
-						}
-						else
-						{
-							sendres( '' );
+							if ( _d[i].match( /name=\"twitter:image\"/ ) )
+							{
+								if ( _d[i].match( /content=\"(.*?)\"/ ) )	// "
+								{
+									var imgurl = RegExp.$1;
+									sendres( { thumb: imgurl.replace( /\/\/gyazo\.com\//, '//gyazo.com/thumb/' ), original: imgurl } );
+									break;
+								}
+								else
+								{
+									sendres( '' );
+								}
+							}
 						}
 					},
 					error: function ( xhr, status, errorThrown ) {

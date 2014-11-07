@@ -14,6 +14,12 @@ Contents.imageupload = function( cp )
 	// 開始処理
 	////////////////////////////////////////////////////////////
 	this.start = function() {
+		// Twitpic削除
+		if ( g_cmn.cmn_param.image_service == 0 )
+		{
+			g_cmn.cmn_param.image_service = 1;
+		}
+
 		// 全体を作成
 		cont.addClass( 'imageupload' )
 			.html( OutputTPL( 'imageupload', { service: g_cmn.cmn_param.image_service } ) );

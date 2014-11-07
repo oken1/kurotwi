@@ -2292,6 +2292,31 @@ Contents.timeline = function( cp )
 
 						e.stopPropagation();
 					} );
+
+					// 個別表示ボタンクリック処理
+					menubox.find( '> a.individual' ).on( 'click', function( e ) {
+						// disabledなら処理しない
+						if ( $( this ).hasClass( 'disabled' ) )
+						{
+							return;
+						}
+
+						var screen_name = item.attr( 'screen_name' );
+						var status_id = item.attr( 'status_id' );
+
+						var _cp = new CPanel( null, null, 360, 240 );
+						_cp.SetType( 'timeline' );
+						_cp.SetParam( {
+							account_id: cp.param['account_id'],
+							timeline_type: 'perma',
+							screen_name: screen_name,
+							status_id: status_id,
+							reload_time: g_cmn.cmn_param['reload_time'],
+						} );
+						_cp.Start();
+
+						e.stopPropagation();
+					} );
 				}
 
 				item.find( '.menubox' ).toggle();

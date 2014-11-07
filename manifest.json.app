@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "KuroTwi",
-	"version": "1.6.6",
+	"version": "1.6.7",
 	"description": "__MSG_manifest_description__",
 	"default_locale": "en",
 	"content_security_policy": "script-src 'self'; object-src 'self';",

@@ -18,4 +18,5 @@
 				<div class='iconsizemenu'>
 				</div>
 				<a class='btn addfilter'>(i18n_0338)</a>
+				<a class='btn individual'>(i18n_0351)</a>
 			</div>
