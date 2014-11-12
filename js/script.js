@@ -345,8 +345,8 @@ function Init()
 						{
 							if ( g_cmn.current_version != manifest.version )
 							{
-								MessageBox( chrome.i18n.getMessage( 'i18n_0345', [g_cmn.current_version, manifest.version] ) + 
-									'<br><br>' + 
+								MessageBox( chrome.i18n.getMessage( 'i18n_0345', [g_cmn.current_version, manifest.version] ) +
+									'<br><br>' +
 									'<a class="anchor" href="http://www.jstwi.com/kurotwi/update.html" target="_blank">http://www.jstwi.com/kurotwi/update.html</a>',
 									5 * 1000 );
 							}
@@ -1090,32 +1090,52 @@ function Init()
 	// キーボードショートカット
 	////////////////////////////////////////////////////////////
 	$( window ).keydown( function( e ) {
-		if ( e.altKey == true )
+		// altを押していない場合は無視
+		if ( e.altKey != true )
 		{
-			// ブラックアウト中は無効
-			if ( $( '#blackout' ).css( 'display' ) == 'none' )
-			{
-				switch ( e.keyCode )
-				{
-					// alt+'w'でツイートパネル
-					case 87:
-						$( '#head_tweet' ).trigger( 'click' );
-						break;
-					// alt+'s'で検索パネル
-					case 83:
-						$( '#head_search' ).trigger( 'click' );
-						break;
-					// alt+'a'でアカウントパネル
-					case 65:
-						$( '#head_account' ).trigger( 'click' );
-						break;
-					// alt+'p'でパネルリスト
-					case 80:
-						$( '#head_panellist' ).trigger( 'click' );
-						break;
-				}
-			}
+			return;
 		}
+
+		// ブラックアウト中は無効
+		if ( $( '#blackout' ).css( 'display' ) != 'none' )
+		{
+			return;
+		}
+
+		var INITIAL_ELEMENT_ID = ''
+		var element_id = INITIAL_ELEMENT_ID
+		switch ( e.keyCode )
+		{
+			// alt+'w'でツイートパネル
+			case 87:
+				element_id = '#head_tweet'
+				break;
+			// alt+'s'で検索パネル
+			case 83:
+				element_id = '#head_search'
+				break;
+			// alt+'a'でアカウントパネル
+			case 65:
+			  element_id = '#head_account'
+				break;
+			// alt+'p'でパネルリスト
+			case 80:
+			  element_id = '#head_panellist'
+				break;
+			default:
+			  return;
+		}
+
+		if ( element_id == INITIAL_ELEMENT_ID )
+		{
+			return;
+		}
+
+		// Macでalt+<character>は別の文字列になり、フォーカスが移った後にその文字が入力さ
+		// れてしまうのでデフォルト動作を無効化
+		// e.g. alt+'w' = ∑
+		e.preventDefault();
+		$( element_id ).trigger( 'click' );
 	} );
 }
 
