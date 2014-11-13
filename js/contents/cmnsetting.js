@@ -665,6 +665,9 @@ Contents.cmnsetting = function( cp )
 			// リツイートを重複表示しない
 			g_cmn.cmn_param['onlyone_rt'] = ( $( '#cset_onlyone_rt' ).prop( 'checked' ) ) ? 1: 0;
 
+			// リツイートを確認する
+			g_cmn.cmn_param['confirm_rt'] = ( $( '#cset_confirm_rt' ).prop( 'checked' ) ) ? 1: 0;
+
 			// ツイートショートカットキー
 			g_cmn.cmn_param['tweetkey'] = $( 'input[name=cset_tweetkey]:checked' ).val();
 
