@@ -1695,7 +1695,7 @@ Contents.timeline = function( cp )
 		// リツイート
 		////////////////////////////////////////
 		var Retweet = function( item, account_id ) {
-			if ( confirm( chrome.i18n.getMessage( 'i18n_0175' ) ) )
+			if ( g_cmn.cmn_param['confirm_rt'] == 0 || confirm( chrome.i18n.getMessage( 'i18n_0175' ) ) )
 			{
 				var param = {
 					type: 'POST',

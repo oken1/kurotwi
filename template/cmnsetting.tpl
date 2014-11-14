@@ -261,6 +261,13 @@
 
 		<div class='group'>
 			<div class='checkboxcontainer'>
+				<span><input type='checkbox' id='cset_confirm_rt' {if $param->confirm_rt==1}checked{/if}></span>
+				<span>(i18n_0352)</span>
+			</div>
+		</div>
+
+		<div class='group'>
+			<div class='checkboxcontainer'>
 				<span><input type='checkbox' id='cset_exclude_retweets' {if $param->exclude_retweets==1}checked{/if}></span>
 				<span>(i18n_0343)</span>
 			</div>
