@@ -1538,6 +1538,8 @@ function ConnectUserStream( req )
 						flg = false;
 						break;
 					default:
+						console.log( '** unknown event: ' + json.event + '**' );
+						console.log( json );
 						break;
 				}
 			}

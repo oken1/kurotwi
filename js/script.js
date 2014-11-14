@@ -40,7 +40,7 @@ var g_cmn = {
 		follow_mark:		1,								// - 相互フォロー表示
 		iconsize:			32,								// - アイコンサイズ
 		onlyone_rt:			0,								// - リツイートを重複表示しない
-		confirm_rt:     1,                // - リツイートを確認する
+		confirm_rt:			1,								// - リツイートを確認する
 		ngwords:			null,							// - NG設定
 		timedisp:			0,								// - ツイート時間の表示形式
 		rt_accsel:			1,								// - リツイートするアカウントを選択する
