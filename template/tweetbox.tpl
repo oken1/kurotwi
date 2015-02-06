@@ -17,7 +17,7 @@
 			<div id='draft_select' class='pulldown'></div>
 		</div>
 	</div>
-	<span><input type='file' id='imageattach_input' accept='image/jpeg,image/png' name='media'></span>
+	<span><input type='file' id='imageattach_input' accept='image/jpeg,image/png,image/gif' name='media'></span>
 </div>
 <div id='tweetbox_reply'>
 </div>

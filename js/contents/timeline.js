@@ -3173,7 +3173,7 @@ Contents.timeline = function( cp )
 							}
 						}
 						// 画像直リンク
-						else if ( url.match( /https?:\/\/.*\.(png|jpg|gif|PNG|JPG|GIF)$/ ) )
+						else if ( url.match( /https?:\/\/.*\.(png|jpg|jpeg|gif)$/i ) )
 						{
 							MakeImgLink( url, url, false, 1 );
 						}

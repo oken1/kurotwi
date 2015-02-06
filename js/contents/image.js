@@ -20,20 +20,44 @@ Contents.image = function( cp )
 		cp.SetTitle( chrome.i18n.getMessage( 'i18n_0199' ) + ' - ' + title_url, false );
 		setTimeout( function() { cont.activity( { color: '#ffffff' } ); }, 0 );
 
-		cont.addClass( 'image' )
-			.html( OutputTPL( 'image', { url: cp.param['url'] } ) );
+		// アニメーションGIF対応（暫定）
+		var video_url = '';
+
+		if ( cp.param['url'].match( /tweet_video_thumb/ ) )
+		{
+			video_url = cp.param['url'].replace( /tweet_video_thumb/, 'tweet_video' ).replace( /\.png:orig/, '.mp4' );
+
+			cont.addClass( 'image' )
+				.html( OutputTPL( 'image', { url: video_url, video: true } ) );
+		}
+		else
+		{
+			cont.addClass( 'image' )
+				.html( OutputTPL( 'image', { url: cp.param['url'] } ) );
+		}
 
 		cont.find( '.resizebtn' ).hide();
 
 		////////////////////////////////////////
 		// ロード完了
 		////////////////////////////////////////
-		cont.find( 'img.image' ).load( function() {
-			// 実サイズ取得
-			var nw = $( this ).get( 0 ).naturalWidth;
-			var nh = $( this ).get( 0 ).naturalHeight;
+		var LoadedEvent = function() {
+			// 実サイズ
+			var nw, nh;
 
-			cp.SetTitle( chrome.i18n.getMessage( 'i18n_0199' ) + ' - ' + title_url + ' (' + nw + '×' + nh + ')', false );
+			if ( video_url )
+			{
+				nw = $( this ).get( 0 ).videoWidth;
+				nh = $( this ).get( 0 ).videoHeight;
+				cp.SetTitle( chrome.i18n.getMessage( 'i18n_0199' ) + ' - ' + video_url + ' (' + nw + '×' + nh + ')', false );
+			}
+			else
+			{
+				nw = $( this ).get( 0 ).naturalWidth;
+				nh = $( this ).get( 0 ).naturalHeight;
+				cp.SetTitle( chrome.i18n.getMessage( 'i18n_0199' ) + ' - ' + title_url + ' (' + nw + '×' + nh + ')', false );
+			}
+
 			setTimeout( function() {cont.activity( false ); }, 0 );
 
 			// 巨大画像の表示抑止
@@ -68,7 +92,7 @@ Contents.image = function( cp )
 				.trigger( 'resize' );
 
 			// 画像ダブルクリックで閉じる
-			cont.find( 'img.image' ).dblclick( function( e ) {
+			cont.find( 'img.image,video' ).dblclick( function( e ) {
 				p.find( '.close' ).trigger( 'click', [false] );
 			} );
 
@@ -79,10 +103,18 @@ Contents.image = function( cp )
 				var pw = cont.outerWidth();
 				var ph = cont.outerHeight() - p.find( 'div.titlebar' ).outerHeight()+5;
 
-				var image = cont.find( 'img.image' );
+				var nw, nh;
 
-				var nw = image.get( 0 ).naturalWidth;
-				var nh = image.get( 0 ).naturalHeight;
+				if ( video_url )
+				{
+					nw = cont.find( 'video' ).get( 0 ).videoWidth;
+					nh = cont.find( 'video' ).get( 0 ).videoHeight;
+				}
+				else
+				{
+					nw = cont.find( 'img.image' ).get( 0 ).naturalWidth;
+					nh = cont.find( 'img.image' ).get( 0 ).naturalHeight;
+				}
 
 				var pnw = pw;
 				var pnh = pw / nw * nh;
@@ -93,7 +125,7 @@ Contents.image = function( cp )
 					pnw = ph / nh * nw;
 				}
 
-				cont.find( 'img.image' ).css( {
+				cont.find( 'img.image, video' ).css( {
 					width: pnw,
 					height: pnh,
 				} );
@@ -106,10 +138,20 @@ Contents.image = function( cp )
 			// 実サイズで表示
 			////////////////////////////////////////
 			cont.find( '.img_fullsize' ).click( function( e ) {
-				var img = cont.find( 'img.image' );
+				if ( video_url )
+				{
+					var img = cont.find( 'video' );
 
-				img.width( img.get( 0 ).naturalWidth )
-					.height( img.get( 0 ).naturalHeight );
+					img.width( img.get( 0 ).videoWidth )
+						.height( img.get( 0 ).videoHeight );
+				}
+				else
+				{
+					var img = cont.find( 'img.image' );
+
+					img.width( img.get( 0 ).naturalWidth )
+						.height( img.get( 0 ).naturalHeight );
+				}
 
 				p.trigger( 'resize' );
 				e.stopPropagation();
@@ -121,7 +163,7 @@ Contents.image = function( cp )
 			cont.find( '.img_udreverse' ).click( function( e ) {
 				scaleY = ( scaleY == 1 ) ? -1 : 1;
 
-				cont.find( 'img.image' ).css( { '-webkit-transform': 'scale(' + scaleX + ',' + scaleY + ') rotate(' + rotate + 'deg)' } );
+				cont.find( 'img.image, video' ).css( { '-webkit-transform': 'scale(' + scaleX + ',' + scaleY + ') rotate(' + rotate + 'deg)' } );
 				e.stopPropagation();
 			} );
 
@@ -131,7 +173,7 @@ Contents.image = function( cp )
 			cont.find( '.img_lrreverse' ).click( function( e ) {
 				scaleX = ( scaleX == 1 ) ? -1 : 1;
 
-				cont.find( 'img.image' ).css( { '-webkit-transform': 'scale(' + scaleX + ',' + scaleY + ') rotate(' + rotate + 'deg)' } );
+				cont.find( 'img.image, video' ).css( { '-webkit-transform': 'scale(' + scaleX + ',' + scaleY + ') rotate(' + rotate + 'deg)' } );
 				e.stopPropagation();
 			} );
 
@@ -141,7 +183,7 @@ Contents.image = function( cp )
 			cont.find( '.img_rotate' ).click( function( e ) {
 				rotate = ( rotate == 270 ) ? 0 : rotate + 90;
 
-				cont.find( 'img.image' ).css( { '-webkit-transform': 'scale(' + scaleX + ',' + scaleY + ') rotate(' + rotate + 'deg)' } );
+				cont.find( 'img.image, video' ).css( { '-webkit-transform': 'scale(' + scaleX + ',' + scaleY + ') rotate(' + rotate + 'deg)' } );
 				e.stopPropagation();
 			} );
 
@@ -161,15 +203,28 @@ Contents.image = function( cp )
 
 			// 初期表示
 			cont.find( '.img_panelsize' ).trigger( 'click' );
-		} );
+		};
+
+		cont.find( 'img.image' ).load( LoadedEvent );
+		cont.find( 'video' ).on( 'loadedmetadata', LoadedEvent );
 
 		////////////////////////////////////////
 		// 読み込み失敗
 		////////////////////////////////////////
-		cont.find( 'img' ).error( function() {
-			cp.SetTitle( chrome.i18n.getMessage( 'i18n_0199' ) + ' - ' + title_url + ' (' + chrome.i18n.getMessage( 'i18n_0258' ) + ')', false );
+		var ErrorEvent = function() {
+			if ( video_url )
+			{
+				cp.SetTitle( chrome.i18n.getMessage( 'i18n_0199' ) + ' - ' + video_url + ' (' + chrome.i18n.getMessage( 'i18n_0258' ) + ')', false );
+			}
+			else
+			{
+				cp.SetTitle( chrome.i18n.getMessage( 'i18n_0199' ) + ' - ' + title_url + ' (' + chrome.i18n.getMessage( 'i18n_0258' ) + ')', false );
+			}
+
 			setTimeout( function() { cont.activity( false ); }, 0 );
-		} );
+		};
+
+		cont.find( 'img.image,video' ).error( ErrorEvent );
 	};
 
 	////////////////////////////////////////////////////////////
