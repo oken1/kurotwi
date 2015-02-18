@@ -2729,7 +2729,7 @@ Contents.timeline = function( cp )
 						// サムネイル表示＆
 						// 原寸サイズ表示処理作成
 						////////////////////////////////////////
-						var MakeImgLink = function( thumb, original, mov, img_count ) {
+						var MakeImgLink = function( thumb, original, mov, img_count, isvideo, contenttype ) {
 							if ( add.find( 'img[loaded="' + url + '"]' ).length < img_count )
 							{
 								if ( !noloading )
@@ -2758,25 +2758,6 @@ Contents.timeline = function( cp )
 										item.find( '.tweet' ).activity( false );
 									}
 
-//									var pw = $( this ).width();
-//									var ph = $( this ).height();
-//									var nw = $( this ).get( 0 ).naturalWidth;
-//									var nh = $( this ).get( 0 ).naturalHeight;
-
-//									var pnw = pw;
-//									var pnh = pw / nw * nh;
-
-//									if ( pnh > ph )
-//									{
-//										pnh = ph;
-//										pnw = ph / nh * nw;
-//									}
-
-//									$( this ).css( {
-//										width: pnw,
-//										height: pnh
-//									} );
-
 									if ( original != '' )
 									{
 										if ( mov )
@@ -2799,6 +2780,8 @@ Contents.timeline = function( cp )
 												_cp.SetType( 'image' );
 												_cp.SetParam( {
 													url: original,
+													video: isvideo,
+													contenttype: contenttype,
 												} );
 												_cp.Start();
 
@@ -2953,16 +2936,26 @@ Contents.timeline = function( cp )
 										 false, 1 );
 						}
 						// 公式
-						else if ( url.match( /https?:\/\/twitter\.com.*\/photo\/1$/ ) )
+						else if ( url.match( /https?:\/\/twitter\.com.*\/(photo|video)\/1$/ ) )
 						{
 							if ( anchor.attr( 'mediaurl' ) )
 							{
 								var mediaurls = anchor.attr( 'mediaurl' ).split( ',' );
+								var videourls = anchor.attr( 'videourl' ).split( ',' );
+								var contenttypes = anchor.attr( 'contenttype' ).split( ',' );
 
 								for ( var i = 0, _len = mediaurls.length ; i < _len ; i++ )
 								{
-									MakeImgLink( mediaurls[i] + ':thumb',
-												 mediaurls[i] + ':orig', false, mediaurls.length );
+									if ( videourls[i] == '' )
+									{
+										MakeImgLink( mediaurls[i] + ':thumb',
+													 mediaurls[i] + ':orig', false, mediaurls.length );
+									}
+									else
+									{
+										MakeImgLink( mediaurls[i],
+													 videourls[i], false, mediaurls.length, true, contenttypes[i] );
+									}
 								}
 							}
 						}

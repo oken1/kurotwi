@@ -199,17 +199,32 @@ function Txt2Link( text, entities )
 		if ( entities.media )
 		{
 			var mediaurls = '';
+			var videourls = '';
+			var contenttypes = '';
 
 			// 複数画像対応
 			for ( var i = 0, _len = entities.media.length ; i < _len ; i++ )
 			{
-				if ( entities.media[i].type == 'photo' || entities.media[i].type == 'animated_gif' )
+				if ( entities.media[i].type == 'photo' || entities.media[i].type == 'animated_gif' || entities.media[i].type == 'video' )
 				{
 					mediaurls += entities.media[i].media_url_https + ',';
+				}
+
+				if ( entities.media[i].type == 'animated_gif' || entities.media[i].type == 'video' )
+				{
+					videourls += entities.media[i].video_info.variants[0].url + ',';
+					contenttypes += entities.media[i].video_info.variants[0].content_type + ',';
+				}
+				else
+				{
+					videourls += ',';
+					contenttypes += ',';
 				}
 			}
 
 			mediaurls = mediaurls.replace( /,$/, '' );
+			videourls = videourls.replace( /,$/, '' );
+			contenttypes = contenttypes.replace( /,$/, '' );
 
 			$.each( entities.media, function( i, val ) {
 				map[val.indices[0]] = {
@@ -220,7 +235,9 @@ function Txt2Link( text, entities )
 							// 画像
 							case 'photo':
 							case 'animated_gif':
-								return "<a href='" + val.expanded_url + "' class='url anchor' mediaurl='" + mediaurls + "' mediatype='" + val.type + "'>" + val.display_url + "</a>";
+							case 'video':
+								return "<a href='" + val.expanded_url + "' class='url anchor' mediaurl='" + mediaurls + "' mediatype='" + val.type + "' videourl='" +
+									videourls + "' contenttype='" + contenttypes + "'>" + val.display_url + "</a>";
 								break;
 						}
 					}
@@ -396,7 +413,7 @@ function isShortURL( url )
 ////////////////////////////////////////////////////////////////////////////////
 function isImageURL( url )
 {
-	if ( url.match( /^https?:\/\/(twitpic\.com\/(\w+)|ow\.ly\/i\/(\w+)|yfrog\.com\/(\w+)$|tweetphoto\.com\/\d+|plixi\.com\/p\/\d+|lockerz\.com\/s\/\d+|p\.twipple\.jp\/(\w+)|movapic\.com\/pic\/(\w+)|photozou\.jp\/photo\/show\/\d+\/(\d+)|(instagram\.com|instagr\.am)\/p\/([\w\-]+)|twitter\.com.*\/photo\/1$|twitter\.com.*\/messages\/media\/\d+|(?:(www|m)\.youtube\.com\/watch\?.*v=|youtu\.be\/)([\w-]+)|vine\.co\/v\/\w+$|tinami\.jp\/(\w+)$|(www\.nicovideo\.jp\/watch|nico\.ms)\/sm\d+(\?.+)?$|img\.ly\/(\w+)$|cloud(-\d)?\.steampowered\.com\/ugc\/\d+\/\w+\/(\d+x\d+\.resizedimage)?$|gyazo\.com\/\w+$|.*\.(png|jpg|jpeg|gif)$)/i ) )
+	if ( url.match( /^https?:\/\/(twitpic\.com\/(\w+)|ow\.ly\/i\/(\w+)|yfrog\.com\/(\w+)$|tweetphoto\.com\/\d+|plixi\.com\/p\/\d+|lockerz\.com\/s\/\d+|p\.twipple\.jp\/(\w+)|movapic\.com\/pic\/(\w+)|photozou\.jp\/photo\/show\/\d+\/(\d+)|(instagram\.com|instagr\.am)\/p\/([\w\-]+)|twitter\.com.*\/(photo|video)\/1$|twitter\.com.*\/messages\/media\/\d+|(?:(www|m)\.youtube\.com\/watch\?.*v=|youtu\.be\/)([\w-]+)|vine\.co\/v\/\w+$|tinami\.jp\/(\w+)$|(www\.nicovideo\.jp\/watch|nico\.ms)\/sm\d+(\?.+)?$|img\.ly\/(\w+)$|cloud(-\d)?\.steampowered\.com\/ugc\/\d+\/\w+\/(\d+x\d+\.resizedimage)?$|gyazo\.com\/\w+$|.*\.(png|jpg|jpeg|gif)$)/i ) )
 	{
 		return true;
 	}

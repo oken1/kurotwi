@@ -20,15 +20,10 @@ Contents.image = function( cp )
 		cp.SetTitle( chrome.i18n.getMessage( 'i18n_0199' ) + ' - ' + title_url, false );
 		setTimeout( function() { cont.activity( { color: '#ffffff' } ); }, 0 );
 
-		// アニメーションGIF対応（暫定）
-		var video_url = '';
-
-		if ( cp.param['url'].match( /tweet_video_thumb/ ) )
+		if ( cp.param['video'] )
 		{
-			video_url = cp.param['url'].replace( /tweet_video_thumb/, 'tweet_video' ).replace( /\.png:orig/, '.mp4' );
-
 			cont.addClass( 'image' )
-				.html( OutputTPL( 'image', { url: video_url, video: true } ) );
+				.html( OutputTPL( 'image', { url: cp.param['url'], video: true, contenttype: cp.param['contenttype'] } ) );
 		}
 		else
 		{
@@ -45,11 +40,11 @@ Contents.image = function( cp )
 			// 実サイズ
 			var nw, nh;
 
-			if ( video_url )
+			if ( cp.param['video'] )
 			{
 				nw = $( this ).get( 0 ).videoWidth;
 				nh = $( this ).get( 0 ).videoHeight;
-				cp.SetTitle( chrome.i18n.getMessage( 'i18n_0199' ) + ' - ' + video_url + ' (' + nw + '×' + nh + ')', false );
+				cp.SetTitle( chrome.i18n.getMessage( 'i18n_0199' ) + ' - ' + cp.param['url'] + ' (' + nw + '×' + nh + ')', false );
 			}
 			else
 			{
@@ -105,7 +100,7 @@ Contents.image = function( cp )
 
 				var nw, nh;
 
-				if ( video_url )
+				if ( cp.param['video'] )
 				{
 					nw = cont.find( 'video' ).get( 0 ).videoWidth;
 					nh = cont.find( 'video' ).get( 0 ).videoHeight;
@@ -138,7 +133,7 @@ Contents.image = function( cp )
 			// 実サイズで表示
 			////////////////////////////////////////
 			cont.find( '.img_fullsize' ).click( function( e ) {
-				if ( video_url )
+				if ( cp.param['video'] )
 				{
 					var img = cont.find( 'video' );
 
@@ -190,9 +185,12 @@ Contents.image = function( cp )
 			////////////////////////////////////////
 			// リサイズボタン群表示
 			////////////////////////////////////////
-			cont.mouseenter( function( e ) {
-				cont.find( '.resizebtn' ).show();
-			} );
+			if ( !cp.param['video'] )
+			{
+				cont.mouseenter( function( e ) {
+					cont.find( '.resizebtn' ).show();
+				} );
+			}
 
 			////////////////////////////////////////
 			// リサイズボタン群非表示
@@ -212,9 +210,9 @@ Contents.image = function( cp )
 		// 読み込み失敗
 		////////////////////////////////////////
 		var ErrorEvent = function() {
-			if ( video_url )
+			if ( cp.param['video'] )
 			{
-				cp.SetTitle( chrome.i18n.getMessage( 'i18n_0199' ) + ' - ' + video_url + ' (' + chrome.i18n.getMessage( 'i18n_0258' ) + ')', false );
+				cp.SetTitle( chrome.i18n.getMessage( 'i18n_0199' ) + ' - ' + cp.param['url'] + ' (' + chrome.i18n.getMessage( 'i18n_0258' ) + ')', false );
 			}
 			else
 			{

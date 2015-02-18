@@ -1,6 +1,6 @@
 <div>
 {if $video}
-<video src='{$url}' type='video/mp4' autoplay loop></video>
+<video src='{$url}' type='{$contenttype}' controls loop></video>
 {else}
 <img class='image' src='{$url}'>
 {/if}
