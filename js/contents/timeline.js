@@ -2927,7 +2927,7 @@ Contents.timeline = function( cp )
 							}
 						}
 						// instagram
-						else if ( url.match( /http:\/\/(instagram\.com|instagr\.am)\/p\/([\w\-]+)/ ) )
+						else if ( url.match( /https?:\/\/(instagram\.com|instagr\.am)\/p\/([\w\-]+)/ ) )
 						{
 							id = RegExp.$2;
 
