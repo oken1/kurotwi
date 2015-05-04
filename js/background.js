@@ -179,7 +179,8 @@ chrome.extension.onMessage.addListener(
 
 				var message = {
 					method: 'GET', 
-					action: 'https://api.twitter.com/oauth/authorize',
+//					action: 'https://api.twitter.com/oauth/authorize',
+					action: 'https://api.twitter.com/oauth/authenticate',
 					parameters: {
 						oauth_signature_method: 'HMAC-SHA1',
 						oauth_consumer_key: consumerKey,

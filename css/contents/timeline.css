@@ -121,6 +121,20 @@ div.contents.timeline .lines div.item.res > .tail {
 	margin-left: -4px;
 }
 
+/* 引用元 */
+div.contents.timeline .lines div.item > .tweet .tweet_quote {
+	border-radius: 6px;
+	border: 1px solid #808080;
+	margin: 4px 0;
+	padding: 4px;
+}
+
+div.contents.timeline .lines div.item > .tweet > div.tweet_quote > div.tweet_quote_text {
+	line-height: 1.4rem;
+	-webkit-user-select: auto;
+	word-break: break-word;
+}
+
 /* 名前・日付・お気に入り */
 div.contents.timeline .lines div.item > .tweet .headcontainer {
 	display: table;

@@ -25,6 +25,8 @@ Contents.timeline = function( cp )
 	var cursor_on_option = false;
 	var thumb_queue = new Array();
 
+	var quote_cache = {};
+
 	////////////////////////////////////////////////////////////
 	// 読み込み済みステータスID数を取得
 	////////////////////////////////////////////////////////////
@@ -101,6 +103,9 @@ Contents.timeline = function( cp )
 
 			// ユーザーごとのアイコンサイズ適用
 			SetUserIconSize( resitem );
+
+			// 引用元表示
+			QuoteSource( resitem );
 
 			// 自動展開数分繰り返し
 			if ( resitem.find( '.in_reply_to' ).length > 0 )
@@ -344,6 +349,129 @@ Contents.timeline = function( cp )
 			GetPanel( pid ).param.account_id = cp.param['account_id'];
 			$( '#' + pid ).find( 'div.contents' ).trigger( 'account_update' );
 		}
+	};
+
+	////////////////////////////////////////////////////////////
+	// 引用元表示
+	////////////////////////////////////////////////////////////
+	var QuoteSource = function( items ) {
+		if ( items == null )
+		{
+			return;
+		}
+
+		var cnt_items = 0;
+
+		// ツイート数分ループ
+		var _GetAnchor = function() {
+			if ( cnt_items == items.length )
+			{
+				return;
+			}
+
+			var anchors = $( items[cnt_items] ).find( 'div.tweet > div.tweet_text a.anchor' );
+			var cnt_anchors = 0;
+
+			// アンカー数分ループ
+			var _GetQuoteTweet = function() {
+				if ( cnt_anchors == anchors.length )
+				{
+					cnt_items++;
+					_GetAnchor();
+					return;
+				}
+
+				if ( $( anchors[cnt_anchors] ).attr( 'href' ).match( /^https?:\/\/(mobile\.)*twitter\.com\/(#!\/)?(\w+)\/status(es)?\/(\d+)(\?.+)?$/ ) )
+				{
+					var status_id = RegExp.$5;
+
+					// 表示処理
+					var _ShowQuoteSource = function( status_id ) {
+						if ( status_id )
+						{
+							var qc = quote_cache[status_id];
+
+							var html = OutputTPL( 'timeline_quote', {
+								name: qc.name,
+								screen_name: qc.screen_name,
+								text: qc.text,
+								namedisp: g_namedisp,
+							} );
+
+							if ( $( items[cnt_items] ).find( '.tweet_quote' ).length )
+							{
+								$( items[cnt_items] ).find( '.tweet_quote:last' ).after( html );
+							}
+							else
+							{
+								$( items[cnt_items] ).find( '.tweet_text' ).after( html );
+							}
+						}
+
+						cnt_anchors++;
+						_GetQuoteTweet();
+					};
+
+					if ( quote_cache[status_id] != null )
+					{
+						_ShowQuoteSource( status_id );
+					}
+					else
+					{
+						var param = {
+							type: 'GET',
+							url: ApiUrl( '1.1' ) + 'statuses/show/' + status_id + '.json',
+							data: {
+								include_entities: true,
+							},
+						};
+
+						lines.activity( { color: '#ffffff' } );
+
+						SendRequest(
+							{
+								action: 'oauth_send',
+								acsToken: g_cmn.account[cp.param['account_id']]['accessToken'],
+								acsSecret: g_cmn.account[cp.param['account_id']]['accessSecret'],
+								param: param,
+								id: cp.param['account_id']
+							},
+							function( res )
+							{
+								if ( res.status == 200 )
+								{
+									quote_cache[res.json.id_str] = {
+										status_id: res.json.id_str,
+										screen_name: res.json.user.screen_name,
+										name: res.json.user.name,
+										text: twemoji.parse( res.json.text ),
+									};
+
+									_ShowQuoteSource( res.json.id_str );
+								}
+								else
+								{
+									_ShowQuoteSource( null );
+								}
+
+								lines.activity( false );
+
+								$( 'panel' ).find( 'div.contents' ).trigger( 'api_remaining_update', [cp.param['account_id']] );
+							}
+						);
+					}
+				}
+				else
+				{
+					cnt_anchors++;
+					_GetQuoteTweet();
+				}
+			};
+
+			_GetQuoteTweet();
+		};
+
+		_GetAnchor();
 	};
 
 	////////////////////////////////////////////////////////////
@@ -919,6 +1047,9 @@ Contents.timeline = function( cp )
 						// ユーザーごとのアイコンサイズ適用
 						SetUserIconSize( items );
 					}
+
+					// 引用元表示
+					QuoteSource( items );
 
 					// しおり
 					if ( cp.param['bookmark'][0] )
@@ -1619,17 +1750,15 @@ Contents.timeline = function( cp )
 		// 引用
 		////////////////////////////////////////
 		var QuoteText = function( item ) {
-			var screen_name = item.attr( 'screen_name' );
-//			var text = item.find( '.tweet' ).find( '.tweet_text' ).text();
-			var text = item.find( '.tweet' ).find( '.tweet_text' ).html().replace( /<br>/g, '\n' ).replace( /<.*?>/g, '' );
+			var url = item.find( 'span.date > a' ).attr( 'href' );
 
 			var pid = IsUnique( 'tweetbox' );
 
 			var SetText = function() {
-				$( '#tweetbox_text' ).val( ' RT @' + screen_name + ': ' + text )
+				$( '#tweetbox_text' ).val( $( '#tweetbox_text' ).val() + ' ' + url )
 					.focus()
 					.trigger( 'keyup' )
-					.SetPos( 'start' );
+					.SetPos( 'end' );
 			};
 
 			// ツイートパネルが開いていない場合は開く
@@ -3518,6 +3647,8 @@ Contents.timeline = function( cp )
 					// ユーザーごとのアイコンサイズ適用
 					SetUserIconSize( items );
 
+					// 引用元表示
+					QuoteSource( items );
 				}
 			} );
 		}
