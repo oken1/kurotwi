@@ -369,6 +369,14 @@ Contents.timeline = function( cp )
 				return;
 			}
 
+			// すでに表示済み？
+			if ( $( items[cnt_items] ).hasClass( 'quote_showed' ) )
+			{
+				cnt_items++;
+				_GetAnchor();
+				return;
+			}
+
 			var anchors = $( items[cnt_items] ).find( 'div.tweet > div.tweet_text a.anchor' );
 			var cnt_anchors = 0;
 
@@ -376,6 +384,7 @@ Contents.timeline = function( cp )
 			var _GetQuoteTweet = function() {
 				if ( cnt_anchors == anchors.length )
 				{
+					$( items[cnt_items] ).addClass( 'quote_showed' );
 					cnt_items++;
 					_GetAnchor();
 					return;
