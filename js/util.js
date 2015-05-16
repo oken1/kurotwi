@@ -254,7 +254,7 @@ function Txt2Link( text, entities )
 			{
 				if ( i > last )
 				{
-					res += text.substring( last, i );
+					res += uc_substring( text, last, i );
 				}
 
 				res += map[i].func();
@@ -265,7 +265,7 @@ function Txt2Link( text, entities )
 
 		if ( i > last )
 		{
-			res += text.substring( last, i );
+			res += uc_substring( text, last, i );
 		}
 
 		return res;
@@ -439,3 +439,48 @@ function escapeHTML( _strTarget )
 
 	return ret;
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// 絵文字対応substring
+////////////////////////////////////////////////////////////////////////////////
+function uc_substring( string, start, end )
+{
+	var accumulator = "";
+	var character;
+	var stringIndex = 0;
+	var unicodeIndex = 0;
+	var length = string.length;
+
+	while ( stringIndex < length )
+	{
+		character = uc_charAt( string, stringIndex );
+
+		if ( unicodeIndex >= start && unicodeIndex < end )
+		{
+			accumulator += character;
+		}
+
+		stringIndex += character.length;
+		unicodeIndex += 1;
+	}
+
+	return accumulator;
+}
+
+function uc_charAt( string, index ) {
+	var first = string.charCodeAt( index );
+	var second;
+
+	if ( first >= 0xD800 && first <= 0xDBFF && string.length > index + 1 )
+	{
+		second = string.charCodeAt( index + 1 );
+
+		if ( second >= 0xDC00 && second <= 0xDFFF )
+		{
+			return string.substring( index, index + 2 );
+		}
+	}
+
+	return string[index];
+}
+

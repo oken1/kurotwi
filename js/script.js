@@ -3100,7 +3100,7 @@ function IsNGTweet( json, tltype )
 			{
 				if ( i > last )
 				{
-					_word += word.substring( last, i );
+					_word += uc_substring( word, last, i );
 				}
 
 				_word += map[i].func();
@@ -3111,7 +3111,7 @@ function IsNGTweet( json, tltype )
 
 		if ( i > last )
 		{
-			_word += word.substring( last, i );
+			_word += uc_substring( word, last, i );
 		}
 
 		word = _word;

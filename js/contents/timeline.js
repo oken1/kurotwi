@@ -400,6 +400,8 @@ Contents.timeline = function( cp )
 						{
 							var qc = quote_cache[status_id];
 
+							qc.text = qc.text.replace( /\n/g, '<br>' );
+
 							var html = OutputTPL( 'timeline_quote', {
 								name: qc.name,
 								screen_name: qc.screen_name,
