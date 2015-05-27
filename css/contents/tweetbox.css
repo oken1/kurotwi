@@ -65,21 +65,29 @@ div.contents.tweetbox {
 
 /* 添付画像 */
 #tweetbox_image {
+	display: block;
 }
 
-/* 宛先、位置情報 */
-.replyitem, .geoitem, .imageitem {
+.replyitem, .geoitem {
 	display: table;
 	width: 95%;
-	border-right: 1px solid rgba( 0, 0, 0, 0.4 );
-	border-bottom: 1px solid rgba( 0, 0, 0, 0.4 );
+	border: 1px solid rgba( 0, 0, 0, 0.4 );
 	padding: 2px;
 	margin: 0 auto;
 	margin-bottom: 4px;
 	box-sizing: border-box;
 }
 
-.replyitem > div, .geoitem > div, .imageitem > div {
+.imageitem {
+	display: inline-block;
+	padding: 2px;
+	margin: 0 auto;
+	margin-bottom: 4px;
+	box-sizing: border-box;
+	text-align: left;
+}
+
+.replyitem > div, .geoitem > div {
 	display: table-cell;
 	vertical-align: middle;
 	word-break: break-all;
@@ -87,16 +95,31 @@ div.contents.tweetbox {
 	white-space: normal;
 }
 
+.imageitem > div {
+	display: inline-block;
+	vertical-align: middle;
+	word-break: break-all;
+	word-wrap: break-word;
+	white-space: normal;
+}
+
+.imageitem > div.del {
+	vertical-align: top;
+}
+
 /* アイコン */
-.replyitem > div.icon img, .geoitem > div.icon span, .imageitem > div.icon img {
+.replyitem > div.icon img, .geoitem > div.icon span {
 	width: 24px;
 	height: 24px;
 	margin: 2px;
-	font-size: 20px;
+	font-size: 24px;
 }
 
-.replyitem > div.icon, .geoitem > div.icon, .imageitem > div.icon {
-	width: 30px;
+.imageitem > div.icon img {
+	width: 40px;
+	height: 40px;
+	margin: 2px 0px 0px 4px;
+	font-size: 24px;
 }
 
 .replyitem > div.icon {

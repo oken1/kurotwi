@@ -15,9 +15,6 @@ var kurotwi_manifest = null;
 // アップロードファイルオブジェクト
 var uploadFile = null;
 
-// 添付画像ファイルオブジェクト
-var attachFile = null;
-
 // アップロードアイコンファイルオブジェクト
 var uploadIconFile = null;
 
@@ -245,7 +242,7 @@ chrome.extension.onMessage.addListener(
 					tokenSecret: req.acsSecret
 				};
 
-				if ( req.param.upload_media == undefined || req.param.upload_media == false )
+				if ( !req.param.url.match( /https:\/\/upload\.twitter\.com/ ) )
 				{
 					var message = {
 						method: req.param.type,
@@ -353,12 +350,12 @@ chrome.extension.onMessage.addListener(
 						},
 					} );
 				}
-				// 画像添付ツイート
 				else
+				// 画像アップロード
 				{
 					var message = {
 						method: 'POST',
-						action: 'https://api.twitter.com/1.1/statuses/update_with_media.json',
+						action: req.param.url,
 						parameters: {
 							oauth_signature_method: 'HMAC-SHA1',
 							oauth_consumer_key: consumerKey,
@@ -366,6 +363,12 @@ chrome.extension.onMessage.addListener(
 							oauth_version: '1.0',
 						}
 					};
+
+					var media_data = req.param.data['media_data'];
+					delete req.param.data['media_data'];
+
+					var formdata = new FormData();
+					formdata.append( 'media_data', media_data );
 
 					for ( var key in req.param.data )
 					{
@@ -379,10 +382,6 @@ chrome.extension.onMessage.addListener(
 					var xhr = new XMLHttpRequest();
 
 					xhr.open( 'POST', target, true );
-
-					var formdata = new FormData();
-
-					formdata.append( 'media[]', attachFile );
 
 					xhr.onreadystatechange = function() {
 						if ( xhr.readyState != 4 )

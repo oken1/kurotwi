@@ -1394,6 +1394,14 @@
 		"message": "Confirm retweet"
 	},
 
+	"i18n_0353": {
+		"message": "Batch Delete"
+	},
+
+	"i18n_0354": {
+		"message": "Please select a rarity to be deleted"
+	},
+
 	"i18n_9997": {
 		"message": ""
 	},

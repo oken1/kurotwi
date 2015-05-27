@@ -36,9 +36,6 @@ Contents.twdelete_collection = function( cp )
 			s += OutputTPL( 'twdelete', _a );
 		}
 
-		// ヘッダ部作成
-		$( '#twdelete_collection_head' ).html( OutputTPL( 'twdelete_collection_head', { total_exp: g_cmn.twdelete.exp, count: g_cmn.twdelete.count, best: g_cmn.twdelete.best / 1000 } ) );
-
 		twdelete_collection_list.html( s );
 
 		twdelete_collection_list.find( '> div.twd' ).on( 'mouseenter mouseleave', function( e ) {
@@ -56,21 +53,10 @@ Contents.twdelete_collection = function( cp )
 
 			var DelCard = function( n ) {
 				g_cmn.twdelete_history.splice( n, 1 );
-/*
-				twd.animate( {
-					opacity: 0,
-				},
-				'normal',
-				function() {
-					twd.remove();
-					ListMake();
-				} );
-*/
 				twd.remove();
 				ListMake();
 			}
 
-//			if ( twd.hasClass( 'rarity1' ) )
 			if ( twd.hasClass( 'rarity1' ) || twd.hasClass( 'rarity2' ) || twd.hasClass( 'rarity3' ) )
 			{
 				DelCard( $( this ).attr( 'index' ) );
@@ -127,10 +113,54 @@ Contents.twdelete_collection = function( cp )
 		cont.addClass( 'twdelete_collection' )
 			.html( OutputTPL( 'twdelete_collection', {} ) );
 
-		twdelete_collection_list = $( '#twdelete_collection_list' );
+		// ヘッダ部作成
+		$( '#twdelete_collection_head' ).html( OutputTPL( 'twdelete_collection_head', { total_exp: g_cmn.twdelete.exp, count: g_cmn.twdelete.count, best: g_cmn.twdelete.best / 1000 } ) );
 
+		// 一括削除ダイアログ
+		cont.append( OutputTPL( 'twdelete_collection_batchdialog' ) );
+		$( '#twdelete_collection_batchdialog' ).css( {
+			top: $( '#twdelete_collection_head' ).position().top + $( '#twdelete_collection_head' ).outerHeight(),
+		} ).hide();
+
+		$( '#twdelete_collection_head' ).find( '>span > a.batch_del' ).click( function( e ) {
+			$( '#twdelete_collection_batchdialog' ).toggle();
+
+			e.stopPropagation();
+		} );
+
+		$( '#twdelete_collection_batchdelete' ).click( function( e ) {
+			if ( confirm( chrome.i18n.getMessage( 'i18n_0224' ) ) )
+			{
+				for ( var i = 1 ; i <= 6 ; i++ )
+				{
+					if ( $( '#del_rare_' + i ).prop( 'checked' ) )
+					{
+						var _len = g_cmn.twdelete_history.length;
+
+						for ( var j = 0 ; j < _len ; )
+						{
+							if ( g_cmn.twdelete_history[j].rarity == i )
+							{
+								g_cmn.twdelete_history.splice( j, 1 );
+								_len--;
+							}
+							else
+							{
+								j++;
+							}
+						}
+					}
+				}
+
+				ListMake();
+			}
+
+			e.stopPropagation();
+		} );
 
 		// リスト部作成処理
+		twdelete_collection_list = $( '#twdelete_collection_list' );
+
 		ListMake();
 
 		twdelete_collection_list.on( 'history_reload', function( e, type ) {

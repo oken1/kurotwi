@@ -1,9 +1,6 @@
 <div class='imageitem'>
 	<div class='icon'>
-		<img src=''>
-	</div>
-	<div class='filename'>
-		(i18n_0256)<span>({$item->filename})</span>
+		<img src='' class='tooltip' tooltip='{$item->filename}'>
 	</div>
 	<div class='del'>
 		<span class='icon-close'></span>

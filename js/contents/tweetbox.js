@@ -106,13 +106,49 @@ Contents.tweetbox = function( cp )
 		$( '#tweet' ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0083' ) + '(' + _tips[g_cmn.cmn_param.tweetkey] + ')' );
 
 		////////////////////////////////////////
+		// ファイルドロップ時の処理
+		////////////////////////////////////////
+		var _stopEvent = function( e ) {
+			e.preventDefault();
+			e.stopPropagation();
+		};
+
+		cont.on( { 'dragenter': _stopEvent, 'dragover': _stopEvent,
+			'drop':
+				function( e ) {
+					_stopEvent( e );
+
+					// ファイル以外
+					if ( !e.originalEvent.dataTransfer )
+					{
+						return;
+					}
+
+					for ( var i = 0, _len = e.originalEvent.dataTransfer.files.length ; i < _len ; i++ )
+					{
+						var _file = e.originalEvent.dataTransfer.files[i];
+
+						if ( $( '#imageattach' ).hasClass( 'disabled' ) )
+						{
+							return false;
+						}
+
+						if ( _file.type.match( /^image\// ) )
+						{
+							AppendAttachFile( _file );
+						}
+					}
+				}
+		} );
+
+		////////////////////////////////////////
 		// 返信情報削除ボタンクリック処理
 		////////////////////////////////////////
 		var ReplyDelClick = function() {
 			var index = $( '#tweetbox_reply' ).find( '.del' ).find( 'span' ).index( this );
 
 			var replyitem = $( this ).parent().parent();
-			var height = replyitem.outerHeight();
+			var height = replyitem.outerHeight( true );
 
 			replyitem.remove();
 			delete cp.param['reply'];
@@ -128,7 +164,7 @@ Contents.tweetbox = function( cp )
 			var index = $( '#tweetbox_geo' ).find( '.del' ).find( 'span' ).index( this );
 
 			var geoitem = $( this ).parent().parent();
-			var height = geoitem.outerHeight();
+			var height = geoitem.outerHeight( true );
 
 			geoitem.remove();
 			cp.param['geo'].splice( index, 1 );
@@ -141,19 +177,30 @@ Contents.tweetbox = function( cp )
 		// 添付画像削除ボタンクリック処理
 		////////////////////////////////////////
 		var ImageDelClick = function() {
+			// アップロード中は削除できないようにする
+			if ( twflg )
+			{
+				return;
+			}
+
 			var index = $( '#tweetbox_image' ).find( '.del' ).find( 'span' ).index( this );
 
 			var imageitem = $( this ).parent().parent();
-			var height = imageitem.outerHeight();
-
+			var height = imageitem.outerHeight( true );
 			imageitem.remove();
 
-			cont.height( cont.height() - height );
-			p.height( p.height() - height );
+			if ( $( '#tweetbox_image' ).find( '.imageitem' ).length == 0 )
+			{
+				cont.height( cont.height() - height );
+				p.height( p.height() - height );
+			}
 
 			ImageFileReset();
-			atimg = false;
+			atimg = ( $( '#tweetbox_image' ).find( '.imageitem' ).length ) ? true :false;
 			$( '#tweetbox_text' ).trigger( 'keyup' );
+
+			// 画像添付ボタンのdisabled解除
+			$( '#imageattach' ).removeClass( 'disabled' );
 		};
 
 		////////////////////////////////////////
@@ -174,65 +221,66 @@ Contents.tweetbox = function( cp )
 		var ImageAttachChange = function() {
 			if ( $( '#imageattach_input' )[0].files.length == 1 )
 			{
-				// 現在設定されている情報を削除
-				if ( $( '#tweetbox_image' ).find( '.imageitem' ).length > 0 )
-				{
-					var imageitem = $( '#tweetbox_image' ).find( '.imageitem' );
-					var height = imageitem.outerHeight();
-
-					imageitem.remove();
-
-					cont.height( cont.height() - height );
-					p.height( p.height() - height );
-				}
-
-				var f = $( '#imageattach_input' )[0].files[0];
-
-				$( '#tweetbox_image' ).append( OutputTPL( 'tweetbox_image', { item: { filename: f.name }} ) );
-
-				var height = $( '#tweetbox_image' ).find( '.imageitem' ).outerHeight();
-
-				cont.height( cont.height() + height );
-				p.height( p.height() + height );
-
-				$( '#tweetbox_image' ).find( '.del:last' ).find( 'span' ).click( ImageDelClick );
-
-				// カメラアイコンを画像のサムネイルにする
-				if ( f.type.match( 'image.*' ) )
-				{
-					var reader = new FileReader();
-
-					reader.onload = function( e ) {
-						var result = e.target.result;
-
-						$( '#tweetbox_image' ).find( '.icon' ).find( 'img' ).attr( 'src', result )
-							.hover(
-								function() { $( this ).css( { cursor: 'pointer' } ) },
-								function() { $( this ).css( { cursor: 'default' } ) }
-							)
-							.click( function( e ) {
-								var _cp = new CPanel( null, null, 320, 320 );
-								_cp.SetType( 'image' );
-								_cp.SetParam( {
-									url: result
-								} );
-								_cp.Start();
-								e.stopPropagation();
-							} );
-					};
-
-					reader.readAsDataURL( f );
-				}
-
-				// 現在設定されている情報を削除
-//				if ( $( '#tweetbox_image' ).find( '.imageitem' ).length > 1 )
-//				{
-//					$( '#tweetbox_image' ).find( '.imageitem:first' ).find( '.del' ).find( 'span' ).trigger( 'click' );
-//				}
-
-				atimg = true;
-				$( '#tweetbox_text' ).trigger( 'keyup' );
+				AppendAttachFile( $( '#imageattach_input' )[0].files[0] );
 			}
+		};
+
+		////////////////////////////////////////
+		// 添付画像を追加
+		////////////////////////////////////////
+		var AppendAttachFile = function( f ) {
+			var _itemcnt = $( '#tweetbox_image' ).find( '.imageitem' ).length;
+			$( '#tweetbox_image' ).append( OutputTPL( 'tweetbox_image', { item: { filename: f.name }} ) );
+			$( '#tweetbox_image' ).find( '.del:last' ).find( 'span' ).click( ImageDelClick );
+			var _uid = GetUniqueID();
+			$( '#tweetbox_image' ).find( '.imageitem:last' ).attr( 'uid', _uid );
+
+			// カメラアイコンを画像のサムネイルにする
+			if ( f.type.match( 'image.*' ) )
+			{
+				var reader = new FileReader();
+
+				reader.onload = function( e ) {
+					var result = e.target.result;
+					var item = $( '#tweetbox_image' ).find( '.imageitem[uid=' + _uid + ']' );
+
+					item.find( '.icon' ).find( 'img' ).attr( 'src', result )
+						.hover(
+							function() { $( this ).css( { cursor: 'pointer' } ) },
+							function() { $( this ).css( { cursor: 'default' } ) }
+						)
+						.click( function( e ) {
+							var _cp = new CPanel( null, null, 320, 320 );
+							_cp.SetType( 'image' );
+							_cp.SetParam( {
+								url: result
+							} );
+							_cp.Start();
+							e.stopPropagation();
+						} );
+
+					var height = item.outerHeight( true );
+
+					if ( _itemcnt == 0 )
+					{
+						cont.height( cont.height() + height );
+						p.height( p.height() + height );
+					}
+				};
+
+				reader.readAsDataURL( f );
+			}
+
+			atimg = true;
+
+			// 最大4枚まで
+			if ( $( '#tweetbox_image' ).find( '.imageitem' ).length == 4 )
+			{
+				$( '#imageattach' ).addClass( 'disabled' );
+			}
+
+			ImageFileReset();
+			$( '#tweetbox_text' ).trigger( 'keyup' );
 		};
 
 		////////////////////////////////////////
@@ -252,7 +300,7 @@ Contents.tweetbox = function( cp )
 
 			if ( !item.start )
 			{
-				var height = $( '#tweetbox_reply' ).find( '.replyitem' ).outerHeight();
+				var height = $( '#tweetbox_reply' ).find( '.replyitem' ).outerHeight( true );
 
 				cont.height( cont.height() + height );
 				p.height( p.height() + height );
@@ -343,7 +391,7 @@ Contents.tweetbox = function( cp )
 						$( '#tweetbox_geo' ).outerHeight() +
 						$( '#tweetbox_image' ).outerHeight();
 
-			var btn_h = $( '#tweetbox_btn' ).parent().outerHeight();
+			var btn_h = $( '#tweetbox_btn' ).parent().outerHeight( true );
 
 			$( '#tweetbox_box' ).height( cont.outerHeight() - acc_h - opt_h - 12 );
 			$( '#tweetbox_text' ).height( $( '#tweetbox_box' ).outerHeight() - btn_h - 24 );
@@ -513,15 +561,11 @@ Contents.tweetbox = function( cp )
 				if ( g_cmn.draft.length < SAVEDRAFT_MAX )
 				{
 					g_cmn.draft.push( $( '#tweetbox_text' ).val() );
-//					$( '#tweetbox_text' ).val( '' ).focus().trigger( 'keyup' ).SetPos( 'end' );
 					$( 'div.contents' ).trigger( 'draft_pulldown_update' );
 				}
 			}
 			else
 			{
-// 2014/05/24 上書き→挿入に変更
-//				$( '#tweetbox_text' ).val( g_cmn.draft[index - 1] ).focus().trigger( 'keyup' ).SetPos( 'end' );
-
 				var obj = $( '#tweetbox_text' ).get( 0 );
 				var pos = obj.selectionStart;
 
@@ -555,58 +599,6 @@ Contents.tweetbox = function( cp )
 				return;
 			}
 
-			// DEBUG用
-			if ( $( '#tweetbox_text' ).val().match( /^debug:\/\/(type=.*)/ ) && g_devmode )
-			{
-				var params = RegExp.$1.split( '&' );
-				var param = {};
-
-				for ( var i = 0, _len = params.length ; i < _len ; i++ )
-				{
-					var keyval = params[i].split( '=' );
-					param[keyval[0]] = keyval[1];
-				}
-
-				switch ( param['type'] )
-				{
-					case 'setcss':
-						if ( param['item'] && param['key'] && param['val'] )
-						{
-							$( param['item'] ).css( param['key'], param['val'] );
-						}
-
-						break;
-					case 'showcss':
-						if ( param['item'] && param['key'] )
-						{
-							alert( $( param['item'] ).css( param['key'] ) );
-						}
-
-						break;
-					case 'tagcount':
-						if ( param['item'] )
-						{
-							if ( param['panelid'] )
-							{
-								alert( $( '#' + param['panelid'] ).find( param['item'] ).length );
-							}
-							else
-							{
-								alert( $( param['item'] ).length );
-							}
-						}
-
-						break;
-					case 'localstoragesize':
-						alert( 'size=' + localStorage['g_cmn_V1'].length );
-
-						break;
-				}
-
-				e.stopPropagation();
-				return;
-			}
-
 			$( this ).addClass( 'disabled' );
 
 			var data = {};
@@ -635,87 +627,152 @@ Contents.tweetbox = function( cp )
 				data: data,
 			};
 
-			// 添付画像
-			if ( $( '#tweetbox_image' ).find( '.imageitem' ).length > 0 )
-			{
-				param.upload_media = true;
-
-				// バックグラウンドの変数にアップロードするファイルを設定
-				chrome.extension.getBackgroundPage().attachFile = $( '#imageattach_input' ).get( 0 ).files[0];
-			}
-			else
-			{
-				param.upload_media = false;
-			}
-
 			Blackout( true, false );
 			$( '#blackout' ).activity( { color: '#808080', width: 8, length: 14 } );
 
 			twflg = true;
 
-			SendRequest(
+			var TweetSend = function( media_ids ) {
+				if ( media_ids )
 				{
-					action: 'oauth_send',
-					acsToken: g_cmn.account[cp.param['account_id']]['accessToken'],
-					acsSecret: g_cmn.account[cp.param['account_id']]['accessSecret'],
-					param: param,
-					id: cp.param['account_id']
-				},
-				function( res )
-				{
-					twflg = false;
-
-					if ( res.status == 200 )
-					{
-						// テキストボックスを空にする
-						$( '#tweetbox_text' ).val( '' )
-							.trigger( 'keyup' );
-
-						// 返信情報をクリア
-						$( '#tweetbox_reply' ).find( '.del' ).find( 'span' ).each( function() {
-							$( this ).trigger( 'click' );
-						} );
-
-						// 添付画像をクリア
-						$( '#tweetbox_image' ).find( '.del' ).find( 'span' ).each( function() {
-							$( this ).trigger( 'click' );
-						} );
-
-						// ハッシュタグを自動入力
-						for ( var i = 0, _len = g_cmn.hashtag.length ; i < _len ; i++ )
-						{
-							if ( g_cmn.hashtag[i].checked == true )
-							{
-								cont.trigger( 'hashset', [g_cmn.hashtag[i].hashtag] );
-							}
-						}
-
-						for ( var i = 0, _len = g_cmn.notsave.tl_hashtag.length ; i < _len ; i++ )
-						{
-							if ( g_cmn.notsave.tl_hashtag[i].checked == true )
-							{
-								cont.trigger( 'hashset', [g_cmn.notsave.tl_hashtag[i].hashtag] );
-							}
-						}
-
-						$( '#tweetbox_text' ).SetPos( 'start' );
-
-						// ツイート数表示の更新
-						StatusesCountUpdate( cp.param['account_id'], 1 );
-					}
-					else
-					{
-						console.log( 'status[' + res.status + ']' );
-
-						$( this ).removeClass( 'disabled' );
-
-						ApiError( chrome.i18n.getMessage( 'i18n_0087' ), res );
-					}
-
-					Blackout( false, false );
-					$( '#blackout' ).activity( false );
+					param.data.media_ids = media_ids;
 				}
-			);
+
+				SendRequest(
+					{
+						action: 'oauth_send',
+						acsToken: g_cmn.account[cp.param['account_id']]['accessToken'],
+						acsSecret: g_cmn.account[cp.param['account_id']]['accessSecret'],
+						param: param,
+						id: cp.param['account_id']
+					},
+					function( res )
+					{
+						twflg = false;
+
+						if ( res.status == 200 )
+						{
+							// テキストボックスを空にする
+							$( '#tweetbox_text' ).val( '' )
+								.trigger( 'keyup' );
+
+							// 返信情報をクリア
+							$( '#tweetbox_reply' ).find( '.del' ).find( 'span' ).each( function() {
+								$( this ).trigger( 'click' );
+							} );
+
+							// 添付画像をクリア
+							$( '#tweetbox_image' ).find( '.del' ).find( 'span' ).each( function() {
+								$( this ).trigger( 'click' );
+							} );
+
+							// ハッシュタグを自動入力
+							for ( var i = 0, _len = g_cmn.hashtag.length ; i < _len ; i++ )
+							{
+								if ( g_cmn.hashtag[i].checked == true )
+								{
+									cont.trigger( 'hashset', [g_cmn.hashtag[i].hashtag] );
+								}
+							}
+
+							for ( var i = 0, _len = g_cmn.notsave.tl_hashtag.length ; i < _len ; i++ )
+							{
+								if ( g_cmn.notsave.tl_hashtag[i].checked == true )
+								{
+									cont.trigger( 'hashset', [g_cmn.notsave.tl_hashtag[i].hashtag] );
+								}
+							}
+
+							$( '#tweetbox_text' ).SetPos( 'start' );
+
+							// ツイート数表示の更新
+							StatusesCountUpdate( cp.param['account_id'], 1 );
+						}
+						else
+						{
+							console.log( 'status[' + res.status + ']' );
+
+							$( this ).removeClass( 'disabled' );
+
+							ApiError( chrome.i18n.getMessage( 'i18n_0087' ), res );
+						}
+
+						Blackout( false, false );
+						$( '#blackout' ).activity( false );
+					}
+				);
+			};
+
+			// 添付画像あり
+			if ( $( '#tweetbox_image' ).find( '.imageitem' ).length > 0 )
+			{
+				var _idx = 0;
+				var media_ids = '';
+				var items = $( '#tweetbox_image' ).find( '.imageitem' ).length;
+
+				var ImageUpload = function() {
+					if ( _idx == items )
+					{
+						TweetSend( media_ids );
+						return;
+					}
+
+					var media_data =  $( '#tweetbox_image' ).find( '.imageitem' ).eq( _idx ).find( 'img' ).attr( 'src' );
+					media_data = media_data.replace(/^.*,/, '');
+
+					SendRequest(
+						{
+							action: 'oauth_send',
+							acsToken: g_cmn.account[cp.param['account_id']]['accessToken'],
+							acsSecret: g_cmn.account[cp.param['account_id']]['accessSecret'],
+							param: {
+								type: 'POST',
+								url: ApiUrl( '1.1', 'upload' ) + 'media/upload.json',
+								data: {
+									media_data: media_data
+								}
+							}
+						},
+						function( res )
+						{
+							if ( res.status == 200 )
+							{
+								if ( media_ids == '' )
+								{
+									media_ids = res.json.media_id_string;
+								}
+								else
+								{
+									media_ids += ',' + res.json.media_id_string;
+								}
+
+								_idx++;
+								ImageUpload();
+							}
+							else
+							{
+								twflg = false;
+
+								console.log( 'status[' + res.status + ']' );
+
+								$( this ).removeClass( 'disabled' );
+
+								ApiError( chrome.i18n.getMessage( 'i18n_0087' ), res );
+
+								Blackout( false, false );
+								$( '#blackout' ).activity( false );
+							}
+						}
+					);
+
+				}
+				ImageUpload();
+			}
+			// なし
+			else
+			{
+				TweetSend();
+			}
 
 			e.stopPropagation();
 		} );
@@ -828,7 +885,7 @@ Contents.tweetbox = function( cp )
 
 			cnt.html( cp.param['maxlen'] - slen );
 
-			if ( slen > 0 && slen <= cp.param['maxlen'] )
+			if ( slen > 0 && slen <= cp.param['maxlen'] && twflg == false )
 			{
 				btn.removeClass( 'disabled' );
 
@@ -918,7 +975,7 @@ Contents.tweetbox = function( cp )
 
 			$( '#tweetbox_geo' ).append( OutputTPL( 'tweetbox_geo', { item: item } ) );
 
-			var height = $( '#tweetbox_geo' ).find( '.geoitem' ).outerHeight();
+			var height = $( '#tweetbox_geo' ).find( '.geoitem' ).outerHeight( true );
 
 			cont.height( cont.height() + height );
 			p.height( p.height() + height );

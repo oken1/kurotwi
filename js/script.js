@@ -133,6 +133,11 @@ function Init()
 	g_cmn.account_order = new Array();
 	g_cmn.twdelete_history = new Array();
 
+	$( document ).on( 'drop dragover', function( e ) {
+		e.preventDefault();
+		e.stopPropagation();
+	} );
+
 	// ツールバー
 	$( '#head' ).html( OutputTPL( 'header', {} ) );
 	$( '#head' ).find( '.header_sub' ).hide();
@@ -1199,14 +1204,14 @@ $( document ).on( 'mouseenter mouseleave', '.tooltip', function( e ) {
 		$( '#tooltip' ).css( { left: 0, top: 0, width: 'auto' } ).text( tip );
 
 		var l, t, w;
-		l = $( this ).offset().left + $( this ).outerWidth();
+		l = $( this ).offset().left + $( this ).outerWidth( true );
 		t = $( this ).offset().top + 2;
-		w = $( '#tooltip' ).outerWidth();
+		w = $( '#tooltip' ).outerWidth( true );
 
 		// 画面外にでないように調整
-		if ( l + $( '#tooltip' ).outerWidth() > $( window ).width() + $( document ).scrollLeft() )
+		if ( l + $( '#tooltip' ).outerWidth( true ) > $( window ).width() + $( document ).scrollLeft() )
 		{
-			l = $( window ).width() - $( '#tooltip' ).outerWidth() - 8 + $( document ).scrollLeft();
+			l = $( window ).width() - $( '#tooltip' ).outerWidth( true ) - 8 + $( document ).scrollLeft();
 			t = $( this ).offset().top + $( this ).outerHeight() + 2;
 		}
 
@@ -1510,7 +1515,7 @@ function Notification( type, data )
 ////////////////////////////////////////////////////////////////////////////////
 // APIのURLを返す
 ////////////////////////////////////////////////////////////////////////////////
-function ApiUrl( ver )
+function ApiUrl( ver, type )
 {
 	if ( ver == undefined )
 	{
@@ -1519,6 +1524,11 @@ function ApiUrl( ver )
 	}
 	else
 	{
+		if ( type == 'upload' )
+		{
+			return 'https://upload.twitter.com/' + ver + '/';
+		}
+
 		return 'https://api.twitter.com/' + ver + '/';
 	}
 }

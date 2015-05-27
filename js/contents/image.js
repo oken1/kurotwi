@@ -17,6 +17,11 @@ Contents.image = function( cp )
 	this.start = function() {
 		var title_url = cp.param['url'].replace( /api_key=\w+\&/, '' );
 
+		if ( title_url.match( /^data:image\// ) )
+		{
+			title_url = chrome.i18n.getMessage( 'i18n_0256' );
+		}
+
 		cp.SetTitle( chrome.i18n.getMessage( 'i18n_0199' ) + ' - ' + title_url, false );
 		setTimeout( function() { cont.activity( { color: '#ffffff' } ); }, 0 );
 
