@@ -140,6 +140,12 @@
 		</div>
 		<div class='group'>
 			<div class='checkboxcontainer'>
+				<span><input type='checkbox' id='cset_notify_quoted_tweet' {if $param->notify_quoted_tweet==1}checked{/if}></span>
+				<span>(i18n_0355)</span>
+			</div>
+		</div>
+		<div class='group'>
+			<div class='checkboxcontainer'>
 				<span><input type='checkbox' id='cset_notify_alltweets' {if $param->notify_alltweets==1}checked{/if}></span>
 				<span>(i18n_0074)</span>
 			</div>

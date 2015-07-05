@@ -67,6 +67,7 @@ Contents.lists = function( cp )
 							{
 								g_cmn.toolbar_user[j].owner_screen_name = res.json[i].user.screen_name;
 								g_cmn.toolbar_user[j].slug = res.json[i].slug;
+								g_cmn.toolbar_user[j].name = res.json[i].name;
 							}
 						}
 					}
@@ -86,6 +87,7 @@ Contents.lists = function( cp )
 							account.lists.push( {
 								id_str: list_items[i].id_str,
 								slug: list_items[i].slug,
+								name: list_items[i].name,
 								mode: list_items[i].mode,
 							} );
 						}
@@ -120,6 +122,7 @@ Contents.lists = function( cp )
 							timeline_type: 'list',
 							screen_name: fullname.attr( 'screen_name' ),
 							slug: fullname.attr( 'slug' ),
+							name: fullname.attr( 'name' ),
 							reload_time: g_cmn.cmn_param['reload_time'],
 						} );
 						_cp.Start();
@@ -153,6 +156,7 @@ Contents.lists = function( cp )
 								list_id: item.attr( 'list_id' ),
 								owner_screen_name: item.find( '.fullname' ).attr( 'screen_name' ),
 								slug: item.find( '.fullname' ).attr( 'slug' ),
+								name: item.find( '.fullname' ).attr( 'name' ),
 							} );
 
 							$( this ).text( chrome.i18n.getMessage( 'i18n_0091' ) );

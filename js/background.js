@@ -1243,6 +1243,7 @@ chrome.extension.onMessage.addListener(
 							options.message = req.data.user + ' ' + req.data.count + chrome.i18n.getMessage( 'i18n_0204' );
 							break;
 						case 'alltweets':
+						case 'quoted_tweet':
 							options.title = req.data.src;
 
 							if ( req.data.rtsrc )
@@ -1528,6 +1529,7 @@ function ConnectUserStream( req )
 					case 'favorite':
 					case 'follow':
 					case 'list_member_added':
+					case 'quoted_tweet':
 						break;
 					case 'block':
 					case 'unfollow':
@@ -1538,7 +1540,7 @@ function ConnectUserStream( req )
 						flg = false;
 						break;
 					default:
-						console.log( '** unknown event: ' + json.event + '**' );
+						console.log( '** unknown event: ' + json.event + ' **' );
 						console.log( json );
 						break;
 				}

@@ -22,6 +22,7 @@ var g_cmn = {
 		notify_reponly:		0,								// - リプライのみ
 		notify_retweet:		1,								// - リツイート通知
 		notify_incoming:	1,								// - フォローリクエスト通知
+		notify_quoted_tweet:1,								// - 引用リツイート通知
 		notify_alltweets:	0,								// - すべてのツイートを通知
 		notify_list_add:	1,								// - リストに追加
 
@@ -1986,6 +1987,19 @@ function StreamDataAnalyze( data )
 				}
 
 				break;
+			case 'quoted_tweet':
+				if ( !IsMyAccount( json.source.id_str ) || g_devmode )
+				{
+					Notification( 'quoted_tweet', {
+									src: json.target_object.user.screen_name,
+									simg: json.target_object.user.profile_image_url_https,
+									msg: json.target_object.text,
+									date: DateConv( json.target_object.created_at, 0 ),
+									account_id: account_id,
+								} );
+				}
+
+				break;
 			default:
 				break;
 		}
@@ -2249,6 +2263,7 @@ function SetDraggable( selector, p, cp )
 					list_id: item.attr( 'list_id' ),
 					owner_screen_name: item.attr( 'owner_screen_name' ),
 					slug: item.attr( 'slug' ),
+					name: item.attr( 'name' ),
 				} );
 			}
 
@@ -2812,6 +2827,7 @@ function UpdateToolbarUser()
 		{
 			assign.list_id = g_cmn.toolbar_user[i].list_id;
 			assign.slug = g_cmn.toolbar_user[i].slug;
+			assign.name = g_cmn.toolbar_user[i].name;
 			assign.owner_screen_name = g_cmn.toolbar_user[i].owner_screen_name;
 		}
 
@@ -2831,13 +2847,14 @@ function UpdateToolbarUser()
 		var user_id = $( this ).attr( 'user_id' );
 		var type = $( this ).attr( 'type' );
 
-		var list_id, slug;
+		var list_id, slug, name;
 
 		if ( type == 'list' )
 		{
 			screen_name = $( this ).attr( 'owner_screen_name' );
 			list_id = $( this ).attr( 'list_id' );
 			slug = $( this ).attr( 'slug' );
+			name = $( this ).attr( 'name' );
 		}
 
 		////////////////////////////////////////////////////////////
@@ -2857,6 +2874,7 @@ function UpdateToolbarUser()
 						timeline_type: 'list',
 						screen_name: screen_name,
 						slug: slug,
+						name: name,
 						reload_time: g_cmn.cmn_param['reload_time'],
 					} );
 					_cp.Start();

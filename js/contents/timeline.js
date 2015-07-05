@@ -42,6 +42,21 @@ Contents.timeline = function( cp )
 	}
 
 	////////////////////////////////////////
+	// 引用元キャッシュに追加
+	////////////////////////////////////////
+	var AddQuoteCache = function( json ) {
+		if ( json.quoted_status )
+		{
+			quote_cache[json.quoted_status.id_str] = {
+				status_id: json.quoted_status.id_str,
+				screen_name: json.quoted_status.user.screen_name,
+				name: json.quoted_status.user.name,
+				text: twemoji.parse( json.quoted_status.text ),
+			};
+		}
+	}
+
+	////////////////////////////////////////
 	// 返信元展開処理
 	////////////////////////////////////////
 	var OpenReplyTweet = function( img, auto_reply, wait, start )
@@ -137,6 +152,9 @@ Contents.timeline = function( cp )
 				{
 					if ( res.status == 200 )
 					{
+						// 引用元付きのときはキャッシュに追加
+						AddQuoteCache( res.json );
+
 						MakeReplyTweet( res.json, wait );
 					}
 					else
@@ -551,6 +569,7 @@ Contents.timeline = function( cp )
 				{
 					param.data.owner_screen_name = cp.param['screen_name'];
 					param.data.slug = cp.param['slug'];
+					param.data.name = cp.param['name'];
 				}
 
 				break;
@@ -709,6 +728,9 @@ Contents.timeline = function( cp )
 								continue;
 							}
 
+							// 引用元付きのときはキャッシュに追加
+							AddQuoteCache( json[i] );
+
 							// 既に読み込み済みのツイート/非表示ユーザは無視
 							if ( status_ids[json[i].id_str] == undefined )
 							{
@@ -755,6 +777,9 @@ Contents.timeline = function( cp )
 							{
 								continue;
 							}
+
+							// 引用元付きのときはキャッシュに追加
+							AddQuoteCache( json.statuses[i] );
 
 							// 既に読み込み済みのツイート/非表示ユーザは無視
 							if ( status_ids[json.statuses[i].id_str] == undefined )
@@ -844,6 +869,9 @@ Contents.timeline = function( cp )
 
 						for ( var i = 0 ; i < len ; i++ )
 						{
+							// 引用元付きのときはキャッシュに追加
+							AddQuoteCache( json[i] );
+
 							// 既に読み込み済みのツイート/非表示ユーザは無視
 							if ( status_ids[json[i].id_str] == undefined )
 							{
@@ -884,6 +912,9 @@ Contents.timeline = function( cp )
 					else if ( cp.param['timeline_type'] == 'perma' )
 					{
 						len = 0;
+
+						// 引用元付きのときはキャッシュに追加
+						AddQuoteCache( json );
 
 						if ( IsNGTweet( json, 'normal' ) == false )
 						{
@@ -1373,9 +1404,15 @@ Contents.timeline = function( cp )
 				break;
 			// リスト
 			case 'list':
-				if ( cp.param['screen_name'] && cp.param['slug'] )
+				// 変更対応前のname値を持っていないパネル対策
+				if ( !cp.param['name'] )
 				{
-					cp.SetTitle( cp.param['screen_name'] + '/' + cp.param['slug'] + ' (' + account.screen_name + ')', true );
+					cp.param['name'] = cp.param['slug'];
+				}
+
+				if ( cp.param['screen_name'] && cp.param['name'] )
+				{
+					cp.SetTitle( cp.param['screen_name'] + '/' + cp.param['name'] + ' (' + account.screen_name + ')', true );
 					cp.SetIcon( 'icon-list' );
 				}
 				break;
@@ -1803,6 +1840,7 @@ Contents.timeline = function( cp )
 			var param = {
 				account_id: cp.param['account_id'],
 				screen_name: screen_name,
+/*				maxlen: 10000,*/
 				maxlen: 140,
 			};
 
@@ -2241,8 +2279,9 @@ Contents.timeline = function( cp )
 							} );
 
 							// リスト名クリック処理
-							menubox.find( '.listmenu .list span' ).click( function( e ) {
+							menubox.find( '.listmenu .list span[class!=icon-lock]' ).click( function( e ) {
 								var slug = $( this ).parent().attr( 'slug' );
+								var name = $( this ).parent().attr( 'name' );
 								var list_id = $( this ).parent().attr( 'id_str' );
 								var user_id = item.attr( 'user_id' );
 
@@ -2270,11 +2309,11 @@ Contents.timeline = function( cp )
 									{
 										if ( res.status == 200 )
 										{
-											MessageBox( chrome.i18n.getMessage( 'i18n_0182', [item.attr( 'screen_name' ),slug] ) );
+											MessageBox( chrome.i18n.getMessage( 'i18n_0182', [item.attr( 'screen_name' ),name] ) );
 										}
 										else
 										{
-											ApiError( chrome.i18n.getMessage( 'i18n_0183', [item.attr( 'screen_name' ),slug] ), res );
+											ApiError( chrome.i18n.getMessage( 'i18n_0183', [item.attr( 'screen_name' ),name] ), res );
 										}
 
 										Blackout( false );
@@ -2317,6 +2356,7 @@ Contents.timeline = function( cp )
 											account.lists.push( {
 												id_str: res.json[i].id_str,
 												slug: res.json[i].slug,
+												name: res.json[i].name,
 												mode: res.json[i].mode,
 											} );
 										}
@@ -3572,6 +3612,9 @@ Contents.timeline = function( cp )
 						}
 					}
 				}
+
+				// 引用元付きのときはキャッシュに追加
+				AddQuoteCache( json );
 
 				// 既に読み込み済みのツイート/非表示ユーザは無視
 				if ( status_ids[json.id_str] == undefined )

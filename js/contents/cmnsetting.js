@@ -620,6 +620,9 @@ Contents.cmnsetting = function( cp )
 			// リストに追加通知
 			g_cmn.cmn_param['notify_list_add'] = ( $( '#cset_notify_list_add' ).prop( 'checked' ) ) ? 1 : 0;
 
+			// 引用リツイート通知
+			g_cmn.cmn_param['notify_quoted_tweet'] = ( $( '#cset_notify_quoted_tweet' ).prop( 'checked' ) ) ? 1 : 0;
+
 			// すべてのツイートを通知
 			g_cmn.cmn_param['notify_alltweets'] = ( $( '#cset_notify_alltweets' ).prop( 'checked' ) ) ? 1 : 0;
 

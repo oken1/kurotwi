@@ -662,24 +662,24 @@
 	},
 
 	"i18n_0182": {
-		"message": "Add $screen_name$ to $slug$",
+		"message": "Add $screen_name$ to $name$",
 		"placeholders": {
 			"screen_name": {
 				"content": "$1"
 			},
-			"slug": {
+			"name": {
 				"content": "$2"
 			}
 		}
 	},
 
 	"i18n_0183": {
-		"message": "Could not added $screen_name$ to $slug$",
+		"message": "Could not added $screen_name$ to $name$",
 		"placeholders": {
 			"screen_name": {
 				"content": "$1"
 			},
-			"slug": {
+			"name": {
 				"content": "$2"
 			}
 		}
@@ -1400,6 +1400,10 @@
 
 	"i18n_0354": {
 		"message": "Please select a rarity to be deleted"
+	},
+
+	"i18n_0355": {
+		"message": "Notify the quoted retweets"
 	},
 
 	"i18n_9997": {

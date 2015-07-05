@@ -662,24 +662,24 @@
 	},
 
 	"i18n_0182": {
-		"message": "$screen_name$を$slug$に追加しました。",
+		"message": "$screen_name$を$name$に追加しました。",
 		"placeholders": {
 			"screen_name": {
 				"content": "$1"
 			},
-			"slug": {
+			"name": {
 				"content": "$2"
 			}
 		}
 	},
 
 	"i18n_0183": {
-		"message": "$screen_name$を$slug$に追加できませんでした。",
+		"message": "$screen_name$を$name$に追加できませんでした。",
 		"placeholders": {
 			"screen_name": {
 				"content": "$1"
 			},
-			"slug": {
+			"name": {
 				"content": "$2"
 			}
 		}
@@ -1400,6 +1400,10 @@
 
 	"i18n_0354": {
 		"message": "削除するレアリティを選択してください"
+	},
+
+	"i18n_0355": {
+		"message": "引用リツイートを通知する"
 	},
 
 	"i18n_9997": {
