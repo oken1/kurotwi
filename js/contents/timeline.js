@@ -607,6 +607,7 @@ Contents.timeline = function( cp )
 					data: {
 						count: count,
 						include_entities: true,
+						full_text: true,
 					},
 				};
 
@@ -619,6 +620,7 @@ Contents.timeline = function( cp )
 					data: {
 						count: count,
 						include_entities: true,
+						full_text: true,
 					},
 				};
 
@@ -1840,8 +1842,8 @@ Contents.timeline = function( cp )
 			var param = {
 				account_id: cp.param['account_id'],
 				screen_name: screen_name,
-/*				maxlen: 10000,*/
-				maxlen: 140,
+				maxlen: g_cmn.twconfig['dm_text_character_limit'],
+/*				maxlen: 140,*/
 			};
 
 			var pid = IsUnique( 'dmbox' );
@@ -3316,7 +3318,7 @@ Contents.timeline = function( cp )
 							MakeImgLink( RegExp.$1 + '150x150.resizedimage', url, false, 1 );
 						}
 						// gyazo
-						else if ( url.match( /http:\/\/gyazo\.com\/\w+$/ ) )
+						else if ( url.match( /https?:\/\/gyazo\.com\/\w+$/ ) )
 						{
 							if ( add.find( 'img[loaded="' + url + '"]' ).length == 0 )
 							{

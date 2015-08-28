@@ -17,6 +17,8 @@ Contents.dmbox = function( cp )
 		cont.addClass( 'dmbox' )
 			.html( OutputTPL( 'dmbox', { maxlen: cp.param['maxlen'] } ) );
 
+		$( '#dmbox_cnt' ).hide();
+
 		// 送信ボタンのツールチップを設定に合わせる
 		var _tips = new Array( 'Ctrl+Enter', 'Shift+Enter', 'Enter' );
 		$( '#dmsend' ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0250' ) + '(' + _tips[g_cmn.cmn_param.tweetkey] + ')' );
@@ -66,6 +68,23 @@ Contents.dmbox = function( cp )
 			// disabledなら処理しない
 			if ( $( this ).hasClass( 'disabled' ) )
 			{
+				return;
+			}
+
+			// 文字数チェック
+			var val = dmbox_text.val();
+			var urls = twttr.txt.extractUrls( val );
+
+			for ( var i = 0, _len = urls.length ; i < _len ; i++ )
+			{
+				val = val.replace( urls[i], tco );
+			}
+
+			var slen = val.length;
+
+			if ( slen > cp.param['maxlen'] )
+			{
+				MessageBox( chrome.i18n.getMessage( 'i18n_0356', [slen, cp.param['maxlen']] ) );
 				return;
 			}
 
@@ -142,19 +161,10 @@ Contents.dmbox = function( cp )
 		$( '#dmbox_text' ).on( 'keyup change', function( e ) {
 			// 入力文字数カウント(URL自動短縮対応)
 			var val = dmbox_text.val();
-			var urls = twttr.txt.extractUrls( val );
-
-			for ( var i = 0, _len = urls.length ; i < _len ; i++ )
-			{
-				val = val.replace( urls[i], tco );
-			}
 
 			var slen = val.length;
 
-			var cnt = $( '#dmbox_cnt' );
 			var btn = $( '#dmsend' );
-
-			cnt.html( cp.param['maxlen'] - slen );
 
 			if ( slen > 0 && slen <= cp.param['maxlen'] )
 			{
@@ -163,15 +173,6 @@ Contents.dmbox = function( cp )
 			else
 			{
 				btn.addClass( 'disabled' );
-			}
-
-			if ( cp.param['maxlen'] - slen < 0 )
-			{
-				cnt.addClass( 'ng' );
-			}
-			else
-			{
-				cnt.removeClass( 'ng' );
 			}
 		} );
 
@@ -197,6 +198,7 @@ Contents.dmbox = function( cp )
 				 ( g_cmn.cmn_param.tweetkey == 2 && ( e.keyCode == 13 && e.ctrlKey == false && e.shiftKey == false ) ) )
 			{
 				$( '#dmsend' ).trigger( 'click' );
+				return false;
 			}
 		} );
 	};

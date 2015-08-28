@@ -369,6 +369,7 @@ div.contents.timeline .lines div.item > .tweet > .tweet_text {
 	padding: 2px 0;
 	-webkit-user-select: auto;
 	word-break: break-word;
+	white-space: pre-wrap;
 }
 
 /* ツイート内リンク */

@@ -1406,6 +1406,18 @@
 		"message": "Notify the quoted retweets"
 	},
 
+	"i18n_0356": {
+		"message": "Exceeded the maximum number of characters ($cnt$/$max$)",
+		"placeholders": {
+			"cnt": {
+				"content": "$1"
+			},
+			"max": {
+				"content": "$2"
+			}
+		}
+	},
+
 	"i18n_9997": {
 		"message": ""
 	},
