@@ -159,7 +159,6 @@ Contents.dmbox = function( cp )
 		// 入力文字数によるボタン制御
 		////////////////////////////////////////
 		$( '#dmbox_text' ).on( 'keyup change', function( e ) {
-			// 入力文字数カウント(URL自動短縮対応)
 			var val = dmbox_text.val();
 
 			var slen = val.length;

@@ -212,8 +212,20 @@ function Txt2Link( text, entities )
 
 				if ( entities.media[i].type == 'animated_gif' || entities.media[i].type == 'video' )
 				{
-					videourls += entities.media[i].video_info.variants[0].url + ',';
-					contenttypes += entities.media[i].video_info.variants[0].content_type + ',';
+					var variant;
+
+					// 再生出来ない動画(m3u8,mpd)対策
+					for ( var j = 0, __len = entities.media[i].video_info.variants.length ; j < __len ; j++ )
+					{
+						if ( entities.media[i].video_info.variants[j].content_type == 'video/mp4' )
+						{
+							variant = entities.media[i].video_info.variants[j];
+							break;
+						}
+					}
+
+					videourls += variant.url + ',';
+					contenttypes += variant.content_type + ',';
 				}
 				else
 				{
