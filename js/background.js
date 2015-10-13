@@ -839,9 +839,10 @@ chrome.extension.onMessage.addListener(
 					dataType: 'html',
 					type: 'GET',
 					success: function ( data, status, xhr ) {
-						if ( data.match( /<meta property="og:image" content="(.*)">/ ) )
+						if ( data.match( /<meta property="?og:image"? content="?(.*?)"?>/ ) )
 						{
 							var imgurl = RegExp.$1;
+
 							sendres( { thumb: imgurl, original: imgurl } );
 						}
 						else
