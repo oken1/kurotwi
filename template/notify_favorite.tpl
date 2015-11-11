@@ -1,7 +1,7 @@
 <div class='notify' account_id='{$account_id}'>
 	<div class='tbl'>
 		<div class='tc icon'>
-			<span class='icon-star'></span>
+			<span class='icon-heart'></span>
 		</div>
 		<div class='tc'>
 			<div class='tbl'>

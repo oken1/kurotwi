@@ -502,6 +502,13 @@ Contents.account = function( cp )
 														chk = true;
 
 														chrome.tabs.executeScript( auth_tab.id, { file: 'js/getpin.js' }, function( res ) {
+
+															// Vivaldi対応
+															if ( !res )
+															{
+																setTimeout( getPIN, 500 );
+															}
+
 															// PINコードなし
 															if ( !res[0] )
 															{

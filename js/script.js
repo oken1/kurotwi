@@ -135,6 +135,17 @@ function Init()
 	g_cmn.twdelete_history = new Array();
 
 	$( document ).on( 'drop dragover', function( e ) {
+		if ( e.target.tagName.match( /textarea/i ) || ( e.target.tagName.match( /input/i ) && e.target.type.match( /text/i ) ) )
+		{
+			if ( e.type == 'drop' && e.originalEvent.dataTransfer.files.length )
+			{
+				e.preventDefault();
+				e.stopPropagation();
+			}
+
+			return true;
+		}
+
 		e.preventDefault();
 		e.stopPropagation();
 	} );

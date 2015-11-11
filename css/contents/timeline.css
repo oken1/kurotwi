@@ -232,8 +232,8 @@ div.contents.timeline .lines div.item > .tweet .headcontainer .namedate .rtfav_c
 	color: #86aa65;
 }
 
-div.contents.timeline .lines div.item > .tweet .headcontainer .namedate .rtfav_cnt > .icon-star {
-	color: #eda637;
+div.contents.timeline .lines div.item > .tweet .headcontainer .namedate .rtfav_cnt > .icon-heart {
+	color: #dd2e44;
 }
 
 /* オプション */
@@ -306,7 +306,7 @@ div.contents.timeline .lines div.item > .tweet .headcontainer .options .fav {
 }
 
 div.contents.timeline .lines div.item > .tweet .headcontainer .options .fav.on {
-	color: #eda637;
+	color: #dd2e44;
 }
 
 div.contents.timeline .lines div.item > .tweet .headcontainer .options .fav.off {

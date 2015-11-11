@@ -20,7 +20,7 @@
 	},
 
 	"i18n_0006": {
-		"message": "<span class='notify_username' src='{$$src}'>{$$src}</span>がお気に入りに追加"
+		"message": "<span class='notify_username' src='{$$src}'>{$$src}</span>がいいねに追加"
 	},
 
 	"i18n_0007": {
@@ -177,15 +177,15 @@
 	},
 
 	"i18n_0054": {
-		"message": "お気に入り"
+		"message": "いいね"
 	},
 
 	"i18n_0056": {
-		"message": "お気に入りに追加されたことを通知する"
+		"message": "いいねに追加されたことを通知する"
 	},
 
 	"i18n_0057": {
-		"message": "お気に入りに登録できませんでした。"
+		"message": "いいねに登録できませんでした。"
 	},
 
 	"i18n_0059": {
@@ -1243,7 +1243,7 @@
 	},
 
 	"i18n_0330": {
-		"message": "$src$がお気に入りに追加",
+		"message": "$src$がいいねに追加",
 		"placeholders": {
 			"src": {
 				"content": "$1"

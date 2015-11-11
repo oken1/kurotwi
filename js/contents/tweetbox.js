@@ -108,38 +108,39 @@ Contents.tweetbox = function( cp )
 		////////////////////////////////////////
 		// ファイルドロップ時の処理
 		////////////////////////////////////////
-		var _stopEvent = function( e ) {
-			e.preventDefault();
-			e.stopPropagation();
-		};
+		cont.on( 'drop',
+			function( e ) {
+				// データなし
+				if ( !e.originalEvent.dataTransfer )
+				{
+					return;
+				}
 
-		cont.on( { 'dragenter': _stopEvent, 'dragover': _stopEvent,
-			'drop':
-				function( e ) {
-					_stopEvent( e );
+				// テキスト
+				if ( e.originalEvent.dataTransfer.getData( 'text' ) )
+				{
+					return;
+				}
 
-					// ファイル以外
-					if ( !e.originalEvent.dataTransfer )
+				e.preventDefault();
+
+				// ファイル
+				for ( var i = 0, _len = e.originalEvent.dataTransfer.files.length ; i < _len ; i++ )
+				{
+					var _file = e.originalEvent.dataTransfer.files[i];
+
+					if ( $( '#imageattach' ).hasClass( 'disabled' ) )
 					{
-						return;
+						return false;
 					}
 
-					for ( var i = 0, _len = e.originalEvent.dataTransfer.files.length ; i < _len ; i++ )
+					if ( _file.type.match( /^image\// ) )
 					{
-						var _file = e.originalEvent.dataTransfer.files[i];
-
-						if ( $( '#imageattach' ).hasClass( 'disabled' ) )
-						{
-							return false;
-						}
-
-						if ( _file.type.match( /^image\// ) )
-						{
-							AppendAttachFile( _file );
-						}
+						AppendAttachFile( _file );
 					}
 				}
-		} );
+			}
+		);
 
 		////////////////////////////////////////
 		// 返信情報削除ボタンクリック処理

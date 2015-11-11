@@ -20,7 +20,7 @@
 	},
 
 	"i18n_0006": {
-		"message": "<span class='notify_username' src='{$$src}'>{$$src}</span> has added to favorites"
+		"message": "<span class='notify_username' src='{$$src}'>{$$src}</span> has added to likes"
 	},
 
 	"i18n_0007": {
@@ -177,15 +177,15 @@
 	},
 
 	"i18n_0054": {
-		"message": "Favorite"
+		"message": "Like"
 	},
 
 	"i18n_0056": {
-		"message": "Notify the favorite"
+		"message": "Notify the like"
 	},
 
 	"i18n_0057": {
-		"message": "Could not registered the favorite."
+		"message": "Could not registered the like."
 	},
 
 	"i18n_0059": {
@@ -1243,7 +1243,7 @@
 	},
 
 	"i18n_0330": {
-		"message": "$src$ has added to favorites",
+		"message": "$src$ has added to likes",
 		"placeholders": {
 			"src": {
 				"content": "$1"

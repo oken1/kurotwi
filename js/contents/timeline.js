@@ -1574,7 +1574,7 @@ Contents.timeline = function( cp )
 			// お気に入り
 			case 'favorites':
 				cp.SetTitle( cp.param['screen_name'] + chrome.i18n.getMessage( 'i18n_0098' ) + chrome.i18n.getMessage( 'i18n_0054' ) + ' (<span class="titlename">' + account.screen_name + '</span>)', false );
-				cp.SetIcon( 'icon-star' );
+				cp.SetIcon( 'icon-heart' );
 				break;
 			// グループストリーム
 			case 'group':
@@ -2685,6 +2685,44 @@ Contents.timeline = function( cp )
 				// off→on
 				else
 				{
+					// animate
+					var _heart = targ.clone();
+
+					$( '#main' ).append( _heart );
+
+					targ.css( {
+						visibility: 'hidden',
+					} );
+
+					_heart.css( {
+						position: 'absolute',
+						left: targ.offset().left,
+						top: targ.offset().top,
+						zIndex: targ.zIndex() + 1,
+						fontSize: '1.3rem',
+						color: '#a4a396'
+					} );
+
+					var _mag = 4;
+
+					_heart.animate(
+						{
+							fontSize: targ.outerWidth() * _mag + 'px',
+							left: targ.offset().left - targ.outerWidth() * ( _mag - 1 ) / 2 + 'px',
+							top: targ.offset().top - targ.outerHeight() * ( _mag - 1 ) / 2 + 'px',
+							opacity: 0.2,
+							color: '#dd2e44'
+						},
+						300,
+						function() {
+							targ.css( {
+								visibility: 'visible'
+							} )
+
+							_heart.remove();
+						}
+					);
+
 					var param = {
 						type: 'POST',
 						url: ApiUrl( '1.1' ) + 'favorites/create.json',
