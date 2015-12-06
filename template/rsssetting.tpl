@@ -34,6 +34,12 @@
 				<span class='value_disp'>{$param->count}(i18n_0205)</span>
 			</div>
 		</div>
+		<div class='group'>
+			<div class='checkboxcontainer'>
+				<span><input type='checkbox' class='set_showdesc' {if $param->showdesc==1}checked{/if}></span>
+				<span>(i18n_0357)</span>
+			</div>
+		</div>
 	</div>
 	<div class='kind'><span class='icon-arrow_down'></span>(i18n_0121)</div>
 	<div class='kinditems'>

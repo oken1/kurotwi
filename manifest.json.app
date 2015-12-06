@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "KuroTwi",
-	"version": "1.7.3",
+	"version": "1.7.4",
 	"description": "__MSG_manifest_description__",
 	"default_locale": "en",
 	"content_security_policy": "script-src 'self'; object-src 'self';",
@@ -27,7 +27,7 @@
 	},
 
 	"sandbox": {
-		"pages": [ "map.sandbox.html", "feed.sandbox.html" ]
+		"pages": [ "map.sandbox.html" ]
 	},
 
 	"permissions": [

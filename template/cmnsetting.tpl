@@ -281,17 +281,6 @@
 
 		<div class='group'>
 			<div class='title'>
-				(i18n_0039)((i18n_0339))
-			</div>
-			<div class='radiocontainer'>
-				<div><input type='radio' name='cset_urlexp_service' value='0' {if $param->urlexp_service==0}checked{/if}><a href='http://untiny.me/' target='_blank' class='anchor'>untiny.me</a></div>
-				<div><input type='radio' name='cset_urlexp_service' value='1' {if $param->urlexp_service==1}checked{/if}><a href='http://ux.nu/' target='_blank' class='anchor'>ux.nu</a></div>
-				<div><input type='radio' name='cset_urlexp_service' value='2' {if $param->urlexp_service==2}checked{/if}><a href='http://www.jstwi.com/' target='_blank' class='anchor'>jstwi.com</a></div>
-			</div>
-		</div>
-
-		<div class='group'>
-			<div class='title'>
 				(i18n_0301)
 			</div>
 			<div class='radiocontainer'>

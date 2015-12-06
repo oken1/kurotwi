@@ -644,9 +644,6 @@ Contents.cmnsetting = function( cp )
 			// URL展開
 			g_cmn.cmn_param['urlexpand'] = ( $( '#cset_urlexpand' ).prop( 'checked' ) ) ? 1 : 0;
 
-			// URL展開サービス
-			g_cmn.cmn_param['urlexp_service'] = $( 'input[name=cset_urlexp_service]:checked' ).val();
-
 			// 検索対象言語
 			g_cmn.cmn_param['search_lang'] = $( 'input[name=cset_search_lang]:checked' ).val();
 /*

@@ -34,7 +34,6 @@ var g_cmn = {
 		max_count:			100,							// - タイムラインに表示する最大ツイート数
 		thumbnail:			1,								// - サムネイル
 		urlexpand:			1,								// - URL展開
-		urlexp_service:		2,								// - URL展開サービス
 		search_lang:		0,								// - 検索対象言語
 		newscroll:			1,								// - 新着ツイートにスクロール
 		auto_thumb:			1,								// - サムネイルの自動表示
@@ -1644,17 +1643,6 @@ function MakeTimeline( json, account_id )
 		}
 	}
 
-	// 要注意URLの警告
-	var warning = false;
-
-	if ( g_devmode )
-	{
-		if ( text.match( /http:\/\/ln\.is/ ) || text.match( /http:\/\/liveplaylist\.net\/playsnow/ ) )
-		{
-			warning = true;
-		}
-	}
-
 	// 絵文字表示
 	{
 		text = twemoji.parse( text );
@@ -1694,7 +1682,6 @@ function MakeTimeline( json, account_id )
 		namedisp: g_namedisp,
 		dispdate: DateConv( json.created_at, ( g_timedisp == 1 ) ? 1 : 3 ),
 		favcnt: json.favorite_count,
-		warning: warning,
 	};
 
 	return OutputTPL( 'timeline_tweet', assign );
@@ -2988,40 +2975,6 @@ function OpenThumbnail( item, stream )
 		if ( isImageURL( $( this ).attr( 'href' ) ) )
 		{
 			$( this ).trigger( 'mouseover', [ true, stream ] );
-		}
-	} );
-}
-
-////////////////////////////////////////////////////////////
-// 展開URLを先読みする
-////////////////////////////////////////////////////////////
-function GetLongUrl( item )
-{
-	item.find( '.tweet_text' ).find( 'a' ).each( function() {
-		// 短縮URLなら
-		var anchor = $( this );
-		var url = anchor.attr( 'href' );
-
-		if ( isShortURL( url ) )
-		{
-			SendRequest(
-				{
-					action: 'url_expand',
-					url: url,
-					service_id: g_cmn.cmn_param['urlexp_service'],
-				},
-				function( res )
-				{
-					if ( res != '' )
-					{
-						anchor.attr( 'longurl', res );
-					}
-					else
-					{
-						anchor.attr( 'href', url );
-					}
-				}
-			);
 		}
 	} );
 }

@@ -63,11 +63,6 @@ div.contents.timeline .lines div.item.new {
 	background: #204060;	/* color set:新着ツイートのBG */
 }
 
-/* 警告 */
-div.contents.timeline .lines div.item.warning {
-	background: #a01030;
-}
-
 div.contents.timeline .lines div.item.resopen {
 	border-bottom: none;
 }
@@ -311,6 +306,7 @@ div.contents.timeline .lines div.item > .tweet .headcontainer .options .fav.on {
 
 div.contents.timeline .lines div.item > .tweet .headcontainer .options .fav.off {
 	color: #a4a396;
+	display: none;
 }
 
 /* しおり */
@@ -379,6 +375,12 @@ div.contents.timeline .lines div.item > .tweet > .tweet_text .anchor {
 
 div.contents.timeline .lines div.item > .tweet > .tweet_text .anchor:hover {
 	opacity: 0.8;
+}
+
+/* 警告表示 */
+div.contents.timeline .lines div.item > .tweet > .tweet_text .warning {
+	color: #add4f2;
+	background: #900010;
 }
 
 /* 返信元・ボタン */

@@ -1,6 +1,6 @@
 {
 	"manifest_description": {
-		"message": "This application can be placed freely RSS feed and Twitter timeline."
+		"message": "This application allows you to freely arrange the Twitter timeline and RSS feed and more."
 	},
 
 	"i18n_0001": {
@@ -1330,10 +1330,6 @@
 		"message": "Add to filter"
 	},
 
-	"i18n_0339": {
-		"message": "Except for t.co and bit.ly(j.mp) and htn.to"
-	},
-
 	"i18n_0340": {
 		"message": "Scrollbar of whole page"
 	},
@@ -1416,6 +1412,14 @@
 				"content": "$2"
 			}
 		}
+	},
+
+	"i18n_0357": {
+		"message": "Show description"
+	},
+
+	"i18n_0358": {
+		"message": "This URL has been rewritten to ln.is"
 	},
 
 	"i18n_9997": {

@@ -87,8 +87,6 @@ Contents.timeline = function( cp )
 				OpenThumbnail( item.next( 'div.item' ), false );
 			}
 
-			//GetLongUrl( item.next( 'div.item' ) );
-
 			$( '#tooltip' ).hide();
 
 			// 一番上の場合は返信元を閉じるアイコンを表示
@@ -2898,7 +2896,6 @@ Contents.timeline = function( cp )
 							{
 								action: 'url_expand',
 								url: url,
-								service_id: g_cmn.cmn_param['urlexp_service'],
 							},
 							function( res )
 							{
@@ -3147,12 +3144,12 @@ Contents.timeline = function( cp )
 							}
 						}
 						// instagram
-						else if ( url.match( /https?:\/\/(instagram\.com|instagr\.am)\/p\/([\w\-]+)/ ) )
+						else if ( url.match( /https?:\/\/((www\.)?instagram\.com|instagram\.com|instagr\.am)\/p\/([\w\-]+)/ ) )
 						{
-							id = RegExp.$2;
+							id = RegExp.$3;
 
-							MakeImgLink( 'http://instagr.am/p/' + id + '/media/?size=t',
-										 'http://instagr.am/p/' + id + '/media/?size=l',
+							MakeImgLink( 'http://instagram.com/p/' + id + '/media/?size=t',
+										 'http://instagram.com/p/' + id + '/media/?size=l',
 										 false, 1 );
 						}
 						// 公式
@@ -3423,7 +3420,7 @@ Contents.timeline = function( cp )
 				}
 
 				// ボタンにカーソルを乗せたときの処理
-				options.find( 'span.btns' ).on( 'mouseenter mouseleave', function( e ) {
+				options.find( 'span.btns, span.fav' ).on( 'mouseenter mouseleave', function( e ) {
 					if ( e.type == 'mouseenter' )
 					{
 						cursor_on_option = true;
@@ -3439,7 +3436,7 @@ Contents.timeline = function( cp )
 			}
 			else
 			{
-				options.find( 'span.btns' ).css( { display: 'none' } );
+				options.find( 'span.btns, span.fav.off' ).css( { display: 'none' } );
 				$( '#tooltip' ).hide();
 			}
 

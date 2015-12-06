@@ -24,6 +24,11 @@ div.contents.timeline .lines div.item > .tweet .tweet_text .anchor {
 	color: #2dadcf !important;
 }
 
+/* 警告表示 */
+div.contents.timeline .lines div.item > .tweet > .tweet_text .warning {
+	color: #2dadcf !important;
+}
+
 div.contents.timeline .lines div.item > .tweet .headcontainer .namedate .anchor {
 	color: #000000 !important;	/* .item color */
 }

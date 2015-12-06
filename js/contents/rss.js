@@ -14,7 +14,7 @@ Contents.rss = function( cp )
 	var scrollHeight = null;
 	var tm = null;
 	var loadcnt = 0;
-	var loadhtml = '';
+	var loadhtml = [];
 	var feedchange = false;
 
 	cp.SetIcon( 'icon-feed' );
@@ -23,10 +23,7 @@ Contents.rss = function( cp )
 	// リスト部作成
 	////////////////////////////////////////////////////////////
 	var ListMake = function() {
-		var feed;
 		var len = cp.param['urls'].length;
-		var cnt = 0;
-		var items = new Array();
 
 		if ( loadcnt != 0 )
 		{
@@ -41,19 +38,36 @@ Contents.rss = function( cp )
 
 		lines.activity( { color: '#ffffff' } );
 		loadcnt = len;
-		loadhtml = '';
+		loadhtml = [];
 
 		for ( var i = 0 ; i < len ; i++ )
 		{
-			var uid = GetUniqueID();
+			SendRequest(
+				{
+					action: 'feed',
+					url: cp.param['urls'][i].url,
+					count: cp.param['count'],
+					index: i,
+				},
+				function( res )
+				{
+					loadcnt--;
 
-			cont.append( '<iframe frameborder="0" id="' + uid + '"></iframe>' );
-			cont.find( '#' + uid ).attr( 'src', 'feed.sandbox.html?' +
-				'url=' + encodeURIComponent( cp.param['urls'][i].url ) +
-				'&count=' + cp.param['count'] +
-				'&mode=get' +
-				'&uid=' + uid +
-				'&cpid=' + cp.id );
+					if ( res.items[0].feedtitle != '' && res.items[0].feedlink != '' )
+					{
+						loadhtml[res.index] = OutputTPL( 'rss_list', { showdesc: cp.param['showdesc'], items: res.items } );
+					}
+
+					if ( loadcnt == 0 )
+					{
+						rss_list.html( loadhtml.join() );
+						loadhtml = [];
+						cont.trigger( 'contents_resize' );
+
+						lines.activity( false );
+					}
+				}
+			);
 		}
 	};
 
@@ -61,121 +75,6 @@ Contents.rss = function( cp )
 	// 開始処理
 	////////////////////////////////////////////////////////////
 	this.start = function() {
-		////////////////////////////////////////
-		// IFRAMEからのメッセージ処理
-		////////////////////////////////////////
-		window.addEventListener( 'message', function( e ) {
-			var params = e.data.split( ',' );
-			var keys = {};
-
-			for ( var i = 0, _len = params.length ; i < _len ; i++ )
-			{
-				var keyval = params[i].split( '=' );
-				keys[keyval[0]] = keyval[1];
-			}
-
-			if ( keys['cpid'] != cp.id )
-			{
-				return;
-			}
-
-			cont.find( '#' + keys['uid'] ).remove();
-
-			if ( keys['status'] == 'error' )
-			{
-				console.log( chrome.i18n.getMessage( 'i18n_0024' ) );
-				setting.find( '.set_feed' ).focus();
-				setting.find( '.feed_append' ).removeClass( 'disabled' );
-			}
-			else if ( keys['status'] == 'res.error' )
-			{
-				// 登録時エラー
-				if ( keys['mode'] == 'regist' )
-				{
-					MessageBox( chrome.i18n.getMessage( 'i18n_0064' ) );
-					setting.find( '.set_feed' ).focus();
-					setting.find( '.feed_append' ).removeClass( 'disabled' );
-
-					setting.find( '.rsssetting_items .kinditems:last' ).activity( false );
-				}
-				// 取得時エラー
-				else
-				{
-					loadcnt--;
-
-					if ( loadcnt == 0 )
-					{
-						rss_list.html( loadhtml );
-						loadhtml = '';
-						cont.trigger( 'contents_resize' );
-
-						lines.activity( false );
-					}
-				}
-			}
-			else if ( keys['status'] == 'res.ok' )
-			{
-				var url = decodeURIComponent( keys['url'] );
-				var items = JSON.parse( decodeURIComponent( keys['items'] ) );
-
-				// 登録時正常処理
-				if ( keys['mode'] == 'regist' )
-				{
-					feedchange = true;
-					cp.param['urls'].push( { url: url, title: items[0].feedtitle } );
-					setting.find( '.rsssetting_apply' ).removeClass( 'disabled' )
-						.end()
-						.find( '.set_feed' ).val( '' ).focus();
-
-					// タイトル未設定の場合はフィードのタイトルを設定
-					var tit = setting.find( '.set_title' );
-
-					if ( ( tit.val() == 'RSS' || tit.val() == '' ) && items[0].feedtitle )
-					{
-						tit.val( items[0].feedtitle );
-					}
-
-					FeedList();
-
-					setting.find( '.rsssetting_items .kinditems:last' ).activity( false );
-				}
-				// 取得時正常処理
-				else
-				{
-					loadcnt--;
-
-					// 2NNのRSS変更対策
-					if ( g_devmode )
-					{
-						for ( var item in items )
-						{
-							if ( items[item].description )
-							{
-								if ( items[item].description.match( /^http/ ) )
-								{
-									//console.log( 'RSS description -> link [' + items[item].description + ' -> ' + items[item].link + ']' );
-									items[item].link = items[item].description;
-								}
-
-								delete items[item].description;
-							}
-						}
-					}
-
-					loadhtml += OutputTPL( 'rss_list', { items: items } );
-
-					if ( loadcnt == 0 )
-					{
-						rss_list.html( loadhtml );
-						loadhtml = '';
-						cont.trigger( 'contents_resize' );
-
-						lines.activity( false );
-					}
-				}
-			}
-		} );
-
 		////////////////////////////////////////
 		// 最小化/設定切替時のスクロール位置
 		// 保存/復元
@@ -333,7 +232,7 @@ Contents.rss = function( cp )
 
 		// 現行値設定(スライダー)
 		setting.find( '.set_count' ).slider( {
-			min: 4,
+			min: 1,
 			max: 50,
 			step: 1,
 			value: cp.param['count'],
@@ -391,8 +290,23 @@ Contents.rss = function( cp )
 			// 新着読み込み
 			cp.param['reload_time'] = setting.find( '.set_reload_time' ).slider( 'value' );
 
+			var _cp = {
+				param: {
+					count: cp.param['count'],
+					showdesc: cp.param['showdesc']
+				}
+			};
+
 			// 取得エントリ数
 			cp.param['count'] = setting.find( '.set_count' ).slider( 'value' );
+
+			// 説明表示
+			cp.param['showdesc'] = setting.find( '.set_showdesc' ).prop( 'checked' ) ? 1 : 0;
+
+			if ( _cp.param['count'] != cp.param['count'] || _cp.param['showdesc'] != cp.param['showdesc'] )
+			{
+				feedchange = true;
+			}
 
 			rss_list.trigger( 'reload_timer' );
 
@@ -453,15 +367,45 @@ Contents.rss = function( cp )
 			setting.find( '.rsssetting_items .kinditems:last' ).activity( { color: '#ffffff' } );
 			setting.find( '.feed_append' ).addClass( 'disabled' );
 
-			var uid = GetUniqueID();
+			SendRequest(
+				{
+					action: 'feed',
+					url: url,
+					count: 1,
+					index: 0,
+				},
+				function( res )
+				{
+					if ( res.items[0].feedtitle == '' || res.items[0].feedlink == '' )
+					{
+						MessageBox( chrome.i18n.getMessage( 'i18n_0064' ) );
+						setting.find( '.set_feed' ).focus();
+						setting.find( '.feed_append' ).removeClass( 'disabled' );
 
-			cont.append( '<iframe frameborder="0" id="' + uid + '"></iframe>' );
-			cont.find( '#' + uid ).attr( 'src', 'feed.sandbox.html?' +
-				'url=' + encodeURIComponent( url ) +
-				'&count=' + cp.param['count'] +
-				'&mode=regist' +
-				'&uid=' + uid +
-				'&cpid=' + cp.id );
+						setting.find( '.rsssetting_items .kinditems:last' ).activity( false );
+					}
+					else
+					{
+						feedchange = true;
+						cp.param['urls'].push( { url: res.url, title: res.items[0].feedtitle } );
+						setting.find( '.rsssetting_apply' ).removeClass( 'disabled' )
+							.end()
+							.find( '.set_feed' ).val( '' ).focus();
+
+						// タイトル未設定の場合はフィードのタイトルを設定
+						var tit = setting.find( '.set_title' );
+
+						if ( ( tit.val() == 'RSS' || tit.val() == '' ) && res.items[0].feedtitle )
+						{
+							tit.val( res.items[0].feedtitle );
+						}
+
+						FeedList();
+
+						setting.find( '.rsssetting_items .kinditems:last' ).activity( false );
+					}
+				}
+			);
 
 			e.stopPropagation();
 		} );

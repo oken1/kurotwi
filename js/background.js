@@ -495,10 +495,6 @@ chrome.extension.onMessage.addListener(
 			// req : acsToken
 			//       acsSecret
 			//       url
-			//       service_id
-			//         0. unity.me
-			//         1. ux.nu
-			//         2. jstwi.com
 			case 'url_expand':
 				// 既に展開済み？
 				for ( var i = 0, _len = shorturls.length ; i < _len ; i++ )
@@ -510,89 +506,25 @@ chrome.extension.onMessage.addListener(
 					}
 				}
 
-				var ExtService = new Array();
+				////////////////////////////////////////////////////////////
+				// 外部サービスを使わないURL展開
+				////////////////////////////////////////////////////////////
+				function ExtURL()
+				{
+					var _xhr = new XMLHttpRequest();
 
-				////////////////////////////////////////////////////////////
-				// untiny.meで展開
-				////////////////////////////////////////////////////////////
-				ExtService.push( function() {
-					$.ajax( {
-						url: 'http://untiny.me/api/1.0/extract',
-						dataType: 'json',
-						type: 'GET',
-						success: function ( data, status, xhr ) {
-							if ( data.org_url != undefined )
-							{
-								shorturls.push( { shorturl: req.url, longurl: data.org_url } );
-								sendres( data.org_url );
-							}
-							else
-							{
-								sendres( '' );
-							}
-						},
-						error: function ( xhr, status, errorThrown ) {
-							sendres( '' );
-						},
-						data: {
-							format: 'json',
-							url: req.url,
-						},
-					} );
-				} );
+					_xhr.open( 'HEAD', req.url );
 
-				////////////////////////////////////////////////////////////
-				// ux.nuで展開
-				////////////////////////////////////////////////////////////
-				ExtService.push( function() {
-					// ux.nuの展開サービスを使用
-					$.ajax( {
-						url: 'http://ux.nu/hugeurl',
-						dataType: 'json',
-						type: 'GET',
-						success: function ( data, status, xhr ) {
-							shorturls.push( { shorturl: req.url, longurl: data.exp } );
-							sendres( data.exp );
-						},
-						error: function ( xhr, status, errorThrown ) {
-							sendres( '' );
-						},
-						data: {
-							format: 'json',
-							url: req.url,
-						},
-					} );
-				} );
+					_xhr.onload = function( e ) {
+						sendres( _xhr.responseURL );
+					};
 
-				////////////////////////////////////////////////////////////
-				// jstwi.comで展開
-				////////////////////////////////////////////////////////////
-				ExtService.push( function() {
-					// jstwi.comの展開サービスを使用
-					$.ajax( {
-						url: 'http://www.jstwi.com/exturl',
-						dataType: 'json',
-						type: 'GET',
-						success: function ( data, status, xhr ) {
-							if ( data.exturl != undefined )
-							{
-								shorturls.push( { shorturl: req.url, longurl: data.exturl } );
-								sendres( data.exturl );
-							}
-							else
-							{
-								sendres( '' );
-							}
-						},
-						error: function ( xhr, status, errorThrown ) {
-							sendres( '' );
-						},
-						data: {
-							format: 'json',
-							url: req.url,
-						},
-					} );
-				} );
+					_xhr.onerror = function( e ) {
+						sendres( '' );
+					};
+
+					_xhr.send( null );
+				}
 
 				////////////////////////////////////////////////////////////
 				// bit.ly(j.mp)は本家に任せる
@@ -615,8 +547,8 @@ chrome.extension.onMessage.addListener(
 							}
 						},
 						error: function ( xhr, status, errorThrown ) {
-							// bit.ly(j.mp)が使えないときは、設定で指定したサービスを利用
-							ExtService[req.service_id]();
+							// bit.ly(j.mp)が使えないときは、ブラウザ側で処理
+							ExtURL();
 						},
 						data: {
 							format: 'json',
@@ -649,8 +581,8 @@ chrome.extension.onMessage.addListener(
 							}
 						},
 						error: function ( xhr, status, errorThrown ) {
-							// htn.toが使えないときは、設定で指定したサービスを利用
-							ExtService[req.service_id]();
+							// htn.toが使えないときは、ブラウザ側で処理
+							ExtURL();
 						},
 						data: {
 							shortUrl: req.url,
@@ -659,9 +591,12 @@ chrome.extension.onMessage.addListener(
 
 					return true;
 				}
+				////////////////////////////////////////////////////////////
+				// 外部サービスを使わないURL展開
+				////////////////////////////////////////////////////////////
 				else
 				{
-					ExtService[req.service_id]();
+					ExtURL();
 				}
 
 				break;
@@ -857,32 +792,14 @@ chrome.extension.onMessage.addListener(
 
 				break;
 			// GyazoのイメージURL取得
-			// req : url
+			// req : imgurl
 			case 'gyazo_url':
 				$.ajax( {
-					url: req.imgurl,
-					dataType: 'html',
+					url: 'https://api.gyazo.com/api/oembed/?url=' + req.imgurl,
+					dataType: 'json',
 					type: 'GET',
 					success: function ( data, status, xhr ) {
-
-						var _d = data.match( /<meta.*?\/+>/g );
-
-						for ( var i = 0, _len = _d.length ; i < _len ; i++ )
-						{
-							if ( _d[i].match( /name=\"twitter:image\"/ ) )
-							{
-								if ( _d[i].match( /content=\"(.*?)\"/ ) )	// "
-								{
-									var imgurl = RegExp.$1;
-									sendres( { thumb: imgurl.replace( /\/\/gyazo\.com\//, '//gyazo.com/thumb/' ), original: imgurl } );
-									break;
-								}
-								else
-								{
-									sendres( '' );
-								}
-							}
-						}
+						sendres( { thumb: data.url.replace( /gyazo\.com\//, 'gyazo.com/thumb/' ), original: data.url } );
 					},
 					error: function ( xhr, status, errorThrown ) {
 						sendres( '' );
@@ -1165,139 +1082,145 @@ chrome.extension.onMessage.addListener(
 			case 'notification':
 				var uid = GetUniqueID();
 
-				// 旧版通知が生きている場合
-//				if ( webkitNotifications.createHTMLNotification )
-//				{
-//					notify_message[uid] = req.html;
+				var options = {
+					type: 'basic',
+					iconUrl: 'images/icon128.png',
+				};
 
-//					var pp = webkitNotifications.createHTMLNotification( './notification.html?uid=' + uid + '&fontsize=' + req.font_size );
-
-//					pp.show();
-
-					// 設定された時間で自動消滅
-//					setTimeout( function() { pp.cancel(); }, req.notify_time * 1000 );
-//				}
-				// 新版通知対応
-//				else
+				if ( req.data.simg )
 				{
-					var options = {
-						type: 'basic',
-						iconUrl: 'images/icon128.png',
-					};
-
-					if ( req.data.simg )
+					options.iconUrl = req.data.simg;
+				}
+				else if ( req.data.img )
+				{
+					if ( req.data.img.match( /^http.*/ ) )
 					{
-						options.iconUrl = req.data.simg;
+						options.iconUrl = req.data.img;
 					}
-					else if ( req.data.img )
-					{
-						if ( req.data.img.match( /^http.*/ ) )
+				}
+
+				switch ( req.type ) {
+					case 'retweet':
+						options.title = chrome.i18n.getMessage( 'i18n_0332', [req.data.src] );
+
+						options.message = req.data.msg + '\n' + req.data.date;
+						break;
+					case 'favorite':
+						options.title = chrome.i18n.getMessage( 'i18n_0330', [req.data.src] );
+						options.message = req.data.msg + '\n' + req.data.date;
+						break;
+					case 'follow':
+						options.title = chrome.i18n.getMessage( 'i18n_0329', [req.data.src, req.data.target] );
+						options.message = '';
+						options.buttons = [
+							{ title: req.data.src, iconUrl: req.data.simg },
+							{ title: req.data.target, iconUrl: req.data.timg }
+						];
+						break;
+					case 'dmrecv':
+						options.title = chrome.i18n.getMessage( 'i18n_0331', [req.data.src, req.data.target] );
+						options.message = '';
+						options.buttons = [
+							{ title: req.data.src, iconUrl: req.data.simg },
+							{ title: req.data.target, iconUrl: req.data.timg }
+						];
+						break;
+					case 'mention':
+						options.title = chrome.i18n.getMessage( 'i18n_0337', [req.data.src] );
+						options.message = req.data.msg + '\n' + req.data.date;
+						break;
+					case 'incoming':
+						options.title = chrome.i18n.getMessage( 'i18n_0333', [req.data.user, req.data.count] );
+						options.message = '';
+						break;
+					case 'list_add':
+						options.title = chrome.i18n.getMessage( 'i18n_0336', [req.data.src, req.data.target] );
+						options.message = req.data.list_fullname;
+						options.buttons = [
+							{ title: req.data.src, iconUrl: req.data.simg },
+							{ title: req.data.target, iconUrl: req.data.timg }
+						];
+						break;
+					case 'new':
+						options.title = chrome.i18n.getMessage( 'i18n_0237' );
+						options.message = req.data.user + ' ' + req.data.count + chrome.i18n.getMessage( 'i18n_0204' );
+						break;
+					case 'alltweets':
+					case 'quoted_tweet':
+						options.title = req.data.src;
+
+						if ( req.data.rtsrc )
 						{
-							options.iconUrl = req.data.img;
-						}
-					}
-
-					switch ( req.type ) {
-						case 'retweet':
-							options.title = chrome.i18n.getMessage( 'i18n_0332', [req.data.src] );
-
-							options.message = req.data.msg + '\n' + req.data.date;
-							break;
-						case 'favorite':
-							options.title = chrome.i18n.getMessage( 'i18n_0330', [req.data.src] );
-							options.message = req.data.msg + '\n' + req.data.date;
-							break;
-						case 'follow':
-							options.title = chrome.i18n.getMessage( 'i18n_0329', [req.data.src, req.data.target] );
-							options.message = '';
-							options.buttons = [
-								{ title: req.data.src, iconUrl: req.data.simg },
-								{ title: req.data.target, iconUrl: req.data.timg }
-							];
-							break;
-						case 'dmrecv':
-							options.title = chrome.i18n.getMessage( 'i18n_0331', [req.data.src, req.data.target] );
-							options.message = '';
-							options.buttons = [
-								{ title: req.data.src, iconUrl: req.data.simg },
-								{ title: req.data.target, iconUrl: req.data.timg }
-							];
-							break;
-						case 'mention':
-							options.title = chrome.i18n.getMessage( 'i18n_0337', [req.data.src] );
-							options.message = req.data.msg + '\n' + req.data.date;
-							break;
-						case 'incoming':
-							options.title = chrome.i18n.getMessage( 'i18n_0333', [req.data.user, req.data.count] );
-							options.message = '';
-							break;
-						case 'list_add':
-							options.title = chrome.i18n.getMessage( 'i18n_0336', [req.data.src, req.data.target] );
-							options.message = req.data.list_fullname;
-							options.buttons = [
-								{ title: req.data.src, iconUrl: req.data.simg },
-								{ title: req.data.target, iconUrl: req.data.timg }
-							];
-							break;
-						case 'new':
-							options.title = chrome.i18n.getMessage( 'i18n_0237' );
-							options.message = req.data.user + ' ' + req.data.count + chrome.i18n.getMessage( 'i18n_0204' );
-							break;
-						case 'alltweets':
-						case 'quoted_tweet':
-							options.title = req.data.src;
-
-							if ( req.data.rtsrc )
+							if ( req.data.rtcnt > 0 )
 							{
-								if ( req.data.rtcnt > 0 )
-								{
-									options.message = chrome.i18n.getMessage( 'i18n_0335', [req.data.rtsrc, req.data.rtcnt] ) + '\n';
-								}
-								else
-								{
-									options.message = chrome.i18n.getMessage( 'i18n_0334', [req.data.rtsrc] ) + '\n';
-								}
+								options.message = chrome.i18n.getMessage( 'i18n_0335', [req.data.rtsrc, req.data.rtcnt] ) + '\n';
 							}
 							else
 							{
-								options.message = '';
+								options.message = chrome.i18n.getMessage( 'i18n_0334', [req.data.rtsrc] ) + '\n';
 							}
+						}
+						else
+						{
+							options.message = '';
+						}
 
-							options.message += req.data.msg + '\n' + req.data.date;
-							break;
-					}
-
-/* 2014/05/23 webkitNotifications.createNotificationがchrome35で使えなくなったため
-					// アプリの場合
-					if ( app_type != 'extension' )
-					{
-						var pp = webkitNotifications.createNotification( options.iconUrl, options.title, options.message );
-						pp.show();
-						setTimeout( function() { pp.cancel(); }, req.notify_time * 1000 );
-					}
-					// 拡張機能の場合
-					else
-
-					{
-						chrome.notifications.create(
-							uid.toString(),
-							options,
-							function( id ) {
-								setTimeout( function() { chrome.notifications.clear( id, function(){} ); }, req.notify_time * 1000 );
-							}
-						);
-					}
-*/
-
-					var pp = new Notification( options.title, {
-						body: options.message,
-						icon: options.iconUrl
-					} );
-
-					pp.onshow = function() {
-						setTimeout( function() { pp.close() }, req.notify_time * 1000 );
-					};
+						options.message += req.data.msg + '\n' + req.data.date;
+						break;
 				}
+
+				var pp = new Notification( options.title, {
+					body: options.message,
+					icon: options.iconUrl
+				} );
+
+				pp.onshow = function() {
+					setTimeout( function() { pp.close() }, req.notify_time * 1000 );
+				};
+
+				break;
+
+			// RSS取得
+			// req : url
+			//       count
+			//       index
+			case 'feed':
+				var res = {
+					items: [],
+					url: req.url,
+					index: req.index,
+				};
+
+				res.items.push( { feedtitle: '', feedlink: '' } );
+
+				$.ajax( {
+					url: req.url,
+					dataType: 'xml',
+					type: 'GET',
+					success: function ( data, status, xhr ) {
+						res.items[0].feedtitle = $( 'channel', data ).find( '> title' ).text();
+						res.items[0].feedlink = $( 'channel', data ).find( '> link' ).text();
+
+						var item = $( 'item', data );
+
+						for ( var i = 0, _len = req.count ; i < _len ; i++ )
+						{
+							if ( i < item.length )
+							{
+								res.items.push( {
+									title: $( item[i] ).find ( '> title' ).text(),
+									link: $( item[i] ).find ( '> link' ).text(),
+									description: $( item[i] ).find( '> description' ).text().replace( /(<([^>]+)>)/ig, '' ),
+								} );
+							}
+						}
+
+						sendres( res );
+					},
+					error: function ( xhr, status, errorThrown ) {
+						sendres( res );
+					},
+				} );
 
 				break;
 		}

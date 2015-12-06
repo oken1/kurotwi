@@ -163,7 +163,14 @@ function Txt2Link( text, entities )
 							durl = url;
 						}
 
-						return "<a href='" + url + "' class='url anchor' target='_blank'>" + durl + "</a>";
+						 if ( url.match( /https?:\/\/ln\.is/ ) )
+						{
+							return "<span class='tooltip warning' tooltip='" + chrome.i18n.getMessage( 'i18n_0358' ) + "'>" + durl + "</span>";
+						}
+						else
+						{
+							return "<a href='" + url + "' class='url anchor' target='_blank'>" + durl + "</a>";
+						}
 					}
 				};
 			} );
@@ -425,7 +432,7 @@ function isShortURL( url )
 ////////////////////////////////////////////////////////////////////////////////
 function isImageURL( url )
 {
-	if ( url.match( /^https?:\/\/(twitpic\.com\/(\w+)|ow\.ly\/i\/(\w+)|yfrog\.com\/(\w+)$|tweetphoto\.com\/\d+|plixi\.com\/p\/\d+|lockerz\.com\/s\/\d+|p\.twipple\.jp\/(\w+)|movapic\.com\/pic\/(\w+)|photozou\.jp\/photo\/show\/\d+\/(\d+)|(instagram\.com|instagr\.am)\/p\/([\w\-]+)|twitter\.com.*\/(photo|video)\/1$|twitter\.com.*\/messages\/media\/\d+|(?:(www|m)\.youtube\.com\/watch\?.*v=|youtu\.be\/)([\w-]+)|vine\.co\/v\/\w+$|tinami\.jp\/(\w+)$|(www\.nicovideo\.jp\/watch|nico\.ms)\/sm\d+(\?.+)?$|img\.ly\/(\w+)$|cloud(-\d)?\.steampowered\.com\/ugc\/\d+\/\w+\/(\d+x\d+\.resizedimage)?$|gyazo\.com\/\w+$|.*\.(png|jpg|jpeg|gif)$)/i ) )
+	if ( url.match( /^https?:\/\/(twitpic\.com\/(\w+)|ow\.ly\/i\/(\w+)|yfrog\.com\/(\w+)$|tweetphoto\.com\/\d+|plixi\.com\/p\/\d+|lockerz\.com\/s\/\d+|p\.twipple\.jp\/(\w+)|movapic\.com\/pic\/(\w+)|photozou\.jp\/photo\/show\/\d+\/(\d+)|((www\.)?instagram\.com|instagr\.am)\/p\/([\w\-]+)|twitter\.com.*\/(photo|video)\/1$|twitter\.com.*\/messages\/media\/\d+|(?:(www|m)\.youtube\.com\/watch\?.*v=|youtu\.be\/)([\w-]+)|vine\.co\/v\/\w+$|tinami\.jp\/(\w+)$|(www\.nicovideo\.jp\/watch|nico\.ms)\/sm\d+(\?.+)?$|img\.ly\/(\w+)$|cloud(-\d)?\.steampowered\.com\/ugc\/\d+\/\w+\/(\d+x\d+\.resizedimage)?$|gyazo\.com\/\w+$|.*\.(png|jpg|jpeg|gif)$)/i ) )
 	{
 		return true;
 	}
