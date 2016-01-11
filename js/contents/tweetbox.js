@@ -785,8 +785,8 @@ Contents.tweetbox = function( cp )
 
 		var laputa_check = function() {
 			var dt = new Date();
-			var stdt = new Date( '2014/03/11 13:00:00' );
-			var eddt = new Date( '2014/03/11 15:00:00' );
+			var stdt = new Date( '2016/01/15 21:00:00' );
+			var eddt = new Date( '2016/01/15 23:34:00' );
 
 			if ( chrome.i18n.getMessage( 'i18n_9998' ) == "" )
 			{
@@ -878,7 +878,7 @@ Contents.tweetbox = function( cp )
 				val = val.replace( urls[i], tco );
 			}
 
-			var slen = val.length + ( ( atimg ) ? g_cmn.twconfig['characters_reserved_per_media'] : 0 );
+			var slen = twttr.txt.getUnicodeTextLength( val ) + ( ( atimg ) ? g_cmn.twconfig['characters_reserved_per_media'] : 0 );
 
 			var cnt = $( '#tweetbox_cnt' );
 			var btn = $( '#tweet' );
