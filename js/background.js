@@ -799,7 +799,7 @@ chrome.extension.onMessage.addListener(
 					dataType: 'json',
 					type: 'GET',
 					success: function ( data, status, xhr ) {
-						sendres( { thumb: data.url.replace( /gyazo\.com\//, 'gyazo.com/thumb/' ), original: data.url } );
+						sendres( { thumb: data.url, original: data.url } );
 					},
 					error: function ( xhr, status, errorThrown ) {
 						sendres( '' );
