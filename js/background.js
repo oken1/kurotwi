@@ -291,6 +291,9 @@ chrome.extension.onMessage.addListener(
 						error: function ( xhr, status, errorThrown ) {
 							var message = errorThrown;
 
+							console.log( xhr );
+							console.log( status );
+
 							if ( xhr.responseText != undefined )
 							{
 								try

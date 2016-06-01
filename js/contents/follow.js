@@ -215,7 +215,8 @@ Contents.follow = function( cp )
 				url: ApiUrl( '1.1' ) + cp.param['type'] + '/ids.json',
 				data: {
 					screen_name: cp.param['screen_name'],
-					cursor: -1
+					cursor: -1,
+					stringify_ids: true
 				}
 			};
 
