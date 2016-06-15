@@ -8,10 +8,9 @@
 					<span class='btns timeline_menu icon-arrow_down tooltip' tooltip='(i18n_0155)'></span>
 					{if $mytweet}
 					<span class='btns timeline_del icon-remove tooltip' tooltip='(i18n_0223)'></span>
-					{else}
+					{/if}
 					{if !$protected}
 					<span class='btns timeline_retweet icon-loop tooltip' tooltip='(i18n_0314)'></span>
-					{/if}
 					{/if}
 					<span class='btns timeline_reply icon-undo tooltip' tooltip='(i18n_0274)'></span>
 					<div class='accsel'></div>

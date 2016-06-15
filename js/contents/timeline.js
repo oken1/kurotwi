@@ -1730,7 +1730,7 @@ Contents.timeline = function( cp )
 							  cp.param['timeline_type'] == 'dmsent' );
 
 			// 自動更新なしTL
-			var tl_noreload = ( cp.param['timeline_type'] == 'favorites' );
+			var tl_noreload = ( cp.param['timeline_type'] == 'favorites' || cp.param['timeline_type'] == 'perma' );
 
 			// タイマー起動
 			if ( ( g_cmn.account[cp.param['account_id']].notsave.stream != 2 && !tl_noreload ) ||

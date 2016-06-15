@@ -21,7 +21,7 @@
 		</div>
 		<div>
 			<div class='screen_name'>
-				<a>@{$screen_name}</a>
+				<a>@{$screen_name}</a> (ID:{$id})
 			</div>
 		</div>
 		<div>
@@ -66,7 +66,7 @@
 		</div>
 		{/if}
 		<div class='screen_name'>
-			<a>@{$screen_name}</a>
+			<a>@{$screen_name}</a> (ID:{$id})
 		</div>
 		{if $location}
 		<div class='desctbl'>

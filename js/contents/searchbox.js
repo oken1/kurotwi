@@ -91,6 +91,26 @@ Contents.searchbox = function( cp )
 				return;
 			}
 
+			// ツイートのURLの場合、そのツイートをパネルで開く
+			if ( $( '#searchbox_text' ).val().match( /https:\/\/twitter\.com\/([0-9a-zA-Z_]+)\/status\/(\d+)/ ) )
+			{
+				var screen_name = RegExp.$1;
+				var status_id = RegExp.$2;
+
+				var _cp = new CPanel( null, null, 360, 240 );
+				_cp.SetType( 'timeline' );
+				_cp.SetParam( {
+					account_id: cp.param['account_id'],
+					timeline_type: 'perma',
+					screen_name: screen_name,
+					status_id: status_id,
+					reload_time: g_cmn.cmn_param['reload_time'],
+				} );
+				_cp.Start();
+
+				return false;
+			}
+
 			OpenSearchResult( $( '#searchbox_text' ).val(), cp.param['account_id'] );
 			e.stopPropagation();
 		} );
