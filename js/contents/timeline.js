@@ -517,6 +517,7 @@ Contents.timeline = function( cp )
 					data: {
 						count: count,
 						include_entities: true,
+						tweet_mode: 'extended',
 					},
 				};
 
@@ -529,6 +530,7 @@ Contents.timeline = function( cp )
 					data: {
 						count: count,
 						include_entities: true,
+						tweet_mode: 'extended',
 					},
 				};
 
@@ -543,6 +545,7 @@ Contents.timeline = function( cp )
 						screen_name: cp.param['screen_name'],
 						include_rts: true,
 						include_entities: true,
+						tweet_mode: 'extended',
 					},
 				};
 
@@ -556,6 +559,7 @@ Contents.timeline = function( cp )
 						count: count,
 						include_entities: true,
 						include_rts: true,
+						tweet_mode: 'extended',
 					},
 				};
 
@@ -581,6 +585,7 @@ Contents.timeline = function( cp )
 						q: cp.param['q'],
 						include_entities: true,
 						include_rts: false,
+						tweet_mode: 'extended',
 					},
 				};
 
@@ -631,6 +636,7 @@ Contents.timeline = function( cp )
 					data: {
 						screen_name: cp.param['screen_name'],
 						include_entities: true,
+						tweet_mode: 'extended',
 					},
 				};
 
@@ -648,6 +654,7 @@ Contents.timeline = function( cp )
 					url: ApiUrl( '1.1' ) + 'statuses/show/' + cp.param['status_id'] + '.json',
 					data: {
 						include_entities: true,
+						tweet_mode: 'extended',
 					},
 				};
 
@@ -728,6 +735,11 @@ Contents.timeline = function( cp )
 								continue;
 							}
 
+							if ( param.data.tweet_mode == 'extended' )
+							{
+								json[i] = ConvertExtendedTweet( json[i], 'normal' );
+							}
+
 							// 引用元付きのときはキャッシュに追加
 							AddQuoteCache( json[i] );
 
@@ -776,6 +788,11 @@ Contents.timeline = function( cp )
 							if ( !json.statuses[i].user )
 							{
 								continue;
+							}
+
+							if ( param.data.tweet_mode == 'extended' )
+							{
+								json.statuses[i] = ConvertExtendedTweet( json.statuses[i], 'search' );
 							}
 
 							// 引用元付きのときはキャッシュに追加
@@ -869,6 +886,11 @@ Contents.timeline = function( cp )
 
 						for ( var i = 0 ; i < len ; i++ )
 						{
+							if ( param.data.tweet_mode == 'extended' )
+							{
+								json[i] = ConvertExtendedTweet( json[i], 'favorite' );
+							}
+
 							// 引用元付きのときはキャッシュに追加
 							AddQuoteCache( json[i] );
 
@@ -912,6 +934,11 @@ Contents.timeline = function( cp )
 					else if ( cp.param['timeline_type'] == 'perma' )
 					{
 						len = 0;
+
+						if ( param.data.tweet_mode == 'extended' )
+						{
+							json = ConvertExtendedTweet( json, 'show' );
+						}
 
 						// 引用元付きのときはキャッシュに追加
 						AddQuoteCache( json );

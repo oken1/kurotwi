@@ -1698,7 +1698,7 @@ function MakeTimeline_DM( json, type, account_id )
 
 	if ( g_devmode )
 	{
-//		console.log( json );
+		console.log( json );
 	}
 
 	// 複数画像対応
@@ -1876,6 +1876,8 @@ function StreamDataAnalyze( data )
 				return;
 			}
 		}
+
+		json = ConvertExtendedTweet( json, 'userstream' );
 
 		// NGチェック
 		if ( IsNGTweet( json, 'normal' ) )
@@ -2182,6 +2184,8 @@ function StreamDataAnalyze( data )
 		{
 			return;
 		}
+
+		json = ConvertExtendedTweet( json, 'userstream' );
 
 		// NGチェック
 		if ( IsNGTweet( json, 'normal' ) )
@@ -3831,6 +3835,58 @@ function GetRarity( rarity )
 	return ret[rarity];
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// ツイート拡張対応
+////////////////////////////////////////////////////////////////////////////////
+function ConvertExtendedTweet( json, type )
+{
+	var _json = json;
+
+	// UserStream
+	if ( type == 'userstream' )
+	{
+		if ( json.extended_tweet )
+		{
+			_json.text = json.extended_tweet.full_text;
+			_json.entities = json.extended_tweet.entities;
+		}
+
+		if ( json.retweeted_status )
+		{
+			if ( json.retweeted_status.extended_tweet )
+			{
+				_json.retweeted_status.text = json.retweeted_status.extended_tweet.full_text;
+				_json.retweeted_status.entities = json.retweeted_status.extended_tweet.entities;
+			}
+		}
+
+		if ( json.quoted_status )
+		{
+			if ( json.quoted_status.extended_tweet )
+			{
+				_json.quoted_status.text = json.quoted_status.extended_tweet.full_text;
+				_json.quoted_status.entities = json.quoted_status.extended_tweet.entities;
+			}
+		}
+	}
+	// other
+	else
+	{
+		_json.text = json.full_text;
+
+		if ( json.retweeted_status )
+		{
+			_json.retweeted_status.text = json.retweeted_status.full_text;
+		}
+
+		if ( json.quoted_status )
+		{
+			_json.quoted_status.text = json.quoted_status.full_text;
+		}
+	}
+
+	return _json;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // 開始
