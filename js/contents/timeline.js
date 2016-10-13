@@ -133,6 +133,7 @@ Contents.timeline = function( cp )
 				url: ApiUrl( '1.1' ) + 'statuses/show/' + in_reply_to.attr( 'status_id' ) + '.json',
 				data: {
 					include_entities: true,
+					tweet_mode: 'extended',
 				},
 			};
 
@@ -150,6 +151,13 @@ Contents.timeline = function( cp )
 				{
 					if ( res.status == 200 )
 					{
+						if ( param.data.tweet_mode == 'extended' )
+						{
+						console.log( res );
+							res.json = ConvertExtendedTweet( res.json, 'normal' );
+						console.log( res );
+						}
+
 						// 引用元付きのときはキャッシュに追加
 						AddQuoteCache( res.json );
 
@@ -450,6 +458,7 @@ Contents.timeline = function( cp )
 							url: ApiUrl( '1.1' ) + 'statuses/show/' + status_id + '.json',
 							data: {
 								include_entities: true,
+        						tweet_mode: 'extended',
 							},
 						};
 
@@ -467,6 +476,11 @@ Contents.timeline = function( cp )
 							{
 								if ( res.status == 200 )
 								{
+            						if ( param.data.tweet_mode == 'extended' )
+			            			{
+            							res.json = ConvertExtendedTweet( res.json, 'normal' );
+			            			}
+
 									quote_cache[res.json.id_str] = {
 										status_id: res.json.id_str,
 										screen_name: res.json.user.screen_name,
