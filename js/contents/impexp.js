@@ -29,7 +29,7 @@ Contents.impexp = function( cp )
 				}
 			} );
 		}, function( e ) {
-			if ( e.code != FileError.NOT_FOUND_ERR )
+			if ( e.name != 'NotFoundError' )
 			{
 				console.log( 'getFile' );
 				console.log( e );
