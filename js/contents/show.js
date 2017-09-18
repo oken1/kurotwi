@@ -93,6 +93,7 @@ Contents.show = function( cp )
 						favourites_count: NumFormat( json.favourites_count ),
 						id: json.id_str,
 						following: ( json.following ) ? 1 : 0,
+						muting: IsMuteUser( cp.param['account_id'], json.id_str ) ? 1 : 0,
 						blocking: IsBlockUser( cp.param['account_id'], json.id_str ) ? 1 : 0,
 						screen_name: cp.param['screen_name'],
 						header: json.profile_banner_url,
@@ -330,6 +331,80 @@ Contents.show = function( cp )
 									else
 									{
 										ApiError( ( following == 1 ) ? chrome.i18n.getMessage( 'i18n_0134' ) : chrome.i18n.getMessage( 'i18n_0129' ), res );
+									}
+
+									Blackout( false );
+									$( '#blackout' ).activity( false );
+								}
+							);
+						}
+
+						e.stopPropagation();
+					} );
+
+					////////////////////////////////////////
+					// ミュートする/解除クリック処理
+					////////////////////////////////////////
+					cont.find( '.buttons' ).find( '.mute' ).click( function( e ) {
+						var id = $( this ).parent().attr( 'id' );
+						var muting = $( this ).attr( 'muting' );
+
+						var conf = confirm( ( muting == 1 ) ? chrome.i18n.getMessage( 'i18n_0364' ) : chrome.i18n.getMessage( 'i18n_0359' ) );
+
+						if ( conf )
+						{
+							var param = {
+								type: 'POST',
+								url: ApiUrl( '1.1' ) + 'mutes/users/' + ( ( muting == 1 ) ? 'destroy' : 'create' ) + '.json',
+								data: {
+									screen_name: cp.param['screen_name'],
+								},
+							};
+
+							Blackout( true );
+							$( '#blackout' ).activity( { color: '#808080', width: 8, length: 14 } );
+
+							SendRequest(
+								{
+									action: 'oauth_send',
+									acsToken: g_cmn.account[cp.param['account_id']]['accessToken'],
+									acsSecret: g_cmn.account[cp.param['account_id']]['accessSecret'],
+									param: param,
+									id:cp.param['account_id']
+								},
+								function( res )
+								{
+									if ( res.status == 200 )
+									{
+										if ( muting == 1 )
+										{
+											cont.find( '.buttons' ).find( '.mute' ).attr( 'muting', 0 ).html( chrome.i18n.getMessage( 'i18n_0360' ) );
+
+											if ( g_cmn.account[cp.param['account_id']].notsave.muteusers != undefined )
+											{
+												for ( var i = 0, _len = g_cmn.account[cp.param['account_id']].notsave.muteusers.length ; i < _len ; i++ )
+												{
+													if ( id == g_cmn.account[cp.param['account_id']].notsave.muteusers[i] )
+													{
+														g_cmn.account[cp.param['account_id']].notsave.muteusers.splice( i, 1 );
+														break;
+													}
+												}
+											}
+										}
+										else
+										{
+											cont.find( '.buttons' ).find( '.mute' ).attr( 'muting', 1 ).html( chrome.i18n.getMessage( 'i18n_0366' ) );
+
+											if ( g_cmn.account[cp.param['account_id']].notsave.muteusers != undefined )
+											{
+												g_cmn.account[cp.param['account_id']].notsave.muteusers.push( id );
+											}
+										}
+									}
+									else
+									{
+										ApiError( ( muting == 1 ) ? chrome.i18n.getMessage( 'i18n_0365' ) : chrome.i18n.getMessage( 'i18n_0361' ), res );
 									}
 
 									Blackout( false );

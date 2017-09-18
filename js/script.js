@@ -858,33 +858,8 @@ function Init()
 
 				break;
 
-			// 画像アップロード
-			case 5:
-				var pid = IsUnique( 'imageupload' );
-
-				if ( pid == null )
-				{
-					var _cp = new CPanel( null, null, 320, 300 );
-					_cp.SetType( 'imageupload' );
-					_cp.SetTitle( chrome.i18n.getMessage( 'i18n_0200' ), false );
-					_cp.SetParam( {} );
-					_cp.Start();
-				}
-				else
-				{
-					SetFront( $( '#' + pid ) );
-
-					// 最小化している場合は元に戻す
-					if ( GetPanel( pid ).minimum.minimum == true )
-					{
-						$( '#' + pid ).find( 'div.titlebar' ).find( '.minimum' ).trigger( 'click' );
-					}
-				}
-
-				break;
-
 			// インポート/エクスポート
-			case 6:
+			case 5:
 				var pid = IsUnique( 'impexp' );
 
 				if ( pid == null )
@@ -909,7 +884,7 @@ function Init()
 				break;
 
 			// ツイ消しこれくしょん
-			case 7:
+			case 6:
 				var pid = IsUnique( 'twdelete_collection' );
 
 				if ( pid == null )
@@ -1215,12 +1190,12 @@ $( document ).on( 'mouseenter mouseleave', '.tooltip', function( e ) {
 		$( '#tooltip' ).css( { left: 0, top: 0, width: 'auto' } ).text( tip );
 
 		var l, t, w;
-		l = $( this ).offset().left + $( this ).outerWidth( true );
+		l = $( this ).offset().left + $( this ).outerWidth();
 		t = $( this ).offset().top + 2;
 		w = $( '#tooltip' ).outerWidth( true );
 
 		// 画面外にでないように調整
-		if ( l + $( '#tooltip' ).outerWidth( true ) > $( window ).width() + $( document ).scrollLeft() )
+		if ( l + $( '#tooltip' ).outerWidth( true ) + 8 > $( window ).width() + $( document ).scrollLeft() )
 		{
 			l = $( window ).width() - $( '#tooltip' ).outerWidth( true ) - 8 + $( document ).scrollLeft();
 			t = $( this ).offset().top + $( this ).outerHeight() + 2;
@@ -1868,6 +1843,15 @@ function StreamDataAnalyze( data )
 			return;
 		}
 
+		// ミュートユーザーチェック
+		if ( json.retweeted_status.user )
+		{
+			if ( IsMuteUser( account_id, json.retweeted_status.user.id_str ) )
+			{
+				return;
+			}
+		}
+
 		// ブロックユーザーチェック
 		if ( json.retweeted_status.user )
 		{
@@ -2175,6 +2159,12 @@ function StreamDataAnalyze( data )
 	else
 	{
 		if ( json.entities == undefined )
+		{
+			return;
+		}
+
+		// ミュートユーザーチェック
+		if ( IsMuteUser( account_id, json.user.id_str ) )
 		{
 			return;
 		}
@@ -2496,6 +2486,29 @@ $.fn.extend( {
 		}
 	}
 } );
+
+////////////////////////////////////////////////////////////////////////////////
+// ミュートユーザかチェック
+////////////////////////////////////////////////////////////////////////////////
+function IsMuteUser( account_id, user_id )
+{
+	var account = g_cmn.account[account_id];
+
+	if ( account.notsave.muteusers == undefined )
+	{
+		return false;
+	}
+
+	for ( var i = 0, _len = account.notsave.muteusers.length ; i < _len ; i++ )
+	{
+		if ( user_id == account.notsave.muteusers[i] )
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 // ブロックユーザかチェック
@@ -3260,6 +3273,61 @@ function GetAccountInfo( account_id, callback )
 					}
 
 					ApiError( chrome.i18n.getMessage( 'i18n_0142' ), res );
+					$( '#info2_' + account_id ).append( ' ... not completed' );
+				}
+
+				$( '#info2_' + account_id ).fadeOut( 'slow', function() { $( this ).remove() } );
+				GetMute( '-1', 0 );
+			}
+		);
+	};
+
+	// ミュートユーザID取得(完了待ちする)
+	var GetMute = function( retry ) {
+		param = {
+			type: 'GET',
+			url: ApiUrl( '1.1' ) + 'mutes/users/ids.json',
+			data: {
+			},
+		};
+
+		if ( retry == 0 )
+		{
+			$( '#blackout' ).append( OutputTPL( 'blackoutinfo', {
+				id: 'info2_' + account_id,
+				msg: chrome.i18n.getMessage( 'i18n_0363' ) + '(' + g_cmn.account[account_id].screen_name + ')' } ) );
+		}
+
+		SendRequest(
+			{
+				action: 'oauth_send',
+				acsToken: g_cmn.account[account_id]['accessToken'],
+				acsSecret: g_cmn.account[account_id]['accessSecret'],
+				param: param,
+				id: account_id,
+			},
+			function( res )
+			{
+				g_cmn.account[account_id].notsave.muteusers = new Array();
+
+				if ( res.status == 200 )
+				{
+					g_cmn.account[account_id].notsave.muteusers = res.json.ids;
+
+					$( '#info2_' + account_id ).append( ' ... completed' );
+				}
+				else
+				{
+					// 3回までリトライ
+					if ( retry < 2 )
+					{
+						retry++;
+						$( '#info2_' + account_id ).append( ' ... retry:' + retry );
+						setTimeout( function() { GetMute( retry ); }, 1000 );
+						return;
+					}
+
+					ApiError( chrome.i18n.getMessage( 'i18n_0362' ), res );
 					$( '#info2_' + account_id ).append( ' ... not completed' );
 				}
 

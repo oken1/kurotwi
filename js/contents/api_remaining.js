@@ -35,7 +35,8 @@ Contents.api_remaining = function( cp )
 	apis['/followers/ids'] = { title: chrome.i18n.getMessage( 'i18n_0320' ), prio: 19 };
 	apis['/friendships/incoming'] = { title: chrome.i18n.getMessage( 'i18n_0321' ), prio: 20 };
 	apis['/friendships/no_retweets/ids'] = { title: chrome.i18n.getMessage( 'i18n_0326' ), prio: 21 };
-	apis['/help/configuration'] = { title: chrome.i18n.getMessage( 'i18n_0297' ), prio: 22 };
+	apis['/mutes/users/ids'] = { title: chrome.i18n.getMessage( 'i18n_0367' ), prio: 22 };
+	apis['/help/configuration'] = { title: chrome.i18n.getMessage( 'i18n_0297' ), prio: 23 };
 
 	var apis_length = 0;
 
@@ -53,7 +54,7 @@ Contents.api_remaining = function( cp )
 			type: 'GET',
 			url: ApiUrl( '1.1' ) + 'application/rate_limit_status.json',
 			data: {
-				resources: 'account,application,blocks,direct_messages,favorites,followers,friends,friendships,geo,help,lists,saved_searches,search,statuses,trends,users,friends,followers',
+				resources: 'account,application,blocks,direct_messages,favorites,followers,friends,friendships,geo,help,lists,saved_searches,search,statuses,trends,users,friends,followers,mutes',
 			},
 		};
 

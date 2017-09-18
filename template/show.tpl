@@ -116,6 +116,7 @@
 </div>
 <div class='buttons others' id='{$id}'>
 	<a class='btn follow' following='{$following}'>{if $following}(i18n_0135){else}(i18n_0128){/if}</a>
+	<a class='btn mute' muting='{$muting}'>{if $muting}(i18n_0366){else}(i18n_0360){/if}</a>
 	<a class='btn block' blocking='{$blocking}'>{if $blocking}(i18n_0146){else}(i18n_0140){/if}</a>
 	<a class='btn spam'>(i18n_0071)</a>
 </div>

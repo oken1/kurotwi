@@ -1422,6 +1422,54 @@
 		"message": "This URL has been rewritten to ln.is"
 	},
 
+	"i18n_0359": {
+		"message": "Mute?"
+	},
+
+	"i18n_0360": {
+		"message": "Mute"
+	},
+
+	"i18n_0361": {
+		"message": "Could not mute"
+	},
+
+	"i18n_0362": {
+		"message": "Failed to get mute user"
+	},
+
+	"i18n_0363": {
+		"message": "Getting mute users ID"
+	},
+
+	"i18n_0364": {
+		"message": "Unmute?"
+	},
+
+	"i18n_0365": {
+		"message": "Could not unmute"
+	},
+
+	"i18n_0366": {
+		"message": "Unmute"
+	},
+
+	"i18n_0367": {
+		"message": "Mute user ID"
+	},
+
+
+
+
+
+
+
+
+
+
+
+
+
 	"i18n_9997": {
 		"message": ""
 	},

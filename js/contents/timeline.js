@@ -2538,6 +2538,23 @@ Contents.timeline = function( cp )
 
 						e.stopPropagation();
 					} );
+
+					// Speechボタンクリック処理(TEST)
+					menubox.find( '> a.speech' ).on( 'click', function( e ) {
+						// disabledなら処理しない
+						if ( $( this ).hasClass( 'disabled' ) )
+						{
+							return;
+						}
+
+						var text = item.find( '.tweet' ).find( '.tweet_text' ).text();
+						var uttr = new SpeechSynthesisUtterance( text );
+						uttr.lang = 'ja-JP';
+
+						speechSynthesis.speak( uttr );
+
+						e.stopPropagation();
+					} );
 				}
 
 				item.find( '.menubox' ).toggle();

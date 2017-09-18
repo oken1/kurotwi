@@ -785,8 +785,8 @@ Contents.tweetbox = function( cp )
 
 		var laputa_check = function() {
 			var dt = new Date();
-			var stdt = new Date( '2016/01/15 21:00:00' );
-			var eddt = new Date( '2016/01/15 23:34:00' );
+			var stdt = new Date( '2017/09/29 21:00:00' );
+			var eddt = new Date( '2017/09/29 23:34:00' );
 
 			if ( chrome.i18n.getMessage( 'i18n_9998' ) == "" )
 			{
