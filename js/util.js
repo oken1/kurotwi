@@ -417,7 +417,7 @@ function clearUserInfo( key )
 ////////////////////////////////////////////////////////////////////////////////
 function isShortURL( url )
 {
-	if ( url.match( /^https?:\/\/(bit\.ly|j\.mp|tinyurl\.com|goo\.gl|ow\.ly\/[^i][^\/]|p\.tl|htn\.to|t\.co|ht\.ly|dlvr\.it|ux\.nu|fb\.me|lb\.to|is\.gd)/ ) )
+	if ( url.match( /^https?:\/\/(bit\.ly|j\.mp|tinyurl\.com|goo\.gl|ow\.ly\/[^i][^\/]|htn\.to|t\.co|ht\.ly|dlvr\.it|ux\.nu|fb\.me|lb\.to|is\.gd)/ ) )
 	{
 		return true;
 	}

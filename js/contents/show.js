@@ -349,9 +349,7 @@ Contents.show = function( cp )
 						var id = $( this ).parent().attr( 'id' );
 						var muting = $( this ).attr( 'muting' );
 
-						var conf = confirm( ( muting == 1 ) ? chrome.i18n.getMessage( 'i18n_0364' ) : chrome.i18n.getMessage( 'i18n_0359' ) );
-
-						if ( conf )
+						if ( 1 )
 						{
 							var param = {
 								type: 'POST',
