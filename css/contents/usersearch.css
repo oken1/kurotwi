@@ -57,7 +57,7 @@ div.contents.usersearch .usersearch_list div.item .container .names {
 
 div.contents.usersearch .usersearch_list div.item .container .names .screen_name,
 div.contents.usersearch .usersearch_list div.item .container .names .name {
-	-webkit-user-select: auto;
+	user-select: text;
 }
 
 div.contents.usersearch .usersearch_list div.item .container .names .screen_name {
@@ -108,7 +108,7 @@ div.contents.usersearch .usersearch_list div.item .container .counts {
 /* description */
 div.contents.usersearch .usersearch_list div.item .container .desc {
 	padding: 2px 0px;
-	-webkit-user-select: auto;
+	user-select: text;
 }
 
 div.contents.usersearch .usersearch_list .readmore {

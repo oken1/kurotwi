@@ -49,14 +49,14 @@ div.contents.show .showcontainer .desc .name {
 	font-size: 1.2rem;
 	font-weight: bold;
 	box-sizing: border-box;
-	-webkit-user-select: auto;
+	user-select: text;
 }
 
 div.contents.show .showcontainer .desc .screen_name {
 	display: table;
 	font-weight: bold;
 	box-sizing: border-box;
-	-webkit-user-select: auto;
+	user-select: text;
 }
 
 div.contents.show .showcontainer .desc .screen_name a {
@@ -85,7 +85,7 @@ div.contents.show .showcontainer .desc .desctbl > .desctitle {
 }
 
 div.contents.show .showcontainer .desc .desctbl > .desccont {
-	-webkit-user-select: auto;
+	user-select: text;
 }
 
 div.contents.show .followcontainer {
@@ -158,7 +158,7 @@ div.contents.show .header .desc {
 	left: 0px;
 	bottom: 0px;
 	width: 512px;
-	-webkit-user-select: auto;
+	user-select: text;
 }
 
 div.contents.show .header .desc > div {

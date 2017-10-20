@@ -81,7 +81,7 @@ div.contents.follow .follow_list div.item .container .names {
 
 div.contents.follow .follow_list div.item .container .names .screen_name,
 div.contents.follow .follow_list div.item .container .names .name {
-	-webkit-user-select: auto;
+	user-select: text;
 }
 
 div.contents.follow .follow_list div.item .container .names .screen_name {
@@ -133,7 +133,7 @@ div.contents.follow .follow_list div.item .container .counts {
 div.contents.follow .follow_list div.item .container .desc {
 	padding: 2px 0px;
 	display: none;
-	-webkit-user-select: auto;
+	user-select: text;
 }
 
 div.contents.follow .follow_list .readmore {
