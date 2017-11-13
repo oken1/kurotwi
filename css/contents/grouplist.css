@@ -33,13 +33,13 @@ div.contents.grouplist {
 	display: block;
 	white-space: normal;
 	font-weight: bold;
-	color: #ffffff;
+	color: var(--panel-text);
 	padding-right: 2px;
 }
 
 #grouplist_list div.item .title span:hover {
 	cursor: pointer;
-	color: #dddddd;
+	opacity: 0.5;
 }
 
 #grouplist_list div.item .buttons {

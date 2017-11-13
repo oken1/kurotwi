@@ -232,9 +232,9 @@ Contents.tweetbox = function( cp )
 		var AppendAttachFile = function( f ) {
 			var _itemcnt = $( '#tweetbox_image' ).find( '.imageitem' ).length;
 			$( '#tweetbox_image' ).append( OutputTPL( 'tweetbox_image', { item: { filename: f.name }} ) );
-			$( '#tweetbox_image' ).find( '.del:last' ).find( 'span' ).click( ImageDelClick );
+			$( '#tweetbox_image' ).find( '.del' ).last().find( 'span' ).click( ImageDelClick );
 			var _uid = GetUniqueID();
-			$( '#tweetbox_image' ).find( '.imageitem:last' ).attr( 'uid', _uid );
+			$( '#tweetbox_image' ).find( '.imageitem' ).last().attr( 'uid', _uid );
 
 			// カメラアイコンを画像のサムネイルにする
 			if ( f.type.match( 'image.*' ) )
@@ -384,7 +384,7 @@ Contents.tweetbox = function( cp )
 		////////////////////////////////////////
 		cont.on( 'contents_resize', function() {
 			$( '#tweetbox_text' ).width( p.width() - 24 );
-			$( '#tweetbox_box' ).find( 'div:first' ).width( p.width() - 12 );
+			$( '#tweetbox_box' ).find( 'div' ).first().width( p.width() - 12 );
 
 			var acc_h = cont.find( '.account_select' ).outerHeight();
 
@@ -467,7 +467,7 @@ Contents.tweetbox = function( cp )
 		////////////////////////////////////////
 		// ハッシュタグチェック選択
 		////////////////////////////////////////
-		$( '#hash_select' ).on( 'click', $( '> div.item' ).find( 'input[type=checkbox]' ).selector, function( e ) {
+		$( '#hash_select' ).on( 'click', '> div.item input[type=checkbox]', function( e ) {
 			var checked = $( this ).prop( 'checked' );
 			var index = $( this ).parent().index();
 
@@ -487,7 +487,7 @@ Contents.tweetbox = function( cp )
 		////////////////////////////////////////
 		// ハッシュタグプルダウン選択
 		////////////////////////////////////////
-		$( '#hash_select' ).on( 'click', $( '> div.item' ).selector, function( e ) {
+		$( '#hash_select' ).on( 'click', '> div.item', function( e ) {
 			cont.trigger( 'hashset', [$( this ).attr( 'text' )] );
 
 			//$( this ).parent().hide();
@@ -534,7 +534,7 @@ Contents.tweetbox = function( cp )
 		////////////////////////////////////////
 		// 下書き削除選択
 		////////////////////////////////////////
-		$( '#draft_select' ).on( 'click', $( '> div.item' ).find( 'span:first-child' ).selector, function( e ) {
+		$( '#draft_select' ).on( 'click', '> div.item span:first-child', function( e ) {
 			var index = $( this ).parent().index() - 1;
 
 			g_cmn.draft.splice( index, 1 );
@@ -548,7 +548,7 @@ Contents.tweetbox = function( cp )
 		////////////////////////////////////////
 		// 下書きプルダウン選択
 		////////////////////////////////////////
-		$( '#draft_select' ).on( 'click', $( '> div.item' ).selector, function( e ) {
+		$( '#draft_select' ).on( 'click', '> div.item', function( e ) {
 			if ( $( this ).hasClass( 'disabled' ) )
 			{
 				return;
@@ -981,7 +981,7 @@ Contents.tweetbox = function( cp )
 			cont.height( cont.height() + height );
 			p.height( p.height() + height );
 
-			$( '#tweetbox_geo' ).find( '.del:last' ).find( 'span' ).click( GeoDelClick );
+			$( '#tweetbox_geo' ).find( '.del' ).last().find( 'span' ).click( GeoDelClick );
 		} );
 
 		////////////////////////////////////////

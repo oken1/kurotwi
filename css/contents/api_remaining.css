@@ -50,7 +50,7 @@ div.contents.api_remaining .api_remaining_list .item .limit .limit_container {
 div.contents.api_remaining .api_remaining_list .item .limit .limit_container .used {
 	position: absolute;
 	display: inline-block;
-	background: #2e2e2e;
+	background: var(--panel-background);
 	height: 100%;
 }
 

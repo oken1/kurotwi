@@ -68,12 +68,12 @@ div.contents.lists .lists_list .item .fullname span:first-child {
 
 div.contents.lists .lists_list .item .fullname span:first-child:hover {
 	cursor: pointer;
-	color: #dddddd;
+	opacity: 0.5;
 }
 
 div.contents.lists .lists_list .item .desc {
 	font-size: 0.8rem;
-	color: #c0c0c0;
+	opacity: 0.8;
 	padding: 2px 4px;
 }
 
@@ -92,7 +92,7 @@ div.contents.lists .list_create {
 	z-index: 8900;
 	border: 1px solid #101010;
 	box-shadow: 2px 2px 2px rgba( 0, 0, 0, 0.5 );
-	background: #3e3e3e;
+	background: var(--panel-background);
 	padding: 4px;
 }
 

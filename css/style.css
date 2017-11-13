@@ -4,7 +4,53 @@
 	padding: 0;
 }
 
+:root {
+	--default-panel-background:#282828;
+	--default-panel-text:#ffffff;
+	--default-panel-border:#101010;
+
+	--default-tweet-background:#282828;
+	--default-tweet-text:#ffffff;
+	--default-tweet-link:#b0d0f0;
+
+	--default-titlebar-background:#606060;
+	--default-titlebar-text:#ffffff;
+	--default-titlebar-fixed-background:#404040;
+
+	--default-button-background:#404040;
+	--default-button-text:#ffffff;
+
+	--default-scrollbar-background:#242424;
+	--default-scrollbar-thumb:#777777;
+
+	--default-general-highlight:#2080a0;
+
+	--default-font-family: '';
+
+	--panel-background: var(--default-panel-background);
+	--panel-text: var(--default-panel-text);
+	--panel-border: var(--default-panel-border);
+
+	--tweet-background: var(--default-tweet-background);
+	--tweet-text: var(--default-tweet-text);
+	--tweet-link: var(--default-tweet-link);
+
+	--titlebar-background: var(--default-titlebar-background);
+	--titlebar-text: var(--default-titlebar-text);
+	--titlebar-fixed-background: var(--default-titlebar-fixed-background);
+
+	--button-background: var(--default-button-background);
+	--button-text: var(--default-button-text);
+
+	--scrollbar-background: var(--default-scrollbar-background);
+	--scrollbar-thumb: var(--default-scrollbar-thumb);
+
+	--general-highlight: var(--default-general-highlight);
+	
+}
+
 html {
+	font-family: var(--default-font-family);
 	height: 100%;
 }
 
@@ -35,8 +81,11 @@ img {
 .anchor {
 	cursor: pointer;
 	text-decoration: none;
+}
 
-	color: #ffffff;	/* color set: 全体のフォント */
+/* バージョン表示 */
+.anchor.version {
+	color: #ffffff;
 }
 
 /* 絵文字 */
@@ -53,7 +102,7 @@ img.emoji {
 	opacity: 0.6;
 	text-decoration: none;
 
-	color: #ffffff;	/* color set: 全体のフォント */
+	color: var(--tweet-text);
 }
 
 /* Loading... */
@@ -80,10 +129,6 @@ img.emoji {
 	z-index: 1000;
 }
 
-.rich #head {
-	box-shadow: 2px 2px 4px rgba( 0, 0, 0, 0.5 );
-}
-
 #head > div {
 	display: table-cell;
 	text-align: right;
@@ -91,9 +136,9 @@ img.emoji {
 	border-width: 1px 0;
 	border-style: solid;
 
-	border-color: #101010;	/* color set: 固定(toolbar) */
-	background-color: #242424;	/* color set: ツールバーのBG */
-	color: #ffffff;	/* color set: ツールバーのフォント */
+	border-color: var(--panel-border);
+	background-color: var(--panel-background);
+	color: var(--panel-text);
 }
 
 /* パネルリスト表示ボタン */
@@ -124,8 +169,8 @@ img.emoji {
 
 	border: 1px solid #101010;	/* color set: 固定(popup-menu) */
 	box-shadow: 2px 2px 2px rgba( 0, 0, 0, 0.5 );	/* color set: 固定(popup-menu) */
-	background-color: #3e3e3e;	/* color set: 固定(popup-menu) */
-	color: #ffffff;			/* color set: 固定(popup-menu) */
+	background-color: var(--panel-background);
+	color: var(--panel-text);
 }
 
 #head .header_sub span {
@@ -137,7 +182,7 @@ img.emoji {
 #head .header_sub span:hover {
 	cursor: pointer;
 
-	background-color: #4e4e4e;	/* color set: 固定(popup-menu) */
+	background-color: var(--general-highlight);
 }
 
 /* ツールバーユーザ */
@@ -192,24 +237,12 @@ img.emoji {
 	background-color: #ffcc60;	/* color set: 固定(US-try) */
 }
 
-.rich .streamsts > div.try {
-	box-shadow: 0 0 4px #ffcc60;
-}
-
 .streamsts > div.on {
 	background-color: #60ffa0;	/* color set: 固定(US-on) */
 }
 
-.rich .streamsts > div.on {
-	box-shadow: 0 0 8px #60ffa0;
-}
-
 .streamsts > div.off {
 	background-color: #303030;	/* color set: 固定(US-off) */
-}
-
-.rich .streamsts > div.off {
-	box-shadow: none;
 }
 
 .streamsts > div.on:hover,
@@ -304,13 +337,9 @@ panel {
 	display: block;
 	z-index: 100;
 
-	border: 2px solid #101010;	/* color set: 固定(panel) */
-	background-color: #282828;	/* color set: パネルのBG */
-	color: #ffffff;	/* color set:パネルのフォント */
-}
-
-.rich panel {
-	box-shadow: 2px 2px 4px rgba( 0, 0, 0, 0.5 );
+	border: 2px solid var(--panel-border);
+	background-color: var(--panel-background);
+	color: var(--panel-text);
 }
 
 /* パネルのタイトルバー */
@@ -320,13 +349,9 @@ panel div.titlebar {
 	height: 28px;
 	box-sizing: border-box;
 
-	border-bottom: 1px solid #101010;	/* color set: 固定(titlebar) */
-	background-color: #606060;	/* color set: タイトルバーのBG */
-	color: #ffffff;			/* color set: タイトルバーのフォント */
-}
-
-.rich panel div.titlebar {
-	background-image: -webkit-gradient( linear, left top, left bottom, from( rgba( 255, 255, 255, 0.25 ) ), color-stop( 0.4, rgba( 255, 255, 255, 0 ) ) );
+	border-bottom: 1px solid var(--panel-border);
+	background-color: var(--titlebar-background);
+	color: var(--titlebar-text);
 }
 
 /* タイトルバーのアイコン＋文字列 */
@@ -353,6 +378,7 @@ panel div.titlebar .title div {
 	overflow-x: hidden;
 	overflow-y: hidden;
 	height: 1rem;
+	padding: 0px 0px 2px 0px;
 }
 
 /* タイトルアイコン */
@@ -381,17 +407,13 @@ panel div.titlebar > span:not(.badge):hover {
 	opacity: 1.0;
 }
 
-.rich panel div.titlebar > span:not(.badge):hover {
-	text-shadow: 0 0 4px #ffffff;
-}
-
 panel div.titlebar > span:not(.badge):active {
 	opacity: 0.3;
 }
 
 /* 位置固定パネル */
 panel.fixed div.titlebar {
-	background-color: #404040;	/* color set: タイトルバー(位置固定)のBG */
+	background-color: var(--titlebar-fixed-background);
 }
 
 /* パネルを開いているアカウント */
@@ -412,8 +434,8 @@ panel div.titlebar .titlecontainer .titlesetting {
 
 	border: 1px solid #101010;	/* color set: 固定(popup-menu) */
 	box-shadow: 2px 2px 2px rgba( 0, 0, 0, 0.5 );	/* color set: 固定(popup-menu) */
-	background-color: #3e3e3e;	/* color set: 固定(popup-menu) */
-	color: #ffffff;			/* color set: 固定(popup-menu) */
+	background-color: var(--panel-background);
+	color: var(--panel-text);
 }
 
 panel div.titlebar .titlecontainer .titlename_list span
@@ -433,7 +455,7 @@ panel div.titlebar .titlecontainer .titlesetting span
 panel div.titlebar .titlecontainer .titlename_list span:hover {
 	cursor: pointer;
 
-	background: #4e4e4e;	/* color set: 固定(popup-menu) */
+	background: var(--general-highlight);
 }
 
 /* パネル-コンテンツ */
@@ -465,8 +487,8 @@ panel div.contents > .setting {
 	font-size: 1.0rem;
 
 	border: 1px solid #101010;	/* color set:固定(button) */
-	color: #ffffff;	/* color set:ボタンのフォント */
-	background-color: #404040;	/* color set:ボタンのBG */
+	color: var(--button-text);
+	background-color: var(--button-background);
 }
 
 .btn.img {
@@ -476,11 +498,11 @@ panel div.contents > .setting {
 .btn:not(.disabled):hover {
 	cursor: pointer;
 
-	background-color: #4db4d2;	/* color set:ボタンのBG(hover) */
+	background-color: var(--general-highlight);
 }
 
 .btn:not(.disabled):active {
-	background-color: #2d94b2;	/* color set:ボタンのBG(active) */
+	opacity: 0.5;
 }
 
 .btn.disabled {
@@ -591,7 +613,7 @@ input[type=file] {
 /* アカウントセレクト-アカウント一覧 */
 
 .selectlist {
-	background: #2e2e2e;
+	background: var(--panel-background);
 	width: 90%;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -635,7 +657,7 @@ input[type=file] {
 }
 
 .selectlist .item.select {
-	background-color: #204060;
+	background-color: var(--general-highlight);
 	cursor: pointer;
 }
 
@@ -726,13 +748,13 @@ panel div.titlebar .titlecontainer .badge:hover {
 	width: 400px;
 	height: auto;
 	padding: 4px;
-	border: 4px solid #101010;
+	border: 4px solid var(--panel-border);
 	word-break:break-all;
 	word-wrap: break-word;
 	left: -1000px;
 	top: 0;
 	z-index: 10000;
-	background-color: #2e2e2e;
+	background-color: var(--panel-background);
 }
 
 #messagebox_body {
@@ -757,8 +779,8 @@ panel div.titlebar .titlecontainer .badge:hover {
 	display: none;
 	position: absolute;
 	border: 1px solid #101010;
-	color: #000000;
-	background-color: #e7e7d4;
+	color: var(--panel-text);
+	background-color: var(--panel-background);
 	z-index: 9001;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -771,7 +793,7 @@ panel div.titlebar .titlecontainer .badge:hover {
 
 .pulldown > .item:hover {
 	cursor: pointer;
-	background: #afaf9c;
+	background: var(--general-highlight);
 }
 
 .pulldown > .item.disabled {
@@ -785,40 +807,32 @@ panel div.titlebar .titlecontainer .badge:hover {
 
 /* スクロールバー */
 ::-webkit-scrollbar {
-	background: #242424;
+	background: var(--scrollbar-background);
 }
 
 ::-webkit-scrollbar:vertical {
 	width: 12px;
-	border-left: 1px solid #101010;
+	border-left: 1px solid var(--panel-border);
 }
 
 ::-webkit-scrollbar:horizontal {
 	height: 12px;
-	border-top: 1px solid #101010;
+	border-top: 1px solid var(--panel-border);
 }
 
 ::-webkit-scrollbar-thumb:vertical {
-	background: #777777;
-	border-left: 1px solid #101010;
+	background: var(--scrollbar-thumb);
+	border-left: 1px solid var(--panel-border);
 }
 
 ::-webkit-scrollbar-thumb:horizontal {
-	background: #777777;
-	border-top: 1px solid #101010;
-}
-
-::-webkit-scrollbar-thumb:active:vertical {
-	background: #666666;
-}
-
-::-webkit-scrollbar-thumb:active:horizontal {
-	background: #666666;
+	background: var(--scrollbar-thumb);
+	border-top: 1px solid var(--panel-border);
 }
 
 ::-webkit-scrollbar-corner {
-	background: #242424;
-	border: solid #101010;
+	background: var(--scrollbar-background);
+	border: solid var(--panel-border);
 	border-width: 1px 0 0 1px;
 }
 
@@ -881,7 +895,7 @@ div.selectbox .selectitems {
 	position: absolute;
 	border: 1px solid #101010;
 	box-shadow: 2px 2px 2px rgba( 0, 0, 0, 0.5 );
-	background: #2e2e2e;
+	background: var(--panel-background);
 	z-index: 9001;
 	overflow-y: auto !important;
 	overflow-x: hidden !important;
@@ -899,7 +913,7 @@ div.selectbox .selectitems .selectitem.bold {
 }
 
 div.selectbox .selectitems .selectitem.selected {
-	background-color: #204060;
+	background-color: var(--general-highlight);
 }
 
 div.mapdiv {
@@ -919,13 +933,9 @@ div.mapdiv {
 	border-width: 1px 2px 1px 1px;
 	border-style: solid;
 
-	border-color: #101010;	/* color set: 固定(panellist) */
-	background-color: #242424;	/* color set: パネルリストのBG */
-	color: #ffffff;	/* color set: パネルリストのフォント */
-}
-
-#panellist:hover {
-	background-color: rgba( 36, 36, 36, 1.0 );
+	border-color: var(--panel-border);
+	background-color: var(--panel-background);
+	color: var(--panel-text);
 }
 
 #panellist > div.lists {
@@ -943,7 +953,7 @@ div.mapdiv {
 	display: table;
 	width: 100%;
 
-	border-bottom: 1px solid #101010;	/* color set: 固定(panellist) */
+	border-bottom: 1px solid var(--panel-border);
 }
 
 #panellist > div.lists > div > span {
@@ -955,13 +965,12 @@ div.mapdiv {
 #panellist > div.lists > div:hover {
 	cursor: pointer;
 
-	background-color: #4db4d2;	/* color set:パネルリストのBG(hover) */
+	background-color: var(--general-highlight);
 }
 
 #panellist > div.lists > div:active {
 	cursor: pointer;
-
-	background-color: #2d94b2;	/* color set:パネルリストのBG(hover) */
+	opacity: 0.5;
 }
 
 #panellist > div.lists > div > .icon {
@@ -979,178 +988,4 @@ div.mapdiv {
 
 	color: #ffffff;
 	background-color: #dc2d2d;
-}
-
-.rich #panellist {
-	box-shadow: 2px 2px 4px rgba( 0, 0, 0, 0.5 );
-}
-
-/* ツイ消し */
-.twd_pop {
-	z-index: 12000;
-	position: absolute;
-	text-align: center;
-}
-
-.twd {
-	position: relative;
-	display: inline-block;
-	text-align: center;
-	padding: 4px;
-	line-height: normal;
-	background: #222222;
-	box-shadow: 4px 4px 4px #000000;
-	border-radius: 6%;
-	border: 2px solid;
-	text-shadow: 1px 1px 4px #000000;
-	overflow: hidden;
-}
-
-.twd > span {
-	display: block;
-	font-weight: bold;
-	font-size: 0.8rem;
-}
-
-.twd > .twd_icon > img {
-	border-radius: 100%;
-	width: 4rem;
-	height: 4rem;
-	border: 4px solid;
-}
-
-.twd_pop > div:first-child {
-	margin: 8px 4px;
-}
-
-.twd_pop .twd_title {
-	font-size: 3rem;
-	font-weight: bold;
-	text-shadow: 4px 4px 4px #000000;
-}
-
-.twd > .twd_time .twd_num {
-	font-size: 1.2rem;
-}
-
-.twd > .twd_time.non_best {
-	color: #cccccc;
-}
-
-.twd > .twd_time .twd_num.best {
-	color: #ffff44;
-}
-
-.twd > .twd_rarity {
-	display: block;
-	color: #222222;
-	-webkit-transform: translate( 2.4rem, 2.0rem ) rotate( 45deg );
-	text-shadow: none;
-	text-align: center;
-	font-size: 1.3rem;
-	width: 10rem;
-	line-height: 1.3rem;
-}
-
-.twd > .twd_date {
-	font-weight: normal;
-	color: #888888;
-}
-
-.twd > .twd_name {
-	user-select: text;
-}
-
-.twd.rarity1 {
-	border-color: #808080;
-}
-
-.twd.rarity1 > .twd_icon > img {
-	border-color: #808080;
-}
-
-.twd.rarity1 .twd_rarity {
-	background: #606060;
-	border: 2px solid #808080;
-}
-
-.twd.rarity2 {
-	border-color: #ffffff;
-}
-
-.twd.rarity2 > .twd_icon > img {
-	border-color: #ffffff;
-}
-
-.twd.rarity2 .twd_rarity {
-	background: #dddddd;
-	border: 2px solid #ffffff;
-}
-
-.twd.rarity3 {
-	border-color: #4477ff;
-}
-
-.twd.rarity3 > .twd_icon > img {
-	border-color: #4477ff;
-}
-
-.twd.rarity3 .twd_rarity {
-	background: #2255dd;
-	border: 2px solid #4477ff;
-}
-
-.twd.rarity4 {
-	border-color: #ffff44;
-}
-
-.twd.rarity4 > .twd_icon > img {
-	border-color: #ffff44;
-}
-
-.twd.rarity4 .twd_rarity {
-	background: #dddd22;
-	border: 2px solid #ffff44;
-}
-
-.twd.rarity5 {
-	background: -webkit-linear-gradient(-45deg, #ff7744 0%, #000000 100%);
-	border-color: #ff7744;
-}
-
-.twd.rarity5 > .twd_icon > img {
-	border-color: #ff7744;
-}
-
-.twd.rarity5 .twd_rarity {
-	background: #dd5522;
-	border: 2px solid #ff7744;
-}
-
-.twd.rarity6 {
-	background: -webkit-linear-gradient(-45deg, #aa44ff 0%, #000000 100%);
-	border-color: #aa44ff;
-}
-
-.twd.rarity6 > .twd_icon > img {
-	border-color: #aa44ff;
-}
-
-.twd.rarity6 .twd_rarity {
-	background: #8822dd;
-	border: 2px solid #aa44ff;
-}
-
-.twd > .twd_del {
-	position: absolute;
-	display: none;
-	right: 4px;
-	top: 4px;
-	font-size: 1.5rem;
-	font-weight: normal;
-	text-shadow: none;
-}
-
-.twd > .twd_del:hover {
-	cursor: pointer;
 }

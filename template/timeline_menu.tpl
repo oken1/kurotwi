@@ -19,5 +19,6 @@
 				</div>
 				<a class='btn addfilter'>(i18n_0338)</a>
 				<a class='btn individual'>(i18n_0351)</a>
-				<a class='btn speech'>Speech(TEST)</a>
+				<a class='btn speech'>Speech</a>
+				<a class='btn import_color'>(i18n_0379)</a>
 			</div>

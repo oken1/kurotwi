@@ -76,5 +76,5 @@ div.contents.account {
 }
 
 #account_list div.item.select {
-	background: #204060;
+	background: var(--general-highlight);
 }

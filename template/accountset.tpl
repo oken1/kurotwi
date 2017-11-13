@@ -20,7 +20,7 @@
 	<span>(i18n_0148)</span>
 	<div>
 		<span>(i18n_0281):</span>
-		<input type='text' maxlength='20' value='{$name}' id='profname'><span class='info'>(20(i18n_0015))</span>
+		<input type='text' maxlength='50' value='{$name}' id='profname'><span class='info'>(50(i18n_0015))</span>
 	</div>
 	<div>
 		<span>(i18n_0040):</span>

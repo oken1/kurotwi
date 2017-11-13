@@ -151,25 +151,15 @@ function Txt2Link( text, entities )
 					end: val.indices[1],
 					func: function() {
 						var url = ( val.expanded_url == null ) ? val.url : val.expanded_url;
-						var durl;
+						var durl = val.display_url;
 
-						try {
-							durl = escapeHTML( decodeURI( url ) );
-//							durl = val.display_url;
-						}
-						catch ( e )
-						{
-							console.log( 'decode error [' + url + ']' );
-							durl = url;
-						}
-
-						 if ( url.match( /https?:\/\/ln\.is/ ) )
+						if ( url.match( /https?:\/\/ln\.is/ ) )
 						{
 							return "<span class='tooltip warning' tooltip='" + chrome.i18n.getMessage( 'i18n_0358' ) + "'>" + durl + "</span>";
 						}
 						else
 						{
-							return "<a href='" + url + "' class='url anchor' target='_blank'>" + durl + "</a>";
+							return "<a href='" + url + "' class='url anchor' rel='nofollow noopener noreferrer' target='_blank'>" + durl + "</a>";
 						}
 					}
 				};
@@ -219,15 +209,17 @@ function Txt2Link( text, entities )
 
 				if ( entities.media[i].type == 'animated_gif' || entities.media[i].type == 'video' )
 				{
-					var variant;
+					var variant, maxrate = 0;
 
-					// 再生出来ない動画(m3u8,mpd)対策
 					for ( var j = 0, __len = entities.media[i].video_info.variants.length ; j < __len ; j++ )
 					{
 						if ( entities.media[i].video_info.variants[j].content_type == 'video/mp4' )
 						{
-							variant = entities.media[i].video_info.variants[j];
-							break;
+							if ( entities.media[i].video_info.variants[j].bitrate >= maxrate )
+							{
+								maxrate = entities.media[i].video_info.variants[j].bitrate;
+								variant = entities.media[i].video_info.variants[j];
+							}
 						}
 					}
 
@@ -312,7 +304,7 @@ function Txt2Link( text, entities )
 
 			rep.push( {
 				cnt: repcnt++,
-				repstr: "<a href='" + urls[i] + "' class='url anchor' target='_blank'>" + durl + "</a>"
+				repstr: "<a href='" + urls[i] + "' class='url anchor' rel='nofollow noopener noreferrer' target='_blank'>" + durl + "</a>"
 			} );
 		}
 	}
@@ -503,3 +495,42 @@ function uc_charAt( string, index ) {
 	return string[index];
 }
 
+////////////////////////////////////////////////////////////////////////////////
+// '#rrggbb'から'hsl(h,s,l)'に変換(明るさ指定)
+////////////////////////////////////////////////////////////////////////////////
+function HSLConvert( col, ll )
+{
+	var r, g, b;
+	var max, min;
+	var h, s, l;
+
+	r = parseInt( col.substr( 1, 2 ), 16 ) / 255;
+	g = parseInt( col.substr( 3, 2 ), 16 ) / 255;
+	b = parseInt( col.substr( 5, 2 ), 16 ) / 255;
+
+	max = Math.max( r, g, b );
+	min = Math.min( r, g, b );
+
+	l = ( max + min ) / 2 * ll;
+
+	if ( max == min )
+	{
+		h = s = 0;
+	}
+	else
+	{
+		var d = max - min;
+		s = l > 0.5 ? d / ( 2 - max - min ) : d / ( max + min );
+
+		switch( max )
+		{
+			case r: h = ( g - b ) / d + ( g < b ? 6 : 0 ); break;
+			case g: h = ( b - r ) / d + 2; break;
+			case b: h = ( r - g ) / d + 4; break;
+		}
+
+		h /= 6;
+	}
+
+	return 'hsl( ' + h * 360 + ',' + s * 100 + '%,' + l * 100 + '% )';
+}

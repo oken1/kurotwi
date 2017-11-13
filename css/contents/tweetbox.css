@@ -178,12 +178,12 @@ div.contents.tweetbox {
 .replyitem > div.reply > div.status > span {
 	font-weight: normal;
 	font-size: 0.8rem;
-	color: #c0c0c0;
+	opacity: 0.8;
 }
 
 .replyitem > div.reply > div.date {
 	font-size: 0.8rem;
-	color: #c0c0c0;
+	opacity: 0.8;
 }
 
 div.contents.tweetbox #hash_select .item {
@@ -196,7 +196,7 @@ div.contents.tweetbox #hash_select .item input[type=checkbox] {
 
 div.contents.tweetbox #hash_select .item.tlhash {
 	font-size: 0.8rem;
-	color: #404040;
+	opacity: 0.8;
 }
 
 div.contents.tweetbox #draft_select .item {

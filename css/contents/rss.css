@@ -44,16 +44,17 @@ div.contents.rss .rss_list .item .title {
 div.contents.rss .rss_list .item .title .anchor {
 	font-weight: bold;
 	user-select: text;
-	color: #ffffff;	/* color set: 全体のフォント */
+	color: var(--panel-text);
 }
 
 div.contents.rss .rss_list .item .title .anchor:hover {
-	opacity: 0.8;
+	opacity: 0.5;
 }
 
 div.contents.rss .rss_list .item .desc {
 	font-size: 0.8rem;
-	color: #c0c0c0;
+	color: var(--panel-text);
+	opacity: 0.8;
 	padding: 2px 4px;
 }
 

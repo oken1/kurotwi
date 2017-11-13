@@ -164,14 +164,14 @@ Contents.rss = function( cp )
 		////////////////////////////////////////
 		// 一番上へ
 		////////////////////////////////////////
-		cont.find( '.panel_btns' ).find( '.sctbl' ).find( 'a:first' ).click( function( e ) {
+		cont.find( '.panel_btns' ).find( '.sctbl' ).find( 'a' ).first().click( function( e ) {
 			rss_list.scrollTop( 0 );
 		} );
 
 		////////////////////////////////////////
 		// 一番下へ
 		////////////////////////////////////////
-		cont.find( '.panel_btns' ).find( '.sctbl' ).find( 'a:last' ).click( function( e ) {
+		cont.find( '.panel_btns' ).find( '.sctbl' ).find( 'a' ).last().click( function( e ) {
 			rss_list.scrollTop( rss_list.prop( 'scrollHeight' ) );
 		} );
 
@@ -364,7 +364,7 @@ Contents.rss = function( cp )
 				}
 			}
 
-			setting.find( '.rsssetting_items .kinditems:last' ).activity( { color: '#ffffff' } );
+			setting.find( '.rsssetting_items .kinditems' ).last().activity( { color: '#ffffff' } );
 			setting.find( '.feed_append' ).addClass( 'disabled' );
 
 			SendRequest(
@@ -382,7 +382,7 @@ Contents.rss = function( cp )
 						setting.find( '.set_feed' ).focus();
 						setting.find( '.feed_append' ).removeClass( 'disabled' );
 
-						setting.find( '.rsssetting_items .kinditems:last' ).activity( false );
+						setting.find( '.rsssetting_items .kinditems' ).last().activity( false );
 					}
 					else
 					{
@@ -402,7 +402,7 @@ Contents.rss = function( cp )
 
 						FeedList();
 
-						setting.find( '.rsssetting_items .kinditems:last' ).activity( false );
+						setting.find( '.rsssetting_items .kinditems' ).last().activity( false );
 					}
 				}
 			);

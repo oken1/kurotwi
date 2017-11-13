@@ -21,7 +21,7 @@
 				{if $isfriend}<span class='icon-arrow-left'></span>{/if}
 				{if $isfollower}<span class='icon-arrow-right'></span>{/if}
 				<br>
-				<span class='date tooltip' absdate='{$absdate}' tooltip='{$date}'><a href='https://twitter.com/{$screen_name}/status/{$status_id}' target='_blank' class='anchor'>{$dispdate}</a></span><span class='source'>{$source}</span>
+				<span class='date tooltip' absdate='{$absdate}' tooltip='{$date}'><a href='https://twitter.com/{$screen_name}/status/{$status_id}' rel='nofollow noopener noreferrer' target='_blank' class='anchor'>{$dispdate}</a></span><span class='source'>{$source}</span>
 				<br>
 				{if $rtcnt + 1 > 0 || $favcnt > 0}
 				<span class='rtfav_cnt'>{if $rtcnt + 1 > 0}<span class='icon-loop'></span>:{$rtcnt + 1}{/if} {if $favcnt > 0}<span class='icon-heart'></span>:{$favcnt}{/if}</span>

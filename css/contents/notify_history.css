@@ -36,7 +36,7 @@ div.contents.notify_history {
 #notify_history_list .notify .notify_followname,
 #notify_history_list .notify .notify_listname
 {
-	color: #ffffff;
+	color: var(--panel-text);
 	font-weight: bold;
 }
 
@@ -46,5 +46,5 @@ div.contents.notify_history {
 #notify_history_list .notify .notify_listname:hover
 {
 	cursor: pointer;
-	color: #dddddd;
+	opacity: 0.5;
 }

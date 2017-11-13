@@ -39,7 +39,7 @@ div.contents.trends {
 }
 
 #trends_list .item .container .title span:hover {
-	opacity: 0.8;
+	opacity: 0.5;
 	cursor: pointer;
 }
 

@@ -157,7 +157,7 @@ Contents.show = function( cp )
 					// 原寸表示出来ない場合、画像クリックで原寸表示
 					var img = cont.find( '.icon' ).find( 'img' );
 
-					img.load( function() {
+					img.on( 'load', function() {
 						img.addClass( 'exp' );
 
 						img.click( function( e ) {

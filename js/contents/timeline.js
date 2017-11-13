@@ -24,36 +24,51 @@ Contents.timeline = function( cp )
 	var stream_queue = new Array();
 	var cursor_on_option = false;
 	var thumb_queue = new Array();
+	var status_cnt = 0;
+	var over_cnt = 0;
 
 	var quote_cache = {};
-
-	////////////////////////////////////////////////////////////
-	// 読み込み済みステータスID数を取得
-	////////////////////////////////////////////////////////////
-	var StatusIDCount = function() {
-		var cnt = 0;
-
-		for ( var id in status_ids )
-		{
-			cnt++;
-		}
-
-		return cnt;
-	}
 
 	////////////////////////////////////////
 	// 引用元キャッシュに追加
 	////////////////////////////////////////
 	var AddQuoteCache = function( json ) {
+
 		if ( json.quoted_status )
 		{
 			quote_cache[json.quoted_status.id_str] = {
 				status_id: json.quoted_status.id_str,
 				screen_name: json.quoted_status.user.screen_name,
 				name: json.quoted_status.user.name,
-				text: twemoji.parse( json.quoted_status.text ),
+				text: DisplayQuoteText( json.quoted_status ),
 			};
 		}
+	}
+
+	////////////////////////////////////////
+	// 引用元を表示用に加工
+	////////////////////////////////////////
+	var DisplayQuoteText = function( json )
+	{
+		var _div = $( '<div>' + Txt2Link( json.text, json.entities ) + '</div>' );
+		var _add = $( '<div></div>' );
+
+		_div.find( 'a' ).each( function() {
+			if ( $( this ).attr( 'mediaurl' ) )
+			{
+				var img = $( this ).attr( 'mediaurl' ).split( ',' );
+
+				for ( var i = 0 ; i < img.length ; i++ )
+				{
+					if ( _add.find( 'img[src="' + img[i] + '"]' ).length == 0 )
+					{
+						_add.append( $( '<img class="thumb" src="' + img[i] + '">' ) );
+					}
+				}
+			}
+		} );
+
+		return twemoji.parse( _div.text() + '<div>' + _add.html() + '</div>' );
 	}
 
 	////////////////////////////////////////
@@ -179,7 +194,7 @@ Contents.timeline = function( cp )
 	};
 
 	///////////////////////////////////////////////////////////////////
-	// ツールバーユーザー/グループ設定/ツイ消しカードの情報を最新に更新
+	// ツールバーユーザー/グループ設定の情報を最新に更新
 	///////////////////////////////////////////////////////////////////
 	var UserInfoUpdate = function( users ) {
 		var idx;
@@ -277,34 +292,6 @@ Contents.timeline = function( cp )
 						if ( chk )
 						{
 							g_cmn.group_panel[group_id].param['users'][user_id].created_at = users[user_id].created_at;
-						}
-					}
-				}
-			}
-
-			// ツイ消しカード
-			for ( var idx = 0, _len = g_cmn.twdelete_history.length ; idx < _len ; idx++ )
-			{
-				if ( g_cmn.twdelete_history[idx].user_id == user_id )
-				{
-					// 日付が新しい場合のみ
-					var datechk = false;
-
-					if ( DateYYYYMMDD( g_cmn.twdelete_history[idx].date, 4 ) < DateConv( users[user_id].created_at, 0 ) )
-					{
-						datechk = true;
-					}
-
-					if ( datechk )
-					{
-						if ( g_cmn.twdelete_history[idx].icon != users[user_id].icon )
-						{
-							g_cmn.twdelete_history[idx].icon = users[user_id].icon;
-						}
-
-						if ( g_cmn.twdelete_history[idx].screen_name != users[user_id].screen_name )
-						{
-							g_cmn.twdelete_history[idx].screen_name = users[user_id].screen_name;
 						}
 					}
 				}
@@ -435,7 +422,7 @@ Contents.timeline = function( cp )
 
 							if ( $( items[cnt_items] ).find( '.tweet_quote' ).length )
 							{
-								$( items[cnt_items] ).find( '.tweet_quote:last' ).after( html );
+								$( items[cnt_items] ).find( '.tweet_quote' ).last().after( html );
 							}
 							else
 							{
@@ -485,7 +472,7 @@ Contents.timeline = function( cp )
 										status_id: res.json.id_str,
 										screen_name: res.json.user.screen_name,
 										name: res.json.user.name,
-										text: twemoji.parse( res.json.text ),
+										text: DisplayQuoteText( res.json ),
 									};
 
 									_ShowQuoteSource( res.json.id_str );
@@ -682,6 +669,7 @@ Contents.timeline = function( cp )
 				loading = true;
 				stream_queue = [];
 				status_ids = {};
+				status_cnt = 0;
 
 				break;
 			// 更新
@@ -689,6 +677,7 @@ Contents.timeline = function( cp )
 				loading = true;
 				stream_queue = [];
 				status_ids = {};
+				status_cnt = 0;
 
 				break;
 			// 新着
@@ -698,6 +687,7 @@ Contents.timeline = function( cp )
 					// 一度も読み込んでいない場合は、初期として扱う
 					type = 'init';
 					status_ids = {};
+					status_cnt = 0;
 				}
 				else
 				{
@@ -764,6 +754,7 @@ Contents.timeline = function( cp )
 								{
 									s += MakeTimeline( json[i], cp.param['account_id'] );
 									status_ids[json[i].id_str] = true;
+									status_cnt++;
 									addcnt++;
 
 									if ( users[json[i].user.id_str] == undefined )
@@ -819,6 +810,7 @@ Contents.timeline = function( cp )
 								{
 									s += MakeTimeline( json.statuses[i], cp.param['account_id'] );
 									status_ids[json.statuses[i].id_str] = true;
+									status_cnt++;
 									addcnt++;
 
 									if ( users[json.statuses[i].user.id_str] == undefined )
@@ -864,6 +856,7 @@ Contents.timeline = function( cp )
 								{
 									s += MakeTimeline_DM( json[i], cp.param['timeline_type'], cp.param['account_id'] );
 									status_ids[json[i].id_str] = true;
+									status_cnt++;
 									addcnt++;
 
 									if ( users[sendrec.id_str] == undefined )
@@ -915,6 +908,7 @@ Contents.timeline = function( cp )
 								{
 									s += MakeTimeline( json[i], cp.param['account_id'] );
 									status_ids[json[i].id_str] = true;
+									status_cnt++;
 									addcnt++;
 
 									if ( users[json[i].user.id_str] == undefined )
@@ -961,6 +955,7 @@ Contents.timeline = function( cp )
 						{
 							s += MakeTimeline( json, cp.param['account_id'] );
 							status_ids[json.id_str] = true;
+							status_cnt++;
 							addcnt++;
 
 							if ( users[json.user.id_str] == undefined )
@@ -1081,18 +1076,17 @@ Contents.timeline = function( cp )
 								}
 
 								// "表示最大数を超えている件数
-								var itemcnt = StatusIDCount();
-
-								if ( itemcnt - cp.param['max_count'] > 0 )
+								if ( status_cnt - cp.param['max_count'] > 0 )
 								{
 									// 新着で読み込んだ分だけ削除
-									timeline_list.find( '> div.item:gt(' + ( itemcnt - addcnt - 1 ) + ')' ).each( function() {
+									timeline_list.find( '> div.item:gt(' + ( status_cnt - addcnt - 1 ) + ')' ).each( function() {
 										delete status_ids[$( this ).attr( 'status_id' )];
+										status_cnt--;
 //										timeline_list.scrollTop( timeline_list.scrollTop() - $( this ).outerHeight() );
 										$( this ).remove();
 									} );
 
-									first_status_id = timeline_list.find( '> div.item:last' ).attr( 'status_id' );
+									first_status_id = timeline_list.find( '> div.item' ).last().attr( 'status_id' );
 								}
 							}
 
@@ -1108,7 +1102,7 @@ Contents.timeline = function( cp )
 								AppendReadmore();
 							}
 
-							timeline_list.find( '.readmore:first' ).remove();
+							timeline_list.find( '.readmore' ).first().remove();
 							$( '#tooltip' ).hide();
 
 							Thumb_Urls( '> div.item:not(".res"):gt(' + ( itemcnt - 1 ) + ')' );
@@ -1159,7 +1153,7 @@ Contents.timeline = function( cp )
 					// もっと読むで404の場合
 					if ( type == 'old' && res.status == 404 )
 					{
-						timeline_list.find( '.readmore:first' ).remove();
+						timeline_list.find( '.readmore' ).first().remove();
 						$( '#tooltip' ).hide();
 					}
 					else
@@ -1354,7 +1348,7 @@ Contents.timeline = function( cp )
 
 					if ( account_id == cur_sel )
 					{
-						acclist.find( 'div:last' ).addClass( 'selected' );
+						acclist.find( 'div' ).last().addClass( 'selected' );
 					}
 				}
 
@@ -1673,9 +1667,7 @@ Contents.timeline = function( cp )
 			var spd;
 			var unit = chrome.i18n.getMessage( 'i18n_0270' );
 
-			var itemcnt = StatusIDCount();
-
-			if ( itemcnt < 1 )
+			if ( status_cnt < 1 )
 			{
 				spd = '--';
 				unit = '--';
@@ -1684,9 +1676,9 @@ Contents.timeline = function( cp )
 			{
 				//var firstdate = Date.parse( timeline_list.find( '> item:first' ).attr( 'created_at' ).replace( '+', 'GMT+' ) );
 				var firstdate = new Date();
-				var lastdate = Date.parse( timeline_list.find( '> div.item:last' ).attr( 'created_at' ).replace( '+', 'GMT+' ) );
+				var lastdate = Date.parse( timeline_list.find( '> div.item' ).last().attr( 'created_at' ).replace( '+', 'GMT+' ) );
 
-				spd = itemcnt / ( firstdate - lastdate ) * 1000;
+				spd = status_cnt / ( firstdate - lastdate ) * 1000;
 
 				if ( spd < 0 )
 				{
@@ -1814,6 +1806,7 @@ Contents.timeline = function( cp )
 			lines.find( '.panel_btns' ).find( '.streamuse' ).removeClass( 'reconnect tooltip' ).attr( 'tooltip', '' );
 
 			status_ids = {};
+			status_cnt = 0;
 			timeline_list.html( '' );
 			timeline_list.scrollTop( 0 );
 
@@ -1824,14 +1817,14 @@ Contents.timeline = function( cp )
 		////////////////////////////////////////
 		// 一番上へ
 		////////////////////////////////////////
-		lines.find( '.sctbl' ).find( 'a:first' ).click( function( e ) {
+		lines.find( '.sctbl' ).find( 'a' ).first().click( function( e ) {
 			timeline_list.scrollTop( 0 );
 		} );
 
 		////////////////////////////////////////
 		// 一番下へ
 		////////////////////////////////////////
-		lines.find( '.sctbl' ).find( 'a:last' ).click( function( e ) {
+		lines.find( '.sctbl' ).find( 'a' ).last().click( function( e ) {
 			timeline_list.scrollTop( timeline_list.prop( 'scrollHeight' ) );
 		} );
 
@@ -2137,6 +2130,84 @@ Contents.timeline = function( cp )
 					} ) );
 
 					var menubox = item.find( 'div.tweet' ).find( 'div.menubox' );
+
+					// 色の設定をインポート
+					var _tag = '[KuroTwi_color_v1.1]';
+					var color_setting = item.find( '.tweet_text' ).text().indexOf( _tag );
+					var colorcnt = 12;
+
+					if ( color_setting == -1 )
+					{
+						menubox.find( '> a.import_color' ).hide();
+					}
+					else
+					{
+						// 正しい形式かチェック
+						var chk = true;
+						var colors = item.find( '.tweet_text' ).text().substr( color_setting + _tag.length, colorcnt * 7 - 1 );
+						var col;
+
+						if ( colors.length == colorcnt * 7 - 1 )
+						{
+							col = colors.split( ',' );
+
+							if ( col.length == colorcnt )
+							{
+								for ( var i = 0 ; i < col.length ; i++ )
+								{
+									if ( !col[i].match( /[0-9,a-z]{6}/i ) )
+									{
+										chk = false;
+										break;
+									}
+								}
+							}
+							else
+							{
+								chk = false;
+							}
+						}
+						else
+						{
+							chk = false;
+						}
+
+						if ( chk == false )
+						{
+							menubox.find( '> a.import_color' ).hide();
+						}
+						else
+						{
+							menubox.find( '> a.import_color' ).on( 'click', function( e ) {
+								g_cmn.cmn_param.color = {
+									panel: {
+										background: '#' + col[0],
+										text: '#' + col[1],
+									},
+									tweet: {
+										background: '#' + col[2],
+										text: '#' + col[3],
+										link: '#' + col[4],
+									},
+									titlebar: {
+										background: '#' + col[5],
+										text: '#' + col[6],
+										fixed: '#' + col[7],
+									},
+									button: {
+										background: '#' + col[8],
+										text: '#' + col[9],
+									},
+									scrollbar: {
+										background: '#' + col[10],
+										thumb: '#' + col[11],
+									}
+								};
+
+								SetColorSettings();
+							} );
+						}
+					}
 
 					// 翻訳ボタンクリック処理
 					menubox.find( '> a.trans' ).on( 'click', function( e ) {
@@ -2539,20 +2610,14 @@ Contents.timeline = function( cp )
 						e.stopPropagation();
 					} );
 
-					// Speechボタンクリック処理(TEST)
+					// Speechボタンクリック処理
 					menubox.find( '> a.speech' ).on( 'click', function( e ) {
-						// disabledなら処理しない
-						if ( $( this ).hasClass( 'disabled' ) )
-						{
-							return;
-						}
-
 						var text = item.find( '.tweet' ).find( '.tweet_text' ).text();
 						var uttr = new SpeechSynthesisUtterance( text );
 						uttr.lang = 'ja-JP';
 
+						speechSynthesis.cancel();
 						speechSynthesis.speak( uttr );
-
 						e.stopPropagation();
 					} );
 				}
@@ -2673,6 +2738,7 @@ Contents.timeline = function( cp )
 									}
 
 									delete status_ids[$( this ).attr( 'status_id' )];
+									status_cnt--;
 									$( this ).remove();
 
 									if ( cp.param['timeline_type'] != 'dmrecv' && cp.param['timeline_type'] != 'dmsent' )
@@ -2838,48 +2904,6 @@ Contents.timeline = function( cp )
 					cp.param['bookmark'][0] = '';
 				}
 			}
-			////////////////////////////////////////
-			// パクツイ
-			////////////////////////////////////////
-			else if ( targ.hasClass( 'tweet_text' ) && e.altKey == true && g_devmode )
-			{
-				var data = {};
-
-				data['status'] = targ.text();
-
-				var param = {
-					type: 'POST',
-					url: ApiUrl( '1.1' ) + 'statuses/update.json',
-					data: data,
-				};
-
-				Blackout( true, false );
-
-				SendRequest(
-					{
-						action: 'oauth_send',
-						acsToken: g_cmn.account[cp.param['account_id']]['accessToken'],
-						acsSecret: g_cmn.account[cp.param['account_id']]['accessSecret'],
-						param: param,
-						id: cp.param['account_id']
-					},
-					function( res )
-					{
-						if ( res.status == 200 )
-						{
-							// ツイート数表示の更新
-							StatusesCountUpdate( cp.param['account_id'], 1 );
-						}
-						else
-						{
-							console.log( 'status[' + res.status + ']' );
-							ApiError( chrome.i18n.getMessage( 'i18n_0087' ), res );
-						}
-
-						Blackout( false, false );
-					}
-				);
-			}
 			else
 			{
 				return;
@@ -2891,7 +2915,7 @@ Contents.timeline = function( cp )
 		////////////////////////////////////////
 		// RTアイコン右クリック
 		////////////////////////////////////////
-		timeline_list.on( 'contextmenu', $( '> div.item' ).find( 'div.icon' ).find( 'img.rt_icon' ).selector, function( e ) {
+		timeline_list.on( 'contextmenu', '> div.item div.icon img.rt_icon', function( e ) {
 			OpenUserTimeline( $( this ).parent().attr( 'rt_screen_name' ), cp.param['account_id'] );
 
 			return false;
@@ -2900,7 +2924,7 @@ Contents.timeline = function( cp )
 		////////////////////////////////////////
 		// アイコンにカーソルを乗せたとき
 		////////////////////////////////////////
-		timeline_list.on( 'mouseenter mouseleave', $( '> div.item' ).find( 'div.icon' ).find( '> img' ).selector, function( e ) {
+		timeline_list.on( 'mouseenter mouseleave', '> div.item div.icon > img', function( e ) {
 			if ( e.type == 'mouseenter' )
 			{
 				// Draggableの設定をする
@@ -2920,7 +2944,7 @@ Contents.timeline = function( cp )
 		////////////////////////////////////////
 		var onURL = false;
 
-		timeline_list.on( 'mouseenter mouseleave', $( '> div.item' ).find( 'div.tweet_text' ).find( 'a.anchor.url' ).selector, function( e, noloading, stream ) {
+		timeline_list.on( 'mouseenter mouseleave', '> div.item div.tweet_text a.anchor.url', function( e, noloading, stream ) {
 			var anchor = $( this );
 			var item = anchor.parent().parent().parent();
 			var url = anchor.attr( 'href' );
@@ -3005,6 +3029,12 @@ Contents.timeline = function( cp )
 						// 原寸サイズ表示処理作成
 						////////////////////////////////////////
 						var MakeImgLink = function( thumb, original, mov, img_count, isvideo, contenttype ) {
+							// 重複排除
+							if ( add.find( 'img[src="' + thumb + '"]' ).length )
+							{
+								return;
+							}
+
 							if ( add.find( 'img[loaded="' + url + '"]' ).length < img_count )
 							{
 								if ( !noloading )
@@ -3018,7 +3048,7 @@ Contents.timeline = function( cp )
 								} ) );
 
 								// ロード失敗
-								add.find( 'img:last-child' ).error( function( e ) {
+								add.find( 'img:last-child' ).on( 'error', function( e ) {
 									if ( !noloading )
 									{
 										item.find( '.tweet' ).activity( false );
@@ -3027,7 +3057,7 @@ Contents.timeline = function( cp )
 								} );
 
 								// ロード成功
-								add.find( 'img:last-child' ).load( function( e ) {
+								add.find( 'img:last-child' ).on( 'load', function( e ) {
 									if ( !noloading )
 									{
 										item.find( '.tweet' ).activity( false );
@@ -3266,7 +3296,7 @@ Contents.timeline = function( cp )
 								} ) );
 
 								// ロード失敗
-								add.find( 'img:last-child' ).error( function( e ) {
+								add.find( 'img:last-child' ).on( 'error', function( e ) {
 									if ( !noloading )
 									{
 										item.find( '.tweet' ).activity( false );
@@ -3275,7 +3305,7 @@ Contents.timeline = function( cp )
 								} );
 
 								// ロード成功
-								add.find( 'img:last-child' ).load( function( e ) {
+								add.find( 'img:last-child' ).on( 'load', function( e ) {
 									if ( !noloading )
 									{
 										item.find( '.tweet' ).activity( false );
@@ -3324,7 +3354,7 @@ Contents.timeline = function( cp )
 										}
 
 										// ロード失敗
-										add.find( 'img:last-child' ).error( function( e ) {
+										add.find( 'img:last-child' ).on( 'error', function( e ) {
 											if ( !noloading )
 											{
 												item.find( '.tweet' ).activity( false );
@@ -3333,7 +3363,7 @@ Contents.timeline = function( cp )
 										} );
 
 										// ロード成功
-										add.find( 'img:last-child' ).load( function( e ) {
+										add.find( 'img:last-child' ).on( 'load', function( e ) {
 											if ( !noloading )
 											{
 												item.find( '.tweet' ).activity( false );
@@ -3460,7 +3490,7 @@ Contents.timeline = function( cp )
 		////////////////////////////////////////
 		// カーソルを乗せたとき（ボタン群表示）
 		////////////////////////////////////////
-		timeline_list.on( 'mouseenter mouseleave', $( '> div.item' ).selector, function( e ) {
+		timeline_list.on( 'mouseenter mouseleave', '> div.item', function( e ) {
 			var options = $( this ).find( 'div.options' );
 
 			if ( e.type == 'mouseenter' )
@@ -3477,20 +3507,7 @@ Contents.timeline = function( cp )
 					} ) );
 				}
 
-				// ボタンにカーソルを乗せたときの処理
-				options.find( 'span.btns, span.fav' ).on( 'mouseenter mouseleave', function( e ) {
-					if ( e.type == 'mouseenter' )
-					{
-						cursor_on_option = true;
-					}
-					else
-					{
-						cursor_on_option = false;
-					}
-
-					e.stopPropagation();
-				} )
-				.css( { display: 'inline-block' } );
+				options.find( 'span.btns, span.fav' ).css( { display: 'inline-block' } );
 			}
 			else
 			{
@@ -3504,7 +3521,7 @@ Contents.timeline = function( cp )
 		////////////////////////////////////////
 		// スクロール抑止
 		////////////////////////////////////////
-		timeline_list.on( 'mouseenter mouseleave', $( '> div.item div.options span, > div.item div.bookmark' ).selector, function( e ) {
+		timeline_list.on( 'mouseenter mouseleave', '> div.item div.options span, > div.item div.bookmark', function( e ) {
 			if ( e.type == 'mouseenter' )
 			{
 				cursor_on_option = true;
@@ -3520,7 +3537,7 @@ Contents.timeline = function( cp )
 		////////////////////////////////////////
 		// 返信元クリック処理
 		////////////////////////////////////////
-		timeline_list.on( 'click', $( '> div.item' ).find( 'div.tweet' ).find( 'div.bottomcontainer' ).find( 'div.additional' ).find( 'div.in_reply_to' ).find( 'span.resicon' ).selector, function( e ) {
+		timeline_list.on( 'click', '> div.item div.tweet div.bottomcontainer div.additional div.in_reply_to span.resicon', function( e ) {
 			OpenReplyTweet( $( this ), 5, 500, true );
 
 			e.stopPropagation();
@@ -3529,7 +3546,7 @@ Contents.timeline = function( cp )
 		////////////////////////////////////////
 		// 返信元を閉じる処理
 		////////////////////////////////////////
-		timeline_list.on( 'click', $( '> div.item' ).find( 'div.tweet' ).find( 'div.bottomcontainer' ).find( 'div.additional' ).find( 'div.in_reply_to_close' ).find( 'span.resicon' ).selector, function( e ) {
+		timeline_list.on( 'click', '> div.item div.tweet div.bottomcontainer div.additional div.in_reply_to_close span.resicon', function( e ) {
 			var item = $( this ).parent().parent().parent().parent().parent();
 
 			item.find( '.in_reply_to' ).show();
@@ -3554,7 +3571,7 @@ Contents.timeline = function( cp )
 		////////////////////////////////////////
 		// 位置情報クリック処理
 		////////////////////////////////////////
-		timeline_list.on( 'click', $( '> div.item' ).find( 'div.tweet' ).find( 'div.bottomcontainer' ).find( 'div.additional' ).find( 'div.geo' ).find( 'span' ).selector, function( e ) {
+		timeline_list.on( 'click', '> div.item div.tweet div.bottomcontainer div.additional div.geo span', function( e ) {
 			var geo = $( this ).parent();
 			var item = $( this ).parent().parent().parent().parent().parent();
 
@@ -3579,7 +3596,7 @@ Contents.timeline = function( cp )
 		////////////////////////////////////////
 		// もっと読むクリック処理
 		////////////////////////////////////////
-		timeline_list.on( 'click', $( '> div.readmore' ).selector, function( e ) {
+		timeline_list.on( 'click', '> div.readmore', function( e ) {
 			// disabledなら処理しない
 			if ( $( this ).hasClass( 'disabled' ) )
 			{
@@ -3728,6 +3745,7 @@ Contents.timeline = function( cp )
 						}
 
 						status_ids[json.id_str] = true;
+						status_cnt++;
 
 						var users = {};
 
@@ -3745,6 +3763,7 @@ Contents.timeline = function( cp )
 						timeline_list.prepend( MakeTimeline_DM( json, cp.param['timeline_type'], cp.param['account_id'] ) ).children( ':first' ).hide().fadeIn();
 						//timeline_list.prepend( MakeTimeline_DM( json, cp.param['timeline_type'], cp.param['account_id'] ) );
 						status_ids[json.id_str] = true;
+						status_cnt++;
 						addcnt++;
 					}
 				}
@@ -3760,7 +3779,8 @@ Contents.timeline = function( cp )
 					}
 					else
 					{
-						timeline_list.scrollTop( _sctop + ( timeline_list.find( '> div.item:eq(0)' ).outerHeight() ) );
+						var scheight = timeline_list.prop( 'scrollHeight' );
+						timeline_list.scrollTop( _sctop + ( timeline_list.find( '>div.item' ).eq(0).outerHeight() ) );
 					}
 
 					timeline_list.find( '> div.item:lt(1)' ).addClass( 'new' );
@@ -3771,18 +3791,26 @@ Contents.timeline = function( cp )
 					timeline_list.trigger( 'scroll' );
 
 					// 表示最大数を超えている件数
-					var itemcnt = StatusIDCount();
-
-					if ( itemcnt - cp.param['max_count'] > 0 )
+					if ( status_cnt - cp.param['max_count'] > 0 )
 					{
-						// 新着で読み込んだ分だけ削除
-						timeline_list.find( '> div.item:gt(' + ( itemcnt - addcnt - 1 ) + ')' ).each( function() {
-							delete status_ids[$( this ).attr( 'status_id' )];
-//							timeline_list.scrollTop( timeline_list.scrollTop() - $( this ).outerHeight() );
-							$( this ).remove();
-						} );
+						over_cnt += addcnt;
 
-						first_status_id = timeline_list.find( '> div.item:last' ).attr( 'status_id' );
+						// 10件分溜めてから消す
+						if ( over_cnt >= 10 )
+						{
+							var delitems = timeline_list.find( '> div.item:gt(' + ( status_cnt - over_cnt - 1 ) + ')' );
+
+							for ( var i = 0, _len = delitems.length ; i< _len ; i++ )
+							{
+								delete status_ids[$( delitems[i] ).attr( 'status_id' )];
+								status_cnt--;
+							}
+
+							delitems.remove();
+
+							first_status_id = timeline_list.find( '> div.item' ).last().attr( 'status_id' );
+							over_cnt = 0;
+						}
 					}
 
 					// アイコンサイズ
@@ -3893,7 +3921,7 @@ Contents.timeline = function( cp )
 
 				if ( account_id == cp.param['account_id'] )
 				{
-					acclist.find( 'div:last' ).addClass( 'selected' );
+					acclist.find( 'div' ).last().addClass( 'selected' );
 				}
 			}
 

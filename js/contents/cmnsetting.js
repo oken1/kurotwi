@@ -191,9 +191,110 @@ Contents.cmnsetting = function( cp )
 		} );
 
 		////////////////////////////////////////
+		// 色入力変更処理
+		////////////////////////////////////////
+		cont.find( '.colorcontainer' ).find( 'input[type="text"]' ).on( 'change', function() {
+			var col = $( this ).val();
+
+			$( this ).closest( '.colorcontainer' ).find( 'input[type="color"]' ).val( col );
+		} );
+
+		////////////////////////////////////////
+		// 色選択変更処理
+		////////////////////////////////////////
+		cont.find( '.colorcontainer' ).find( 'input[type="color"]' ).on( 'change', function() {
+			var col = $( this ).val();
+
+			$( this ).closest( '.colorcontainer' ).find( 'input[type="text"]' ).val( col );
+		} );
+
+		////////////////////////////////////////
+		// 色の設定をリセット
+		////////////////////////////////////////
+		$( '#cset_reset_color' ).on( 'click', function( e ) {
+			var colors = new Array(
+				$( ':root' ).css( '--default-panel-background' ),
+				$( ':root' ).css( '--default-panel-text' ),
+				$( ':root' ).css( '--default-tweet-background' ),
+				$( ':root' ).css( '--default-tweet-text' ),
+				$( ':root' ).css( '--default-tweet-link' ),
+				$( ':root' ).css( '--default-titlebar-background' ),
+				$( ':root' ).css( '--default-titlebar-text' ),
+				$( ':root' ).css( '--default-titlebar-fixed-background' ),
+				$( ':root' ).css( '--default-button-background' ),
+				$( ':root' ).css( '--default-button-text' ),
+				$( ':root' ).css( '--default-scrollbar-background' ),
+				$( ':root' ).css( '--default-scrollbar-thumb' )
+			);
+
+			cont.find( '.colorcontainer' ).find( 'input[type="text"]' ).each( function( index ) {
+				$( this ).val( colors[index] ).trigger( 'change' );
+			} );
+
+			e.stopPropagation();
+		} );
+
+		////////////////////////////////////////
+		// 色の設定をツイート
+		////////////////////////////////////////
+		$( '#cset_tweet_color' ).on( 'click', function( e ) {
+			var text = '[KuroTwi_color_v1.1]';
+
+			text += $( '#cset_color_panel_background' ).val() + ',' +
+					$( '#cset_color_panel_text' ).val() + ',' +
+					$( '#cset_color_tweet_background' ).val() + ',' +
+					$( '#cset_color_tweet_text' ).val() + ',' +
+					$( '#cset_color_tweet_link' ).val() + ',' +
+					$( '#cset_color_titlebar_background' ).val() + ',' +
+					$( '#cset_color_titlebar_text' ).val() + ',' +
+					$( '#cset_color_titlebar_fixed' ).val() + ',' +
+					$( '#cset_color_button_background' ).val() + ',' +
+					$( '#cset_color_button_text' ).val() + ',' +
+					$( '#cset_color_scrollbar_background' ).val() + ',' +
+					$( '#cset_color_scrollbar_thumb' ).val();
+
+			text = text.replace( /#/g, '' );
+
+			var pid = IsUnique( 'tweetbox' );
+			var left = null;
+			var top = null;
+			var width = 324;
+
+			var SetText = function() {
+				var areatext = $( '#tweetbox_text' ).val();
+				var pos = $( '#tweetbox_text' ).get( 0 ).selectionStart;
+				var bef = areatext.substr( 0, pos );
+				var aft = areatext.substr( pos, areatext.length );
+
+				$( '#tweetbox_text' ).val( bef + text + aft )
+					.focus()
+					.trigger( 'keyup' );
+			};
+
+			// ツイートパネルが開いていない場合は開く
+			if ( pid == null )
+			{
+				var _cp = new CPanel( left, top, width, 240 );
+				_cp.SetType( 'tweetbox' );
+				_cp.SetTitle( chrome.i18n.getMessage( 'i18n_0083' ), false );
+				_cp.SetParam( { account_id: '', rep_user: null, hashtag: null, maxlen: 140, } );
+				_cp.Start( function() {
+					SetText();
+					$( '#tweetbox_text' ).SetPos( 'start' );
+				} );
+			}
+			else
+			{
+				SetText();
+			}
+
+			e.stopPropagation();
+		} );
+
+		////////////////////////////////////////
 		// 試聴ボタンクリック処理
 		////////////////////////////////////////
-		$( '#cset_audition' ).click( function( e ) {
+		$( '#cset_audition' ).on( 'click', function( e ) {
 			$( '#notify_sound' ).get( 0 ).volume = $( '#cset_notify_sound_volume' ).slider( 'value' );
 			$( '#notify_sound' ).get( 0 ).play();
 
@@ -218,7 +319,7 @@ Contents.cmnsetting = function( cp )
 		////////////////////////////////////////
 		// NG設定追加ボタンクリック処理
 		////////////////////////////////////////
-		$( '#cset_ngappend' ).click( function( e ) {
+		$( '#cset_ngappend' ).on( 'click', function( e ) {
 //			if ( $( '#csetng_list' ).find( '.ngitem' ).length >= 100 )
 //			{
 //				MessageBox( chrome.i18n.getMessage( 'i18n_0069' ) );
@@ -236,7 +337,7 @@ Contents.cmnsetting = function( cp )
 		////////////////////////////////////////
 		// ハッシュタグ設定追加ボタンクリック処理
 		////////////////////////////////////////
-		$( '#cset_hashappend' ).click( function( e ) {
+		$( '#cset_hashappend' ).on( 'click', function( e ) {
 			AppendHashItem();
 
 			$( '#cmnsettihash_apply' ).removeClass( 'disabled' );
@@ -264,7 +365,7 @@ Contents.cmnsetting = function( cp )
 
 			$( '#csetng_list' ).scrollTop( $( '#csetng_list' ).prop( 'scrollHeight' ) )
 
-			var additem = $( '#csetng_list' ).find( '.ngitem:last' );
+			var additem = $( '#csetng_list' ).find( '.ngitem' ).last();
 
 			additem.find( 'input[type=text]' ).focus();
 
@@ -345,7 +446,7 @@ Contents.cmnsetting = function( cp )
 			} );
 
 			// NG設定タイプボタンクリック処理
-			additem.find( '.ngtype' ).find( 'a' ).click( function( e ) {
+			additem.find( '.ngtype' ).find( 'a' ).on( 'click', function( e ) {
 				var item = $( this ).parent().parent();
 				var curtype = item.attr( 'type' );
 
@@ -376,7 +477,7 @@ Contents.cmnsetting = function( cp )
 			} );
 
 			// NG設定×ボタンクリック処理
-			additem.find( '.ngdel' ).find( 'span' ).click( function( e ) {
+			additem.find( '.ngdel' ).find( 'span' ).on( 'click', function( e ) {
 				$( this ).parent().parent().remove();
 
 				$( '#cmnsetting_apply' ).removeClass( 'disabled' );
@@ -396,7 +497,7 @@ Contents.cmnsetting = function( cp )
 
 			$( '#csethash_list' ).scrollTop( $( '#csethash_list' ).prop( 'scrollHeight' ) )
 
-			var additem = $( '#csethash_list' ).find( '.hashitem:last' );
+			var additem = $( '#csethash_list' ).find( '.hashitem' ).last();
 
 			additem.find( 'input[type=text]' ).focus();
 
@@ -420,7 +521,7 @@ Contents.cmnsetting = function( cp )
 				}
 			} );
 
-			additem.find( '.hashword' ).find( 'input[type=text]' ).click( function( e ) {
+			additem.find( '.hashword' ).find( 'input[type=text]' ).on( 'click', function( e ) {
 				var pulldown = $( '#hashtag_pulldown' );
 				var index = $( this ).parent().parent().index();
 
@@ -460,7 +561,7 @@ Contents.cmnsetting = function( cp )
 			} );
 
 			// ハッシュタグ設定×ボタンクリック処理
-			additem.find( '.hashdel' ).find( 'span' ).click( function( e ) {
+			additem.find( '.hashdel' ).find( 'span' ).on( 'click', function( e ) {
 				$( this ).parent().parent().remove();
 
 				$( '#cmnsetting_apply' ).removeClass( 'disabled' );
@@ -511,7 +612,7 @@ Contents.cmnsetting = function( cp )
 		////////////////////////////////////////
 		// 適用ボタンクリック処理
 		////////////////////////////////////////
-		$( '#cmnsetting_apply' ).click( function( e ) {
+		$( '#cmnsetting_apply' ).on( 'click', function( e ) {
 			// disabedなら処理しない
 			if ( $( this ).hasClass( 'disabled' ) )
 			{
@@ -557,16 +658,6 @@ Contents.cmnsetting = function( cp )
 
 			// ユーザーストリーム使用
 			g_cmn.cmn_param['stream'] = ( $( '#cset_stream' ).prop( 'checked' ) ) ? 1 : 0;
-
-			// 色の選択
-			g_cmn.cmn_param['color_select'] = $( 'input[name=cset_color_select]:checked' ).val();
-
-			SetColorFile( '' );
-
-			if ( g_cmn.cmn_param['color_select'] != 0 )
-			{
-				SetColorFile( 'color' + g_cmn.cmn_param['color_select'] );
-			}
 
 			// ページ全体のスクロールバー
 			var old_v = g_cmn.cmn_param['scroll_vertical'];
@@ -753,6 +844,34 @@ Contents.cmnsetting = function( cp )
 
 			SetUserIconSize( items );
 
+			// 色の設定
+			g_cmn.cmn_param.color = {
+				panel: {
+					background: $( '#cset_color_panel_background' ).val(),
+					text: $( '#cset_color_panel_text' ).val(),
+				},
+				tweet: {
+					background: $( '#cset_color_tweet_background' ).val(),
+					text: $( '#cset_color_tweet_text' ).val(),
+					link: $( '#cset_color_tweet_link' ).val(),
+				},
+				titlebar: {
+					background: $( '#cset_color_titlebar_background' ).val(),
+					text: $( '#cset_color_titlebar_text' ).val(),
+					fixed: $( '#cset_color_titlebar_fixed' ).val(),
+				},
+				button: {
+					background: $( '#cset_color_button_background' ).val(),
+					text: $( '#cset_color_button_text' ).val(),
+				},
+				scrollbar: {
+					background: $( '#cset_color_scrollbar_background' ).val(),
+					thumb: $( '#cset_color_scrollbar_thumb' ).val(),
+				},
+			};
+
+			SetColorSettings();
+
 			SaveData();
 
 			// ツイートボタンのツールチップを設定に合わせる
@@ -769,7 +888,7 @@ Contents.cmnsetting = function( cp )
 		////////////////////////////////////////
 		// 分類部クリック処理
 		////////////////////////////////////////
-		cont.find( '.kind' ).click( function( e ) {
+		cont.find( '.kind' ).on( 'click', function( e ) {
 			var img_off = 'icon-play';
 			var img_on = 'icon-arrow_down';
 

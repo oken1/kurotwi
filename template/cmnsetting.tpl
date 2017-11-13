@@ -39,15 +39,6 @@
 		</div>
 		<div class='group'>
 			<div class='title'>
-				(i18n_0234)
-			</div>
-			<div class='radiocontainer'>
-				<div><input type='radio' name='cset_color_select' value='0' {if $param->color_select==0}checked{/if}>(i18n_0269)</div>
-				<div><input type='radio' name='cset_color_select' value='1' {if $param->color_select==1}checked{/if}>(i18n_0079)</div>
-			</div>
-		</div>
-		<div class='group'>
-			<div class='title'>
 				(i18n_0340)
 			</div>
 			<div class='checkboxcontainer'>
@@ -57,6 +48,101 @@
 			<div class='checkboxcontainer'>
 				<span><input type='checkbox' id='cset_scroll_horizontal' {if $param->scroll_horizontal==1}checked{/if}></span>
 				<span>(i18n_0342)</span>
+			</div>
+		</div>
+	</div>
+
+	<div class='kind'><span class='icon-arrow_down'></span>(i18n_0368)</div>
+	<div class='kinditems'>
+		<div class='group'>
+			<div class='title'>
+				(i18n_0369)
+			</div>
+			<div class='colorcontainer'>
+				<span>(i18n_0373)</span>
+				<span><input type='text' value='{$param->color->panel->background}'></span>
+				<span><input type='color' id='cset_color_panel_background' value='{$param->color->panel->background}'></span>
+			</div>
+			<div class='colorcontainer'>
+				<span>(i18n_0374)</span>
+				<span><input type='text' value='{$param->color->panel->text}'></span>
+				<span><input type='color' id='cset_color_panel_text' value='{$param->color->panel->text}'></span>
+			</div>
+		</div>
+		<div class='group'>
+			<div class='title'>
+				(i18n_0370)
+			</div>
+			<div class='colorcontainer'>
+				<span>(i18n_0373)</span>
+				<span><input type='text' value='{$param->color->tweet->background}'></span>
+				<span><input type='color' id='cset_color_tweet_background' value='{$param->color->tweet->background}'></span>
+			</div>
+			<div class='colorcontainer'>
+				<span>(i18n_0374)</span>
+				<span><input type='text' value='{$param->color->tweet->text}'></span>
+				<span><input type='color' id='cset_color_tweet_text' value='{$param->color->tweet->text}'></span>
+			</div>
+			<div class='colorcontainer'>
+				<span>(i18n_0375)</span>
+				<span><input type='text' value='{$param->color->tweet->link}'></span>
+				<span><input type='color' id='cset_color_tweet_link' value='{$param->color->tweet->link}'></span>
+			</div>
+		</div>
+		<div class='group'>
+			<div class='title'>
+				(i18n_0371)
+			</div>
+			<div class='colorcontainer'>
+				<span>(i18n_0373)</span>
+				<span><input type='text' value='{$param->color->titlebar->background}'></span>
+				<span><input type='color' id='cset_color_titlebar_background' value='{$param->color->titlebar->background}'></span>
+			</div>
+			<div class='colorcontainer'>
+				<span>(i18n_0374)</span>
+				<span><input type='text' value='{$param->color->titlebar->text}'></span>
+				<span><input type='color' id='cset_color_titlebar_text' value='{$param->color->titlebar->text}'></span>
+			</div>
+			<div class='colorcontainer'>
+				<span>(i18n_0376)</span>
+				<span><input type='text' value='{$param->color->titlebar->fixed}'></span>
+				<span><input type='color' id='cset_color_titlebar_fixed' value='{$param->color->titlebar->fixed}'></span>
+			</div>
+		</div>
+		<div class='group'>
+			<div class='title'>
+				(i18n_0372)
+			</div>
+			<div class='colorcontainer'>
+				<span>(i18n_0373)</span>
+				<span><input type='text' value='{$param->color->button->background}'></span>
+				<span><input type='color' id='cset_color_button_background' value='{$param->color->button->background}'></span>
+			</div>
+			<div class='colorcontainer'>
+				<span>(i18n_0374)</span>
+				<span><input type='text' value='{$param->color->button->text}'></span>
+				<span><input type='color' id='cset_color_button_text' value='{$param->color->button->text}'></span>
+			</div>
+		</div>
+		<div class='group'>
+			<div class='title'>
+				(i18n_0380)
+			</div>
+			<div class='colorcontainer'>
+				<span>(i18n_0373)</span>
+				<span><input type='text' value='{$param->color->scrollbar->background}'></span>
+				<span><input type='color' id='cset_color_scrollbar_background' value='{$param->color->scrollbar->background}'></span>
+			</div>
+			<div class='colorcontainer'>
+				<span>(i18n_0381)</span>
+				<span><input type='text' value='{$param->color->scrollbar->thumb}'></span>
+				<span><input type='color' id='cset_color_scrollbar_thumb' value='{$param->color->scrollbar->thumb}'></span>
+			</div>
+		</div>
+		<div class='group'>
+			<div class='textboxcontainer'>
+				<span><a class='btn' id='cset_reset_color'>(i18n_0377)</a></span>
+				<span><a class='btn' id='cset_tweet_color'>(i18n_0378)</a></span>
 			</div>
 		</div>
 	</div>

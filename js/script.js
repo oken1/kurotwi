@@ -1,82 +1,7 @@
 "use strict";
 
 // 共通データ
-var g_cmn = {
-	cmn_param:	{											// 共通パラメータ
-		font_family:		'',								// - フォント名
-		font_size:			12,								// - フォントサイズ
-		snap:				0,								// - パネルのスナップ
-		stream:				1,								// - ユーザーストリームを使う
-		autoreadmore:		0,								// - もっと読むを自動実行
-		color_select:		0,								// - 色の選択
-		scroll_vertical:	1,								// - ページ全体のスクロールバー(縦)
-		scroll_horizontal:	1,								// - ページ全体のスクロールバー(横)
-
-		notify_time:		10,								// - 通知の表示時間
-		notify_sound_volume:1.0,							// - 音量
-		notify_new:			1,								// - 新着あり通知
-		notify_dmrecv:		1,								// - DM受信通知
-		notify_favorite:	1,								// - お気に入り通知
-		notify_follow:		1,								// - フォロー通知
-		notify_mention:		1,								// - Mention通知
-		notify_reponly:		0,								// - リプライのみ
-		notify_retweet:		1,								// - リツイート通知
-		notify_incoming:	1,								// - フォローリクエスト通知
-		notify_quoted_tweet:1,								// - 引用リツイート通知
-		notify_alltweets:	0,								// - すべてのツイートを通知
-		notify_list_add:	1,								// - リストに追加
-
-		top_period:			0,								// - 複数リプライ時にピリオドをつける
-		tweetkey:			0,								// - ツイートショートカットキー
-
-		reload_time:		600,							// - 新着読み込み
-		get_count:			20,								// - 一度に取得するツイート数
-		max_count:			100,							// - タイムラインに表示する最大ツイート数
-		thumbnail:			1,								// - サムネイル
-		urlexpand:			1,								// - URL展開
-		search_lang:		0,								// - 検索対象言語
-		newscroll:			1,								// - 新着ツイートにスクロール
-		auto_thumb:			1,								// - サムネイルの自動表示
-		follow_mark:		1,								// - 相互フォロー表示
-		iconsize:			32,								// - アイコンサイズ
-		onlyone_rt:			0,								// - リツイートを重複表示しない
-		confirm_rt:			1,								// - リツイートを確認する
-		ngwords:			null,							// - NG設定
-		timedisp:			0,								// - ツイート時間の表示形式
-		rt_accsel:			1,								// - リツイートするアカウントを選択する
-		exclude_retweets:	0,								// - 検索結果からリツイートを除外する
-
-		namedisp:			0,								// - 名前の表示形式
-
-		image_service:		0,								// - 画像アップロード先
-		nowbrowsing_text:	'Now Browsing: ',				// - Now Browsingテキスト
-		consumerKey:		'',								// - Consumer Key
-		consumerSecret:		'',								// - Consumer Secret
-	},
-	panel:			null,			// パネル
-	account:		null,			// アカウント
-	hashtag:		null,			// ハッシュタグ
-	draft:			null,			// 下書き
-	mute:			null,			// 非表示ユーザ
-	toolbar_user:	null,			// ツールバーに登録しているユーザ
-	rss_panel:		null,			// RSSパネル
-	group_panel:	null,			// グループパネル
-	user_iconsize:	null,			// ユーザーごとのアイコンサイズ
-	twconfig:		{				// Twitterの設定値
-		short_url_length:				20,	// 2012/10/15現在の値
-		characters_reserved_per_media:	21,
-	},
-	twdelete:		{				// ツイ消し
-		count:		0,				// 回数
-		exp:		0,				// EXP
-		best:		null,			// 最速タイム
-	},
-	twdelete_history: null,			// ツイ消し履歴
-
-	account_order:	null,			// アカウントの並び順
-	panellist_width: '200px',		// パネルリストの幅
-	current_version: '',			// 現在のバージョン
-};
+var g_cmn = {};
 
 // バックグラウンド開始済みフラグ
 var g_bgstarted = false;
@@ -106,6 +31,107 @@ var g_namedisp = 0;
 // 時間表示形式
 var g_timedisp = 0;
 
+////////////////////////////////////////////////////////////////////////////////
+// 開始
+////////////////////////////////////////////////////////////////////////////////
+$( document ).ready( function() {
+	g_cmn = {
+		cmn_param:	{											// 共通パラメータ
+			font_family:		'',								// - フォント名
+			font_size:			12,								// - フォントサイズ
+			snap:				0,								// - パネルのスナップ
+			stream:				1,								// - ユーザーストリームを使う
+			autoreadmore:		0,								// - もっと読むを自動実行
+			scroll_vertical:	1,								// - ページ全体のスクロールバー(縦)
+			scroll_horizontal:	1,								// - ページ全体のスクロールバー(横)
+
+			notify_time:		10,								// - 通知の表示時間
+			notify_sound_volume:1.0,							// - 音量
+			notify_new:			1,								// - 新着あり通知
+			notify_dmrecv:		1,								// - DM受信通知
+			notify_favorite:	1,								// - お気に入り通知
+			notify_follow:		1,								// - フォロー通知
+			notify_mention:		1,								// - Mention通知
+			notify_reponly:		0,								// - リプライのみ
+			notify_retweet:		1,								// - リツイート通知
+			notify_incoming:	1,								// - フォローリクエスト通知
+			notify_quoted_tweet:1,								// - 引用リツイート通知
+			notify_alltweets:	0,								// - すべてのツイートを通知
+			notify_list_add:	1,								// - リストに追加
+
+			top_period:			0,								// - 複数リプライ時にピリオドをつける
+			tweetkey:			0,								// - ツイートショートカットキー
+
+			reload_time:		600,							// - 新着読み込み
+			get_count:			20,								// - 一度に取得するツイート数
+			max_count:			100,							// - タイムラインに表示する最大ツイート数
+			thumbnail:			1,								// - サムネイル
+			urlexpand:			1,								// - URL展開
+			search_lang:		0,								// - 検索対象言語
+			newscroll:			1,								// - 新着ツイートにスクロール
+			auto_thumb:			1,								// - サムネイルの自動表示
+			follow_mark:		1,								// - 相互フォロー表示
+			iconsize:			32,								// - アイコンサイズ
+			onlyone_rt:			0,								// - リツイートを重複表示しない
+			confirm_rt:			1,								// - リツイートを確認する
+			ngwords:			null,							// - NG設定
+			timedisp:			0,								// - ツイート時間の表示形式
+			rt_accsel:			1,								// - リツイートするアカウントを選択する
+			exclude_retweets:	0,								// - 検索結果からリツイートを除外する
+
+			namedisp:			0,								// - 名前の表示形式
+
+			image_service:		0,								// - 画像アップロード先
+			nowbrowsing_text:	'Now Browsing: ',				// - Now Browsingテキスト
+			consumerKey:		'',								// - Consumer Key
+			consumerSecret:		'',								// - Consumer Secret
+
+			color: {											// - 色の設定
+				panel: {
+					background: $( ':root' ).css( '--default-panel-background' ),
+					text: $( ':root' ).css( '--default-panel-text' ),
+				},
+				tweet: {
+					background: $( ':root' ).css( '--default-tweet-background' ),
+					text: $( ':root' ).css( '--default-tweet-text' ),
+					link: $( ':root' ).css( '--default-tweet-link' ),
+				},
+				titlebar: {
+					background: $( ':root' ).css( '--default-titlebar-background' ),
+					text: $( ':root' ).css( '--default-titlebar-text' ),
+					fixed: $( ':root' ).css( '--default-titlebar-fixed-background' ),
+				},
+				button: {
+					background: $( ':root' ).css( '--default-button-background' ),
+					text: $( ':root' ).css( '--default-button-text' ),
+				},
+				scrollbar: {
+					background: $( ':root' ).css( '--default-scrollbar-background' ),
+					thumb: $( ':root' ).css( '--default-scrollbar-thumb' ),
+				},
+			},
+		},
+		panel:			null,			// パネル
+		account:		null,			// アカウント
+		hashtag:		null,			// ハッシュタグ
+		draft:			null,			// 下書き
+		mute:			null,			// 非表示ユーザ
+		toolbar_user:	null,			// ツールバーに登録しているユーザ
+		rss_panel:		null,			// RSSパネル
+		group_panel:	null,			// グループパネル
+		user_iconsize:	null,			// ユーザーごとのアイコンサイズ
+		twconfig:		{				// Twitterの設定値
+			short_url_length:				20,	// 2012/10/15現在の値
+			characters_reserved_per_media:	21,
+		},
+
+		account_order:	null,			// アカウントの並び順
+		panellist_width: '200px',		// パネルリストの幅
+		current_version: '',			// 現在のバージョン
+	};
+
+	Init();
+} );
 
 ////////////////////////////////////////////////////////////////////////////////
 // 初期化処理
@@ -131,7 +157,6 @@ function Init()
 	g_cmn.user_iconsize = {};
 	g_cmn.cmn_param.ngwords = new Array();
 	g_cmn.account_order = new Array();
-	g_cmn.twdelete_history = new Array();
 
 	$( document ).on( 'drop dragover', function( e ) {
 		if ( e.target.tagName.match( /textarea/i ) || ( e.target.tagName.match( /input/i ) && e.target.type.match( /text/i ) ) )
@@ -177,7 +202,7 @@ function Init()
 		success: function( data, status ) {
 			manifest = data;
 
-			$( '#main' ).append( '<div id="version"><a class="anchor" href="http://www.jstwi.com/kurotwi/" target="_blank">' +
+			$( '#main' ).append( '<div id="version"><a class="anchor version" href="http://www.jstwi.com/kurotwi/" rel="nofollow noopener noreferrer" target="_blank">' +
 				manifest.name + ' version ' + manifest.version + '</a></div>' );
 		},
 		async: false,
@@ -223,17 +248,34 @@ function Init()
 							continue;
 						}
 
-						g_cmn.cmn_param[p] = _g_cmn.cmn_param[p];
+						switch ( p )
+						{
+							// 色の設定
+							case 'color':
+								for ( var q in g_cmn.cmn_param[p] )
+								{
+									for ( var r in g_cmn.cmn_param[p][q] )
+									{
+										if ( _g_cmn.cmn_param[p][q] != undefined )
+										{
+											g_cmn.cmn_param[p][q][r] = _g_cmn.cmn_param[p][q][r];
+										}
+										else
+										{
+										console.log(q + ' undefined ' );
+										}
+									}
+								}
+								break;
+
+							default:
+								g_cmn.cmn_param[p] = _g_cmn.cmn_param[p];
+								break;
+						}
 					}
 
 					// フォントサイズ
 					SetFont();
-
-					// 色の選択
-					if ( g_cmn.cmn_param['color_select'] != 0 )
-					{
-						SetColorFile( 'color' + g_cmn.cmn_param['color_select'] );
-					}
 
 					// ページ全体のスクロールバー
 					$( 'body' ).css( { 'overflow-y': ( g_cmn.cmn_param['scroll_vertical'] == 1 ) ? 'auto' : 'hidden' } );
@@ -255,18 +297,6 @@ function Init()
 					// （アカウントの復元後に実行する）
 					////////////////////////////////////////
 					var Subsequent = function() {
-						// ツイ消し記録の復元
-						if ( _g_cmn.twdelete != undefined )
-						{
-							g_cmn.twdelete = _g_cmn.twdelete;
-						}
-
-						// ツイ消し履歴の復元
-						if ( _g_cmn.twdelete_history != undefined )
-						{
-							g_cmn.twdelete_history = _g_cmn.twdelete_history;
-						}
-
 						// ハッシュタグの復元
 						if ( _g_cmn.hashtag != undefined )
 						{
@@ -364,7 +394,7 @@ function Init()
 							{
 								MessageBox( chrome.i18n.getMessage( 'i18n_0345', [g_cmn.current_version, manifest.version] ) +
 									'<br><br>' +
-									'<a class="anchor" href="http://www.jstwi.com/kurotwi/update.html" target="_blank">http://www.jstwi.com/kurotwi/update.html</a>',
+									'<a class="anchor version" href="http://www.jstwi.com/kurotwi/update.html" rel="nofollow noopener noreferrer" target="_blank">http://www.jstwi.com/kurotwi/update.html</a>',
 									5 * 1000 );
 							}
 						}
@@ -436,6 +466,9 @@ function Init()
 								}, 1000, id );
 							}
 						}
+
+						// 色の設定
+						SetColorSettings();
 
 						g_loaded = true;
 					};
@@ -883,30 +916,6 @@ function Init()
 
 				break;
 
-			// ツイ消しこれくしょん
-			case 6:
-				var pid = IsUnique( 'twdelete_collection' );
-
-				if ( pid == null )
-				{
-					var _cp = new CPanel( null, null, 500, $( window ).height() * 0.75 );
-					_cp.SetType( 'twdelete_collection' );
-					_cp.SetTitle( chrome.i18n.getMessage( 'i18n_0350' ), false );
-					_cp.SetParam( {} );
-					_cp.Start();
-				}
-				else
-				{
-					SetFront( $( '#' + pid ) );
-
-					// 最小化している場合は元に戻す
-					if ( GetPanel( pid ).minimum.minimum == true )
-					{
-						$( '#' + pid ).find( 'titlebar' ).find( '.minimum' ).trigger( 'click' );
-					}
-				}
-
-				break;
 		}
 
 		$( this ).toggle();
@@ -1428,7 +1437,9 @@ function SetFont( formflg )
 {
 	if ( !formflg )
 	{
-		$( 'html,body' ).css( { fontSize: g_cmn.cmn_param.font_size + 'px', fontFamily: g_cmn.cmn_param.font_family } );
+		var font_family = ( g_cmn.cmn_param.font_family ) ? g_cmn.cmn_param.font_family : $( ':root' ).css( '--default-font-family' );
+
+		$( 'html,body' ).css( { fontSize: g_cmn.cmn_param.font_size + 'px', fontFamily: font_family } );
 	}
 
 	$( 'input[type=text]' ).css( { fontSize: g_cmn.cmn_param.font_size + 'px' } );
@@ -1585,8 +1596,7 @@ function MakeTimeline( json, account_id )
 		}
 	} );
 
-	// rel="nofollow"をclass="anchor" target="_blank"に書き換える
-	json.source = json.source.replace( /rel=\"nofollow\"/, 'class="anchor" target="_blank"' );
+	json.source = json.source.replace( /rel=\"nofollow\"/, 'rel="nofollow noopener noreferrer" class="anchor" target="_blank"' );
 
 	// "</a>がついていないことがある不具合対策
 	if ( json.source.match( /^<a/ ) )
@@ -1600,7 +1610,7 @@ function MakeTimeline( json, account_id )
 	// 公式
 	if ( json.source.match( /^web$/ ) )
 	{
-		json.source = '<a href="https://twitter.com/" class="anchor" target="_blank">web</a>';
+		json.source = '<a href="https://twitter.com/" class="anchor" rel="nofollow noopener noreferrer" target="_blank">web</a>';
 	}
 
 	// "改行
@@ -2019,142 +2029,7 @@ function StreamDataAnalyze( data )
 	}
 	else if ( json.delete )
 	{
-		var _d = new Date();
-
-		$( '.contents.timeline' ).find( '.timeline_list' ).find( '.item[status_id="' + json.delete.status.id_str + '"]' )
-			.addClass( 'deleted' )
-			.attr( 'deltime', _d.getTime() )
-			.each( function() {
-				$( this ).mousedown( function( e ) {
-
-				// ツイ消しを見た
-				var item = $( this );
-
-				// 自分のツイートは無効
-				if ( IsMyAccount( item.attr( 'user_id' ) ) )
-				{
-					return;
-				}
-
-				// RT取り消しは対象外
-				if ( item.find( '> div.icon' ).find( '.retweet' ).length )
-				{
-					return;
-				}
-
-				// すでに見てる
-				if ( item.hasClass( 'delchecked' ) )
-				{
-					return;
-				}
-
-				var _cd = new Date();
-				var dif = _cd.getTime() - item.attr( 'deltime' );
-
-				g_cmn.twdelete.count++;
-				g_cmn.twdelete.exp += GetTimeExp( dif );
-
-				if ( g_cmn.twdelete.best == null || g_cmn.twdelete.best > dif )
-				{
-					g_cmn.twdelete.best = dif;
-				}
-
-				// アイコン
-				var img = item.find( '> div.icon' ).find( '> img' );
-
-				// クライアント
-				var source = item.find( '> div.tweet' ).find( 'div.namedate' ).find( 'span.source' ).find( '> a' ).text();
-
-				// レアリティ設定
-				var denom = 500;
-
-				// 分母変更
-				denom -= ( source == 'KuroTwi' ) ? 50 : 0;
-
-				var rarity;
-				var r = Math.floor( Math.random() * denom );
-
-				if ( r <= 1 )					rarity = 6;
-				else if ( r > 1 && r <= 6 )		rarity = 5;
-				else if ( r > 6 && r <= 36 )	rarity = 4;
-				else if ( r > 36 && r <= 116 )	rarity = 3;
-				else if ( r > 116 && r <= 266 )	rarity = 2;
-				else							rarity = 1;
-
-				var assign = {
-					id: GetUniqueID(),
-					icon: img.attr( 'src' ),
-					time: dif,
-					rarity: rarity,
-					date: _cd.getTime(),
-					screen_name: item.attr( 'screen_name' ),
-					user_id: item.attr( 'user_id' ),
-					options: {},
-				};
-
-				var _a = $.extend( true, {}, assign );
-
-				assign.rarity_name = GetRarity( rarity );
-				assign.best = ( assign.time == g_cmn.twdelete.best ) ? true : false;
-				assign.time = ( assign.time / 1000 <= 999 ) ? ( ( assign.time / 1000 ).toFixed( 5 ).toString() + '00000' ).substr( 0, 5 ) : ' 999+';
-
-				var twd = $( OutputTPL( 'twdelete', assign ) );
-				var twd_pop = $( OutputTPL( 'twdelete_pop', {} ) );
-
-				twd_pop.append( twd );
-
-				$( '#main' ).append( twd_pop );
-
-				var _twd = $( '#main' ).find( '.twd_pop:last' );
-
-				_twd.css( {
-					left: ( $( window ).width() - _twd.outerWidth() ) / 2 + $( document ).scrollLeft(),
-					top: ( $( window ).height() - _twd.outerHeight() ) / 2 + $( document ).scrollTop(),
-				} );
-
-				var _l, _t;
-
-				if ( $( '#twdelete_collection_list' ).length )
-				{
-					_l = $( '#twdelete_collection_list' ).offset().left;
-					_t = $( '#twdelete_collection_list' ).offset().top;
-				}
-				else
-				{
-					_l = $( '#head_tool' ).offset().left;
-					_t = $( '#head_tool' ).offset().top;
-				}
-
-				setTimeout( function() {
-					_twd.find( 'span.twd_title' ).hide();
-
-					_twd.animate( {
-						left: _l + 'px',
-						top: _t + 'px',
-						opacity: 0,
-					},
-					{
-						duration: 'normal',
-						complete: function() {
-							_twd.remove();
-
-							g_cmn.twdelete_history.push( _a );
-							SaveData();
-							$( '#twdelete_collection_list' ).trigger( 'history_reload' );
-						},
-						step: function( now, fx ) {
-							if ( fx.prop == 'opacity' )
-							{
-								$( this ).css( 'transform', 'scale(' + now + ') rotate(' + ( 360 - 360 * now ) + 'deg)' );
-							}
-						}
-					} );
-				}, 2000 );
-
-				var _id = item.attr( 'status_id' );
-				$( '.contents.timeline' ).find( '.timeline_list' ).find( '.item[status_id="' + _id + '"]' ).addClass( 'delchecked' );
-			} )
-		} );
+		$( '.contents.timeline' ).find( '.timeline_list' ).find( '.item[status_id="' + json.delete.status.id_str + '"]' ).addClass( 'deleted' )
 	}
 	else
 	{
@@ -3617,21 +3492,6 @@ function SetUserIconSize( items )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// 色設定ファイルを適用する
-////////////////////////////////////////////////////////////////////////////////
-function SetColorFile( filename )
-{
-	if ( filename != '' )
-	{
-		$( '#stylecolor' ).attr( 'href', 'css/' + filename + '.css?' + GetUniqueID() );
-	}
-	else
-	{
-		$( '#stylecolor' ).attr( 'href', '' );
-	}
-}
-
-////////////////////////////////////////////////////////////////////////////////
 // configurationを取得する
 ////////////////////////////////////////////////////////////////////////////////
 function GetConfiguration( callback )
@@ -3868,42 +3728,6 @@ $( document ).on( 'panellist_changed', function( e ) {
 } );
 
 ////////////////////////////////////////////////////////////////////////////////
-// ツイ消し-時間から取得EXPを求める
-////////////////////////////////////////////////////////////////////////////////
-function GetTimeExp( tm )
-{
-	var exp = 0;
-
-	if ( tm <= 3 * 1000 ) exp = 10;
-	if ( tm > 3 * 1000 && tm <= 10 * 1000 ) exp = 5;
-	if ( tm > 10 * 1000 && tm <= 30 * 1000 ) exp = 3;
-	if ( tm > 30 * 1000 && tm <= 60 * 1000 ) exp = 2;
-	if ( tm > 60 * 1000 && tm <= 180 * 1000 ) exp = 1;
-	if ( tm > 180 * 1000 && tm <= 300 * 1000 ) exp = 0;
-	if ( tm > 300 * 1000 ) exp = -1;
-
-	return exp;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// レアリティ名を返す
-////////////////////////////////////////////////////////////////////////////////
-function GetRarity( rarity )
-{
-	var ret = new Array(
-		'',
-		'common',
-		'uncommon',
-		'magic',
-		'rare',
-		'unique',
-		'legendary'
-	);
-
-	return ret[rarity];
-}
-
-////////////////////////////////////////////////////////////////////////////////
 // ツイート拡張対応
 ////////////////////////////////////////////////////////////////////////////////
 function ConvertExtendedTweet( json, type )
@@ -3957,8 +3781,27 @@ function ConvertExtendedTweet( json, type )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// 開始
+// 色の設定をCSSに反映する
 ////////////////////////////////////////////////////////////////////////////////
-$( document ).ready( function() {
-	Init();
-} );
+function SetColorSettings()
+{
+	$( ':root' ).css( {
+		'--panel-background': g_cmn.cmn_param.color.panel.background,
+		'--panel-text': g_cmn.cmn_param.color.panel.text,
+
+		'--tweet-background': g_cmn.cmn_param.color.tweet.background,
+		'--tweet-res-background': HSLConvert( g_cmn.cmn_param.color.tweet.background, 0.8 ),
+		'--tweet-text': g_cmn.cmn_param.color.tweet.text,
+		'--tweet-link': g_cmn.cmn_param.color.tweet.link,
+
+		'--titlebar-background': g_cmn.cmn_param.color.titlebar.background,
+		'--titlebar-text': g_cmn.cmn_param.color.titlebar.text,
+		'--titlebar-fixed-background': g_cmn.cmn_param.color.titlebar.fixed,
+
+		'--button-background': g_cmn.cmn_param.color.button.background,
+		'--button-text': g_cmn.cmn_param.color.button.text,
+
+		'--scrollbar-background': g_cmn.cmn_param.color.scrollbar.background,
+		'--scrollbar-thumb': g_cmn.cmn_param.color.scrollbar.thumb,
+	} );
+}

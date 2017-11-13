@@ -168,7 +168,7 @@ Contents.follow = function( cp )
 
 								AppendReadmore();
 
-								follow_list.find( '.readmore:first' ).remove();
+								follow_list.find( '.readmore' ).first().remove();
 								$( '#tooltip' ).hide();
 
 								break;
@@ -184,7 +184,7 @@ Contents.follow = function( cp )
 						// もっと読むで404が返ってきた場合
 						if ( type == 'old' && res.status == 404 )
 						{
-							follow_list.find( '.readmore:first' ).remove();
+							follow_list.find( '.readmore' ).first().remove();
 							$( '#tooltip' ).hide();
 						}
 						else
@@ -370,7 +370,7 @@ Contents.follow = function( cp )
 		////////////////////////////////////////
 		// ユーザ名クリック
 		////////////////////////////////////////
-		follow_list.on( 'click', $( '> div.item' ).find( '.screen_name' ).selector, function( e ) {
+		follow_list.on( 'click', '> div.item .screen_name', function( e ) {
 			OpenUserTimeline( $( this ).text(), cp.param['account_id'] );
 			e.stopPropagation();
 		} );
@@ -378,7 +378,7 @@ Contents.follow = function( cp )
 		////////////////////////////////////////
 		// アイコンクリック処理
 		////////////////////////////////////////
-		follow_list.on( 'click', $( '> div.item' ).find( '.icon' ).find( 'img' ).selector, function( e ) {
+		follow_list.on( 'click', '> div.item .icon img', function( e ) {
 			OpenUserShow( $( this ).parent().parent().attr( 'screen_name' ),
 				$( this ).parent().parent().attr( 'user_id' ),
 				cp.param['account_id'] );
@@ -389,7 +389,7 @@ Contents.follow = function( cp )
 		////////////////////////////////////////
 		// もっと読むクリック処理
 		////////////////////////////////////////
-		follow_list.on( 'click', $( '> div.readmore' ).selector, function( e ) {
+		follow_list.on( 'click', '> div.readmore', function( e ) {
 			// disabledなら処理しない
 			if ( $( this ).hasClass( 'disabled' ) )
 			{
@@ -406,7 +406,7 @@ Contents.follow = function( cp )
 		////////////////////////////////////////
 		// アイコンにカーソルを乗せたとき
 		////////////////////////////////////////
-		follow_list.on( 'mouseenter mouseleave', $( '> div.item' ).find( 'div.icon' ).find( '> img' ).selector, function( e ) {
+		follow_list.on( 'mouseenter mouseleave', '> div.item div.icon > img', function( e ) {
 			if ( e.type == 'mouseenter' )
 			{
 				// Draggableの設定をする
@@ -455,14 +455,14 @@ Contents.follow = function( cp )
 		////////////////////////////////////////
 		// 一番上へ
 		////////////////////////////////////////
-		cont.find( '.panel_btns' ).find( '.sctbl' ).find( 'a:first' ).click( function( e ) {
+		cont.find( '.panel_btns' ).find( '.sctbl' ).find( 'a' ).first().click( function( e ) {
 			follow_list.scrollTop( 0 );
 		} );
 
 		////////////////////////////////////////
 		// 一番下へ
 		////////////////////////////////////////
-		cont.find( '.panel_btns' ).find( '.sctbl' ).find( 'a:last' ).click( function( e ) {
+		cont.find( '.panel_btns' ).find( '.sctbl' ).find( 'a' ).last().click( function( e ) {
 			follow_list.scrollTop( follow_list.prop( 'scrollHeight' ) );
 		} );
 

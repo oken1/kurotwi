@@ -30,7 +30,7 @@ Contents.dmbox = function( cp )
 		////////////////////////////////////////
 		cont.on( 'contents_resize', function() {
 			$( '#dmbox_text' ).width( p.width() - 24 );
-			$( '#dmbox_box' ).find( 'div:first' ).width( p.width() - 12 );
+			$( '#dmbox_box' ).find( 'div' ).first().width( p.width() - 12 );
 
 			var acc_h = cont.find( '.account_select' ).outerHeight();
 

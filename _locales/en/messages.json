@@ -1115,7 +1115,7 @@
 	},
 
 	"i18n_0300": {
-		"message": "Font name(Not specified=Browser font)"
+		"message": "Font name"
 	},
 
 	"i18n_0301": {
@@ -1374,28 +1374,12 @@
 		"message": "Import Error"
 	},
 
-	"i18n_0349": {
-		"message": "I saw a tweet delete"
-	},
-
-	"i18n_0350": {
-		"message": "\"tweet delete\" collection"
-	},
-
 	"i18n_0351": {
 		"message": "individual"
 	},
 
 	"i18n_0352": {
 		"message": "Confirm retweet"
-	},
-
-	"i18n_0353": {
-		"message": "Batch Delete"
-	},
-
-	"i18n_0354": {
-		"message": "Please select a rarity to be deleted"
 	},
 
 	"i18n_0355": {
@@ -1458,8 +1442,61 @@
 		"message": "Mute user ID"
 	},
 
+	"i18n_0368": {
+		"message": "Color settings"
+	},
 
+	"i18n_0369": {
+		"message": "Panel"
+	},
 
+	"i18n_0370": {
+		"message": "Tweet"
+	},
+
+	"i18n_0371": {
+		"message": "Titlebar"
+	},
+
+	"i18n_0372": {
+		"message": "Button"
+	},
+
+	"i18n_0373": {
+		"message": "Background"
+	},
+
+	"i18n_0374": {
+		"message": "Text"
+	},
+
+	"i18n_0375": {
+		"message": "Link"
+	},
+
+	"i18n_0376": {
+		"message": "Fixed panel"
+	},
+
+	"i18n_0377": {
+		"message": "Reset"
+	},
+
+	"i18n_0378": {
+		"message": "Tweet color settings"
+	},
+
+	"i18n_0379": {
+		"message": "Import color settings"
+	},
+
+	"i18n_0380": {
+		"message": "Scrollbar"
+	},
+
+	"i18n_0381": {
+		"message": "Thumb"
+	},
 
 
 

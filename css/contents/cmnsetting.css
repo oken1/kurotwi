@@ -46,12 +46,13 @@ div.contents.cmnsetting {
 }
 
 #cmnsetting_items .name_large {
-	color: #ffffff;
+	color: var(--panel-text);
 	font-weight: bold;
 }
 
 #cmnsetting_items .name_small {
-	color: #c0c0c0;
+	color: var(--panel-text);
+	opacity: 0.8;
 	font-size: 0.8rem;
 }
 
@@ -107,7 +108,7 @@ div.contents.cmnsetting {
 }
 
 #reponly_str.disabled {
-	color: #808080;
+	opacity: 0.5;
 }
 
 /* NG設定 */
@@ -202,4 +203,22 @@ div.contents.cmnsetting {
 
 #csethash_list > .hashitem > .hashword > input[type='text'].ngchar {
 	background: #a0a0a0;
+}
+
+/* 色の設定 */
+.colorcontainer {
+	display: table;
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0 1px;
+}
+
+.colorcontainer span:first-child {
+	display: table-cell;
+	width: 10rem;
+	padding-left: 1rem;
+}
+
+.colorcontainer input[type='text'] {
+	width: 6rem;
 }

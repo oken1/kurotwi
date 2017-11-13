@@ -130,7 +130,7 @@ Contents.usersearch = function( cp )
 								AppendReadmore();
 							}
 
-							usersearch_list.find( '.readmore:first' ).remove();
+							usersearch_list.find( '.readmore' ).first().remove();
 							$( '#tooltip' ).hide();
 
 							break;
@@ -143,7 +143,7 @@ Contents.usersearch = function( cp )
 					// もっと読むで404が返ってきた場合
 					if ( type == 'old' && res.status == 404 )
 					{
-						usersearch_list.find( '.readmore:first' ).remove();
+						usersearch_list.find( '.readmore' ).first().remove();
 						$( '#tooltip' ).hide();
 					}
 					else
@@ -289,7 +289,7 @@ Contents.usersearch = function( cp )
 		////////////////////////////////////////
 		// ユーザ名クリック
 		////////////////////////////////////////
-		usersearch_list.on( 'click', $( '> div.item' ).find( '.screen_name' ).selector, function( e ) {
+		usersearch_list.on( 'click', '> div.item .screen_name', function( e ) {
 			OpenUserTimeline( $( this ).text(), cp.param['account_id'] );
 			e.stopPropagation();
 		} );
@@ -297,7 +297,7 @@ Contents.usersearch = function( cp )
 		////////////////////////////////////////
 		// アイコンクリック処理
 		////////////////////////////////////////
-		usersearch_list.on( 'click', $( '> div.item' ).find( '.icon' ).find( 'img' ).selector, function( e ) {
+		usersearch_list.on( 'click', '> div.item .icon img', function( e ) {
 			OpenUserShow( $( this ).parent().parent().attr( 'screen_name' ),
 				$( this ).parent().parent().attr( 'user_id' ),
 				cp.param['account_id'] );
@@ -308,7 +308,7 @@ Contents.usersearch = function( cp )
 		////////////////////////////////////////
 		// もっと読むクリック処理
 		////////////////////////////////////////
-		usersearch_list.on( 'click', $( '> div.readmore' ).selector, function( e ) {
+		usersearch_list.on( 'click', '> div.readmore', function( e ) {
 			// disabledなら処理しない
 			if ( $( this ).hasClass( 'disabled' ) )
 			{
@@ -325,7 +325,7 @@ Contents.usersearch = function( cp )
 		////////////////////////////////////////
 		// アイコンにカーソルを乗せたとき
 		////////////////////////////////////////
-		usersearch_list.on( 'mouseenter mouseleave', $( '> div.item' ).find( 'div.icon' ).find( '> img' ).selector, function( e ) {
+		usersearch_list.on( 'mouseenter mouseleave', '> div.item div.icon > img', function( e ) {
 			if ( e.type == 'mouseenter' )
 			{
 				// Draggableの設定をする

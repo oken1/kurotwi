@@ -178,7 +178,7 @@ Contents.searchbox = function( cp )
 		////////////////////////////////////////
 		// プルダウン選択
 		////////////////////////////////////////
-		 $( '#searchbox_box' ).find( 'div.pulldown' ).on( 'click', $( '> div.item' ).selector, function( e ) {
+		 $( '#searchbox_box' ).find( 'div.pulldown' ).on( 'click', '> div.item', function( e ) {
 			$( '#searchbox_text' ).val( $( this ).text() )
 				.trigger( 'keyup' )
 				.focus();

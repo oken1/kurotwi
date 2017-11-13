@@ -14,7 +14,7 @@ div.contents.timeline .lines .panel_btns > div .search_btns {
 	z-index: 8900;
 	border: 1px solid #101010;
 	box-shadow: 2px 2px 2px rgba( 0, 0, 0, 0.5 );
-	background: #2e2e2e;
+	background: var(--panel-background);
 	padding: 8px;
 	left: 8px;
 }
@@ -54,13 +54,13 @@ div.contents.timeline .lines div.item {
 	border-bottom: 1px solid rgba( 0, 0, 0, 0.4 );
 	padding: 2px;
 	box-sizing: border-box;
-	background: #282828;	/* color set:ツイートのBG */
-	color: #ffffff;
+	background: var(--tweet-background);
+	color: var(--tweet-text);
 }
 
 /* 新着 */
 div.contents.timeline .lines div.item.new {
-	background: #204060;	/* color set:新着ツイートのBG */
+	background: var(--general-highlight);
 }
 
 div.contents.timeline .lines div.item.resopen {
@@ -99,17 +99,17 @@ div.contents.timeline .lines div.item > .tweet {
 }
 
 div.contents.timeline .lines div.item.deleted {
-	opacity: 0.5;
+	filter: brightness(60%);
 }
 
 div.contents.timeline .lines div.item.res > .tweet {
 	border-radius: 6px;
-	background: #202020;	/* color set:返信元ツイートのBG */
+	background: var(--tweet-res-background);
 }
 
 div.contents.timeline .lines div.item.res > .tail {
 	display: block;
-	border-top: 8px solid #202020;
+	border-top: 8px solid var(--tweet-res-background);
 	width: 8px;
 	-webkit-transform:rotate( 45deg );
 	margin-top: 16px;
@@ -130,6 +130,12 @@ div.contents.timeline .lines div.item > .tweet > div.tweet_quote > div.tweet_quo
 	word-break: break-word;
 }
 
+div.contents.timeline .lines div.item > .tweet > div.tweet_quote img.thumb {
+	width: 50px;
+	height: 50px;
+	padding: 2px;
+}
+
 /* 名前・日付・お気に入り */
 div.contents.timeline .lines div.item > .tweet .headcontainer {
 	display: table;
@@ -146,6 +152,7 @@ div.contents.timeline .lines div.item > .tweet .headcontainer .namedate {
 }
 
 div.contents.timeline .lines div.item > .tweet .headcontainer .namedate .anchor {
+	color: var(--tweet-text);
 	opacity: 0.6;
 }
 
@@ -246,15 +253,15 @@ div.contents.timeline .lines div.item > .tweet .headcontainer .options {
 	padding: 4px;
 	border-radius: 0 6px 0 0;
 
-	background: #282828;	/* color set:ツイートのBG */
+	background: var(--tweet-background);
 }
 
 div.contents.timeline .lines div.item.new > .tweet .headcontainer .options {
-	background: #204060;	/* color set:新着ツイートのBG */
+	background: var(--general-highlight);
 }
 
 div.contents.timeline .lines div.item.res > .tweet .headcontainer .options {
-	background: #202020;	/* color set:返信元ツイートのBG */
+	background: var(--tweet-res-background);
 }
 
 /* アカウント選択 */
@@ -268,7 +275,7 @@ div.contents.timeline .lines div.item > .tweet .headcontainer .options .accsel {
 	z-index: 8900;
 	border: 1px solid #101010;
 	box-shadow: 2px 2px 2px rgba( 0, 0, 0, 0.5 );
-	background: #2e2e2e;
+	background: var(--panel-background);
 	white-space: normal;
 }
 
@@ -371,7 +378,7 @@ div.contents.timeline .lines div.item > .tweet > .tweet_text {
 
 /* ツイート内リンク */
 div.contents.timeline .lines div.item > .tweet > .tweet_text .anchor {
-	color: #add4f2;
+	color: var(--tweet-link);
 }
 
 div.contents.timeline .lines div.item > .tweet > .tweet_text .anchor:hover {
@@ -380,7 +387,7 @@ div.contents.timeline .lines div.item > .tweet > .tweet_text .anchor:hover {
 
 /* 警告表示 */
 div.contents.timeline .lines div.item > .tweet > .tweet_text .warning {
-	color: #add4f2;
+	color: var(--tweet-link);
 	background: #900010;
 }
 
@@ -466,7 +473,7 @@ div.contents.timeline .lines div.item > .tweet .menubox .listmenu {
 	z-index: 8900;
 	border: 1px solid #101010;
 	box-shadow: 2px 2px 2px rgba( 0, 0, 0, 0.5 );
-	background: #2e2e2e;
+	background: var(--panel-background);
 	min-width: 150px;
 	overflow: hidden;
 }
@@ -486,12 +493,12 @@ div.contents.timeline .lines div.item > .tweet .menubox .listmenu div > span {
 	display: block;
 	padding: 4px 10px;
 	text-align: left;
-	color: #ffffff;
+	color: var(--panel-text);
 }
 
 div.contents.timeline .lines div.item > .tweet .menubox .listmenu div > span:hover {
 	cursor: pointer;
-	background: #3e3e3e;
+	background: val(--general-highlight);
 }
 
 /* priv */
@@ -516,7 +523,7 @@ div.contents.timeline .lines div.item > .tweet .menubox .iconsizemenu {
 	z-index: 8900;
 	border: 1px solid #101010;
 	box-shadow: 2px 2px 2px rgba( 0, 0, 0, 0.5 );
-	background: #2e2e2e;
+	background: var(--panel-background);
 	padding: 8px;
 }
 
@@ -613,7 +620,6 @@ div.contents.timeline .setting .member_list {
 
 div.contents.timeline .setting .member_list > span {
 	display: inline-block;
-	color: #c0c0c0;
 	margin: 4px;
 }
 
@@ -659,7 +665,7 @@ div.contents.timeline .setting .acclist > div img {
 }
 
 div.contents.timeline .setting .acclist > div.selected {
-	background: #204060;
+	background: var(--general-highlight);
 }
 
 div.contents.timeline .setting .acclist > div:hover {

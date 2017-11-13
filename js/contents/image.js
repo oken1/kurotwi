@@ -208,7 +208,7 @@ Contents.image = function( cp )
 			cont.find( '.img_panelsize' ).trigger( 'click' );
 		};
 
-		cont.find( 'img.image' ).load( LoadedEvent );
+		cont.find( 'img.image' ).on( 'load', LoadedEvent );
 		cont.find( 'video' ).on( 'loadedmetadata', LoadedEvent );
 
 		////////////////////////////////////////
@@ -227,7 +227,7 @@ Contents.image = function( cp )
 			setTimeout( function() { cont.activity( false ); }, 0 );
 		};
 
-		cont.find( 'img.image,video' ).error( ErrorEvent );
+		cont.find( 'img.image,video' ).on( 'error', ErrorEvent );
 	};
 
 	////////////////////////////////////////////////////////////
