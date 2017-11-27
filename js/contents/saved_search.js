@@ -74,7 +74,7 @@ Contents.saved_search = function( cp )
 
 						var query = $( this ).parent().parent().find( '.query' );
 
-						var conf = confirm( chrome.i18n.getMessage( 'i18n_0185', [query.attr( 'query' )] ) );
+						var conf = confirm( i18nGetMessage( 'i18n_0185', [query.attr( 'query' )] ) );
 
 						if ( conf )
 						{
@@ -104,7 +104,7 @@ Contents.saved_search = function( cp )
 									}
 									else
 									{
-										ApiError( chrome.i18n.getMessage( 'i18n_0225' ), res );
+										ApiError( i18nGetMessage( 'i18n_0225' ), res );
 									}
 
 									Blackout( false );
@@ -118,7 +118,7 @@ Contents.saved_search = function( cp )
 				}
 				else
 				{
-					ApiError( chrome.i18n.getMessage( 'i18n_0209' ), res );
+					ApiError( i18nGetMessage( 'i18n_0209' ), res );
 				}
 
 				$( 'panel' ).find( 'div.contents' ).trigger( 'api_remaining_update', [cp.param['account_id']] );
@@ -193,7 +193,7 @@ Contents.saved_search = function( cp )
 		cont.addClass( 'saved_search' )
 			.html( OutputTPL( 'saved_search', {} ) );
 
-		cp.SetTitle( g_cmn.account[cp.param['account_id']].screen_name + 'の' + chrome.i18n.getMessage( 'i18n_0207' ), false );
+		cp.SetTitle( g_cmn.account[cp.param['account_id']].screen_name + 'の' + i18nGetMessage( 'i18n_0207' ), false );
 
 		////////////////////////////////////////
 		// 更新ボタンクリック

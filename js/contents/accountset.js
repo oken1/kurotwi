@@ -53,7 +53,7 @@ Contents.accountset = function( cp )
 				}
 				else
 				{
-					ApiError( chrome.i18n.getMessage( 'i18n_0160' ), res );
+					ApiError( i18nGetMessage( 'i18n_0160' ), res );
 
 					cont.html( OutputTPL( 'accountset', {
 						icon: '',
@@ -120,7 +120,7 @@ Contents.accountset = function( cp )
 					else
 					{
 						$( '#iconuploadbtn' ).addClass( 'disabled' );
-						$( '#iconuploadbox_select > span' ).html( chrome.i18n.getMessage( 'i18n_0119' ) + '<br><span class="info">' + chrome.i18n.getMessage( 'i18n_0019' ) + '</span>' );
+						$( '#iconuploadbox_select > span' ).html( i18nGetMessage( 'i18n_0119' ) + '<br><span class="info">' + i18nGetMessage( 'i18n_0019' ) + '</span>' );
 					}
 
 					e.stopPropagation();
@@ -137,7 +137,7 @@ Contents.accountset = function( cp )
 					}
 
 					// バックグラウンドの変数にアップロードするファイルを設定
-					chrome.extension.getBackgroundPage().uploadIconFile = $( '#iconupload_input' ).get( 0 ).files[0];
+					uploadIconFile = $( '#iconupload_input' ).get( 0 ).files[0];
 
 					$( '#iconselectbtn' ).addClass( 'disabled' );
 					$( '#iconuploadbtn' ).addClass( 'disabled' );
@@ -229,7 +229,7 @@ Contents.accountset = function( cp )
 							}
 							else
 							{
-								MessageBox( chrome.i18n.getMessage( 'i18n_0118' ) );
+								MessageBox( i18nGetMessage( 'i18n_0118' ) );
 							}
 
 							Blackout( false );
@@ -286,7 +286,7 @@ Contents.accountset = function( cp )
 
 								$( this ).removeClass( 'disabled' );
 
-								ApiError( chrome.i18n.getMessage( 'i18n_0147' ), res );
+								ApiError( i18nGetMessage( 'i18n_0147' ), res );
 							}
 
 							Blackout( false );

@@ -14,49 +14,47 @@ Contents.googlemap = function( cp )
 	// 開始処理
 	////////////////////////////////////////////////////////////
 	this.start = function() {
-		window.addEventListener( 'message', function( e ) {
-			var params = e.data.split( ',' );
-			var keys = {};
-
-			for ( var i = 0, _len = params.length ; i < _len ; i++ )
-			{
-				var keyval = params[i].split( '=' );
-				keys[keyval[0]] = keyval[1];
-			}
-
-			if ( keys['cpid'] != cp.id )
-			{
-				return;
-			}
-
-			if ( keys['status'] == 'error' )
-			{
-				console.log( chrome.i18n.getMessage( 'i18n_0025' ) );
-			}
-			else if ( keys['status'] == 'latlng' )
-			{
-				cp.SetTitle( 'Google Map - ' + Math.round( keys['lat'] * 10000 ) / 10000 + ',' +
-											   Math.round( keys['lng'] * 10000 ) / 10000, null );
-
-				cp.param['lat'] = keys['lat'];
-				cp.param['lng'] = keys['lng'];
-			}
-			else if ( keys['status'] == 'zoom' )
-			{
-				cp.param['zoom'] = keys['zoom'];
-			}
-		} );
-
 		cont.addClass( 'googlemap' )
 			.html( OutputTPL( 'googlemap', {} ) );
 
-		cp.SetTitle( 'Google Map - ' );
+		// googleのAPIがロードされていない
+		if ( typeof( google ) == 'undefined' )
+		{
+			cp.SetTitle( 'Google Map - ' );
+			return;
+		}
 
-		cont.find( 'iframe' ).attr( 'src', 'map.sandbox.html?' +
-			'lat=' + cp.param['lat'] +
-			'&lng=' + cp.param['lng'] +
-			'&zoom=' + cp.param['zoom'] +
-			'&cpid=' + cp.id );
+		var latlng = new google.maps.LatLng( cp.param['lat'], cp.param['lng'] );
+
+		var map = new google.maps.Map( document.getElementById( 'googlemapview' ),
+			{
+				zoom: cp.param['zoom'],
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				scaleControl: true,
+			}
+		);
+console.log(map);
+		google.maps.event.addListener( map, 'center_changed', function() {
+			var latlng = map.getCenter();
+			cp.SetTitle( 'Google Map - ' + Math.round( latlng.lat() * 10000 ) / 10000 + ',' +
+										   Math.round( latlng.lng() * 10000 ) / 10000, null );
+
+			cp.param['lat'] = latlng.lat();
+			cp.param['lng'] = latlng.lng();
+		} );
+
+		google.maps.event.addListener( map, 'zoom_changed', function() {
+			cp.param['zoom'] = map.getZoom();
+		} );
+
+
+		map.setCenter( latlng );
+
+		// マーカー
+		var marker = new google.maps.Marker( {
+			position: latlng,
+			map: map,
+		} );
 
 		p.draggable( 'option', 'cancel', 'div.contents' );
 	};

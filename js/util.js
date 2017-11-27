@@ -73,19 +73,19 @@ function DateConv( src, type, digit )
 
 		if ( relt < 0 )
 		{
-			return '0' + chrome.i18n.getMessage( 'i18n_0270' );
+			return '0' + i18nGetMessage( 'i18n_0270' );
 		}
 		else if ( relt < 60 )
 		{
-			return relt + chrome.i18n.getMessage( 'i18n_0270' );
+			return relt + i18nGetMessage( 'i18n_0270' );
 		}
 		else if ( relt < 60 * 60 )
 		{
-			return Math.floor( relt / 60 ) + chrome.i18n.getMessage( 'i18n_0272' );
+			return Math.floor( relt / 60 ) + i18nGetMessage( 'i18n_0272' );
 		}
 		else if ( relt < 60 * 60 * 24 )
 		{
-			return Math.floor( relt / 60 / 60 ) + chrome.i18n.getMessage( 'i18n_0299' );
+			return Math.floor( relt / 60 / 60 ) + i18nGetMessage( 'i18n_0299' );
 		}
 		else
 		{
@@ -155,7 +155,7 @@ function Txt2Link( text, entities )
 
 						if ( url.match( /https?:\/\/ln\.is/ ) )
 						{
-							return "<span class='tooltip warning' tooltip='" + chrome.i18n.getMessage( 'i18n_0358' ) + "'>" + durl + "</span>";
+							return "<span class='tooltip warning' tooltip='" + i18nGetMessage( 'i18n_0358' ) + "'>" + durl + "</span>";
 						}
 						else
 						{
@@ -424,7 +424,7 @@ function isShortURL( url )
 ////////////////////////////////////////////////////////////////////////////////
 function isImageURL( url )
 {
-	if ( url.match( /^https?:\/\/(twitpic\.com\/(\w+)|ow\.ly\/i\/(\w+)|yfrog\.com\/(\w+)$|tweetphoto\.com\/\d+|plixi\.com\/p\/\d+|lockerz\.com\/s\/\d+|p\.twipple\.jp\/(\w+)|movapic\.com\/pic\/(\w+)|photozou\.jp\/photo\/show\/\d+\/(\d+)|((www\.)?instagram\.com|instagr\.am)\/p\/([\w\-]+)|twitter\.com.*\/(photo|video)\/1$|twitter\.com.*\/messages\/media\/\d+|(?:(www|m)\.youtube\.com\/watch\?.*v=|youtu\.be\/)([\w-]+)|vine\.co\/v\/\w+$|tinami\.jp\/(\w+)$|(www\.nicovideo\.jp\/watch|nico\.ms)\/sm\d+(\?.+)?$|img\.ly\/(\w+)$|cloud(-\d)?\.steampowered\.com\/ugc\/\d+\/\w+\/(\d+x\d+\.resizedimage)?$|gyazo\.com\/\w+$|.*\.(png|jpg|jpeg|gif)$)/i ) )
+	if ( url.match( /^https?:\/\/(movapic\.com\/pic\/(\w+)|photozou\.jp\/photo\/show\/\d+\/(\d+)|((www\.)?instagram\.com|instagr\.am)\/p\/([\w\-]+)|twitter\.com.*\/(photo|video)\/1$|twitter\.com.*\/messages\/media\/\d+|(?:(www|m)\.youtube\.com\/watch\?.*v=|youtu\.be\/)([\w-]+)|tinami\.jp\/(\w+)$|(www\.nicovideo\.jp\/watch|nico\.ms)\/sm\d+(\?.+)?$|cloud(-\d)?\.steampowered\.com\/ugc\/\d+\/\w+\/(\d+x\d+\.resizedimage)?$|gyazo\.com\/\w+$|.*\.(png|jpg|jpeg|gif)$)/i ) )
 	{
 		return true;
 	}

@@ -4,4 +4,4 @@
 		<a class='btn panel_btn' id='curgeo'>(i18n_0216)</a>
 	</div>
 </div>
-<iframe id='geosetmap'></iframe>
+<div id='geosetmap'></div>

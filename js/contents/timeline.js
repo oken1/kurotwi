@@ -180,7 +180,7 @@ Contents.timeline = function( cp )
 					}
 					else
 					{
-						ApiError( chrome.i18n.getMessage( 'i18n_0275' ), res );
+						ApiError( i18nGetMessage( 'i18n_0275' ), res );
 
 						in_reply_to.show();
 					}
@@ -345,7 +345,7 @@ Contents.timeline = function( cp )
 		{
 			var _cp = new CPanel( null, null, 324, 240 );
 			_cp.SetType( 'tweetbox' );
-			_cp.SetTitle( chrome.i18n.getMessage( 'i18n_0083' ), false );
+			_cp.SetTitle( i18nGetMessage( 'i18n_0083' ), false );
 			_cp.SetParam( { account_id: cp.param['account_id'], maxlen: 140, } );
 			_cp.Start( function() {
 				pid = IsUnique( 'tweetbox' );
@@ -977,7 +977,7 @@ Contents.timeline = function( cp )
 						if ( len > 0 )
 						{
 							timeline_list.append(
-								'<div class="btn img readmore icon-arrow_down tooltip" tooltip="' + chrome.i18n.getMessage( 'i18n_0157' ) + '"></div>' );
+								'<div class="btn img readmore icon-arrow_down tooltip" tooltip="' + i18nGetMessage( 'i18n_0157' ) + '"></div>' );
 						}
 					};
 
@@ -1065,7 +1065,7 @@ Contents.timeline = function( cp )
 								// タイトルからtitlenameのタグを外す
 								if ( cp.param['notify_new'] == 1 )
 								{
-									Notification( 'new', {
+									OpenNotification( 'new', {
 										img: img[cp.param['timeline_type']],
 										simg: g_cmn.account[cp.param['account_id']].icon,
 //										user: escapeHTML( cp.title.replace( /<span class=\"titlename\">(.*)<\/span>/, '$1' ) ),
@@ -1146,7 +1146,7 @@ Contents.timeline = function( cp )
 							'',
 							cp.param['account_id'] );
 
-						MessageBox( chrome.i18n.getMessage( 'i18n_0286' ) );
+						MessageBox( i18nGetMessage( 'i18n_0286' ) + '\n' + res.message );
 						return;
 					}
 
@@ -1158,7 +1158,7 @@ Contents.timeline = function( cp )
 					}
 					else
 					{
-						ApiError( escapeHTML( cp.title.replace( /<span class=\"titlename\">(.*)<\/span>/, '$1' ) ) + chrome.i18n.getMessage( 'i18n_0011' ), res );
+						ApiError( escapeHTML( cp.title.replace( /<span class=\"titlename\">(.*)<\/span>/, '$1' ) ) + i18nGetMessage( 'i18n_0011' ), res );
 
 						if ( type == 'old' )
 						{
@@ -1170,7 +1170,7 @@ Contents.timeline = function( cp )
 				// "検索の場合タイトルを更新
 				if ( cp.param['timeline_type'] == 'search' && ( type == 'init' || type == 'reload' ) )
 				{
-					cp.SetTitle( chrome.i18n.getMessage( 'i18n_0105', [cp.param['q']] ) +
+					cp.SetTitle( i18nGetMessage( 'i18n_0105', [cp.param['q']] ) +
 						' (<span class="titlename">' + g_cmn.account[cp.param['account_id']].screen_name + '</span>)', true );
 
 					lines.find( '.panel_btns' ).find( '.searchagain_text' ).val( cp.param['q'] );
@@ -1424,12 +1424,12 @@ Contents.timeline = function( cp )
 		switch ( cp.param['timeline_type'] )
 		{
 			case 'home':
-				cp.SetTitle( chrome.i18n.getMessage( 'i18n_0152' ) + ' (' + account.screen_name + ')', true );
+				cp.SetTitle( i18nGetMessage( 'i18n_0152' ) + ' (' + account.screen_name + ')', true );
 				cp.SetIcon( 'icon-home' );
 				break;
 			// Mention
 			case 'mention':
-				cp.SetTitle( chrome.i18n.getMessage( 'i18n_0026' ) + ' (' + account.screen_name + ')', true );
+				cp.SetTitle( i18nGetMessage( 'i18n_0026' ) + ' (' + account.screen_name + ')', true );
 				cp.SetIcon( 'icon-at' );
 				break;
 			// ユーザ
@@ -1453,7 +1453,7 @@ Contents.timeline = function( cp )
 				break;
 			// 検索
 			case 'search':
-				cp.SetTitle( chrome.i18n.getMessage( 'i18n_0105', [cp.param['q']] ) + ' (<span class="titlename">' + account.screen_name + '</span>)', true );
+				cp.SetTitle( i18nGetMessage( 'i18n_0105', [cp.param['q']] ) + ' (<span class="titlename">' + account.screen_name + '</span>)', true );
 				cp.SetIcon( 'icon-search' );
 
 				////////////////////////////////////////
@@ -1501,7 +1501,7 @@ Contents.timeline = function( cp )
 							}
 							else
 							{
-								ApiError( chrome.i18n.getMessage( 'i18n_0211' ), res );
+								ApiError( i18nGetMessage( 'i18n_0211' ), res );
 							}
 
 							Blackout( false );
@@ -1579,7 +1579,7 @@ Contents.timeline = function( cp )
 				break;
 			// DM(受信)
 			case 'dmrecv':
-				cp.SetTitle( chrome.i18n.getMessage( 'i18n_0021' ) + ' (' + account.screen_name + ')', true );
+				cp.SetTitle( i18nGetMessage( 'i18n_0021' ) + ' (' + account.screen_name + ')', true );
 				cp.SetIcon( 'icon-envelop' );
 
 				////////////////////////////////////////
@@ -1601,12 +1601,12 @@ Contents.timeline = function( cp )
 				break;
 			// DM(送信)
 			case 'dmsent':
-				cp.SetTitle( chrome.i18n.getMessage( 'i18n_0251' ) + ' (' + account.screen_name + ')', true );
+				cp.SetTitle( i18nGetMessage( 'i18n_0251' ) + ' (' + account.screen_name + ')', true );
 				cp.SetIcon( 'icon-envelop' );
 				break;
 			// お気に入り
 			case 'favorites':
-				cp.SetTitle( cp.param['screen_name'] + chrome.i18n.getMessage( 'i18n_0098' ) + chrome.i18n.getMessage( 'i18n_0054' ) + ' (<span class="titlename">' + account.screen_name + '</span>)', false );
+				cp.SetTitle( cp.param['screen_name'] + i18nGetMessage( 'i18n_0098' ) + i18nGetMessage( 'i18n_0054' ) + ' (<span class="titlename">' + account.screen_name + '</span>)', false );
 				cp.SetIcon( 'icon-heart' );
 				break;
 			// グループストリーム
@@ -1665,7 +1665,7 @@ Contents.timeline = function( cp )
 		////////////////////////////////////////
 		p.find( '.titleicon' ).mouseenter( function( e ) {
 			var spd;
-			var unit = chrome.i18n.getMessage( 'i18n_0270' );
+			var unit = i18nGetMessage( 'i18n_0270' );
 
 			if ( status_cnt < 1 )
 			{
@@ -1691,42 +1691,42 @@ Contents.timeline = function( cp )
 					if ( spd < 1 )
 					{
 						spd = spd * 60;
-						unit = chrome.i18n.getMessage( 'i18n_0272' );
+						unit = i18nGetMessage( 'i18n_0272' );
 					}
 
 					// 時速
 					if ( spd < 1 )
 					{
 						spd = spd * 60;
-						unit = chrome.i18n.getMessage( 'i18n_0299' );
+						unit = i18nGetMessage( 'i18n_0299' );
 					}
 
 					// 日速
 					if ( spd < 1 )
 					{
 						spd = spd * 24;
-						unit = chrome.i18n.getMessage( 'i18n_0259' );
+						unit = i18nGetMessage( 'i18n_0259' );
 					}
 
 					// 月速
 					if ( spd < 1 )
 					{
 						spd = spd * 30.41667;
-						unit = chrome.i18n.getMessage( 'i18n_0203' );
+						unit = i18nGetMessage( 'i18n_0203' );
 					}
 
 					// 年速
 					if ( spd < 1 )
 					{
 						spd = spd * 12;
-						unit = chrome.i18n.getMessage( 'i18n_0264' );
+						unit = i18nGetMessage( 'i18n_0264' );
 					}
 
 					spd = Math.floor( spd * 100 ) / 100;
 				}
 			}
 
-			$( this ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0037' ) + ': ' + spd + '/' + unit );
+			$( this ).attr( 'tooltip', i18nGetMessage( 'i18n_0037' ) + ': ' + spd + '/' + unit );
 		} );
 
 		////////////////////////////////////////
@@ -1793,8 +1793,6 @@ Contents.timeline = function( cp )
 		// 更新ボタンクリック
 		////////////////////////////////////////
 		lines.find( '.panel_btns' ).find( '.timeline_reload' ).click( function() {
-			lines.find( '.panel_btns' ).find( '.streamuse' ).removeClass( 'reconnect tooltip' ).attr( 'tooltip', '' );
-
 			timeline_list.trigger( 'reload_timer' );
 			ListMake( cp.param['get_count'], 'reload' );
 		} );
@@ -1803,8 +1801,6 @@ Contents.timeline = function( cp )
 		// クリアボタンクリック
 		////////////////////////////////////////
 		lines.find( '.panel_btns' ).find( '.timeline_clear' ).click( function() {
-			lines.find( '.panel_btns' ).find( '.streamuse' ).removeClass( 'reconnect tooltip' ).attr( 'tooltip', '' );
-
 			status_ids = {};
 			status_cnt = 0;
 			timeline_list.html( '' );
@@ -1848,7 +1844,7 @@ Contents.timeline = function( cp )
 			{
 				var _cp = new CPanel( null, null, 324, 240 );
 				_cp.SetType( 'tweetbox' );
-				_cp.SetTitle( chrome.i18n.getMessage( 'i18n_0083' ), false );
+				_cp.SetTitle( i18nGetMessage( 'i18n_0083' ), false );
 				_cp.SetParam( { account_id: cp.param['account_id'], maxlen: 140, } );
 				_cp.Start( function() {
 					SetText();
@@ -1898,7 +1894,7 @@ Contents.timeline = function( cp )
 
 			var _cp = new CPanel( left, top, width, 200 );
 			_cp.SetType( 'dmbox' );
-			_cp.SetTitle( chrome.i18n.getMessage( 'i18n_0149', [screen_name] ), false );
+			_cp.SetTitle( i18nGetMessage( 'i18n_0149', [screen_name] ), false );
 			_cp.SetParam( param );
 			_cp.Start();
 		};
@@ -1907,7 +1903,7 @@ Contents.timeline = function( cp )
 		// リツイート
 		////////////////////////////////////////
 		var Retweet = function( item, account_id ) {
-			if ( g_cmn.cmn_param['confirm_rt'] == 0 || confirm( chrome.i18n.getMessage( 'i18n_0175' ) ) )
+			if ( g_cmn.cmn_param['confirm_rt'] == 0 || confirm( i18nGetMessage( 'i18n_0175' ) ) )
 			{
 				var param = {
 					type: 'POST',
@@ -1934,7 +1930,7 @@ Contents.timeline = function( cp )
 							if ( item.find( '.retweet' ).length == 0 )
 							{
 								item.find( '.icon' ).append( "<div class='retweet tooltip' tooltip='" +
-										chrome.i18n.getMessage( 'i18n_0013', [g_cmn.account[account_id]['screen_name']] ) +
+										i18nGetMessage( 'i18n_0013', [g_cmn.account[account_id]['screen_name']] ) +
 										"' rt_user_id='" + g_cmn.account[account_id]['user_id'] + "' rt_screen_name='" + g_cmn.account[account_id]['screen_name'] + "'>" +
 										"<img src='" + g_cmn.account[account_id]['icon'] + "' class='rt_icon'></div>" )
 									.css( { width: g_cmn.cmn_param['iconsize'] } )
@@ -1951,7 +1947,7 @@ Contents.timeline = function( cp )
 						}
 						else
 						{
-							ApiError( chrome.i18n.getMessage( 'i18n_0177' ), res );
+							ApiError( i18nGetMessage( 'i18n_0177' ), res );
 						}
 
 						Blackout( false, false );
@@ -2096,7 +2092,7 @@ Contents.timeline = function( cp )
 
 					var _cp = new CPanel( null, null, 324, 240 );
 					_cp.SetType( 'tweetbox' );
-					_cp.SetTitle( chrome.i18n.getMessage( 'i18n_0083' ), false );
+					_cp.SetTitle( i18nGetMessage( 'i18n_0083' ), false );
 					_cp.SetParam( param );
 					_cp.Start( function() {
 						pid = IsUnique( 'tweetbox' );
@@ -2328,7 +2324,7 @@ Contents.timeline = function( cp )
 								}
 							}
 
-							$( this ).attr( 'toolbaruser', false ).html( chrome.i18n.getMessage( 'i18n_0092' )  );
+							$( this ).attr( 'toolbaruser', false ).html( i18nGetMessage( 'i18n_0092' )  );
 
 							UpdateToolbarUser();
 						}
@@ -2347,7 +2343,7 @@ Contents.timeline = function( cp )
 								} );
 							}
 
-							$( this ).attr( 'toolbaruser', true ).html( chrome.i18n.getMessage( 'i18n_0091' ) );
+							$( this ).attr( 'toolbaruser', true ).html( i18nGetMessage( 'i18n_0091' ) );
 
 							UpdateToolbarUser();
 						}
@@ -2421,11 +2417,11 @@ Contents.timeline = function( cp )
 									{
 										if ( res.status == 200 )
 										{
-											MessageBox( chrome.i18n.getMessage( 'i18n_0182', [item.attr( 'screen_name' ),name] ) );
+											MessageBox( i18nGetMessage( 'i18n_0182', [item.attr( 'screen_name' ),name] ) );
 										}
 										else
 										{
-											ApiError( chrome.i18n.getMessage( 'i18n_0183', [item.attr( 'screen_name' ),name] ), res );
+											ApiError( i18nGetMessage( 'i18n_0183', [item.attr( 'screen_name' ),name] ), res );
 										}
 
 										Blackout( false );
@@ -2475,7 +2471,7 @@ Contents.timeline = function( cp )
 									}
 									else
 									{
-										ApiError( chrome.i18n.getMessage( 'i18n_0169' ), res );
+										ApiError( i18nGetMessage( 'i18n_0169' ), res );
 									}
 
 									PutLists();
@@ -2553,7 +2549,7 @@ Contents.timeline = function( cp )
 
 //						if ( g_cmn.cmn_param.ngwords.length >= 100 )
 //						{
-//							MessageBox( chrome.i18n.getMessage( 'i18n_0069' ) );
+//							MessageBox( i18nGetMessage( 'i18n_0069' ) );
 //						}
 //						else
 						{
@@ -2682,7 +2678,7 @@ Contents.timeline = function( cp )
 			{
 				var item = targ.parent().parent().parent().parent();
 
-				if ( confirm( chrome.i18n.getMessage( 'i18n_0224' ) ) )
+				if ( confirm( i18nGetMessage( 'i18n_0224' ) ) )
 				{
 					// DM以外
 					if ( cp.param['timeline_type'] != 'dmrecv' && cp.param['timeline_type'] != 'dmsent' )
@@ -2750,7 +2746,7 @@ Contents.timeline = function( cp )
 							}
 							else
 							{
-								ApiError( chrome.i18n.getMessage( 'i18n_0225' ), res );
+								ApiError( i18nGetMessage( 'i18n_0225' ), res );
 							}
 
 							Blackout( false );
@@ -2796,7 +2792,7 @@ Contents.timeline = function( cp )
 							}
 							else
 							{
-								ApiError( chrome.i18n.getMessage( 'i18n_0225' ), res );
+								ApiError( i18nGetMessage( 'i18n_0225' ), res );
 							}
 
 							Blackout( false, false );
@@ -2872,7 +2868,7 @@ Contents.timeline = function( cp )
 							}
 							else
 							{
-								ApiError( chrome.i18n.getMessage( 'i18n_0057' ), res );
+								ApiError( i18nGetMessage( 'i18n_0057' ), res );
 							}
 
 							Blackout( false, false );
@@ -3102,97 +3098,8 @@ Contents.timeline = function( cp )
 							}
 						};
 
-						// twitpic
-						if ( url.match( /^http:\/\/twitpic\.com\/(\w+)/ ) )
-						{
-							id = RegExp.$1;
-
-							MakeImgLink( 'http://twitpic.com/show/mini/' + id,
-										 'http://twitpic.com/show/full/' + id,
-										 false, 1 );
-						}
-						// ow.ly/i
-						else if ( url.match( /^http:\/\/ow\.ly\/i\/(\w+)/ ) )
-						{
-							id = RegExp.$1;
-
-							MakeImgLink( 'http://static.ow.ly/photos/thumb/' + id + '.jpg',
-										 'http://static.ow.ly/photos/original/' + id + '.jpg',
-										 false, 1 );
-						}
-						// yfrog
-						else if ( url.match( /^http:\/\/yfrog\.com\/(\w+)/ ) )
-						{
-							id = RegExp.$1;
-
-							if ( add.find( 'img[loaded="' + url + '"]' ).length == 0 )
-							{
-								if ( !noloading )
-								{
-									item.find( '.tweet' ).activity( { color: '#ffffff' } );
-								}
-
-								SendRequest(
-									{
-										action: 'yfrog_url',
-										imgid: id,
-									},
-									function( res )
-									{
-										MakeImgLink( 'http://yfrog.com/' + id + ':small', res, false, 1 );
-
-										if ( !noloading )
-										{
-											item.find( '.tweet' ).activity( false );
-										}
-									}
-								);
-							}
-						}
-						// tweetphoto/plixi
-						else if ( url.match( /^(http:\/\/tweetphoto\.com\/\d+)/ ) ||
-								  url.match( /^(http:\/\/plixi\.com\/p\/\d+)/ ) ||
-								  url.match( /^(http:\/\/lockerz\.com\/s\/\d+)/ ) )
-						{
-							var purl = RegExp.$1;
-
-							if ( add.find( 'img[loaded="' + url + '"]' ).length == 0 )
-							{
-								if ( !noloading )
-								{
-									item.find( '.tweet' ).activity( { color: '#ffffff' } );
-								}
-
-								SendRequest(
-									{
-										action: 'plixi_url',
-										imgurl: purl,
-									},
-									function( res )
-									{
-										if ( res != '' )
-										{
-											MakeImgLink( res.thumb, res.original, false, 1 );
-										}
-
-										if ( !noloading )
-										{
-											item.find( '.tweet' ).activity( false );
-										}
-									}
-								);
-							}
-						}
-						// twipple
-						else if ( url.match( /http:\/\/p\.twipple\.jp\/(\w+)/ ) )
-						{
-							id = RegExp.$1;
-
-							MakeImgLink( 'http://p.twipple.jp/show/thumb/' + id,
-										 'http://p.twipple.jp/show/orig/' + id, false, 1 );
-						}
 						// movapic
-						else if ( url.match( /http:\/\/movapic\.com\/pic\/(\w+)/ ) )
+						if ( url.match( /http:\/\/movapic\.com\/pic\/(\w+)/ ) )
 						{
 							id = RegExp.$1;
 
@@ -3326,67 +3233,6 @@ Contents.timeline = function( cp )
 								} );
 							}
 						}
-						// Vine
-						else if ( url.match( /^https?:\/\/vine\.co\/v\/(\w+)/ ) )
-						{
-							var id = RegExp.$1;
-
-							if ( add.find( 'img[loaded="' + url + '"]' ).length == 0 )
-							{
-								if ( !noloading )
-								{
-									item.find( '.tweet' ).activity( { color: '#ffffff' } );
-								}
-
-								SendRequest(
-									{
-										action: 'vine_url',
-										imgurl: url,
-									},
-									function( res )
-									{
-										if ( res != '' )
-										{
-											add.append( OutputTPL( 'thumbnail_movie', {
-												url: res.thumb,
-												tooltip: url
-											} ) );
-										}
-
-										// ロード失敗
-										add.find( 'img:last-child' ).on( 'error', function( e ) {
-											if ( !noloading )
-											{
-												item.find( '.tweet' ).activity( false );
-											}
-											$( this ).remove();
-										} );
-
-										// ロード成功
-										add.find( 'img:last-child' ).on( 'load', function( e ) {
-											if ( !noloading )
-											{
-												item.find( '.tweet' ).activity( false );
-											}
-
-											$( this ).addClass( 'link' );
-
-											$( this ).click( function( e ) {
-												var _cp = new CPanel( null, null, 480, 510 );
-												_cp.SetType( 'vine' );
-												_cp.SetParam( {
-													url: url,
-													screen_name: item.attr( 'screen_name' ),
-												} );
-												_cp.Start();
-
-												e.stopPropagation();
-											} );
-										} );
-									}
-								);
-							}
-						}
 						// TINAMI
 						else if ( url.match( /http:\/\/tinami\.jp\/(\w+)$/ ) )
 						{
@@ -3425,15 +3271,6 @@ Contents.timeline = function( cp )
 							id = RegExp.$2;
 
 							MakeImgLink( 'http://tn-skr' + ( parseInt( id ) % 4 + 1 ) + '.smilevideo.jp/smile?i=' + id, '', true, 1 );
-						}
-						// img.ly
-						else if ( url.match( /^http:\/\/img\.ly\/(\w+)/ ) )
-						{
-							id = RegExp.$1;
-
-							MakeImgLink( 'http://img.ly/show/thumb/' + id,
-										 'http://img.ly/show/full/' + id,
-										 false, 1 );
 						}
 						// Streamスクリーンショット
 						else if ( url.match( /(http:\/\/cloud(-\d)?\.steampowered\.com\/ugc\/\d+\/\w+\/)(\d+x\d+\.resizedimage)?$/ ) )
@@ -3865,7 +3702,7 @@ Contents.timeline = function( cp )
 			animate: 'fast',
 			slide: function( e, ui ) {
 				setting.find( '.tlsetting_apply' ).removeClass( 'disabled' );
-				setting.find( '.set_reload_time' ).parent().find( '.value_disp' ).html( ui.value + chrome.i18n.getMessage( 'i18n_0270' ) );
+				setting.find( '.set_reload_time' ).parent().find( '.value_disp' ).html( ui.value + i18nGetMessage( 'i18n_0270' ) );
 			},
 		} );
 
@@ -3877,7 +3714,7 @@ Contents.timeline = function( cp )
 			animate: 'fast',
 			slide: function( e, ui ) {
 				setting.find( '.tlsetting_apply' ).removeClass( 'disabled' );
-				setting.find( '.set_get_count' ).parent().find( '.value_disp' ).html( ui.value + chrome.i18n.getMessage( 'i18n_0204' ) );
+				setting.find( '.set_get_count' ).parent().find( '.value_disp' ).html( ui.value + i18nGetMessage( 'i18n_0204' ) );
 
 				if ( setting.find( '.set_max_count' ).slider( 'value' ) < ui.value )
 				{
@@ -3888,7 +3725,7 @@ Contents.timeline = function( cp )
 					min: ui.value,
 				} );
 
-				setting.find( '.set_max_count' ).parent().find( '.value_disp' ).html( setting.find( '.set_max_count' ).slider( 'value' ) + chrome.i18n.getMessage( 'i18n_0204' ) );
+				setting.find( '.set_max_count' ).parent().find( '.value_disp' ).html( setting.find( '.set_max_count' ).slider( 'value' ) + i18nGetMessage( 'i18n_0204' ) );
 			},
 		} );
 
@@ -3900,7 +3737,7 @@ Contents.timeline = function( cp )
 			animate: 'fast',
 			slide: function( e, ui ) {
 				setting.find( '.tlsetting_apply' ).removeClass( 'disabled' );
-				setting.find( '.set_max_count' ).parent().find( '.value_disp' ).html( ui.value + chrome.i18n.getMessage( 'i18n_0204' ) );
+				setting.find( '.set_max_count' ).parent().find( '.value_disp' ).html( ui.value + i18nGetMessage( 'i18n_0204' ) );
 			},
 		} );
 
@@ -3952,7 +3789,7 @@ Contents.timeline = function( cp )
 
 				if ( s == '' )
 				{
-					s = '<span>' + chrome.i18n.getMessage( 'i18n_0162' ) + '</span>';
+					s = '<span>' + i18nGetMessage( 'i18n_0162' ) + '</span>';
 				}
 
 				member_list.html( s );
@@ -3995,7 +3832,7 @@ Contents.timeline = function( cp )
 				{
 					if ( setting.find( '.memcnt' ).html() == '300' )
 					{
-						MessageBox( chrome.i18n.getMessage( 'i18n_0069' ) );
+						MessageBox( i18nGetMessage( 'i18n_0069' ) );
 					}
 					else
 					{
@@ -4059,7 +3896,7 @@ Contents.timeline = function( cp )
 
 				if ( title.length <= 0 )
 				{
-					MessageBox( chrome.i18n.getMessage( 'i18n_0076' ) );
+					MessageBox( i18nGetMessage( 'i18n_0076' ) );
 					setting.find( '.set_title' ).focus();
 					return false;
 				}

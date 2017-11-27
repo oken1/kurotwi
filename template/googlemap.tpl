@@ -1,1 +1,1 @@
-<iframe></iframe>
+<div id='googlemapview'></div>

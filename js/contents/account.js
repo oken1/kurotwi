@@ -273,7 +273,7 @@ Contents.account = function( cp )
 
 				if ( acsToken == '' || acsSecret == '' || user_id == '' || screen_name == '' )
 				{
-					MessageBox( chrome.i18n.getMessage( 'i18n_0049' ) );
+					MessageBox( i18nGetMessage( 'i18n_0049' ) );
 					Blackout( false );
 					return;
 				}
@@ -353,7 +353,7 @@ Contents.account = function( cp )
 									if ( g_cmn.account[account_id].notsave.protected && g_cmn.account[account_id].notsave.incoming.length > 0 )
 									{
 										setTimeout( function( _id ) {
-											Notification( 'incoming', {
+											OpenNotification( 'incoming', {
 												user: g_cmn.account[_id].screen_name,
 												img: g_cmn.account[_id].icon,
 												count: g_cmn.account[_id].notsave.incoming.length,
@@ -365,7 +365,7 @@ Contents.account = function( cp )
 						}
 						else
 						{
-							ApiError( chrome.i18n.getMessage( 'i18n_0045' ), res );
+							ApiError( i18nGetMessage( 'i18n_0045' ), res );
 							$( '#account_list' ).activity( false );
 							Blackout( false );
 						}
@@ -466,7 +466,7 @@ Contents.account = function( cp )
 
 					if ( reqToken == '' || reqSecret == '' )
 					{
-						MessageBox( chrome.i18n.getMessage( 'i18n_0166' ) );
+						MessageBox( i18nGetMessage( 'i18n_0166' ) );
 						return;
 					}
 
@@ -482,7 +482,7 @@ Contents.account = function( cp )
 							var auth_tab;
 							var current;
 
-							chrome.tabs.getSelected( function( tab ) {
+							chrome.tabs.query( { active: true }, function( tab ) {
 								current = tab;
 
 								chrome.tabs.create( { url: res }, function( tab ) {
@@ -518,8 +518,7 @@ Contents.account = function( cp )
 															else
 															{
 																chrome.tabs.remove( auth_tab.id );
-																chrome.windows.update( current.windowId, { focused: true } );
-																chrome.tabs.update( current.id, { selected: true } );
+																chrome.tabs.update( current.id, { active: true } );
 																GetAccessToken( reqToken, reqSecret, res[0] );
 															}
 														} );
@@ -548,7 +547,7 @@ Contents.account = function( cp )
 				return;
 			}
 
-			if ( confirm( chrome.i18n.getMessage( 'i18n_0185', [g_cmn.account[$( this ).attr( 'delid' )].screen_name] ) ) )
+			if ( confirm( i18nGetMessage( 'i18n_0185', [g_cmn.account[$( this ).attr( 'delid' )].screen_name] ) ) )
 			{
 				SendRequest(
 					{
@@ -592,7 +591,7 @@ Contents.account = function( cp )
 				return;
 			}
 
-			if ( confirm( chrome.i18n.getMessage( 'i18n_0073' ) ) )
+			if ( confirm( i18nGetMessage( 'i18n_0073' ) ) )
 			{
 				for ( var id in g_cmn.account )
 				{
@@ -632,7 +631,7 @@ Contents.account = function( cp )
 			{
 				var _cp = new CPanel( null, null, 360, 420 );
 				_cp.SetType( 'accountset' );
-				_cp.SetTitle( chrome.i18n.getMessage( 'i18n_0047' ) + '(' + g_cmn.account[$( '#account_del' ).attr( 'delid' )].screen_name + ')', false );
+				_cp.SetTitle( i18nGetMessage( 'i18n_0047' ) + '(' + g_cmn.account[$( '#account_del' ).attr( 'delid' )].screen_name + ')', false );
 				_cp.SetParam( {
 					account_id: $( '#account_del' ).attr( 'delid' ),
 				} );
@@ -642,7 +641,7 @@ Contents.account = function( cp )
 			{
 				var _cp = GetPanel( pid );
 				_cp.SetType( 'accountset' );
-				_cp.SetTitle( chrome.i18n.getMessage( 'i18n_0047' ) + '(' + g_cmn.account[$( '#account_del' ).attr( 'delid' )].screen_name + ')', false );
+				_cp.SetTitle( i18nGetMessage( 'i18n_0047' ) + '(' + g_cmn.account[$( '#account_del' ).attr( 'delid' )].screen_name + ')', false );
 				_cp.SetParam( {
 					account_id: $( '#account_del' ).attr( 'delid' ),
 				} );

@@ -148,7 +148,7 @@ Contents.follow = function( cp )
 							if ( pos < ids.length - 1 )
 							{
 								follow_list.append(
-									'<div class="btn img readmore icon-arrow_down tooltip" tooltip="' + chrome.i18n.getMessage( 'i18n_0157' ) + '"></div>' );
+									'<div class="btn img readmore icon-arrow_down tooltip" tooltip="' + i18nGetMessage( 'i18n_0157' ) + '"></div>' );
 							}
 						};
 
@@ -189,7 +189,7 @@ Contents.follow = function( cp )
 						}
 						else
 						{
-							ApiError( chrome.i18n.getMessage( 'i18n_0106',[( ( cp.param['type'] == 'friends' ) ? chrome.i18n.getMessage( 'i18n_0125' ) : chrome.i18n.getMessage( 'i18n_0122' ) )] ), res );
+							ApiError( i18nGetMessage( 'i18n_0106',[( ( cp.param['type'] == 'friends' ) ? i18nGetMessage( 'i18n_0125' ) : i18nGetMessage( 'i18n_0122' ) )] ), res );
 
 							if ( type == 'old' )
 							{
@@ -239,7 +239,7 @@ Contents.follow = function( cp )
 					}
 					else
 					{
-						ApiError( chrome.i18n.getMessage( 'i18n_0106',[( ( cp.param['type'] == 'friends' ) ? chrome.i18n.getMessage( 'i18n_0125' ) : chrome.i18n.getMessage( 'i18n_0122' ) )] ), res );
+						ApiError( i18nGetMessage( 'i18n_0106',[( ( cp.param['type'] == 'friends' ) ? i18nGetMessage( 'i18n_0125' ) : i18nGetMessage( 'i18n_0122' ) )] ), res );
 					}
 
 					cont.activity( false );
@@ -363,7 +363,7 @@ Contents.follow = function( cp )
 
 		follow_list = cont.find( '.follow_list' );
 
-		var msg = chrome.i18n.getMessage( 'i18n_0098' ) + ( ( cp.param['type'] == 'friends' ) ? chrome.i18n.getMessage( 'i18n_0125' ) : chrome.i18n.getMessage( 'i18n_0122' ) );
+		var msg = i18nGetMessage( 'i18n_0098' ) + ( ( cp.param['type'] == 'friends' ) ? i18nGetMessage( 'i18n_0125' ) : i18nGetMessage( 'i18n_0122' ) );
 
 		cp.SetTitle( cp.param['screen_name'] + msg + ' (<span class="titlename">' + g_cmn.account[cp.param['account_id']].screen_name + '</span>)', false );
 
@@ -445,7 +445,7 @@ Contents.follow = function( cp )
 
 			disp = 1 - disp;
 
-			$( this ).html( ( disp == 0 ) ? chrome.i18n.getMessage( 'i18n_0041' ) : chrome.i18n.getMessage( 'i18n_0232' ) );
+			$( this ).html( ( disp == 0 ) ? i18nGetMessage( 'i18n_0041' ) : i18nGetMessage( 'i18n_0232' ) );
 
 			DispChange();
 

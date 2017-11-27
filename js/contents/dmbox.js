@@ -21,7 +21,7 @@ Contents.dmbox = function( cp )
 
 		// 送信ボタンのツールチップを設定に合わせる
 		var _tips = new Array( 'Ctrl+Enter', 'Shift+Enter', 'Enter' );
-		$( '#dmsend' ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0250' ) + '(' + _tips[g_cmn.cmn_param.tweetkey] + ')' );
+		$( '#dmsend' ).attr( 'tooltip', i18nGetMessage( 'i18n_0250' ) + '(' + _tips[g_cmn.cmn_param.tweetkey] + ')' );
 
 		$( '#dmbox_text' ).focus();
 
@@ -84,7 +84,7 @@ Contents.dmbox = function( cp )
 
 			if ( slen > cp.param['maxlen'] )
 			{
-				MessageBox( chrome.i18n.getMessage( 'i18n_0356', [slen, cp.param['maxlen']] ) );
+				MessageBox( i18nGetMessage( 'i18n_0356', [slen, cp.param['maxlen']] ) );
 				return;
 			}
 
@@ -95,7 +95,7 @@ Contents.dmbox = function( cp )
 
 			status += $( '#dmbox_text' ).val();
 
-			var conf = confirm( chrome.i18n.getMessage( 'i18n_0150', [g_cmn.account[cp.param['account_id']]['screen_name'],cp.param['screen_name']] ) );
+			var conf = confirm( i18nGetMessage( 'i18n_0150', [g_cmn.account[cp.param['account_id']]['screen_name'],cp.param['screen_name']] ) );
 
 			if ( !conf )
 			{
@@ -141,7 +141,7 @@ Contents.dmbox = function( cp )
 
 						$( this ).removeClass( 'disabled' );
 
-						ApiError( chrome.i18n.getMessage( 'i18n_0081' ), res );
+						ApiError( i18nGetMessage( 'i18n_0081' ), res );
 					}
 
 					Blackout( false, false );

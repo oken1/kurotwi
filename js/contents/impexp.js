@@ -8,9 +8,12 @@ Contents.impexp = function( cp )
 	var filesystem;
 	var exportfile = 'kurotwi.data.txt';
 
-	webkitRequestFileSystem( TEMPORARY, 1024*1024*1, function( fs ) {
-		filesystem = fs;
-	} );
+	if ( window.webkitRequestFileSystem )
+	{
+		webkitRequestFileSystem( TEMPORARY, 1024*1024*1, function( fs ) {
+			filesystem = fs;
+		} );
+	}
 
 	cp.SetIcon( 'icon-folder-open' );
 
@@ -19,31 +22,34 @@ Contents.impexp = function( cp )
 	////////////////////////////////////////////////////////////
 	function DeleteTMPFile( name, callback, stopflg )
 	{
-		filesystem.root.getFile( name, {}, function( entry ) {
-			entry.remove( callback, function( e ) {
-				console.log( 'remove' );
-				console.log( e );
-				if ( !stopflg )
+		if ( filesystem )
+		{
+			filesystem.root.getFile( name, {}, function( entry ) {
+				entry.remove( callback, function( e ) {
+					console.log( 'remove' );
+					console.log( e );
+					if ( !stopflg )
+					{
+						MessageBox( i18nGetMessage( 'i18n_0347' ) );
+					}
+				} );
+			}, function( e ) {
+				if ( e.name != 'NotFoundError' )
 				{
-					MessageBox( chrome.i18n.getMessage( 'i18n_0347' ) );
+					console.log( 'getFile' );
+					console.log( e );
+
+					if ( !stopflg )
+					{
+						MessageBox( i18nGetMessage( 'i18n_0347' ) );
+					}
+				}
+				else
+				{
+					callback();
 				}
 			} );
-		}, function( e ) {
-			if ( e.name != 'NotFoundError' )
-			{
-				console.log( 'getFile' );
-				console.log( e );
-
-				if ( !stopflg )
-				{
-					MessageBox( chrome.i18n.getMessage( 'i18n_0347' ) );
-				}
-			}
-			else
-			{
-				callback();
-			}
-		} );
+		}
 	}
 
 	////////////////////////////////////////////////////////////
@@ -54,6 +60,13 @@ Contents.impexp = function( cp )
 			.html( OutputTPL( 'impexp', {} ) );
 
 		$( '#import .item .btn.exec' ).addClass( 'disabled' );
+
+		if ( !window.webkitRequestFileSystem )
+		{
+			MessageBox( 'Chrome only' );
+			p.find( '.close' ).trigger( 'click', [false] );
+			return false;
+		}
 
 		////////////////////////////////////////
 		// リサイズ処理
@@ -77,7 +90,7 @@ Contents.impexp = function( cp )
 
 			if ( file.type != 'text/plain' )
 			{
-				MessageBox( chrome.i18n.getMessage( 'i18n_0348' ) );
+				MessageBox( i18nGetMessage( 'i18n_0348' ) );
 				return;
 			}
 
@@ -90,13 +103,13 @@ Contents.impexp = function( cp )
 					}
 					catch( e ) {
 						console.log( e );
-						MessageBox( chrome.i18n.getMessage( 'i18n_0348' ) );
+						MessageBox( i18nGetMessage( 'i18n_0348' ) );
 						return;
 					}
 
 					if ( _g_cmn.current_version == undefined )
 					{
-						MessageBox( chrome.i18n.getMessage( 'i18n_0348' ) );
+						MessageBox( i18nGetMessage( 'i18n_0348' ) );
 						return;
 					}
 
@@ -109,7 +122,7 @@ Contents.impexp = function( cp )
 					}
 					catch( e ) {
 						console.log( e );
-						MessageBox( chrome.i18n.getMessage( 'i18n_0348' ) );
+						MessageBox( i18nGetMessage( 'i18n_0348' ) );
 						return;
 					}
 
@@ -149,12 +162,12 @@ Contents.impexp = function( cp )
 					}, function( e ) {
 						console.log( 'createWriter' );
 						console.log( e );
-						MessageBox( chrome.i18n.getMessage( 'i18n_0347' ) );
+						MessageBox( i18nGetMessage( 'i18n_0347' ) );
 					} );
 				}, function( e ) {
 					console.log( 'getFile' );
 					console.log( e );
-					MessageBox( chrome.i18n.getMessage( 'i18n_0347' ) );
+					MessageBox( i18nGetMessage( 'i18n_0347' ) );
 				} );
 			};
 
@@ -189,7 +202,7 @@ Contents.impexp = function( cp )
 			else
 			{
 				$( '#import .item .btn.exec' ).addClass( 'disabled' );
-				$( '#importfile' ).html( chrome.i18n.getMessage( 'i18n_0119' ) );
+				$( '#importfile' ).html( i18nGetMessage( 'i18n_0119' ) );
 			}
 
 			e.stopPropagation();

@@ -52,7 +52,7 @@ Contents.tweetbox = function( cp )
 		var text = '';
 		var cnt = ( g_cmn.draft.length ) ? '(' + g_cmn.draft.length + '/' + SAVEDRAFT_MAX + ')' : '';
 
-		s += '<div id="savedraft" class="item">' + chrome.i18n.getMessage( 'i18n_0322' ) + cnt + '</div>';
+		s += '<div id="savedraft" class="item">' + i18nGetMessage( 'i18n_0322' ) + cnt + '</div>';
 
 		for ( var i = 0, _len = g_cmn.draft.length ; i < _len ; i++ )
 		{
@@ -73,7 +73,7 @@ Contents.tweetbox = function( cp )
 			var item = $( this );
 
 			item.addClass( 'tooltip' )
-				.attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0223' ) )
+				.attr( 'tooltip', i18nGetMessage( 'i18n_0223' ) )
 				.hover(
 					function( e ) {
 						item.removeClass( 'off' ).addClass( 'on' );
@@ -103,7 +103,7 @@ Contents.tweetbox = function( cp )
 
 		// ツイートボタンのツールチップを設定に合わせる
 		var _tips = new Array( 'Ctrl+Enter', 'Shift+Enter', 'Enter' );
-		$( '#tweet' ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0083' ) + '(' + _tips[g_cmn.cmn_param.tweetkey] + ')' );
+		$( '#tweet' ).attr( 'tooltip', i18nGetMessage( 'i18n_0083' ) + '(' + _tips[g_cmn.cmn_param.tweetkey] + ')' );
 
 		////////////////////////////////////////
 		// ファイルドロップ時の処理
@@ -695,7 +695,7 @@ Contents.tweetbox = function( cp )
 
 							$( this ).removeClass( 'disabled' );
 
-							ApiError( chrome.i18n.getMessage( 'i18n_0087' ), res );
+							ApiError( i18nGetMessage( 'i18n_0087' ), res );
 						}
 
 						Blackout( false, false );
@@ -758,7 +758,7 @@ Contents.tweetbox = function( cp )
 
 								$( this ).removeClass( 'disabled' );
 
-								ApiError( chrome.i18n.getMessage( 'i18n_0087' ), res );
+								ApiError( i18nGetMessage( 'i18n_0087' ), res );
 
 								Blackout( false, false );
 								$( '#blackout' ).activity( false );
@@ -788,7 +788,7 @@ Contents.tweetbox = function( cp )
 			var stdt = new Date( '2017/09/29 21:00:00' );
 			var eddt = new Date( '2017/09/29 23:34:00' );
 
-			if ( chrome.i18n.getMessage( 'i18n_9998' ) == "" )
+			if ( i18nGetMessage( 'i18n_9998' ) == "" )
 			{
 				return;
 			}
@@ -812,7 +812,7 @@ Contents.tweetbox = function( cp )
 
 		$( '#eventbtn' ).click( function( e ) {
 			// disabledなら処理しない
-			if ( $( this ).hasClass( 'disabled' ) || chrome.i18n.getMessage( 'i18n_9998' ) == '' )
+			if ( $( this ).hasClass( 'disabled' ) || i18nGetMessage( 'i18n_9998' ) == '' )
 			{
 				return;
 			}
@@ -820,7 +820,7 @@ Contents.tweetbox = function( cp )
 			$( this ).addClass( 'disabled' );
 
 			var data = {};
-			var status = chrome.i18n.getMessage( 'i18n_9998' );
+			var status = i18nGetMessage( 'i18n_9998' );
 //			var status = '';
 
 			data['status'] = status;
@@ -851,7 +851,7 @@ Contents.tweetbox = function( cp )
 					else
 					{
 						console.log( 'status[' + res.status + ']' );
-						ApiError( chrome.i18n.getMessage( 'i18n_0087' ), res );
+						ApiError( i18nGetMessage( 'i18n_0087' ), res );
 					}
 
 					Blackout( false, false );
@@ -1016,7 +1016,7 @@ Contents.tweetbox = function( cp )
 			{
 				var _cp = new CPanel( null, null, 300, 300 );
 				_cp.SetType( 'geosetting' );
-				_cp.SetTitle( chrome.i18n.getMessage( 'i18n_0190' ), false );
+				_cp.SetTitle( i18nGetMessage( 'i18n_0190' ), false );
 
 				// 位置情報が既に設定されている場合
 				if ( cp.param['geo'].length > 0 )

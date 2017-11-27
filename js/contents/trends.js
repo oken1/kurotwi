@@ -90,7 +90,7 @@ Contents.trends = function( cp )
 				}
 				else
 				{
-					ApiError( chrome.i18n.getMessage( 'i18n_0096' ), res );
+					ApiError( i18nGetMessage( 'i18n_0096' ), res );
 				}
 
 				cont.activity( false );
@@ -239,12 +239,12 @@ Contents.trends = function( cp )
 				}
 				else
 				{
-					ApiError( chrome.i18n.getMessage( 'i18n_0283' ), res );
+					ApiError( i18nGetMessage( 'i18n_0283' ), res );
 
 					// 取得失敗したときは日本のみ
 					woeids.push( {
 						parentid: 1,
-						name: chrome.i18n.getMessage( 'i18n_0261' ),
+						name: i18nGetMessage( 'i18n_0261' ),
 						woeid: '23424856',
 					} );
 				}

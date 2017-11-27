@@ -105,7 +105,7 @@ Contents.usersearch = function( cp )
 						if ( len > 0 )
 						{
 							usersearch_list.append(
-								'<div class="btn img readmore icon-arrow_down tooltip" tooltip="' + chrome.i18n.getMessage( 'i18n_0157' ) + '"></div>' );
+								'<div class="btn img readmore icon-arrow_down tooltip" tooltip="' + i18nGetMessage( 'i18n_0157' ) + '"></div>' );
 						}
 					};
 
@@ -148,7 +148,7 @@ Contents.usersearch = function( cp )
 					}
 					else
 					{
-						ApiError( chrome.i18n.getMessage( 'i18n_0213' ), res );
+						ApiError( i18nGetMessage( 'i18n_0213' ), res );
 
 						if ( type == 'old' )
 						{
@@ -271,7 +271,7 @@ Contents.usersearch = function( cp )
 
 		usersearch_list = cont.find( '.usersearch_list' );
 
-		cp.SetTitle( chrome.i18n.getMessage( 'i18n_0105', [cp.param['q']] ) + ' (<span class="titlename">' + g_cmn.account[cp.param['account_id']]['screen_name'] + '</span>)', false );
+		cp.SetTitle( i18nGetMessage( 'i18n_0105', [cp.param['q']] ) + ' (<span class="titlename">' + g_cmn.account[cp.param['account_id']]['screen_name'] + '</span>)', false );
 
 		////////////////////////////////////////
 		// 更新ボタンクリック

@@ -14,52 +14,64 @@ Contents.geosetting = function( cp )
 	// 開始処理
 	////////////////////////////////////////////////////////////
 	this.start = function() {
-		window.addEventListener( 'message', function( e ) {
-			var params = e.data.split( ',' );
-			var keys = {};
-
-			for ( var i = 0, _len = params.length ; i < _len ; i++ )
-			{
-				var keyval = params[i].split( '=' );
-				keys[keyval[0]] = keyval[1];
-			}
-
-			if ( keys['cpid'] != cp.id )
-			{
-				return;
-			}
-
-			if ( keys['status'] == 'error' )
-			{
-				$( '#geoapply' ).addClass( 'disabled' );
-				$( '#curgeo' ).addClass( 'disabled' );
-				console.log( chrome.i18n.getMessage( 'i18n_0025' ) );
-			}
-			else if ( keys['status'] == 'latlng' )
-			{
-				cp.param['lat'] = keys['lat'];
-				cp.param['lng'] = keys['lng'];
-			}
-			else if ( keys['status'] == 'zoom' )
-			{
-				cp.param['zoom'] = keys['zoom'];
-			}
-		} );
-
 		cont.addClass( 'geosetting' )
 			.html( OutputTPL( 'geosetting', {} ) );
 
-		cont.find( 'iframe' ).attr( 'src', 'map.sandbox.html?' +
-			'lat=' + cp.param['lat'] +
-			'&lng=' + cp.param['lng'] +
-			'&zoom=' + cp.param['zoom'] +
-			'&mode=setting' +
-			'&cpid=' + cp.id );
+		// googleのAPIがロードされていない
+		if ( typeof( google ) == 'undefined' )
+		{
+			$( '#geoapply' ).addClass( 'disabled' );
+			$( '#curgeo' ).addClass( 'disabled' );
+			return;
+		}
+
+		var latlng = new google.maps.LatLng( cp.param['lat'], cp.param['lng'] );
+
+		var map = new google.maps.Map( document.getElementById( 'geosetmap' ),
+			{
+				zoom: cp.param['zoom'],
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				scaleControl: true,
+			}
+		);
+console.log(map);
+
+		var currentMarker = null;
+
+		var SetMarker = function( latlng ) {
+			if ( currentMarker != null )
+			{
+				currentMarker.setMap( null );
+			}
+
+			var marker = new google.maps.Marker( {
+				position: latlng,
+				map: map,
+			} );
+
+			currentMarker = marker;
+
+			cp.param['lat'] = latlng.lat();
+			cp.param['lng'] = latlng.lng();
+		};
+
+		// クリックした位置にマーカーを置く
+		google.maps.event.addListener( map, 'click', function( e ) {
+			SetMarker( e.latLng );
+		} );
+
+		google.maps.event.addListener( map, 'zoom_changed', function() {
+			cp.param['zoom'] = map.getZoom();
+		} );
+
+		map.setCenter( latlng );
+
+		SetMarker( latlng );
 
 		p.draggable( 'option', 'cancel', 'div.contents' );
 
 		// 設定する
-		$( '#geoapply' ).click( function( e ) {
+		$( '#geoapply' ).on( 'click', function( e ) {
 			// disabledなら処理しない
 			if ( $( this ).hasClass( 'disabled' ) )
 			{
@@ -85,7 +97,7 @@ Contents.geosetting = function( cp )
 		} );
 
 		// 現在地取得
-		$( '#curgeo' ).click( function( e ) {
+		$( '#curgeo' ).on( 'click', function( e ) {
 			// disabledなら処理しない
 			if ( $( this ).hasClass( 'disabled' ) )
 			{
@@ -93,15 +105,11 @@ Contents.geosetting = function( cp )
 			}
 
 			navigator.geolocation.getCurrentPosition( function( pos ) {
-				cp.param['lat'] = pos.coords.latitude;
-				cp.param['lng'] = pos.coords.longitude;
+				var _latlng = new google.maps.LatLng( pos.coords.latitude, pos.coords.longitude );
 
-				cont.find( 'iframe' ).attr( 'src', 'map.sandbox.html?' +
-					'lat=' + cp.param['lat'] +
-					'&lng=' + cp.param['lng'] +
-					'&zoom=' + cp.param['zoom'] +
-					'&mode=setting' +
-					'&cpid=' + cp.id );
+				SetMarker( _latlng );
+
+				map.setCenter( _latlng );
 			} );
 
 			e.stopPropagation();

@@ -61,7 +61,7 @@ Contents.grouplist = function( cp )
 				return;
 			}
 
-			if ( confirm( chrome.i18n.getMessage( 'i18n_0224' ) ) )
+			if ( confirm( i18nGetMessage( 'i18n_0224' ) ) )
 			{
 				var item = $( this ).parent().parent();
 				var id = item.attr( 'id' );
@@ -141,7 +141,7 @@ Contents.grouplist = function( cp )
 
 			if ( cnt >= 20 )
 			{
-				MessageBox( chrome.i18n.getMessage( 'i18n_0069' ) );
+				MessageBox( i18nGetMessage( 'i18n_0069' ) );
 			}
 			else
 			{
@@ -159,7 +159,7 @@ Contents.grouplist = function( cp )
 					for ( ; ; cnt++ )
 					{
 						var chk = false;
-						var _name = chrome.i18n.getMessage( 'i18n_0061' ) + cnt;
+						var _name = i18nGetMessage( 'i18n_0061' ) + cnt;
 
 						for ( var id in g_cmn.group_panel )
 						{

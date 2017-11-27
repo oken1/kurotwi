@@ -159,7 +159,7 @@ Contents.lists = function( cp )
 								name: item.find( '.fullname' ).attr( 'name' ),
 							} );
 
-							$( this ).text( chrome.i18n.getMessage( 'i18n_0091' ) );
+							$( this ).text( i18nGetMessage( 'i18n_0091' ) );
 
 							UpdateToolbarUser();
 						}
@@ -177,7 +177,7 @@ Contents.lists = function( cp )
 								}
 							}
 
-							$( this ).text( chrome.i18n.getMessage( 'i18n_0092' ) );
+							$( this ).text( i18nGetMessage( 'i18n_0092' ) );
 
 							UpdateToolbarUser();
 						}
@@ -201,7 +201,7 @@ Contents.lists = function( cp )
 						var slug = fullname.attr( 'slug' );
 						var listname = ( ( mylist == 1 ) ? '@' + screen_name + '/' : '' ) + slug;
 
-						var conf = confirm( chrome.i18n.getMessage( 'i18n_0185', [listname] ) );
+						var conf = confirm( i18nGetMessage( 'i18n_0185', [listname] ) );
 
 						if ( conf )
 						{
@@ -234,7 +234,7 @@ Contents.lists = function( cp )
 									}
 									else
 									{
-										ApiError( chrome.i18n.getMessage( 'i18n_0225' ), res );
+										ApiError( i18nGetMessage( 'i18n_0225' ), res );
 									}
 
 									Blackout( false );
@@ -247,7 +247,7 @@ Contents.lists = function( cp )
 				}
 				else
 				{
-					ApiError( chrome.i18n.getMessage( 'i18n_0169' ), res );
+					ApiError( i18nGetMessage( 'i18n_0169' ), res );
 					cont.activity( false );
 				}
 
@@ -322,7 +322,7 @@ Contents.lists = function( cp )
 		cont.addClass( 'lists' )
 			.html( OutputTPL( 'lists', {} ) );
 
-		cp.SetTitle( g_cmn.account[cp.param['account_id']].screen_name + chrome.i18n.getMessage( 'i18n_0098' ) + chrome.i18n.getMessage( 'i18n_0167' ), false );
+		cp.SetTitle( g_cmn.account[cp.param['account_id']].screen_name + i18nGetMessage( 'i18n_0098' ) + i18nGetMessage( 'i18n_0167' ), false );
 
 		cont.find( '.list_create' ).hide();
 
@@ -376,21 +376,21 @@ Contents.lists = function( cp )
 
 			if ( listname.val().length <= 0 )
 			{
-				MessageBox( chrome.i18n.getMessage( 'i18n_0173' ) );
+				MessageBox( i18nGetMessage( 'i18n_0173' ) );
 				listname.focus();
 				return;
 			}
 
 			if ( listname.val().length > 25 )
 			{
-				MessageBox( chrome.i18n.getMessage( 'i18n_0172' ) );
+				MessageBox( i18nGetMessage( 'i18n_0172' ) );
 				listname.focus();
 				return;
 			}
 
 			if ( desc.val().length > 100 )
 			{
-				MessageBox( chrome.i18n.getMessage( 'i18n_0245' ) );
+				MessageBox( i18nGetMessage( 'i18n_0245' ) );
 				desc.focus();
 				return;
 			}
@@ -435,7 +435,7 @@ Contents.lists = function( cp )
 					}
 					else
 					{
-						ApiError( chrome.i18n.getMessage( 'i18n_0170' ), res );
+						ApiError( i18nGetMessage( 'i18n_0170' ), res );
 					}
 
 					Blackout( false );

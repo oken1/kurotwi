@@ -24,7 +24,7 @@ Contents.nowbrowsing = function( cp )
 				for ( var j = 0, __len = wins[i].tabs.length ; j < __len ; j++ )
 				{
 					// URLがchrome～、about:～のタブは無視
-					if ( !wins[i].tabs[j].url.match( /^chrome|about:/ ) )
+					if ( !wins[i].tabs[j].url.match( /^chrome|moz|about:/ ) )
 					{
 						items.push( {
 							title: escapeHTML( wins[i].tabs[j].title ),
@@ -66,7 +66,7 @@ Contents.nowbrowsing = function( cp )
 				{
 					var _cp = new CPanel( left, top, width, 240 );
 					_cp.SetType( 'tweetbox' );
-					_cp.SetTitle( chrome.i18n.getMessage( 'i18n_0083' ), false );
+					_cp.SetTitle( i18nGetMessage( 'i18n_0083' ), false );
 					_cp.SetParam( { account_id: '', rep_user: null, hashtag: null, maxlen: 140, } );
 					_cp.Start( function() {
 						SetText();

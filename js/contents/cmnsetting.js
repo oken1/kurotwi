@@ -115,7 +115,7 @@ Contents.cmnsetting = function( cp )
 			animate: 'fast',
 			slide: function( e, ui ) {
 				$( '#cmnsetting_apply' ).removeClass( 'disabled' );
-				$( '#cset_reload_time_disp' ).html( ui.value + chrome.i18n.getMessage( 'i18n_0270' ) );
+				$( '#cset_reload_time_disp' ).html( ui.value + i18nGetMessage( 'i18n_0270' ) );
 			},
 		} );
 
@@ -127,7 +127,7 @@ Contents.cmnsetting = function( cp )
 			animate: 'fast',
 			slide: function( e, ui ) {
 				$( '#cmnsetting_apply' ).removeClass( 'disabled' );
-				$( '#cset_get_count_disp' ).html( ui.value + chrome.i18n.getMessage( 'i18n_0204' ) );
+				$( '#cset_get_count_disp' ).html( ui.value + i18nGetMessage( 'i18n_0204' ) );
 
 				if ( $( '#cset_max_count' ).slider( 'value' ) < ui.value )
 				{
@@ -138,7 +138,7 @@ Contents.cmnsetting = function( cp )
 					min: ui.value,
 				} );
 
-				$( '#cset_max_count_disp' ).html( $( '#cset_max_count' ).slider( 'value' ) + chrome.i18n.getMessage( 'i18n_0204' ) );
+				$( '#cset_max_count_disp' ).html( $( '#cset_max_count' ).slider( 'value' ) + i18nGetMessage( 'i18n_0204' ) );
 			},
 		} );
 
@@ -150,7 +150,7 @@ Contents.cmnsetting = function( cp )
 			animate: 'fast',
 			slide: function( e, ui ) {
 				$( '#cmnsetting_apply' ).removeClass( 'disabled' );
-				$( '#cset_max_count_disp' ).html( ui.value + chrome.i18n.getMessage( 'i18n_0204' ) );
+				$( '#cset_max_count_disp' ).html( ui.value + i18nGetMessage( 'i18n_0204' ) );
 			},
 		} );
 
@@ -162,7 +162,7 @@ Contents.cmnsetting = function( cp )
 			animate: 'fast',
 			slide: function( e, ui ) {
 				$( '#cmnsetting_apply' ).removeClass( 'disabled' );
-				$( '#cset_notify_time_disp' ).html( ui.value + chrome.i18n.getMessage( 'i18n_0270' ) );
+				$( '#cset_notify_time_disp' ).html( ui.value + i18nGetMessage( 'i18n_0270' ) );
 			},
 		} );
 
@@ -276,7 +276,7 @@ Contents.cmnsetting = function( cp )
 			{
 				var _cp = new CPanel( left, top, width, 240 );
 				_cp.SetType( 'tweetbox' );
-				_cp.SetTitle( chrome.i18n.getMessage( 'i18n_0083' ), false );
+				_cp.SetTitle( i18nGetMessage( 'i18n_0083' ), false );
 				_cp.SetParam( { account_id: '', rep_user: null, hashtag: null, maxlen: 140, } );
 				_cp.Start( function() {
 					SetText();
@@ -322,7 +322,7 @@ Contents.cmnsetting = function( cp )
 		$( '#cset_ngappend' ).on( 'click', function( e ) {
 //			if ( $( '#csetng_list' ).find( '.ngitem' ).length >= 100 )
 //			{
-//				MessageBox( chrome.i18n.getMessage( 'i18n_0069' ) );
+//				MessageBox( i18nGetMessage( 'i18n_0069' ) );
 //			}
 //			else
 			{
@@ -382,12 +382,12 @@ Contents.cmnsetting = function( cp )
 			if ( enabled == 'true' )
 			{
 				additem.find( '.ngenable' ).find( 'input[type=checkbox]' ).prop( 'checked', true )
-					.attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0282' ) );
+					.attr( 'tooltip', i18nGetMessage( 'i18n_0282' ) );
 			}
 			else
 			{
 				additem.find( '.ngenable' ).find( 'input[type=checkbox]' ).prop( 'checked', false )
-					.attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0280' ) );
+					.attr( 'tooltip', i18nGetMessage( 'i18n_0280' ) );
 			}
 
 			additem.attr( 'enabled', enabled );
@@ -399,15 +399,15 @@ Contents.cmnsetting = function( cp )
 
 			if ( type == 'word' )
 			{
-				additem.find( '.ngtype' ).find( 'a' ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0181' ) ).removeClass( 'icon-user icon-twitter' ).addClass( 'icon-A' );
+				additem.find( '.ngtype' ).find( 'a' ).attr( 'tooltip', i18nGetMessage( 'i18n_0181' ) ).removeClass( 'icon-user icon-twitter' ).addClass( 'icon-A' );
 			}
 			else if ( type == 'user' )
 			{
-				additem.find( '.ngtype' ).find( 'a' ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0181' ) ).removeClass( 'icon-A icon-twitter' ).addClass( 'icon-user' );
+				additem.find( '.ngtype' ).find( 'a' ).attr( 'tooltip', i18nGetMessage( 'i18n_0181' ) ).removeClass( 'icon-A icon-twitter' ).addClass( 'icon-user' );
 			}
 			else
 			{
-				additem.find( '.ngtype' ).find( 'a' ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0181' ) ).removeClass( 'icon-user icon-A' ).addClass( 'icon-twitter' );
+				additem.find( '.ngtype' ).find( 'a' ).attr( 'tooltip', i18nGetMessage( 'i18n_0181' ) ).removeClass( 'icon-user icon-A' ).addClass( 'icon-twitter' );
 			}
 
 			additem.attr( 'type', type );
@@ -432,12 +432,12 @@ Contents.cmnsetting = function( cp )
 				if ( $( this ).prop( 'checked' ) )
 				{
 					$( this ).parent().parent().attr( 'enabled', true );
-					$( this ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0282' ) );
+					$( this ).attr( 'tooltip', i18nGetMessage( 'i18n_0282' ) );
 				}
 				else
 				{
 					$( this ).parent().parent().attr( 'enabled', false );
-					$( this ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0280' ) );
+					$( this ).attr( 'tooltip', i18nGetMessage( 'i18n_0280' ) );
 				}
 
 				$( this ).trigger( 'mouseenter' );
@@ -453,19 +453,19 @@ Contents.cmnsetting = function( cp )
 				if ( curtype == 'word' )
 				{
 					item.attr( 'type', 'user' );
-					$( this ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0161' ) );
+					$( this ).attr( 'tooltip', i18nGetMessage( 'i18n_0161' ) );
 					$( this ).removeClass( 'icon-A' ).addClass( 'icon-user' );
 				}
 				else if ( curtype == 'user' )
 				{
 					item.attr( 'type', 'client' );
-					$( this ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0059' ) );
+					$( this ).attr( 'tooltip', i18nGetMessage( 'i18n_0059' ) );
 					$( this ).removeClass( 'icon-user' ).addClass( 'icon-twitter' );
 				}
 				else
 				{
 					item.attr( 'type', 'word' );
-					$( this ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0181' ) );
+					$( this ).attr( 'tooltip', i18nGetMessage( 'i18n_0181' ) );
 					$( this ).removeClass( 'icon-twitter' ).addClass( 'icon-A' );
 				}
 
@@ -628,7 +628,7 @@ Contents.cmnsetting = function( cp )
 				if ( word != '' && !word.match( /^[^\s「」。、!"#\$%&'\(\)=\-~\^\\@`\[\{;\+\*:\]\}<,>\.\?\/]+$/ ) )
 				{
 					// "
-					MessageBox( chrome.i18n.getMessage( 'i18n_0109' ) );
+					MessageBox( i18nGetMessage( 'i18n_0109' ) );
 					$( this ).find( '.hashword' ).find( 'input[type=text]' ).focus();
 					e.stopPropagation();
 					chk = false;
@@ -876,8 +876,8 @@ Contents.cmnsetting = function( cp )
 
 			// ツイートボタンのツールチップを設定に合わせる
 			var _tips = new Array( 'Ctrl+Enter', 'Shift+Enter', 'Enter' );
-			$( '#tweet' ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0083' ) + '(' + _tips[g_cmn.cmn_param.tweetkey] + ')' );
-			$( '#dmsend' ).attr( 'tooltip', chrome.i18n.getMessage( 'i18n_0250' ) + '(' + _tips[g_cmn.cmn_param.tweetkey] + ')' );
+			$( '#tweet' ).attr( 'tooltip', i18nGetMessage( 'i18n_0083' ) + '(' + _tips[g_cmn.cmn_param.tweetkey] + ')' );
+			$( '#dmsend' ).attr( 'tooltip', i18nGetMessage( 'i18n_0250' ) + '(' + _tips[g_cmn.cmn_param.tweetkey] + ')' );
 
 			// ハッシュタグプルダウンを更新
 			$( 'div.contents' ).trigger( 'hashtag_pulldown_update' );

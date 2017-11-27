@@ -13,30 +13,30 @@ Contents.api_remaining = function( cp )
 
 	// API1.1対応済み
 	var apis = {};
-	apis['/statuses/home_timeline'] = { title: chrome.i18n.getMessage( 'i18n_0152' ), prio: 0 };
-	apis['/statuses/mentions_timeline'] = { title: chrome.i18n.getMessage( 'i18n_0026' ), prio: 1 };
-	apis['/lists/statuses'] = { title: chrome.i18n.getMessage( 'i18n_0167' ), prio: 2 };
-	apis['/statuses/user_timeline'] = { title: chrome.i18n.getMessage( 'i18n_0291' ), prio: 3 };
-	apis['/direct_messages'] = { title: chrome.i18n.getMessage( 'i18n_0021' ), prio: 4 };
-	apis['/search/tweets'] = { title: chrome.i18n.getMessage( 'i18n_0206' ), prio: 5 };
-	apis['/users/show/:id'] = { title: chrome.i18n.getMessage( 'i18n_0292' ), prio: 6 };
-	apis['/statuses/show/:id'] = { title: chrome.i18n.getMessage( 'i18n_0293' ), prio: 7 };
-	apis['/users/search'] = { title: chrome.i18n.getMessage( 'i18n_0159' ), prio: 8 };
-	apis['/lists/list'] = { title: chrome.i18n.getMessage( 'i18n_0294' ), prio: 9 };
-	apis['/direct_messages/sent'] = { title: chrome.i18n.getMessage( 'i18n_0251' ), prio: 10 };
-	apis['/favorites/list'] = { title: chrome.i18n.getMessage( 'i18n_0054' ), prio: 11 };
-	apis['/trends/place'] = { title: chrome.i18n.getMessage( 'i18n_0095' ), prio: 12 };
-	apis['/trends/available'] = { title: chrome.i18n.getMessage( 'i18n_0295' ), prio: 13 };
-	apis['/saved_searches/list'] = { title: chrome.i18n.getMessage( 'i18n_0207' ), prio: 14 };
-	apis['/users/lookup'] = { title: chrome.i18n.getMessage( 'i18n_0316' ), prio: 15 };
-	apis['/application/rate_limit_status'] = { title: chrome.i18n.getMessage( 'i18n_0296' ), prio: 16 };
-	apis['/blocks/ids'] = { title: chrome.i18n.getMessage( 'i18n_0318' ), prio: 17 };
-	apis['/friends/ids'] = { title: chrome.i18n.getMessage( 'i18n_0319' ), prio: 18 };
-	apis['/followers/ids'] = { title: chrome.i18n.getMessage( 'i18n_0320' ), prio: 19 };
-	apis['/friendships/incoming'] = { title: chrome.i18n.getMessage( 'i18n_0321' ), prio: 20 };
-	apis['/friendships/no_retweets/ids'] = { title: chrome.i18n.getMessage( 'i18n_0326' ), prio: 21 };
-	apis['/mutes/users/ids'] = { title: chrome.i18n.getMessage( 'i18n_0367' ), prio: 22 };
-	apis['/help/configuration'] = { title: chrome.i18n.getMessage( 'i18n_0297' ), prio: 23 };
+	apis['/statuses/home_timeline'] = { title: i18nGetMessage( 'i18n_0152' ), prio: 0 };
+	apis['/statuses/mentions_timeline'] = { title: i18nGetMessage( 'i18n_0026' ), prio: 1 };
+	apis['/lists/statuses'] = { title: i18nGetMessage( 'i18n_0167' ), prio: 2 };
+	apis['/statuses/user_timeline'] = { title: i18nGetMessage( 'i18n_0291' ), prio: 3 };
+	apis['/direct_messages'] = { title: i18nGetMessage( 'i18n_0021' ), prio: 4 };
+	apis['/search/tweets'] = { title: i18nGetMessage( 'i18n_0206' ), prio: 5 };
+	apis['/users/show/:id'] = { title: i18nGetMessage( 'i18n_0292' ), prio: 6 };
+	apis['/statuses/show/:id'] = { title: i18nGetMessage( 'i18n_0293' ), prio: 7 };
+	apis['/users/search'] = { title: i18nGetMessage( 'i18n_0159' ), prio: 8 };
+	apis['/lists/list'] = { title: i18nGetMessage( 'i18n_0294' ), prio: 9 };
+	apis['/direct_messages/sent'] = { title: i18nGetMessage( 'i18n_0251' ), prio: 10 };
+	apis['/favorites/list'] = { title: i18nGetMessage( 'i18n_0054' ), prio: 11 };
+	apis['/trends/place'] = { title: i18nGetMessage( 'i18n_0095' ), prio: 12 };
+	apis['/trends/available'] = { title: i18nGetMessage( 'i18n_0295' ), prio: 13 };
+	apis['/saved_searches/list'] = { title: i18nGetMessage( 'i18n_0207' ), prio: 14 };
+	apis['/users/lookup'] = { title: i18nGetMessage( 'i18n_0316' ), prio: 15 };
+	apis['/application/rate_limit_status'] = { title: i18nGetMessage( 'i18n_0296' ), prio: 16 };
+	apis['/blocks/ids'] = { title: i18nGetMessage( 'i18n_0318' ), prio: 17 };
+	apis['/friends/ids'] = { title: i18nGetMessage( 'i18n_0319' ), prio: 18 };
+	apis['/followers/ids'] = { title: i18nGetMessage( 'i18n_0320' ), prio: 19 };
+	apis['/friendships/incoming'] = { title: i18nGetMessage( 'i18n_0321' ), prio: 20 };
+	apis['/friendships/no_retweets/ids'] = { title: i18nGetMessage( 'i18n_0326' ), prio: 21 };
+	apis['/mutes/users/ids'] = { title: i18nGetMessage( 'i18n_0367' ), prio: 22 };
+	apis['/help/configuration'] = { title: i18nGetMessage( 'i18n_0297' ), prio: 23 };
 
 	var apis_length = 0;
 
@@ -121,7 +121,7 @@ Contents.api_remaining = function( cp )
 				}
 				else
 				{
-					ApiError( chrome.i18n.getMessage( 'i18n_0298' ), res );
+					ApiError( i18nGetMessage( 'i18n_0298' ), res );
 					cont.activity( false );
 				}
 			}
@@ -243,7 +243,7 @@ Contents.api_remaining = function( cp )
 		cont.addClass( 'api_remaining' )
 			.html( OutputTPL( 'api_remaining', {} ) );
 
-		cp.SetTitle( chrome.i18n.getMessage( 'i18n_0296' ) + ' (<span class="titlename">' + g_cmn.account[cp.param['account_id']].screen_name + '</span>)', false );
+		cp.SetTitle( i18nGetMessage( 'i18n_0296' ) + ' (<span class="titlename">' + g_cmn.account[cp.param['account_id']].screen_name + '</span>)', false );
 
 		////////////////////////////////////////
 		// 更新ボタンクリック

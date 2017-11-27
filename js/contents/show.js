@@ -57,7 +57,7 @@ Contents.show = function( cp )
 					var compdate = CompareDate( dt.getFullYear(), dt.getMonth() + 1, dt.getDate(),
 						cr.substring( 0, 4 ), cr.substring( 5, 7 ), cr.substring( 8, 10 ) );
 
-					var hist = NumFormat( compdate ) + chrome.i18n.getMessage( 'i18n_0259' ) + '(' + 
+					var hist = NumFormat( compdate ) + i18nGetMessage( 'i18n_0259' ) + '(' + 
 						cr.substring( 0, 4 ) + '/' + cr.substring( 5, 7 ) + '/' + cr.substring( 8, 10 ) + '-' + ')';
 
 					// 自己紹介
@@ -273,7 +273,7 @@ Contents.show = function( cp )
 					cont.find( '.buttons' ).find( '.follow' ).click( function( e ) {
 						var following = $( this ).attr( 'following' );
 
-						var conf = confirm( ( following == 1 ) ? chrome.i18n.getMessage( 'i18n_0133' ) : chrome.i18n.getMessage( 'i18n_0127' ) );
+						var conf = confirm( ( following == 1 ) ? i18nGetMessage( 'i18n_0133' ) : i18nGetMessage( 'i18n_0127' ) );
 
 						if ( conf )
 						{
@@ -302,7 +302,7 @@ Contents.show = function( cp )
 									{
 										if ( following == 1 )
 										{
-											cont.find( '.buttons' ).find( '.follow' ).attr( 'following', 0 ).html( chrome.i18n.getMessage( 'i18n_0128' ) );
+											cont.find( '.buttons' ).find( '.follow' ).attr( 'following', 0 ).html( i18nGetMessage( 'i18n_0128' ) );
 
 											// フォローリストから削除
 											if ( g_cmn.account[cp.param['account_id']].notsave.friends != undefined )
@@ -319,7 +319,7 @@ Contents.show = function( cp )
 										}
 										else
 										{
-											cont.find( '.buttons' ).find( '.follow' ).attr( 'following', 1 ).html( chrome.i18n.getMessage( 'i18n_0135' ) );
+											cont.find( '.buttons' ).find( '.follow' ).attr( 'following', 1 ).html( i18nGetMessage( 'i18n_0135' ) );
 
 											// フォローリストに追加
 											if ( g_cmn.account[cp.param['account_id']].notsave.friends != undefined )
@@ -330,7 +330,7 @@ Contents.show = function( cp )
 									}
 									else
 									{
-										ApiError( ( following == 1 ) ? chrome.i18n.getMessage( 'i18n_0134' ) : chrome.i18n.getMessage( 'i18n_0129' ), res );
+										ApiError( ( following == 1 ) ? i18nGetMessage( 'i18n_0134' ) : i18nGetMessage( 'i18n_0129' ), res );
 									}
 
 									Blackout( false );
@@ -376,7 +376,7 @@ Contents.show = function( cp )
 									{
 										if ( muting == 1 )
 										{
-											cont.find( '.buttons' ).find( '.mute' ).attr( 'muting', 0 ).html( chrome.i18n.getMessage( 'i18n_0360' ) );
+											cont.find( '.buttons' ).find( '.mute' ).attr( 'muting', 0 ).html( i18nGetMessage( 'i18n_0360' ) );
 
 											if ( g_cmn.account[cp.param['account_id']].notsave.muteusers != undefined )
 											{
@@ -392,7 +392,7 @@ Contents.show = function( cp )
 										}
 										else
 										{
-											cont.find( '.buttons' ).find( '.mute' ).attr( 'muting', 1 ).html( chrome.i18n.getMessage( 'i18n_0366' ) );
+											cont.find( '.buttons' ).find( '.mute' ).attr( 'muting', 1 ).html( i18nGetMessage( 'i18n_0366' ) );
 
 											if ( g_cmn.account[cp.param['account_id']].notsave.muteusers != undefined )
 											{
@@ -402,7 +402,7 @@ Contents.show = function( cp )
 									}
 									else
 									{
-										ApiError( ( muting == 1 ) ? chrome.i18n.getMessage( 'i18n_0365' ) : chrome.i18n.getMessage( 'i18n_0361' ), res );
+										ApiError( ( muting == 1 ) ? i18nGetMessage( 'i18n_0365' ) : i18nGetMessage( 'i18n_0361' ), res );
 									}
 
 									Blackout( false );
@@ -421,7 +421,7 @@ Contents.show = function( cp )
 						var id = $( this ).parent().attr( 'id' );
 						var blocking = $( this ).attr( 'blocking' );
 
-						var conf = confirm( ( blocking == 1 ) ? chrome.i18n.getMessage( 'i18n_0144' ) : chrome.i18n.getMessage( 'i18n_0139' ) );
+						var conf = confirm( ( blocking == 1 ) ? i18nGetMessage( 'i18n_0144' ) : i18nGetMessage( 'i18n_0139' ) );
 
 						if ( conf )
 						{
@@ -450,7 +450,7 @@ Contents.show = function( cp )
 									{
 										if ( blocking == 1 )
 										{
-											cont.find( '.buttons' ).find( '.block' ).attr( 'blocking', 0 ).html( chrome.i18n.getMessage( 'i18n_0140' ) );
+											cont.find( '.buttons' ).find( '.block' ).attr( 'blocking', 0 ).html( i18nGetMessage( 'i18n_0140' ) );
 
 											if ( g_cmn.account[cp.param['account_id']].notsave.blockusers != undefined )
 											{
@@ -466,7 +466,7 @@ Contents.show = function( cp )
 										}
 										else
 										{
-											cont.find( '.buttons' ).find( '.block' ).attr( 'blocking', 1 ).html( chrome.i18n.getMessage( 'i18n_0146' ) );
+											cont.find( '.buttons' ).find( '.block' ).attr( 'blocking', 1 ).html( i18nGetMessage( 'i18n_0146' ) );
 
 											if ( g_cmn.account[cp.param['account_id']].notsave.blockusers != undefined )
 											{
@@ -476,7 +476,7 @@ Contents.show = function( cp )
 									}
 									else
 									{
-										ApiError( ( blocking == 1 ) ? chrome.i18n.getMessage( 'i18n_0145' ) : chrome.i18n.getMessage( 'i18n_0141' ), res );
+										ApiError( ( blocking == 1 ) ? i18nGetMessage( 'i18n_0145' ) : i18nGetMessage( 'i18n_0141' ), res );
 									}
 
 									Blackout( false );
@@ -492,7 +492,7 @@ Contents.show = function( cp )
 					// スパム報告クリック処理
 					////////////////////////////////////////
 					cont.find( '.buttons' ).find( '.spam' ).click( function( e ) {
-						var conf = confirm( chrome.i18n.getMessage( 'i18n_0184' ) );
+						var conf = confirm( i18nGetMessage( 'i18n_0184' ) );
 
 						if ( conf )
 						{
@@ -522,7 +522,7 @@ Contents.show = function( cp )
 									}
 									else
 									{
-										ApiError( chrome.i18n.getMessage( 'i18n_0072' ), res );
+										ApiError( i18nGetMessage( 'i18n_0072' ), res );
 									}
 
 									Blackout( false );
@@ -550,7 +550,7 @@ Contents.show = function( cp )
 				}
 				else
 				{
-					ApiError( chrome.i18n.getMessage( 'i18n_0160' ), res );
+					ApiError( i18nGetMessage( 'i18n_0160' ), res );
 					p.find( '.close' ).trigger( 'click', [false] );
 				}
 

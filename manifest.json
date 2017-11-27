@@ -1,11 +1,11 @@
 {
 	"manifest_version": 2,
 	"name": "KuroTwi",
-	"version": "1.8",
+	"author": "KEN1",
+	"version": "1.9",
 	"description": "__MSG_manifest_description__",
 	"default_locale": "en",
-	"content_security_policy": "script-src 'self'; object-src 'self'",
-	"update_url": "http://www.jstwi.com/kurotwi/update.xml",
+	"content_security_policy": "script-src 'self' https://maps.googleapis.com ; object-src 'self'",
 
 	"minimum_chrome_version": "20.0",
 
@@ -22,11 +22,7 @@
 	},
 
 	"background" : {
-		"scripts": ["js/lib/jquery.js", "js/lib/oauth.js", "js/lib/sha1.js", "js/util.js", "js/background.js"]
-	},
-
-	"sandbox": {
-		"pages": [ "map.sandbox.html" ]
+		"scripts": ["js/background.js"]
 	},
 
 	"permissions": [
