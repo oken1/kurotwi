@@ -19,6 +19,8 @@ Contents.dmbox = function( cp )
 
 		$( '#dmbox_cnt' ).hide();
 
+		cp.SetTitle( i18nGetMessage( 'i18n_0149', [cp.param.screen_name] ), false );
+		
 		// 送信ボタンのツールチップを設定に合わせる
 		var _tips = new Array( 'Ctrl+Enter', 'Shift+Enter', 'Enter' );
 		$( '#dmsend' ).attr( 'tooltip', i18nGetMessage( 'i18n_0250' ) + '(' + _tips[g_cmn.cmn_param.tweetkey] + ')' );

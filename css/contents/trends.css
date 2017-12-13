@@ -9,13 +9,13 @@ div.contents.trends {
 }
 
 /* リスト部 */
-#trends_list {
+div.contents.trends .trends_list {
 	width: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
 
-#trends_list .item {
+div.contents.trends .trends_list .item {
 	display: table;
 	width: 100%;
 	border-bottom: 1px solid rgba( 0, 0, 0, 0.4 );
@@ -23,22 +23,22 @@ div.contents.trends {
 	box-sizing: border-box;
 }
 
-#trends_list .item:hover {
+div.contents.trends .trends_list .item:hover {
 	cursor: default;
 }
 
-#trends_list .item .container {
+div.contents.trends .trends_list .item .container {
 	display: table-cell;
 	vertical-align: top;
 	padding: 4px;
 }
 
-#trends_list .item .container .title span {
+div.contents.trends .trends_list .item .container .title span {
 	font-weight: bold;
 	user-select: text;
 }
 
-#trends_list .item .container .title span:hover {
+div.contents.trends .trends_list .item .container .title span:hover {
 	opacity: 0.5;
 	cursor: pointer;
 }

@@ -442,7 +442,6 @@ function Init()
 					}
 
 					cp.SetType( _g_cmn.panel[i].type );
-					cp.SetTitle( _g_cmn.panel[i].title, _g_cmn.panel[i].setting );
 					cp.SetParam( _g_cmn.panel[i].param );
 					cp.Start();
 				}
@@ -714,7 +713,6 @@ function Init()
 				{
 					var _cp = new CPanel( null, null, 320, 360 );
 					_cp.SetType( 'rsslist' );
-					_cp.SetTitle( i18nGetMessage( 'i18n_0032' ), false );
 					_cp.SetParam( {} );
 					_cp.Start();
 				}
@@ -738,7 +736,6 @@ function Init()
 				{
 					var _cp = new CPanel( null, null, 320, 300 );
 					_cp.SetType( 'notify_history' );
-					_cp.SetTitle( i18nGetMessage( 'i18n_0094' ), false );
 					_cp.SetParam( {} );
 					_cp.Start();
 				}
@@ -756,26 +753,10 @@ function Init()
 				break;
 			// トレンド
 			case 2:
-				var pid = IsUnique( 'trends' );
-
-				if ( pid == null )
-				{
-					var _cp = new CPanel( null, null, 240, 360 );
-					_cp.SetType( 'trends' );
-					_cp.SetTitle( i18nGetMessage( 'i18n_0095' ), false );
-					_cp.SetParam( {} );
-					_cp.Start();
-				}
-				else
-				{
-					SetFront( $( '#' + pid ) );
-
-					// 最小化している場合は元に戻す
-					if ( GetPanel( pid ).minimum.minimum == true )
-					{
-						$( '#' + pid ).find( 'div.titlebar' ).find( '.minimum' ).trigger( 'click' );
-					}
-				}
+				var _cp = new CPanel( null, null, 240, 360 );
+				_cp.SetType( 'trends' );
+				_cp.SetParam( { account_id: g_cmn.account_order[0] } );
+				_cp.Start();
 
 				break;
 			// Now Browsing
@@ -786,7 +767,6 @@ function Init()
 				{
 					var _cp = new CPanel( null, null, 360, 240 );
 					_cp.SetType( 'nowbrowsing' );
-					_cp.SetTitle( i18nGetMessage( 'i18n_0029' ), false );
 					_cp.SetParam( {} );
 					_cp.Start();
 				}
@@ -810,7 +790,6 @@ function Init()
 				{
 					var _cp = new CPanel( null, null, 320, 360 );
 					_cp.SetType( 'grouplist' );
-					_cp.SetTitle( i18nGetMessage( 'i18n_0061' ), false );
 					_cp.SetParam( {} );
 					_cp.Start();
 				}
@@ -835,7 +814,6 @@ function Init()
 				{
 					var _cp = new CPanel( null, null, 360, 240 );
 					_cp.SetType( 'impexp' );
-					_cp.SetTitle( i18nGetMessage( 'i18n_0052' ) + '/' + i18nGetMessage( 'i18n_0053' ), false );
 					_cp.SetParam( {} );
 					_cp.Start();
 				}
@@ -873,7 +851,6 @@ function Init()
 		{
 			var _cp = new CPanel( null, null, 320, 140 );
 			_cp.SetType( 'searchbox' );
-			_cp.SetTitle( i18nGetMessage( 'i18n_0206' ), false );
 			_cp.SetParam( { account_id: '', } );
 			_cp.Start();
 		}
@@ -923,7 +900,6 @@ function Init()
 		{
 			var _cp = new CPanel( left, top, width, 240 );
 			_cp.SetType( 'tweetbox' );
-			_cp.SetTitle( i18nGetMessage( 'i18n_0083' ), false );
 			_cp.SetParam( { account_id: '', rep_user: null, hashtag: null, maxlen: 140, } );
 			_cp.Start();
 		}
@@ -939,7 +915,6 @@ function Init()
 		{
 			var _cp = new CPanel( null, null, 360, 240 );
 			_cp.SetType( 'account' );
-			_cp.SetTitle( i18nGetMessage( 'i18n_0044' ), false );
 			_cp.SetParam( {} );
 			_cp.Start();
 		}
@@ -965,7 +940,6 @@ function Init()
 		{
 			var _cp = new CPanel( null, null, 360, 360 );
 			_cp.SetType( 'cmnsetting' );
-			_cp.SetTitle( i18nGetMessage( 'i18n_0242' ), false );
 			_cp.SetParam( {} );
 			_cp.Start();
 		}
@@ -2293,7 +2267,6 @@ function OpenUserShow( screen_name, user_id, account_id )
 {
 	var _cp = new CPanel( null, null, 400, 360 );
 	_cp.SetType( 'show' );
-	_cp.SetTitle( screen_name + i18nGetMessage( 'i18n_0107' ) + ' (<span class="titlename">' + g_cmn.account[account_id].screen_name + '</span>)', false );
 	_cp.SetParam( {
 		account_id: account_id,
 		screen_name: screen_name,
@@ -3573,7 +3546,7 @@ function SaveDataText()
 				for ( var k in g_cmn[i][j] )
 				{
 					if ( k != 'contents' && k != 'SetType' && k != 'SetTitle' && k != 'SetIcon' &&
-						 k != 'SetParam' && k != 'SetContents' )
+						 k != 'SetParam' && k != 'SetContents' && k != 'title' )
 					{
 						_g_cmn[i][j][k] = g_cmn[i][j][k];
 					}
@@ -4039,7 +4012,7 @@ function SendRequest( req, callback )
 		// req : acsToken
 		//       acsSecret
 		case 'stream_start':
-			ConnectUserStream( req );
+			ConnectUserStream( req, StreamDataAnalyze );
 			callback();
 			break;
 		// ストリーミング停止

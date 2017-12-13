@@ -98,6 +98,8 @@ Contents.tweetbox = function( cp )
 	// 開始処理
 	////////////////////////////////////////////////////////////
 	this.start = function() {
+		cp.SetTitle( i18nGetMessage( 'i18n_0083' ), false );
+		
 		cont.addClass( 'tweetbox' )
 			.html( OutputTPL( 'tweetbox', { maxlen: cp.param['maxlen'] } ) );
 
@@ -1016,7 +1018,6 @@ Contents.tweetbox = function( cp )
 			{
 				var _cp = new CPanel( null, null, 300, 300 );
 				_cp.SetType( 'geosetting' );
-				_cp.SetTitle( i18nGetMessage( 'i18n_0190' ), false );
 
 				// 位置情報が既に設定されている場合
 				if ( cp.param['geo'].length > 0 )

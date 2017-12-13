@@ -80,6 +80,8 @@ Contents.cmnsetting = function( cp )
 				param: g_cmn.cmn_param,
 			} ) );
 
+		cp.SetTitle( i18nGetMessage( 'i18n_0242' ), false );
+			
 		////////////////////////////////////////
 		// スクロール処理
 		////////////////////////////////////////
@@ -276,7 +278,6 @@ Contents.cmnsetting = function( cp )
 			{
 				var _cp = new CPanel( left, top, width, 240 );
 				_cp.SetType( 'tweetbox' );
-				_cp.SetTitle( i18nGetMessage( 'i18n_0083' ), false );
 				_cp.SetParam( { account_id: '', rep_user: null, hashtag: null, maxlen: 140, } );
 				_cp.Start( function() {
 					SetText();

@@ -5,7 +5,7 @@ var userstream;
 ////////////////////////////////////////////////////////////////////////////////
 // UserStreamへ接続する
 ////////////////////////////////////////////////////////////////////////////////
-function ConnectUserStream( req )
+function ConnectUserStream( req, _callback )
 {
 	if ( userstream[req.id] != undefined )
 	{
@@ -15,7 +15,7 @@ function ConnectUserStream( req )
 	userstream[req.id] = {};
 
 	// 接続試行中
-	StreamDataAnalyze( { account_id: req.id, json: { error_id: 1 } } );
+	_callback( { account_id: req.id, json: { error_id: 1 } } );
 
 	// キューの送出処理
 	userstream[req.id].tm = setInterval( function() {
@@ -27,19 +27,19 @@ function ConnectUserStream( req )
 		// ツイート、RT等
 		if ( userstream[req.id].queue_high.length > 0 )
 		{
-			StreamDataAnalyze( { account_id: req.id, json: userstream[req.id].queue_high.shift() } );
+			_callback( { account_id: req.id, json: userstream[req.id].queue_high.shift() } );
 		}
 
 		// イベント系
 		if ( userstream[req.id].queue_low.length > 0 )
 		{
-			StreamDataAnalyze( { account_id: req.id, json: userstream[req.id].queue_low.shift() } );
+			_callback( { account_id: req.id, json: userstream[req.id].queue_low.shift() } );
 		}
 
 		// 削除
 		if ( userstream[req.id].queue_del.length > 0 )
 		{
-			StreamDataAnalyze( { account_id: req.id, json: userstream[req.id].queue_del.shift() } );
+			_callback( { account_id: req.id, json: userstream[req.id].queue_del.shift() } );
 		}
 	}, 500 );
 
@@ -76,18 +76,18 @@ function ConnectUserStream( req )
 			{
 				if ( res.status != 200 )
 				{
-					StreamDataAnalyze( { account_id: req.id, json: { error_id: -1, status: res.status } } );
+					_callback( { account_id: req.id, json: { error_id: -1, status: res.status } } );
 				}
 				else
 				{
-					StreamDataAnalyze( { account_id: req.id, json: { error_id: 0 } } );
+					_callback( { account_id: req.id, json: { error_id: 0 } } );
 				}
 				
 				return;
 			}
 
 			// 接続中
-			StreamDataAnalyze( { account_id: req.id, json: { error_id: 2 } } );
+			_callback( { account_id: req.id, json: { error_id: 2 } } );
 
 			txt += decoder.decode( result.value || new Uint8Array, { stream: true } );
 			var data = txt.split( /\n/ );
@@ -192,12 +192,12 @@ function ConnectUserStream( req )
 		} ).catch( function( err ) {
 			// エラー
 			console.log( err );
-			StreamDataAnalyze( { account_id: req.id, json: { error_id: -1 } } );
+			_callback( { account_id: req.id, json: { error_id: -1 } } );
 		} );
 	} ).catch( function( err ) {
 		// エラー
 		console.log( err );
-		StreamDataAnalyze( { account_id: req.id, json: { error_id: -1 } } );
+		_callback( { account_id: req.id, json: { error_id: -1 } } );
 	} );
 }
 

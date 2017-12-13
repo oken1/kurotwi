@@ -6,6 +6,7 @@
 
 // コンテンツスクリプト
 var Contents = {};
+var contents_css_loaded = {};
 
 var CPanel = function ( x, y, w, h, id, minimum, zindex, status, startflg )
 {
@@ -442,6 +443,16 @@ var CPanel = function ( x, y, w, h, id, minimum, zindex, status, startflg )
 		var titlebar = p.find( 'div.titlebar' );
 		var titlediv = titlebar.find( '.title' ).find( 'div' );
 
+		// timelineパネル以外は未読件数表示を削除"
+		if ( this.type != 'timeline' )
+		{
+			titlebar.find( '.badge' ).remove();
+		}
+		else
+		{
+			titlebar.find( '.badge' ).hide().css( { background: '#dc2d2d' } );
+		}
+		
 		titlediv.text( title );
 
 		// titlenameのタグのみを有効化
@@ -450,15 +461,6 @@ var CPanel = function ( x, y, w, h, id, minimum, zindex, status, startflg )
 			'<span class="titlename tooltip" tooltip="' + i18nGetMessage( 'i18n_0048' ) + '">$1</span>' )
 		);
 
-		// timelineパネル以外は未読件数表示を削除"
-		if ( this.type != 'timeline' )
-		{
-			titlebar.find( '.badge' ).remove();
-		}
-		else
-		{
-			titlebar.find( '.badge' ).hide();
-		}
 
 		// "アカウント選択の表示設定
 		if ( titlediv.find( '.titlename' ).length < 1 )
@@ -547,22 +549,76 @@ var CPanel = function ( x, y, w, h, id, minimum, zindex, status, startflg )
 		// パネルリストの更新
 		$( document ).trigger( 'panellist_changed' );
 
-		$( '#' + _cp.id ).find( 'div.contents' ).css( 'visibility', 'visible' ).end()
-			.find( 'div.titlebar' ).css( 'visibility', 'visible' );
+		// CSS読み込み
+		var css = 'css/contents/' + _cp.type + '.css';
 
-		// 開始処理
-		_cp.contents.start();
+		// スタイルシートが読み込み済みか？
+		var CSSLoadedCheck = function() {
+			var len = document.styleSheets.length;
 
-		// callbackが指定されている場合は呼び出す
-		if ( cb != undefined )
-		{
-			cb();
+			for ( var i = 0 ; i < len ; i++ )
+			{
+				if ( document.styleSheets[i].href == null )
+				{
+					continue;
+				}
+
+				if ( document.styleSheets[i].href.match( css ) )
+				{
+					return true;
+				}
+			}
+
+			return false;
+		};
+
+		var _subsequence = function() {
+			$( '#' + _cp.id ).find( 'div.contents' ).css( 'visibility', 'visible' ).end()
+				.find( 'div.titlebar' ).css( 'visibility', 'visible' );
+
+			// 開始処理
+			_cp.contents.start();
+
+			// callbackが指定されている場合は呼び出す
+			if ( cb != undefined )
+			{
+				cb();
+			}
+
+			// 最小化ボタン設定
+			PanelMinimum( $( '#' + _cp.id ), _cp.minimum );
+
+			SetFont( true );
 		}
 
-		// 最小化ボタン設定
-		PanelMinimum( $( '#' + _cp.id ), _cp.minimum );
+		if ( !contents_css_loaded[_cp.type] )
+		{
+			contents_css_loaded[_cp.type] = true;
 
-		SetFont( true );
+			var elem = document.createElement( 'link' );
+			elem.type = 'text/css';
+			elem.rel = 'stylesheet';
+			elem.href = css + '?' + GetUniqueID();
+
+			document.getElementsByTagName( 'head' )[0].appendChild( elem );
+
+			// 読み込み完了を待って開始処理を実行
+			var polling = function( elem ) {
+				if ( CSSLoadedCheck() )
+				{
+					_subsequence();
+					return false;
+				}
+				
+				setTimeout( function() { polling( elem ) }, 1 );
+			};
+
+			setTimeout( function() { polling( elem ) }, 1 );
+		}
+		else
+		{
+			_subsequence();
+		}
 	};
 };
 

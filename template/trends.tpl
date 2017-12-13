@@ -1,8 +1,8 @@
 <div class='panel_btns'>
 	<div>
-		<a id='trends_reload' class='btn img panel_btn icon-redo tooltip' tooltip='(i18n_0218)'></a>
+		<a class='trends_reload btn img panel_btn icon-redo tooltip' tooltip='(i18n_0218)'></a>
 	</div>
-	<div class='selectbox' id='woeids'>
+	<div class='selectbox woeids'>
 		<div>
 			<div class='selitem'></div>
 			<div><span class='icon-arrow_down'></span></div>
@@ -11,5 +11,5 @@
 		</div>
 	</div>
 </div>
-<div id='trends_list'>
+<div class='trends_list'>
 </div>

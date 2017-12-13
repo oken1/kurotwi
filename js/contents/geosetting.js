@@ -17,6 +17,8 @@ Contents.geosetting = function( cp )
 		cont.addClass( 'geosetting' )
 			.html( OutputTPL( 'geosetting', {} ) );
 
+		cp.SetTitle( i18nGetMessage( 'i18n_0190' ), false );
+			
 		// googleのAPIがロードされていない
 		if ( typeof( google ) == 'undefined' )
 		{
@@ -34,7 +36,6 @@ Contents.geosetting = function( cp )
 				scaleControl: true,
 			}
 		);
-console.log(map);
 
 		var currentMarker = null;
 

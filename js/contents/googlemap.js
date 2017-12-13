@@ -33,7 +33,7 @@ Contents.googlemap = function( cp )
 				scaleControl: true,
 			}
 		);
-console.log(map);
+
 		google.maps.event.addListener( map, 'center_changed', function() {
 			var latlng = map.getCenter();
 			cp.SetTitle( 'Google Map - ' + Math.round( latlng.lat() * 10000 ) / 10000 + ',' +

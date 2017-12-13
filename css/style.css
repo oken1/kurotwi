@@ -735,7 +735,7 @@ panel div.titlebar .titlecontainer .badge {
 	text-align: center;
 
 	color: #ffffff;
-	background-color: #dc2d2d;
+	background-color: var(--titlebar-background);
 }
 
 panel div.titlebar .titlecontainer .badge:hover {

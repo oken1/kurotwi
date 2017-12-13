@@ -42,6 +42,8 @@ Contents.searchbox = function( cp )
 		cont.addClass( 'searchbox' )
 			.html( OutputTPL( 'searchbox', {} ) );
 
+		cp.SetTitle( i18nGetMessage( 'i18n_0206' ), false );
+			
 		$( '#searchbox_box' ).find( '.btn' ).addClass( 'disabled' );
 
 		////////////////////////////////////////

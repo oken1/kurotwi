@@ -43,7 +43,6 @@ Contents.rsslist = function( cp )
 			{
 				var _cp = new CPanel( null, null, 320, 360, id );
 				_cp.SetType( 'rss' );
-				_cp.SetTitle( g_cmn.rss_panel[id].param.title, true );
 				_cp.SetParam( g_cmn.rss_panel[id].param );
 				_cp.Start();
 			}
@@ -123,6 +122,8 @@ Contents.rsslist = function( cp )
 		cont.addClass( 'rsslist' )
 			.html( OutputTPL( 'rsslist', {} ) );
 
+		cp.SetTitle( i18nGetMessage( 'i18n_0032' ), false );
+			
 		rsslist_list = $( '#rsslist_list' );
 
 		////////////////////////////////////////

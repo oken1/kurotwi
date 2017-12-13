@@ -345,7 +345,6 @@ Contents.timeline = function( cp )
 		{
 			var _cp = new CPanel( null, null, 324, 240 );
 			_cp.SetType( 'tweetbox' );
-			_cp.SetTitle( i18nGetMessage( 'i18n_0083' ), false );
 			_cp.SetParam( { account_id: cp.param['account_id'], maxlen: 140, } );
 			_cp.Start( function() {
 				pid = IsUnique( 'tweetbox' );
@@ -1844,7 +1843,6 @@ Contents.timeline = function( cp )
 			{
 				var _cp = new CPanel( null, null, 324, 240 );
 				_cp.SetType( 'tweetbox' );
-				_cp.SetTitle( i18nGetMessage( 'i18n_0083' ), false );
 				_cp.SetParam( { account_id: cp.param['account_id'], maxlen: 140, } );
 				_cp.Start( function() {
 					SetText();
@@ -1894,7 +1892,6 @@ Contents.timeline = function( cp )
 
 			var _cp = new CPanel( left, top, width, 200 );
 			_cp.SetType( 'dmbox' );
-			_cp.SetTitle( i18nGetMessage( 'i18n_0149', [screen_name] ), false );
 			_cp.SetParam( param );
 			_cp.Start();
 		};
@@ -2092,7 +2089,6 @@ Contents.timeline = function( cp )
 
 					var _cp = new CPanel( null, null, 324, 240 );
 					_cp.SetType( 'tweetbox' );
-					_cp.SetTitle( i18nGetMessage( 'i18n_0083' ), false );
 					_cp.SetParam( param );
 					_cp.Start( function() {
 						pid = IsUnique( 'tweetbox' );
@@ -3221,7 +3217,7 @@ Contents.timeline = function( cp )
 									$( this ).addClass( 'link' );
 
 									$( this ).click( function( e ) {
-										var _cp = new CPanel( null, null, 480, 360 );
+										var _cp = new CPanel( null, null, 640, 360 + p.find( 'div.titlebar' ).outerHeight() );
 										_cp.SetType( 'youtube' );
 										_cp.SetParam( {
 											url: url,

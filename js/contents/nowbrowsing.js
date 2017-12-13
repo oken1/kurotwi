@@ -66,7 +66,6 @@ Contents.nowbrowsing = function( cp )
 				{
 					var _cp = new CPanel( left, top, width, 240 );
 					_cp.SetType( 'tweetbox' );
-					_cp.SetTitle( i18nGetMessage( 'i18n_0083' ), false );
 					_cp.SetParam( { account_id: '', rep_user: null, hashtag: null, maxlen: 140, } );
 					_cp.Start( function() {
 						SetText();
@@ -124,6 +123,8 @@ Contents.nowbrowsing = function( cp )
 		cont.addClass( 'nowbrowsing' )
 			.html( OutputTPL( 'nowbrowsing', {} ) );
 
+		cp.SetTitle( i18nGetMessage( 'i18n_0029' ), false );
+			
 		nowbrowsing_list = $( '#nowbrowsing_list' );
 
 		////////////////////////////////////////

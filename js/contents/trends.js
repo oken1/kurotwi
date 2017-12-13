@@ -26,12 +26,6 @@ Contents.trends = function( cp )
 
 		cont.activity( { color: '#ffffff' } );
 
-		// 更新時点の先頭アカウントで取得
-		if ( g_cmn.account_order.length > 0 )
-		{
-			cp.param['account_id'] = g_cmn.account_order[0];
-		}
-
 		SendRequest(
 			{
 				action: 'oauth_send',
@@ -44,7 +38,7 @@ Contents.trends = function( cp )
 			{
 				if ( res.status == 200 )
 				{
-					cont.find( '#trends_list' ).html( OutputTPL( 'trends_list', { items: res.json[0].trends } ) )
+					cont.find( '.trends_list' ).html( OutputTPL( 'trends_list', { items: res.json[0].trends } ) )
 						.trigger( 'contents_resize' );
 
 					$.each( res.json[0].trends, function( i, val ) {
@@ -81,7 +75,7 @@ Contents.trends = function( cp )
 					////////////////////////////////////////
 					// クリック時処理
 					////////////////////////////////////////
-					cont.find( '#trends_list' ).find( '.item span' ).click( function( e ) {
+					cont.find( '.trends_list' ).find( '.item span' ).click( function( e ) {
 
 						OpenSearchResult( decodeURIComponent( $( this ).attr( 'query' ) ), cp.param['account_id'] );
 
@@ -114,7 +108,7 @@ Contents.trends = function( cp )
 			{
 				if ( scrollPos == null )
 				{
-					scrollPos = cont.find( '#trends_list' ).scrollTop();
+					scrollPos = cont.find( '.trends_list' ).scrollTop();
 				}
 			}
 			// 復元
@@ -122,7 +116,7 @@ Contents.trends = function( cp )
 			{
 				if ( scrollPos != null )
 				{
-					cont.find( '#trends_list' ).scrollTop( scrollPos );
+					cont.find( '.trends_list' ).scrollTop( scrollPos );
 					scrollPos = null;
 				}
 			}
@@ -132,26 +126,15 @@ Contents.trends = function( cp )
 		// リサイズ処理
 		////////////////////////////////////////
 		cont.on( 'contents_resize', function() {
-			cont.find( '#trends_list' ).height( cont.height() - cont.find( '.panel_btns' ).height() - 1 );
+			cont.find( '.trends_list' ).height( cont.height() - cont.find( '.panel_btns' ).height() - 1 );
 		} );
-
-		// 先頭のアカウントでトレンド取得
-		if ( g_cmn.account_order.length > 0 )
-		{
-			cp.param['account_id'] = g_cmn.account_order[0];
-		}
 
 		////////////////////////////////////////
 		// このパネルを開いたアカウントが
 		// 削除された場合
 		////////////////////////////////////////
 		var AccountAliveCheck = function() {
-			// 先頭のアカウントでトレンド取得
-			if ( g_cmn.account_order.length > 0 )
-			{
-				cp.param['account_id'] = g_cmn.account_order[0];
-			}
-			else
+			if ( g_cmn.account[cp.param['account_id']] == undefined )
 			{
 				// パネルを閉じる
 				p.find( '.close' ).trigger( 'click', [false] );
@@ -162,10 +145,46 @@ Contents.trends = function( cp )
 		};
 
 		////////////////////////////////////////
+		// アカウント変更
+		////////////////////////////////////////
+		cont.on( 'account_change', function( e, account_id ) {
+			if ( cp.param['account_id'] == account_id )
+			{
+			}
+			else
+			{
+				p.find( 'div.titlebar' ).find( '.titlename' ).text( g_cmn.account[account_id].screen_name );
+				cp.param['account_id'] = account_id;
+
+				cp.title = cp.title.replace( /(<span class=\"titlename\">).*(<\/span>)/,
+					'$1' + g_cmn.account[account_id].screen_name + '$2' );
+
+				// パネルリストの更新"
+				$( document ).trigger( 'panellist_changed' );
+			}
+		} );
+
+		////////////////////////////////////////
 		// アカウント情報更新
 		////////////////////////////////////////
 		cont.on( 'account_update', function() {
 			AccountAliveCheck();
+
+			// アカウント選択リスト更新
+			var s = '';
+			var id;
+
+			for ( var i = 0, _len = g_cmn.account_order.length ; i < _len ; i++ )
+			{
+				id = g_cmn.account_order[i];
+				s += '<span account_id="' + id + '">' + g_cmn.account[id].screen_name + '</span>';
+			}
+
+			p.find( 'div.titlebar' ).find( '.titlename_list' ).html( s )
+				.find( 'span' ).click( function( e ) {
+					p.find( 'div.contents' ).trigger( 'account_change', [$( this ).attr( 'account_id' )] );
+					$( this ).parent().hide();
+				} );
 		} );
 
 		if ( !AccountAliveCheck() )
@@ -177,6 +196,8 @@ Contents.trends = function( cp )
 		cont.addClass( 'trends' )
 			.html( OutputTPL( 'trends', {} ) );
 
+		cp.SetTitle( i18nGetMessage( 'i18n_0095' ) + ' (<span class="titlename">' + g_cmn.account[cp.param.account_id].screen_name + '</span>)', false );
+		
 		if ( cp.param['woeid'] == undefined )
 		{
 			// 都市の初期設定は日本
@@ -203,7 +224,7 @@ Contents.trends = function( cp )
 		////////////////////////////////////////
 		// 更新ボタンクリック
 		////////////////////////////////////////
-		cont.find( '.panel_btns' ).find( '#trends_reload' ).click( function( e ) {
+		cont.find( '.panel_btns' ).find( '.trends_reload' ).click( function( e ) {
 			cont.trigger( 'reload_timer' );
 			ListMake();
 		} );
@@ -219,7 +240,7 @@ Contents.trends = function( cp )
 			},
 		};
 
-		$( '#woeids' ).find( '.selectitems' ).hide();
+		cont.find( '.woeids' ).find( '.selectitems' ).hide();
 
 		SendRequest(
 			{
@@ -267,23 +288,23 @@ Contents.trends = function( cp )
 
 					if ( cp.param['woeid'] == woeids[i].woeid )
 					{
-						$( '#woeids' ).find( '.selitem' ).html( escapeHTML( woeids[i].name ) );
+						cont.find( '.woeids' ).find( '.selitem' ).html( escapeHTML( woeids[i].name ) );
 					}
 				}
 
 				// メニュー開閉
-				$( '#woeids' ).click( function() {
-					var len = $( '#woeids' ).find( '.selectitems > .selectitem' ).length;
+				cont.find( '.woeids' ).click( function() {
+					var len = cont.find( '.woeids' ).find( '.selectitems > .selectitem' ).length;
 
 					// 開くときに都市一覧を描く
 					if ( len == 0 )
 					{
-						$( '#woeids' ).find( '.selectitems' ).html( s ).css( {
-							top: $( '#woeids' ).position().top + $( '#woeids' ).height(),
+						cont.find( '.woeids' ).find( '.selectitems' ).html( s ).css( {
+							top: cont.find( '.woeids' ).position().top + cont.find( '.woeids' ).height(),
 						} );
 
-						$( '#woeids' ).find( '.selectitem.selected' ).removeClass( 'selected' );
-						$( '#woeids' ).find( '.selectitem[value=' + cp.param['woeid'] + ']' ).addClass( 'selected' );
+						cont.find( '.woeids' ).find( '.selectitem.selected' ).removeClass( 'selected' );
+						cont.find( '.woeids' ).find( '.selectitem[value=' + cp.param['woeid'] + ']' ).addClass( 'selected' );
 					}
 
 					$( this ).find( '.selectitems' ).slideToggle( 200, function() {
@@ -292,20 +313,20 @@ Contents.trends = function( cp )
 						// 閉じるときに消す
 						if ( len != 0 )
 						{
-							$( '#woeids' ).find( '.selectitems' ).html( '' );
+							cont.find( '.woeids' ).find( '.selectitems' ).html( '' );
 						}
 					} );
 				} );
 
 				// 選択変更
-				$( '#woeids' ).find( '.selectitems' ).click( function( e ) {
+				cont.find( '.woeids' ).find( '.selectitems' ).click( function( e ) {
 					var item = $( e.target );
 
 					if ( item.hasClass( 'selectitem' ) )
 					{
 						var new_woeid = item.attr( 'value' );
 
-						$( '#woeids' ).trigger( 'click' );
+						cont.find( '.woeids' ).trigger( 'click' );
 
 						// 変更があったらトレンド更新
 						if ( cp.param['woeid'] != new_woeid )
@@ -315,7 +336,7 @@ Contents.trends = function( cp )
 
 							cp.param['woeid'] = new_woeid;
 
-							$( '#woeids' ).find( '.selitem' ).html( escapeHTML( item.html() ) );
+							cont.find( '.woeids' ).find( '.selitem' ).html( escapeHTML( item.html() ) );
 
 							setTimeout( function() {
 								ListMake();

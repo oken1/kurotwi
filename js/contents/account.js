@@ -441,6 +441,8 @@ Contents.account = function( cp )
 		cont.addClass( 'account' )
 			.html( OutputTPL( 'account', {} ) );
 
+		cp.SetTitle( i18nGetMessage( 'i18n_0044' ), false );
+			
 		////////////////////////////////////////
 		// 追加ボタンクリック処理
 		////////////////////////////////////////
@@ -631,7 +633,6 @@ Contents.account = function( cp )
 			{
 				var _cp = new CPanel( null, null, 360, 420 );
 				_cp.SetType( 'accountset' );
-				_cp.SetTitle( i18nGetMessage( 'i18n_0047' ) + '(' + g_cmn.account[$( '#account_del' ).attr( 'delid' )].screen_name + ')', false );
 				_cp.SetParam( {
 					account_id: $( '#account_del' ).attr( 'delid' ),
 				} );
@@ -641,7 +642,6 @@ Contents.account = function( cp )
 			{
 				var _cp = GetPanel( pid );
 				_cp.SetType( 'accountset' );
-				_cp.SetTitle( i18nGetMessage( 'i18n_0047' ) + '(' + g_cmn.account[$( '#account_del' ).attr( 'delid' )].screen_name + ')', false );
 				_cp.SetParam( {
 					account_id: $( '#account_del' ).attr( 'delid' ),
 				} );

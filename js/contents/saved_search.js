@@ -193,7 +193,7 @@ Contents.saved_search = function( cp )
 		cont.addClass( 'saved_search' )
 			.html( OutputTPL( 'saved_search', {} ) );
 
-		cp.SetTitle( g_cmn.account[cp.param['account_id']].screen_name + 'の' + i18nGetMessage( 'i18n_0207' ), false );
+		cp.SetTitle( g_cmn.account[cp.param['account_id']].screen_name + ' ' + i18nGetMessage( 'i18n_0207' ), false );
 
 		////////////////////////////////////////
 		// 更新ボタンクリック

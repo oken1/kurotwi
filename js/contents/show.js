@@ -630,6 +630,8 @@ Contents.show = function( cp )
 			return;
 		}
 
+		cp.SetTitle( cp.param.screen_name + i18nGetMessage( 'i18n_0107' ) + ' (<span class="titlename">' + g_cmn.account[cp.param.account_id].screen_name + '</span>)', false );
+		
 		ShowMake();
 	};
 

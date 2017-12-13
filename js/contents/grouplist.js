@@ -43,7 +43,6 @@ Contents.grouplist = function( cp )
 			{
 				var _cp = new CPanel( null, null, 360, $( window ).height() * 0.75, id );
 				_cp.SetType( 'timeline' );
-				_cp.SetTitle( g_cmn.group_panel[id].param.title, true );
 				_cp.SetParam( g_cmn.group_panel[id].param );
 				_cp.Start();
 			}
@@ -123,6 +122,8 @@ Contents.grouplist = function( cp )
 		cont.addClass( 'grouplist' )
 			.html( OutputTPL( 'grouplist', {} ) );
 
+		cp.SetTitle( i18nGetMessage( 'i18n_0061' ), false );
+			
 		grouplist_list = $( '#grouplist_list' );
 
 		////////////////////////////////////////

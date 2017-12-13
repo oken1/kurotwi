@@ -136,6 +136,8 @@ Contents.notify_history = function( cp )
 		cont.addClass( 'notify_history' )
 			.html( OutputTPL( 'notify_history', {} ) );
 
+		cp.SetTitle( i18nGetMessage( 'i18n_0094' ), false );
+			
 		notify_history_list = $( '#notify_history_list' );
 
 		////////////////////////////////////////

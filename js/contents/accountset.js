@@ -10,6 +10,11 @@ Contents.accountset = function( cp )
 
 	cp.SetIcon( 'icon-user' );
 
+	var SetTitle = function() {
+		cp.SetTitle( i18nGetMessage( 'i18n_0047' ) + '(' + g_cmn.account[cp.param.account_id].screen_name + ')', false );
+		
+	}
+
 	////////////////////////////////////////////////////////////
 	// 初期入力値設定
 	////////////////////////////////////////////////////////////
@@ -328,9 +333,12 @@ Contents.accountset = function( cp )
 		// アカウント変更
 		////////////////////////////////////////
 		cont.on( 'account_change', function() {
+			SetTitle();
 			MakeInput();
 		} );
 
+		SetTitle();
+		
 		// 全体を作成
 		MakeInput();
 	};

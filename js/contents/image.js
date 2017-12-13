@@ -8,6 +8,7 @@ Contents.image = function( cp )
 	var p = $( '#' + cp.id );
 	var cont = p.find( 'div.contents' );
 	var scaleX = 1, scaleY = 1, rotate = 0;
+	var fit = true;
 
 	cp.SetIcon( 'icon-image' );
 
@@ -37,6 +38,61 @@ Contents.image = function( cp )
 		}
 
 		cont.find( '.resizebtn' ).hide();
+
+		////////////////////////////////////////
+		// 画像のサイズをパネルに合わせる
+		////////////////////////////////////////
+		var FitPanelSize = function() {
+			var pw = cont.outerWidth();
+			var ph = cont.outerHeight() - p.find( 'div.titlebar' ).outerHeight()+5;
+
+			var nw, nh;
+
+			if ( cp.param['video'] )
+			{
+				nw = cont.find( 'video' ).get( 0 ).videoWidth;
+				nh = cont.find( 'video' ).get( 0 ).videoHeight;
+			}
+			else
+			{
+				nw = cont.find( 'img.image' ).get( 0 ).naturalWidth;
+				nh = cont.find( 'img.image' ).get( 0 ).naturalHeight;
+			}
+
+			var pnw = pw;
+			var pnh = pw / nw * nh;
+
+			if ( pnh > ph )
+			{
+				pnh = ph;
+				pnw = ph / nh * nw;
+			}
+
+			cont.find( 'img.image, video' ).css( {
+				width: pnw,
+				height: pnh,
+			} );
+		};
+
+		////////////////////////////////////////
+		// 画像のサイズを実サイズにする
+		////////////////////////////////////////
+		var RealSize = function() {
+			if ( cp.param['video'] )
+			{
+				var img = cont.find( 'video' );
+
+				img.width( img.get( 0 ).videoWidth )
+					.height( img.get( 0 ).videoHeight );
+			}
+			else
+			{
+				var img = cont.find( 'img.image' );
+
+				img.width( img.get( 0 ).naturalWidth )
+					.height( img.get( 0 ).naturalHeight );
+			}
+		};
 
 		////////////////////////////////////////
 		// ロード完了
@@ -100,35 +156,9 @@ Contents.image = function( cp )
 			// パネルサイズに合わせる
 			////////////////////////////////////////
 			cont.find( '.img_panelsize' ).click( function( e ) {
-				var pw = cont.outerWidth();
-				var ph = cont.outerHeight() - p.find( 'div.titlebar' ).outerHeight()+5;
+				fit = true;
 
-				var nw, nh;
-
-				if ( cp.param['video'] )
-				{
-					nw = cont.find( 'video' ).get( 0 ).videoWidth;
-					nh = cont.find( 'video' ).get( 0 ).videoHeight;
-				}
-				else
-				{
-					nw = cont.find( 'img.image' ).get( 0 ).naturalWidth;
-					nh = cont.find( 'img.image' ).get( 0 ).naturalHeight;
-				}
-
-				var pnw = pw;
-				var pnh = pw / nw * nh;
-
-				if ( pnh > ph )
-				{
-					pnh = ph;
-					pnw = ph / nh * nw;
-				}
-
-				cont.find( 'img.image, video' ).css( {
-					width: pnw,
-					height: pnh,
-				} );
+				FitPanelSize();
 
 				p.trigger( 'resize' );
 				e.stopPropagation();
@@ -138,20 +168,9 @@ Contents.image = function( cp )
 			// 実サイズで表示
 			////////////////////////////////////////
 			cont.find( '.img_fullsize' ).click( function( e ) {
-				if ( cp.param['video'] )
-				{
-					var img = cont.find( 'video' );
+				fit = false;
 
-					img.width( img.get( 0 ).videoWidth )
-						.height( img.get( 0 ).videoHeight );
-				}
-				else
-				{
-					var img = cont.find( 'img.image' );
-
-					img.width( img.get( 0 ).naturalWidth )
-						.height( img.get( 0 ).naturalHeight );
-				}
+				RealSize();
 
 				p.trigger( 'resize' );
 				e.stopPropagation();
@@ -228,6 +247,16 @@ Contents.image = function( cp )
 		};
 
 		cont.find( 'img.image,video' ).on( 'error', ErrorEvent );
+
+		////////////////////////////////////////
+		// リサイズ処理
+		////////////////////////////////////////
+		cont.on( 'contents_resize', function() {
+			if ( fit )
+			{
+				FitPanelSize();
+			}
+		} );
 	};
 
 	////////////////////////////////////////////////////////////
