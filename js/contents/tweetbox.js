@@ -8,6 +8,7 @@ Contents.tweetbox = function( cp )
 	var SAVEDRAFT_MAX = 100;
 	var p = $( '#' + cp.id );
 	var cont = p.find( 'div.contents' );
+	var atimg = false;
 	var checked_tag = new Array();
 
 	cp.SetIcon( 'icon-pencil' );
@@ -201,6 +202,7 @@ Contents.tweetbox = function( cp )
 			}
 
 			ImageFileReset();
+			atimg = ( $( '#tweetbox_image' ).find( '.imageitem' ).length ) ? true :false;
 			$( '#tweetbox_text' ).trigger( 'keyup' );
 
 			// 画像添付ボタンのdisabled解除
@@ -274,6 +276,8 @@ Contents.tweetbox = function( cp )
 
 				reader.readAsDataURL( f );
 			}
+
+			atimg = true;
 
 			// 最大4枚まで
 			if ( $( '#tweetbox_image' ).find( '.imageitem' ).length == 4 )
@@ -878,7 +882,7 @@ Contents.tweetbox = function( cp )
 
 			cnt.html( cp.param['maxlen'] - slen );
 
-			if ( slen > 0 && slen <= cp.param['maxlen'] && twflg == false )
+			if ( ( ( slen > 0 && slen <= cp.param['maxlen'] ) || ( slen == 0 && atimg ) ) && twflg == false )
 			{
 				btn.removeClass( 'disabled' );
 
@@ -1038,6 +1042,7 @@ Contents.tweetbox = function( cp )
 	this.stop = function() {
 		// 添付画像をクリア
 		$( '#tweetbox_image' ).find( '.imageitem' ).find( '.del' ).find( 'span' ).trigger( 'click' );
+		atimg = false;
 
 		// 返信先をクリア
 		$( '#tweetbox_reply' ).find( '.replyitem' ).find( '.del' ).find( 'span' ).trigger( 'click' );
