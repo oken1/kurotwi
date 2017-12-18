@@ -345,7 +345,7 @@ Contents.timeline = function( cp )
 		{
 			var _cp = new CPanel( null, null, 324, 240 );
 			_cp.SetType( 'tweetbox' );
-			_cp.SetParam( { account_id: cp.param['account_id'], maxlen: 140, } );
+			_cp.SetParam( { account_id: cp.param['account_id'] } );
 			_cp.Start( function() {
 				pid = IsUnique( 'tweetbox' );
 				SetRep();
@@ -1843,7 +1843,7 @@ Contents.timeline = function( cp )
 			{
 				var _cp = new CPanel( null, null, 324, 240 );
 				_cp.SetType( 'tweetbox' );
-				_cp.SetParam( { account_id: cp.param['account_id'], maxlen: 140, } );
+				_cp.SetParam( { account_id: cp.param['account_id'] } );
 				_cp.Start( function() {
 					SetText();
 				} );
@@ -1868,8 +1868,6 @@ Contents.timeline = function( cp )
 			var param = {
 				account_id: cp.param['account_id'],
 				screen_name: screen_name,
-				maxlen: g_cmn.twconfig['dm_text_character_limit'],
-/*				maxlen: 140,*/
 			};
 
 			var pid = IsUnique( 'dmbox' );
@@ -2084,7 +2082,6 @@ Contents.timeline = function( cp )
 					// パネルのパラメータ
 					var param = {
 						account_id: cp.param['account_id'],
-						maxlen: 140,
 					};
 
 					var _cp = new CPanel( null, null, 324, 240 );

@@ -8,7 +8,6 @@ Contents.tweetbox = function( cp )
 	var SAVEDRAFT_MAX = 100;
 	var p = $( '#' + cp.id );
 	var cont = p.find( 'div.contents' );
-	var atimg = false;
 	var checked_tag = new Array();
 
 	cp.SetIcon( 'icon-pencil' );
@@ -99,6 +98,9 @@ Contents.tweetbox = function( cp )
 	////////////////////////////////////////////////////////////
 	this.start = function() {
 		cp.SetTitle( i18nGetMessage( 'i18n_0083' ), false );
+
+		// 最大文字数
+		cp.param.maxlen = 280;
 		
 		cont.addClass( 'tweetbox' )
 			.html( OutputTPL( 'tweetbox', { maxlen: cp.param['maxlen'] } ) );
@@ -199,7 +201,6 @@ Contents.tweetbox = function( cp )
 			}
 
 			ImageFileReset();
-			atimg = ( $( '#tweetbox_image' ).find( '.imageitem' ).length ) ? true :false;
 			$( '#tweetbox_text' ).trigger( 'keyup' );
 
 			// 画像添付ボタンのdisabled解除
@@ -273,8 +274,6 @@ Contents.tweetbox = function( cp )
 
 				reader.readAsDataURL( f );
 			}
-
-			atimg = true;
 
 			// 最大4枚まで
 			if ( $( '#tweetbox_image' ).find( '.imageitem' ).length == 4 )
@@ -865,22 +864,13 @@ Contents.tweetbox = function( cp )
 		} );
 
 		var tweetbox_text = $( '#tweetbox_text' );
-		var tco = new String( '_______________________________' ).slice( 0, g_cmn.twconfig.short_url_length );
 
 		////////////////////////////////////////
 		// 入力文字数によるボタン制御
 		////////////////////////////////////////
 		$( '#tweetbox_text' ).on( 'keyup change', function( e ) {
-			// 入力文字数カウント(URL自動短縮対応)
-			var val = tweetbox_text.val();
-			var urls = twttr.txt.extractUrls( val );
-
-			for ( var i = 0, _len = urls.length ; i < _len ; i++ )
-			{
-				val = val.replace( urls[i], tco );
-			}
-
-			var slen = twttr.txt.getUnicodeTextLength( val ) + ( ( atimg ) ? g_cmn.twconfig['characters_reserved_per_media'] : 0 );
+			// 入力文字数カウント
+			var slen = twttr.txt.parseTweet( tweetbox_text.val() ).weightedLength;
 
 			var cnt = $( '#tweetbox_cnt' );
 			var btn = $( '#tweet' );
@@ -1048,7 +1038,6 @@ Contents.tweetbox = function( cp )
 	this.stop = function() {
 		// 添付画像をクリア
 		$( '#tweetbox_image' ).find( '.imageitem' ).find( '.del' ).find( 'span' ).trigger( 'click' );
-		atimg = false;
 
 		// 返信先をクリア
 		$( '#tweetbox_reply' ).find( '.replyitem' ).find( '.del' ).find( 'span' ).trigger( 'click' );

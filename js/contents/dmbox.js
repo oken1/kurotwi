@@ -14,6 +14,8 @@ Contents.dmbox = function( cp )
 	// 開始処理
 	////////////////////////////////////////////////////////////
 	this.start = function() {
+		cp.param.maxlen = g_cmn.twconfig['dm_text_character_limit'];
+
 		cont.addClass( 'dmbox' )
 			.html( OutputTPL( 'dmbox', { maxlen: cp.param['maxlen'] } ) );
 

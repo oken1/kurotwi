@@ -492,40 +492,24 @@ Contents.account = function( cp )
 
 									// PINコードの画面に遷移するまでポーリング
 									var getPIN = function() {
-										chrome.windows.getAll( { populate: true }, function( wins ) {
-											var chk = false;
-
-											for ( var i = 0, _len = wins.length ; i < _len && !chk ; i++ )
+										chrome.tabs.executeScript( auth_tab.id, { file: 'js/getpin.js' }, function( res ) {
+											// Vivaldi対応
+											if ( !res )
 											{
-												for ( var j = 0, __len = wins[i].tabs.length ; j < __len && !chk ; j++ )
-												{
-													if ( wins[i].tabs[j].id == auth_tab.id )
-													{
-														chk = true;
+												setTimeout( getPIN, 500 );
+											}
 
-														chrome.tabs.executeScript( auth_tab.id, { file: 'js/getpin.js' }, function( res ) {
-
-															// Vivaldi対応
-															if ( !res )
-															{
-																setTimeout( getPIN, 500 );
-															}
-
-															// PINコードなし
-															if ( !res[0] )
-															{
-																setTimeout( getPIN, 500 );
-															}
-															// PINコードあり
-															else
-															{
-																chrome.tabs.remove( auth_tab.id );
-																chrome.tabs.update( current.id, { active: true } );
-																GetAccessToken( reqToken, reqSecret, res[0] );
-															}
-														} );
-													}
-												}
+											// PINコードなし
+											if ( !res[0] )
+											{
+												setTimeout( getPIN, 500 );
+											}
+											// PINコードあり
+											else
+											{
+												chrome.tabs.remove( auth_tab.id );
+												chrome.tabs.update( current.id, { active: true } );
+												GetAccessToken( reqToken, reqSecret, res[0] );
 											}
 										} );
 									};

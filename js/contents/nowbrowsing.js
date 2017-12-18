@@ -18,20 +18,13 @@ Contents.nowbrowsing = function( cp )
 	var ListMake = function( type ) {
 		var items = new Array();
 
-		chrome.windows.getAll( { populate: true }, function( wins ) {
-			for ( var i = 0, _len = wins.length ; i < _len ; i++ )
+		chrome.tabs.query( { url: '*://*/*' }, function( tabs ) {
+			for ( var i = 0 ; i < tabs.length ; i++ )
 			{
-				for ( var j = 0, __len = wins[i].tabs.length ; j < __len ; j++ )
-				{
-					// URLがchrome～、about:～のタブは無視
-					if ( !wins[i].tabs[j].url.match( /^chrome|moz|about:/ ) )
-					{
-						items.push( {
-							title: escapeHTML( wins[i].tabs[j].title ),
-							url: wins[i].tabs[j].url,
-						} );
-					}
-				}
+				items.push( {
+					title: escapeHTML( tabs[i].title ),
+					url: tabs[i].url,
+				} );
 			}
 
 			nowbrowsing_list.html( OutputTPL( 'nowbrowsing_list', { items: items } ) )
@@ -66,7 +59,7 @@ Contents.nowbrowsing = function( cp )
 				{
 					var _cp = new CPanel( left, top, width, 240 );
 					_cp.SetType( 'tweetbox' );
-					_cp.SetParam( { account_id: '', rep_user: null, hashtag: null, maxlen: 140, } );
+					_cp.SetParam( { account_id: '', rep_user: null, hashtag: null } );
 					_cp.Start( function() {
 						SetText();
 						$( '#tweetbox_text' ).SetPos( 'start' );

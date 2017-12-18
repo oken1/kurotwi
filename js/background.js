@@ -3,44 +3,24 @@
 console.log( 'KuroTwi background loaded.' );
 
 chrome.browserAction.onClicked.addListener( function( tab ) {
-	chrome.windows.getAll( { populate: true }, function( wins ) {
+	chrome.tabs.query( { title: 'KuroTwi' }, function( tabs ) {
 		var multi = false;
-		var focuswin = null;
-
-		for ( var i = 0, _len = wins.length ; i < _len ; i++ )
+		
+		for ( var i = 0 ; i < tabs.length ; i++ )
 		{
-			if ( wins[i].focused )
+			if ( tabs[i].url.match( /^(chrome|moz)-extension:\/\// ) )
 			{
-				focuswin = wins[i];
-			}
-
-			for ( var j = 0, __len = wins[i].tabs.length ; j < __len ; j++ )
-			{
-				if ( wins[i].tabs[j].url.match( /^(chrome|moz)-extension:\/\// ) &&
-					 wins[i].tabs[j].title == 'KuroTwi' )
-				{
-					// 多重起動
-					multi = true;
-
-					// 既に開いているウィンドウ＆タブにフォーカス
-					chrome.windows.update( wins[i].id, { focused: true } );
-					chrome.tabs.update( wins[i].tabs[j].id, { active: true } );
-
-					break;
-				}
+				multi = true;
+				chrome.windows.update( tabs[i].windowId, { focused: true } );
+				chrome.tabs.update( tabs[i].id, { active: true } );
+				break;
 			}
 		}
 
 		if ( multi == false )
 		{
-			var param = { url: chrome.extension.getURL( 'index.html' ) };
-
-			if ( focuswin != null )
-			{
-				param.windowId = focuswin.id;
-			}
-
-			chrome.tabs.create( param );
+			chrome.tabs.create( { url: chrome.extension.getURL( 'index.html' ) } );
 		}
 	} );
 } );
+
