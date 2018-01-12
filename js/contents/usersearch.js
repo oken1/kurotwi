@@ -83,7 +83,7 @@ Contents.usersearch = function( cp )
 						items.push( {
 							icon: json[i].profile_image_url_https,
 							screen_name: json[i].screen_name,
-							name: json[i].name,
+							name: twemoji.parse( json[i].name ),
 							follow: NumFormat( json[i].friends_count ),
 							follower: NumFormat( json[i].followers_count ),
 							count: NumFormat( json[i].statuses_count ),

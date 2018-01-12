@@ -80,7 +80,7 @@ Contents.show = function( cp )
 						icon: orgurl,
 						protected: json.protected,
 						verified: json.verified,
-						name: json.name,
+						name: twemoji.parse( json.name ),
 						location: json.location,
 						url: url,
 						description: desc,

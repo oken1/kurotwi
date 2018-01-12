@@ -68,7 +68,7 @@ Contents.timeline = function( cp )
 			}
 		} );
 
-		return twemoji.parse( _div.text() + '<div>' + _add.html() + '</div>' );
+		return twemoji.parse( escapeHTML( _div.text() ) + '<div>' + _add.html() + '</div>' );
 	}
 
 	////////////////////////////////////////
@@ -409,11 +409,10 @@ Contents.timeline = function( cp )
 						if ( status_id )
 						{
 							var qc = quote_cache[status_id];
-
 							qc.text = qc.text.replace( /\n/g, '<br>' );
 
 							var html = OutputTPL( 'timeline_quote', {
-								name: qc.name,
+								name: twemoji.parse( qc.name ),
 								screen_name: qc.screen_name,
 								text: qc.text,
 								namedisp: g_namedisp,
@@ -1962,16 +1961,11 @@ Contents.timeline = function( cp )
 			////////////////////////////////////////
 			// ユーザ名クリック
 			////////////////////////////////////////
-			if ( targ.hasClass( 'name' ) )
+			if ( targ.hasClass( 'name' ) || ptarg.hasClass( 'name' ) || targ.hasClass( 'screen_name' ) )
 			{
-				OpenUserTimeline( targ.parent().find( '.screen_name' ).text(), cp.param['account_id'] );
-			}
-			////////////////////////////////////////
-			// スクリーン名クリック
-			////////////////////////////////////////
-			else if ( targ.hasClass( 'screen_name' ) )
-			{
-				OpenUserTimeline( targ.parent().find( '.screen_name' ).text(), cp.param['account_id'] );
+				var item = targ.closest( '.namedate' );
+
+				OpenUserTimeline( item.find( '.screen_name' ).text(), cp.param['account_id'] );
 			}
 			////////////////////////////////////////
 			// アイコンクリック

@@ -218,6 +218,11 @@ div.contents.timeline .lines div.item > .tweet .headcontainer .namedate .name.dr
 	font-size: 1rem;
 }
 
+div.contents.timeline .lines div.item > .tweet .headcontainer .namedate .name img.emoji {
+	height: 1rem;
+	width: 1rem;
+}
+
 /* verified */
 div.contents.timeline .lines div.item > .tweet .headcontainer .namedate > img {
 	width: 0.8rem;

@@ -125,7 +125,7 @@ Contents.follow = function( cp )
 							item = {
 								icon: _json[i].profile_image_url_https,
 								screen_name: _json[i].screen_name,
-								name: _json[i].name,
+								name: twemoji.parse( _json[i].name ),
 								follow: NumFormat( _json[i].friends_count ),
 								follower: NumFormat( _json[i].followers_count ),
 								count: NumFormat( _json[i].statuses_count ),

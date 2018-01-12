@@ -99,6 +99,11 @@ div.contents.follow .follow_list div.item .container .names .name {
 	opacity: 0.6;
 }
 
+div.contents.follow .follow_list div.item .container .names .name img.emoji {
+	height: 1rem;
+	width: 1rem;
+}
+
 /* verified */
 div.contents.follow .follow_list div.item .container .names > img {
 	vertical-align: middle;
