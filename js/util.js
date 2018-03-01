@@ -424,7 +424,7 @@ function isShortURL( url )
 ////////////////////////////////////////////////////////////////////////////////
 function isImageURL( url )
 {
-	if ( url.match( /^https?:\/\/(movapic\.com\/pic\/(\w+)|photozou\.jp\/photo\/show\/\d+\/(\d+)|((www\.)?instagram\.com|instagr\.am)\/p\/([\w\-]+)|twitter\.com.*\/(photo|video)\/1$|twitter\.com.*\/messages\/media\/\d+|(?:(www|m)\.youtube\.com\/watch\?.*v=|youtu\.be\/)([\w-]+)|tinami\.jp\/(\w+)$|(www\.nicovideo\.jp\/watch|nico\.ms)\/sm\d+(\?.+)?$|cloud(-\d)?\.steampowered\.com\/ugc\/\d+\/\w+\/(\d+x\d+\.resizedimage)?$|gyazo\.com\/\w+$|.*\.(png|jpg|jpeg|gif)$)/i ) )
+	if ( url.match( /^https?:\/\/(movapic\.com\/pic\/(\w+)|photozou\.jp\/photo\/show\/\d+\/(\d+)|((www\.)?instagram\.com|instagr\.am)\/p\/([\w\-]+)|twitter\.com.*\/(photo|video)\/1$|twitter\.com.*\/messages\/media\/\d+|(?:(www|m)\.youtube\.com\/watch\?.*v=|youtu\.be\/)([\w-]+)|tinami\.jp\/(\w+)$|(www\.nicovideo\.jp\/watch|nico\.ms)\/\w+|cloud(-\d)?\.steampowered\.com\/ugc\/\d+\/\w+\/(\d+x\d+\.resizedimage)?$|gyazo\.com\/\w+$|.*\.(png|jpg|jpeg|gif)$)/i ) )
 	{
 		return true;
 	}

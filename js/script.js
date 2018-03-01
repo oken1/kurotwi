@@ -4191,7 +4191,27 @@ function SendRequest( req, callback )
 			} );
 
 			break;
+		// ニコニコ動画のサムネイルURL取得
+		// req : id
+		case 'nicovideo_url':
+			$.ajax( {
+				url: 'http://ext.nicovideo.jp/api/getthumbinfo/' + req.id,
+				dataType: 'xml',
+				type: 'GET',
+				success: function ( data, status, xhr ) {
+					if ( data.getElementsByTagName( 'thumbnail_url' )[0] != undefined ) {
+						callback( { thumb: data.getElementsByTagName( 'thumbnail_url' )[0].firstChild.nodeValue, original: '' } );
+					}
+					else {
+						callback( '' )
+					}
+				},
+				error: function ( xhr, status, errorThrown ) {
+					callback( '' );
+				},
+			} );
 
+			break;
 		// GyazoのイメージURL取得
 		// req : imgurl
 		case 'gyazo_url':

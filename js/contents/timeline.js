@@ -3253,11 +3253,70 @@ Contents.timeline = function( cp )
 							}
 						}
 						// ニコニコ動画
-						else if ( url.match( /http:\/\/(www\.nicovideo\.jp\/watch|nico\.ms)\/sm(\d+)(\?.+)?$/ ) )
+						else if ( url.match( /http:\/\/(www\.nicovideo\.jp\/watch|nico\.ms)\/(\w+)/ ) )
 						{
 							id = RegExp.$2;
 
-							MakeImgLink( 'http://tn-skr' + ( parseInt( id ) % 4 + 1 ) + '.smilevideo.jp/smile?i=' + id, '', true, 1 );
+							if ( add.find( 'img[loaded="' + url + '"]' ).length == 0 )
+							{
+								if ( !noloading )
+								{
+									item.find( '.tweet' ).activity( { color: '#ffffff' } );
+								}
+
+								SendRequest(
+									{
+										action: 'nicovideo_url',
+										id: id,
+									},
+									function( res )
+									{
+										if ( res != '' )
+										{
+											add.append( OutputTPL( 'thumbnail_movie', {
+												url: res.thumb,
+												tooltip: url
+											} ) );
+				
+											// ロード失敗
+											add.find( 'img:last-child' ).on( 'error', function( e ) {
+												if ( !noloading )
+												{
+													item.find( '.tweet' ).activity( false );
+												}
+												$( this ).remove();
+											} );
+				
+											// ロード成功
+											add.find( 'img:last-child' ).on( 'load', function( e ) {
+												if ( !noloading )
+												{
+													item.find( '.tweet' ).activity( false );
+												}
+				
+												$( this ).addClass( 'link' );
+				
+												$( this ).click( function( e ) {
+													var _cp = new CPanel( null, null, 640, 360 + p.find( 'div.titlebar' ).outerHeight() );
+													_cp.SetType( 'nicovideo' );
+													_cp.SetParam( {
+														url: url,
+														id: id,
+													} );
+													_cp.Start();
+
+													e.stopPropagation();
+												} );
+											} );
+										}
+
+										if ( !noloading )
+										{
+											item.find( '.tweet' ).activity( false );
+										}
+									}
+								);
+							}
 						}
 						// Streamスクリーンショット
 						else if ( url.match( /(http:\/\/cloud(-\d)?\.steampowered\.com\/ugc\/\d+\/\w+\/)(\d+x\d+\.resizedimage)?$/ ) )

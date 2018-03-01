@@ -1,0 +1,1 @@
+<iframe data-src="https://embed.nicovideo.jp/watch/{$id}?ap=1" frameborder="0" scrolling="no" allowtransparency="true" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts" src="https://embed.nicovideo.jp/watch/{$id}?ap=1&amp;autoplay=1&amp;auto_play=true"></iframe>
