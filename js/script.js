@@ -149,6 +149,7 @@ function Init()
 	$( '#tooltip' ).hide();
 	$( '#blackout' ).hide();
 	$( '#messagebox' ).hide();
+	$( '#imageviewer').hide();
 
 	g_cmn.panel = new Array();
 	g_cmn.account = {};
@@ -207,7 +208,7 @@ function Init()
 		success: function( data, status ) {
 			manifest = data;
 
-			$( '#main' ).append( '<div id="version"><a class="anchor version" href="http://www.jstwi.com/kurotwi/" rel="nofollow noopener noreferrer" target="_blank">' +
+			$( '#main' ).append( '<div id="version"><a class="anchor version" href="https://www.jstwi.com/kurotwi/" rel="nofollow noopener noreferrer" target="_blank">' +
 				manifest.name + ' version ' + manifest.version + '</a></div>' );
 		},
 		async: false,
@@ -395,7 +396,7 @@ function Init()
 					{
 						MessageBox( i18nGetMessage( 'i18n_0345', [g_cmn.current_version, manifest.version] ) +
 							'<br><br>' +
-							'<a class="anchor version" href="http://www.jstwi.com/kurotwi/update.html" rel="nofollow noopener noreferrer" target="_blank">http://www.jstwi.com/kurotwi/update.html</a>',
+							'<a class="anchor version" href="https://www.jstwi.com/kurotwi/update.html" rel="nofollow noopener noreferrer" target="_blank">https://www.jstwi.com/kurotwi/update.html</a>',
 							5 * 1000 );
 					}
 				}

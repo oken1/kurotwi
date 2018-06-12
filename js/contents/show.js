@@ -161,13 +161,7 @@ Contents.show = function( cp )
 						img.addClass( 'exp' );
 
 						img.click( function( e ) {
-							var _cp = new CPanel( null, null, 320, 360 );
-							_cp.SetType( 'image' );
-							_cp.SetParam( {
-								url: orgurl,
-							} );
-							_cp.Start();
-
+							imageviewer.open( $( '#imageviewer' ), [orgurl], 0 )
 							e.stopPropagation();
 						} );
 					} );

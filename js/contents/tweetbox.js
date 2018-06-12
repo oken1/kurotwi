@@ -256,12 +256,7 @@ Contents.tweetbox = function( cp )
 							function() { $( this ).css( { cursor: 'default' } ) }
 						)
 						.click( function( e ) {
-							var _cp = new CPanel( null, null, 320, 320 );
-							_cp.SetType( 'image' );
-							_cp.SetParam( {
-								url: result
-							} );
-							_cp.Start();
+							imageviewer.open( $( '#imageviewer' ), [result], 0 )
 							e.stopPropagation();
 						} );
 

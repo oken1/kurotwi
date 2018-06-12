@@ -1,0 +1,44 @@
+#imageviewer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	z-index: 9999;
+	background: rgba( 0, 0, 0, 0.5 );
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+}
+
+#imageviewer > div:first-child {
+	width: 87vw;
+	height: 87vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 1rem;
+}
+
+#imageviewer img.current {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+#imageviewer .thumbnails {
+	display: flex;
+	flex-direction: row;
+	height: 8vh;
+}
+
+#imageviewer .thumbnails img.thumbnail {
+	width: 8vh;
+	height: 8vh;
+	cursor: pointer;
+}
+
+#imageviewer .thumbnails img.thumbnail:not(.current) {
+	padding: 1vh;
+}

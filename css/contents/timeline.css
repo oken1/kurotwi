@@ -446,6 +446,11 @@ div.contents.timeline .lines div.item > .tweet .bottomcontainer .additional > im
 	height: 75px;
 }
 
+div.contents.timeline .lines div.item > .tweet .bottomcontainer .additional > img.video {
+	width: 100px;
+	height: 75px;
+}
+
 /* 動画サムネイル */
 div.contents.timeline .lines div.item > .tweet .bottomcontainer .additional > img.thumb_mov {
 	width: 100px;

@@ -3011,7 +3011,7 @@ Contents.timeline = function( cp )
 						// サムネイル表示＆
 						// 原寸サイズ表示処理作成
 						////////////////////////////////////////
-						var MakeImgLink = function( thumb, original, mov, img_count, isvideo, contenttype ) {
+						var MakeImgLink = function( thumb, original, img_count, isvideo, contenttype ) {
 							// 重複排除
 							if ( add.find( 'img[src="' + thumb + '"]' ).length )
 							{
@@ -3025,7 +3025,7 @@ Contents.timeline = function( cp )
 									item.find( '.tweet' ).activity( { color: '#ffffff' } );
 								}
 
-								add.append( OutputTPL( ( mov ) ? 'thumbnail_movie' : 'thumbnail', {
+								add.append( OutputTPL( 'thumbnail', {
 									url: thumb,
 									tooltip: url
 								} ) );
@@ -3048,21 +3048,12 @@ Contents.timeline = function( cp )
 
 									if ( original != '' )
 									{
-										if ( mov )
-										{
-											$( this ).addClass( 'link' );
+										$( this ).addClass( 'link' )
 
-											$( this ).click( function( e ) {
-												chrome.tabs.create( { url: original }, function( tab ) {
-												} );
-
-												e.stopPropagation();
-											} );
-										}
-										else
-										{
-											$( this ).addClass( 'link' );
-
+										// 公式動画
+										if ( contenttype ) {
+											$( this ).addClass( 'video' )
+											
 											$( this ).click( function( e ) {
 												var _cp = new CPanel( null, null, 320, 320 );
 												_cp.SetType( 'image' );
@@ -3072,6 +3063,26 @@ Contents.timeline = function( cp )
 													contenttype: contenttype,
 												} );
 												_cp.Start();
+												e.stopPropagation();
+											} );
+										// 画像
+										} else {
+											$( this ).attr( 'image_url', original );
+
+											$( this ).click( function( e ) {
+												let image_urls = []
+												let image_index = 0
+
+												console.log( $( this ).parent().find( '> img[image_url]' ) )
+												$( this ).parent().find( '> img[image_url]' ).each( function( index ) {
+													image_urls.push( $( this ).attr( 'image_url' ) );
+
+													if ( original == $( this ).attr( 'image_url' ) ) {
+														image_index = index
+													}
+												} )
+
+												imageviewer.open( $( '#imageviewer' ), image_urls, image_index )
 
 												e.stopPropagation();
 											} );
@@ -3091,7 +3102,7 @@ Contents.timeline = function( cp )
 							id = RegExp.$1;
 
 							MakeImgLink( 'http://image.movapic.com/pic/t_' + id + '.jpeg',
-										 'http://image.movapic.com/pic/m_' + id + '.jpeg', false, 1 );
+										 'http://image.movapic.com/pic/m_' + id + '.jpeg', 1 );
 						}
 						// フォト蔵
 						else if ( url.match( /http:\/\/photozou\.jp\/photo\/show\/\d+\/(\d+)/ ) )
@@ -3114,7 +3125,7 @@ Contents.timeline = function( cp )
 									{
 										if ( res != '' )
 										{
-											MakeImgLink( res.thumb, res.original, false, 1 );
+											MakeImgLink( res.thumb, res.original, 1 );
 										}
 
 										if ( !noloading )
@@ -3132,7 +3143,7 @@ Contents.timeline = function( cp )
 
 							MakeImgLink( 'http://instagram.com/p/' + id + '/media/?size=t',
 										 'http://instagram.com/p/' + id + '/media/?size=l',
-										 false, 1 );
+										 1 );
 						}
 						// 公式
 						else if ( url.match( /https?:\/\/twitter\.com.*\/(photo|video)\/1$/ ) )
@@ -3148,12 +3159,12 @@ Contents.timeline = function( cp )
 									if ( videourls[i] == '' )
 									{
 										MakeImgLink( mediaurls[i] + ':thumb',
-													 mediaurls[i] + ':orig', false, mediaurls.length );
+													 mediaurls[i] + ':orig', mediaurls.length );
 									}
 									else
 									{
 										MakeImgLink( mediaurls[i],
-													 videourls[i], false, mediaurls.length, true, contenttypes[i] );
+													 videourls[i], mediaurls.length, true, contenttypes[i] );
 									}
 								}
 							}
@@ -3168,7 +3179,7 @@ Contents.timeline = function( cp )
 								for ( var i = 0, _len = mediaurls.length ; i < _len ; i++ )
 								{
 									MakeImgLink( mediaurls[i] + ':thumb',
-												 mediaurls[i], false, mediaurls.length );
+												 mediaurls[i], mediaurls.length );
 								}
 							}
 						}
@@ -3241,7 +3252,7 @@ Contents.timeline = function( cp )
 									{
 										if ( res != '' )
 										{
-											MakeImgLink( res.thumb, res.original, false, 1 );
+											MakeImgLink( res.thumb, res.original, 1 );
 										}
 
 										if ( !noloading )
@@ -3321,7 +3332,7 @@ Contents.timeline = function( cp )
 						// Streamスクリーンショット
 						else if ( url.match( /(http:\/\/cloud(-\d)?\.steampowered\.com\/ugc\/\d+\/\w+\/)(\d+x\d+\.resizedimage)?$/ ) )
 						{
-							MakeImgLink( RegExp.$1 + '150x150.resizedimage', url, false, 1 );
+							MakeImgLink( RegExp.$1 + '150x150.resizedimage', url, 1 );
 						}
 						// gyazo
 						else if ( url.match( /https?:\/\/gyazo\.com\/\w+$/ ) )
@@ -3342,7 +3353,7 @@ Contents.timeline = function( cp )
 									{
 										if ( res != '' )
 										{
-											MakeImgLink( res.thumb, res.original, false, 1 );
+											MakeImgLink( res.thumb, res.original, 1 );
 										}
 
 										if ( !noloading )
@@ -3356,7 +3367,7 @@ Contents.timeline = function( cp )
 						// 画像直リンク
 						else if ( url.match( /https?:\/\/.*\.(png|jpg|jpeg|gif)$/i ) )
 						{
-							MakeImgLink( url, url, false, 1 );
+							MakeImgLink( url, url, 1 );
 						}
 					}
 				}, 100 );
