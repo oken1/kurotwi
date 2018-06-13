@@ -43,8 +43,6 @@ var imageviewer = {
 			'<div class="thumbnails">' + thumbnails + '</div>'
 		)
 
-		this.element.find( '.current' ).attr( 'src', this.urls[this.current] )
-
 		this.element.find( '.thumbnail' ).on( 'click', function( e ) {
 			_iv.changeCurrent( _iv.element.find( '.thumbnail' ).index( this ) )
 			e.stopPropagation()
@@ -53,7 +51,7 @@ var imageviewer = {
 
 	// 画像ビューアを閉じる
 	close: function() {
-		this.element.off( 'click keydown' ).html( '' ).hide()
+		this.element.off( 'click keydown wheel' ).html( '' ).hide()
 	
 		$( 'body' ).css( {
 			'overflow-x': this.scrollbar_original.x,
@@ -79,6 +77,13 @@ var imageviewer = {
 			.show()
 			.on( 'click', function() { _iv.close() } )
 			.on( 'keydown', function( e ) { _iv.keyDown( e ) } )
+			.on( 'wheel', function( e ) {
+				if ( e.originalEvent.deltaY < 0 ) {
+					_iv.changeCurrent( ( _iv.current > 0 ) ? _iv.current - 1 : _iv.urls.length - 1 )
+				} else {
+					_iv.changeCurrent( ( _iv.current < _iv.urls.length - 1 ) ? _iv.current + 1 : 0 )
+				}
+			} )
 			.focus()
 		
 		this.urls = urls

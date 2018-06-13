@@ -3073,7 +3073,6 @@ Contents.timeline = function( cp )
 												let image_urls = []
 												let image_index = 0
 
-												console.log( $( this ).parent().find( '> img[image_url]' ) )
 												$( this ).parent().find( '> img[image_url]' ).each( function( index ) {
 													image_urls.push( $( this ).attr( 'image_url' ) );
 
