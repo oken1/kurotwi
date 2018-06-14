@@ -3,9 +3,6 @@ div.contents.image {
 	overflow: auto;
 }
 
-div.contents.image img {
-}
-
 div.contents.image > div {
 	position: relative;
 }

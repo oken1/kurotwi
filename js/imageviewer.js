@@ -29,24 +29,16 @@ var imageviewer = {
 		}
 	},
 
-	// 描画
-	render: function() {
-		const _iv = this
-		let thumbnails = ''
+	// 画像をパネルで開く
+	openPanel: function() {
+		const _cp = new CPanel( null, null, 320, 320 )
 
-		this.urls.map( ( value, index ) => {
-			thumbnails += '<img class="thumbnail" src="' + value + '">'
+		_cp.SetType( 'image' )
+		_cp.SetParam( {
+			url: this.urls[this.current]
 		} )
-
-		this.element.html(
-			'<div><img class="current"></div>' +
-			'<div class="thumbnails">' + thumbnails + '</div>'
-		)
-
-		this.element.find( '.thumbnail' ).on( 'click', function( e ) {
-			_iv.changeCurrent( _iv.element.find( '.thumbnail' ).index( this ) )
-			e.stopPropagation()
-		} )
+		
+		_cp.Start()
 	},
 
 	// 画像ビューアを閉じる
@@ -63,6 +55,7 @@ var imageviewer = {
 	open: function( element, urls, index ) {
 		const _iv = this
 
+		this.urls = urls
 		this.element = element
 		this.scrollbar_original = { x: $( 'body' ).css( 'overflow-x' ), y: $( 'body' ).css( 'overflow-y' ) }
 
@@ -72,7 +65,6 @@ var imageviewer = {
 		} );
 	
 		this.element
-			.html( '' )
 			.attr( 'tabIndex', 0 )
 			.show()
 			.on( 'click', function() { _iv.close() } )
@@ -86,8 +78,23 @@ var imageviewer = {
 			} )
 			.focus()
 		
-		this.urls = urls
-		this.render()
+		let thumbnails = ''
+
+		this.urls.map( value => {
+			thumbnails += '<img class="thumbnail" src="' + value + '">'
+		} )
+
+		this.element.html( OutputTPL( 'imageviewer', { thumbnails: thumbnails } ) )
+
+		this.element.find( '.thumbnail' ).on( 'click', function( e ) {
+			_iv.changeCurrent( _iv.element.find( '.thumbnail' ).index( this ) )
+			e.stopPropagation()
+		} )
+
+		this.element.find( '.controls' ).find( '.openpanel' ).on( 'click', function( e ) {
+			_iv.openPanel()
+			e.stopPropagation()
+		} )
 
 		this.changeCurrent( index )
 	}

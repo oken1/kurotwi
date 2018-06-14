@@ -396,7 +396,7 @@ function Init()
 					{
 						MessageBox( i18nGetMessage( 'i18n_0345', [g_cmn.current_version, manifest.version] ) +
 							'<br><br>' +
-							'<a class="anchor version" href="https://www.jstwi.com/kurotwi/update.html" rel="nofollow noopener noreferrer" target="_blank">https://www.jstwi.com/kurotwi/update.html</a>',
+							'<a class="anchor version" href="https://www.jstwi.com/kurotwi/#update" rel="nofollow noopener noreferrer" target="_blank">https://www.jstwi.com/kurotwi/#update</a>',
 							5 * 1000 );
 					}
 				}
