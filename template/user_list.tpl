@@ -14,7 +14,7 @@
 				{if $item->isfollower}<span class='icon-arrow-right'></span>{/if}
 			</div>
 			<div class='counts'>
-				(i18n_0083):{$item->count} (i18n_0125):{$item->follow} (i18n_0122):{$item->follower}
+				(i18n_0083):{$item->count} (i18n_0125):{$item->follow} (i18n_0122):{$item->follower}{if $item->latest_date} (i18n_0221):{$item->latest_date}{/if}
 			</div>
 			{if $item->description}
 			<div class='desc'>

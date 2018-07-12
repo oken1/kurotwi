@@ -136,6 +136,7 @@ Contents.follow = function( cp )
 								ismutual: isfriend & isfollower,
 								isfriend: isfriend & !isfollower,
 								isfollower: !isfriend & isfollower,
+								latest_date: ( _json[i].status && _json[i].status.created_at ) ? DateConv( _json[i].status.created_at, 0 ) : null,
 							};
 
 							items.push( item );

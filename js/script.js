@@ -89,7 +89,6 @@ $( document ).ready( function() {
 
 			namedisp:			0,								// - 名前の表示形式
 
-			image_service:		0,								// - 画像アップロード先
 			nowbrowsing_text:	'Now Browsing: ',				// - Now Browsingテキスト
 			consumerKey:		'',								// - Consumer Key
 			consumerSecret:		'',								// - Consumer Secret
@@ -136,6 +135,7 @@ $( document ).ready( function() {
 		account_order:	null,			// アカウントの並び順
 		panellist_width: '200px',		// パネルリストの幅
 		current_version: '',			// 現在のバージョン
+		video_volume: 50,				// 動画の音量
 	};
 
 	Init();
@@ -403,6 +403,12 @@ function Init()
 
 				g_cmn.current_version = manifest.version;
 
+				// 動画の音量
+				if ( _g_cmn.video_volume != undefined ) {
+					g_cmn.video_volume = _g_cmn.video_volume
+				}
+								
+				
 				// アカウントの並び順にユーザーストリーム接続要求
 				for ( var i = 0, _len = g_cmn.account_order.length ; i < _len ; i++ )
 				{

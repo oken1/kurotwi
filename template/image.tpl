@@ -1,6 +1,10 @@
 <div>
 {if $video}
 <video src='{$url}' type='{$contenttype}' controls loop></video>
+<div class='volume_control'>
+	<span class='speaker-icon icon-volume-down'></span>
+	<span><input type='range' min='0' max='100'></span>
+</div>
 {else}
 <img class='image' src='{$url}'>
 {/if}
