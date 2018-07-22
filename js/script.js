@@ -1860,6 +1860,8 @@ function StreamDataAnalyze( data )
 
 		json = ConvertExtendedTweet( json, 'userstream' );
 
+		json = AppendQuotedStatusURL( json )
+
 		// NGチェック
 		if ( IsNGTweet( json, 'normal' ) )
 		{
@@ -2038,6 +2040,8 @@ function StreamDataAnalyze( data )
 		}
 
 		json = ConvertExtendedTweet( json, 'userstream' );
+
+		json = AppendQuotedStatusURL( json )
 
 		// NGチェック
 		if ( IsNGTweet( json, 'normal' ) )
@@ -3702,6 +3706,20 @@ function ConvertExtendedTweet( json, type )
 	}
 
 	return _json;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// 引用RTのURLがツイートに含まれなくなった変更への対応
+////////////////////////////////////////////////////////////////////////////////
+function AppendQuotedStatusURL( json ) {
+	var _json = json
+
+	if ( json.quoted_status_permalink ) {
+		if ( !json.text.match( json.quoted_status_permalink ) ) {
+			_json.text = `${json.text} <a href="${json.quoted_status_permalink.expanded}" class="url anchor" rel="nofollow noopener noreferrer" target="_blank">${json.quoted_status_permalink.display}</a>`
+		}
+	}
+	return _json
 }
 
 ////////////////////////////////////////////////////////////////////////////////

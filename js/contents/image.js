@@ -149,7 +149,7 @@ Contents.image = function( cp )
 				.trigger( 'resize' );
 
 			// 画像ダブルクリックで閉じる
-			cont.find( 'img.image,video' ).dblclick( function( e ) {
+			cont.find( 'img.image,video' ).on( 'dblclick', function( e ) {
 				p.find( '.close' ).trigger( 'click', [false] );
 			} );
 
