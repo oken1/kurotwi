@@ -3715,7 +3715,7 @@ function AppendQuotedStatusURL( json ) {
 	var _json = json
 
 	if ( json.quoted_status_permalink ) {
-		if ( !json.text.match( json.quoted_status_permalink ) ) {
+		if ( !json.text.match( json.quoted_status_permalink.url ) ) {
 			_json.text = `${json.text} <a href="${json.quoted_status_permalink.expanded}" class="url anchor" rel="nofollow noopener noreferrer" target="_blank">${json.quoted_status_permalink.display}</a>`
 		}
 	}
