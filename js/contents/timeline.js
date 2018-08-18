@@ -3743,27 +3743,25 @@ Contents.timeline = function( cp )
 
 		// 現行値設定(スライダー)
 
-		// 検索、ユーザーTL、リストは最小30秒(devモードは10秒)にできるようにする
+		// 検索、ユーザーTLは最小30秒、リストは最小5秒にできるようにする
 		var min = 60;
+		var step = 30;
 
 		if ( cp.param['timeline_type'] == 'user' ||
-			 cp.param['timeline_type'] == 'list' ||
 			 cp.param['timeline_type'] == 'search' )
 		{
-			if ( g_devmode )
-			{
-				min = 10;
-			}
-			else
-			{
-				min = 30;
-			}
+			min = 30;
+		}
+		else if ( cp.param['timeline_type'] == 'list' )
+		{
+			min = 5;
+			step = 5;
 		}
 
 		setting.find( '.set_reload_time' ).slider( {
 			min: min,
 			max: 600,
-			step: 30,
+			step: step,
 			value: cp.param['reload_time'],
 			animate: 'fast',
 			slide: function( e, ui ) {
