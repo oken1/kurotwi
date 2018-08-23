@@ -67,6 +67,8 @@ Contents.account = function( cp )
 		// ユーザーストリーム接続状態クリック処理
 		////////////////////////////////////////
 		$( '#account_list' ).find( 'div.item' ).find( '.streamsts' ).find( 'div' ).click( function( e ) {
+			return false // UserStream廃止
+			
 			var account_id = $( this ).parent().parent().attr( 'account_id' );
 
 			// 接続しているときは切断

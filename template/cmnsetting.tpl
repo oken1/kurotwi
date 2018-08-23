@@ -33,8 +33,8 @@
 		</div>
 		<div class='group'>
 			<div class='checkboxcontainer'>
-				<span><input type='checkbox' id='cset_stream' {if $param->stream==1}checked{/if}></span>
-				<span>(i18n_0164)</span>
+				<span><input disabled type='checkbox' id='cset_stream' {if $param->stream==1}checked{/if}></span>
+				<span class='disabled_item'>(i18n_0164)</span>
 			</div>
 		</div>
 		<div class='group'>

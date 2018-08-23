@@ -35,6 +35,7 @@ div.contents.account {
 
 /* ストリームの状態 */
 #account_list div.item > .streamsts {
+	display: none; /* UserStream廃止 */
 	width: 16px;
 	padding-right: 2px;
 }

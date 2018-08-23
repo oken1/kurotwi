@@ -45,6 +45,10 @@ div.contents.cmnsetting {
 	margin: 2px;
 }
 
+#cmnsetting_items .group .disabled_item {
+	opacity: 0.5;
+}
+
 #cmnsetting_items .name_large {
 	color: var(--panel-text);
 	font-weight: bold;

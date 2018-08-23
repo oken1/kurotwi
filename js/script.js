@@ -13,7 +13,7 @@ var g_saveend = true;
 var g_devmode = false;
 
 // ユーザーストリーム使用フラグ
-var g_usestream = true;
+var g_usestream = false // UserStream廃止
 
 // NGチェック用フィルタ
 var g_ngregexp = {
@@ -48,7 +48,7 @@ $( document ).ready( function() {
 			font_family:		'',								// - フォント名
 			font_size:			12,								// - フォントサイズ
 			snap:				0,								// - パネルのスナップ
-			stream:				1,								// - ユーザーストリームを使う
+			stream:				0,								// - ユーザーストリームを使う	// UserStream廃止
 			autoreadmore:		0,								// - もっと読むを自動実行
 			scroll_vertical:	1,								// - ページ全体のスクロールバー(縦)
 			scroll_horizontal:	1,								// - ページ全体のスクロールバー(横)
@@ -286,6 +286,7 @@ function Init()
 			MakeNGRegExp();
 
 			// ユーザーストリームを使う？
+			g_cmn.cmn_param['stream'] = 0 // UserStream廃止
 			g_usestream = ( g_cmn.cmn_param['stream'] == 1 ) ? true : false;
 
 			// 名前の表示形式
@@ -2749,6 +2750,8 @@ function UpdateToolbarUser()
 		// ユーザーストリーム接続状態クリック処理
 		////////////////////////////////////////////////////////////
 		$( this ).find( 'div.streamsts' ).find( 'div' ).on( 'click', function( e ) {
+			return false // UserStream廃止
+
 			var _account_id = IsMyAccount( user_id );
 
 			// 接続しているときは切断

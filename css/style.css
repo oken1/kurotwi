@@ -219,6 +219,7 @@ img.emoji {
 }
 
 #head_users > div > .streamsts {
+	display: none; /* UserStream廃止 */
 	position: absolute;
 	left: -2px;
 	bottom: 0px;
