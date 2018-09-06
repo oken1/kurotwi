@@ -2820,6 +2820,13 @@ function MakeNGRegExp()
 			continue;
 		}
 
+		try {
+			const _chk = new RegExp( g_cmn.cmn_param['ngwords'][i].word );
+		} catch( e ) {
+			g_cmn.cmn_param['ngwords'][i].enabled = false;
+			continue;
+		}
+
 		ptn[g_cmn.cmn_param['ngwords'][i].type] += ( ptn[g_cmn.cmn_param['ngwords'][i].type] != '' ) ? '|' +
 			g_cmn.cmn_param['ngwords'][i].word : g_cmn.cmn_param['ngwords'][i].word;
 	}
@@ -2828,7 +2835,11 @@ function MakeNGRegExp()
 	{
 		if ( ptn[p] != '' )
 		{
-			g_ngregexp[p] = new RegExp( ptn[p] );
+			try {
+				g_ngregexp[p] = new RegExp( ptn[p] );
+			} catch( e ) {
+				g_ngregexp[p] = null;
+			}
 		}
 		else
 		{
