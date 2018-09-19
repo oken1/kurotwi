@@ -13,7 +13,6 @@
 		<div class='buttons'>
 			<a class='btn img home tooltip icon-home' tooltip='(i18n_0152)'></a>
 			<a class='btn img mention tooltip icon-at' tooltip='(i18n_0026)'></a>
-			<a class='btn img dm tooltip icon-envelop' tooltip='(i18n_0021)'></a>
 			<a class='btn img lists tooltip icon-list' tooltip='(i18n_0167)'></a>
 		</div>
 	</div>

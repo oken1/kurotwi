@@ -2,7 +2,6 @@
 				<a class='btn trans' from='en' to='ja'>(i18n_0196)</a>
 				<a class='btn trans' from='ja' to='en'>(i18n_0260)</a>
 				<a class='btn notrans disabled' srctext=''>(i18n_0215)</a>
-				<a class='btn dmsend'>(i18n_0022)</a>
 				<a class='btn quote {if $protected=='true'}disabled{/if}'>(i18n_0195)</a>
 				<a class='btn usersearch'>@(i18n_0206)</a>
 				<a class='btn toolbaruser' toolbaruser='{$toolbaruser}'>{if $toolbaruser}(i18n_0091){else}(i18n_0092){/if}</a>

@@ -204,6 +204,9 @@ Contents.dmbox = function( cp )
 				return false;
 			}
 		} );
+
+		// 旧DM廃止のため
+		p.find( '.close' ).trigger( 'click', [false] );
 	};
 
 	////////////////////////////////////////////////////////////

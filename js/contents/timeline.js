@@ -1585,33 +1585,6 @@ Contents.timeline = function( cp )
 				} );
 
 				break;
-			// DM(受信)
-			case 'dmrecv':
-				cp.SetTitle( i18nGetMessage( 'i18n_0021' ) + ' (' + account.screen_name + ')', true );
-				cp.SetIcon( 'icon-envelop' );
-
-				////////////////////////////////////////
-				// 送信済みDMボタンクリック処理
-				////////////////////////////////////////
-				lines.find( '.timeline_dmsent' ).click( function( e ) {
-					var _cp = new CPanel( null, null, 360, $( window ).height() * 0.75 );
-					_cp.SetType( 'timeline' );
-					_cp.SetParam( {
-						account_id: cp.param['account_id'],
-						timeline_type: 'dmsent',
-						reload_time: g_cmn.cmn_param['reload_time'],
-					} );
-					_cp.Start();
-
-					e.stopPropagation();
-				} );
-
-				break;
-			// DM(送信)
-			case 'dmsent':
-				cp.SetTitle( i18nGetMessage( 'i18n_0251' ) + ' (' + account.screen_name + ')', true );
-				cp.SetIcon( 'icon-envelop' );
-				break;
 			// お気に入り
 			case 'favorites':
 				cp.SetTitle( cp.param['screen_name'] + i18nGetMessage( 'i18n_0098' ) + i18nGetMessage( 'i18n_0054' ) + ' (<span class="titlename">' + account.screen_name + '</span>)', false );
@@ -1630,6 +1603,11 @@ Contents.timeline = function( cp )
 				// 更新ボタンを非表示
 				lines.find( '.panel_btns' ).remove();
 				break;
+			// 旧DM廃止のため
+			case 'dmrecv':
+			case 'dmsent':
+				p.find( '.close' ).trigger( 'click', [false] );
+				return false;
 			// その他
 			default:
 				// パネルを閉じる
@@ -3433,8 +3411,6 @@ Contents.timeline = function( cp )
 			{
 				cursor_on_option = false;
 			}
-
-			e.stopPropagation();
 		} );
 
 		////////////////////////////////////////
