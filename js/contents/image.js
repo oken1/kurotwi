@@ -38,7 +38,6 @@ Contents.image = function( cp )
 		}
 
 		cont.find( '.resizebtn' ).hide();
-		cont.find( '.volume_control' ).hide();
 
 		////////////////////////////////////////
 		// 画像のサイズをパネルに合わせる
@@ -216,47 +215,13 @@ Contents.image = function( cp )
 					cont.find( '.resizebtn' ).show();
 				} );
 			}
-			// volume control
-			else {
-				cont.mouseenter( function( e ) {
-					cont.find( '.volume_control' ).show();
-				} );
-			}
 
 			////////////////////////////////////////
 			// リサイズボタン群非表示
 			////////////////////////////////////////
 			cont.mouseleave( function( e ) {
 				cont.find( '.resizebtn' ).hide();
-
-				// volume control
-				cont.find( '.volume_control' ).hide();
 			} );
-
-			////////////////////////////////////////
-			// 音量調節
-			////////////////////////////////////////
-			cont.find( '.volume_control input[type=range]' )
-				.on( 'input', function() {
-					const val = $( this ).val()
-
-					cont.find( 'video' ).get( 0 ).volume = val / 100
-					g_cmn.video_volume = val
-
-					cont.find( '.speaker-icon' ).removeClass( 'icon-volume-down icon-volume-up icon-volume-off' )
-
-					if ( val >= 0 && val < 25 ) {
-						cont.find( '.speaker-icon' ).addClass( 'icon-volume-off' )
-					}
-					else if ( val >= 25 && val < 75 ) {
-						cont.find( '.speaker-icon' ).addClass( 'icon-volume-down' )
-					}
-					else {
-						cont.find( '.speaker-icon' ).addClass( 'icon-volume-up' )
-					}
-				} )
-				.attr( 'value', g_cmn.video_volume )
-				.trigger( 'input' )
 
 			// 初期表示
 			cont.find( '.img_panelsize' ).trigger( 'click' );

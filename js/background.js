@@ -2,25 +2,23 @@
 
 console.log( 'KuroTwi background loaded.' );
 
-chrome.browserAction.onClicked.addListener( function( tab ) {
-	chrome.tabs.query( { title: 'KuroTwi' }, function( tabs ) {
-		var multi = false;
-		
-		for ( var i = 0 ; i < tabs.length ; i++ )
-		{
-			if ( tabs[i].url.match( /^(chrome|moz)-extension:\/\// ) )
-			{
-				multi = true;
-				chrome.windows.update( tabs[i].windowId, { focused: true } );
-				chrome.tabs.update( tabs[i].id, { active: true } );
-				break;
-			}
-		}
+var currentTab = undefined;
 
-		if ( multi == false )
-		{
-			chrome.tabs.create( { url: chrome.extension.getURL( 'index.html' ) } );
-		}
-	} );
+chrome.browserAction.onClicked.addListener( function( tab ) {
+	if ( currentTab == undefined ) {
+		chrome.tabs.create( { url: chrome.extension.getURL( 'index.html' ) }, function( tab ) {
+			currentTab = tab;
+
+			chrome.tabs.onRemoved.addListener( function( tabId, removeInfo ) {
+				if ( tabId == currentTab.id && removeInfo.windowId == currentTab.windowId ) {
+					currentTab = undefined;
+				}
+			} )
+		} )
+	}
+	else {
+		chrome.windows.update( currentTab.windowId, { focused: true } );
+		chrome.tabs.update( currentTab.id, { active: true } );
+	}
 } );
 

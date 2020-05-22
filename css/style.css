@@ -756,6 +756,7 @@ panel div.titlebar .titlecontainer .badge:hover {
 	top: 0;
 	z-index: 10000;
 	background-color: var(--panel-background);
+	color: var(--panel-text);
 }
 
 #messagebox_body {

@@ -135,7 +135,6 @@ $( document ).ready( function() {
 		account_order:	null,			// アカウントの並び順
 		panellist_width: '200px',		// パネルリストの幅
 		current_version: '',			// 現在のバージョン
-		video_volume: 50,				// 動画の音量
 	};
 
 	Init();
@@ -404,12 +403,6 @@ function Init()
 
 				g_cmn.current_version = manifest.version;
 
-				// 動画の音量
-				if ( _g_cmn.video_volume != undefined ) {
-					g_cmn.video_volume = _g_cmn.video_volume
-				}
-								
-				
 				// アカウントの並び順にユーザーストリーム接続要求
 				for ( var i = 0, _len = g_cmn.account_order.length ; i < _len ; i++ )
 				{
@@ -4099,10 +4092,10 @@ function SendRequest( req, callback )
 			////////////////////////////////////////////////////////////
 			// bit.ly(j.mp)は本家に任せる
 			////////////////////////////////////////////////////////////
-			if ( req.url.match( '^http:\/\/(bit\.ly|j\.mp)\/' ) )
+			if ( req.url.match( '^https*:\/\/(bit\.ly|j\.mp)\/' ) )
 			{
 				$.ajax( {
-					url: 'http://api.bitly.com/v3/expand',
+					url: 'https://api.bitly.com/v3/expand',
 					dataType: 'json',
 					type: 'GET',
 					success: function ( data, status, xhr ) {
@@ -4133,10 +4126,10 @@ function SendRequest( req, callback )
 			////////////////////////////////////////////////////////////
 			// htn.toは本家に任せる
 			////////////////////////////////////////////////////////////
-			if ( req.url.match( '^http:\/\/htn\.to\/' ) )
+			if ( req.url.match( '^https*:\/\/htn\.to\/' ) )
 			{
 				$.ajax( {
-					url: 'http://b.hatena.ne.jp/api/htnto/expand',
+					url: 'https://b.hatena.ne.jp/api/htnto/expand',
 					dataType: 'json',
 					type: 'GET',
 					success: function ( data, status, xhr ) {
@@ -4234,7 +4227,7 @@ function SendRequest( req, callback )
 		// req : id
 		case 'nicovideo_url':
 			$.ajax( {
-				url: 'http://ext.nicovideo.jp/api/getthumbinfo/' + req.id,
+				url: 'https://ext.nicovideo.jp/api/getthumbinfo/' + req.id,
 				dataType: 'xml',
 				type: 'GET',
 				success: function ( data, status, xhr ) {
