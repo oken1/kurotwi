@@ -2930,61 +2930,7 @@ Contents.timeline = function( cp )
 						return;
 					}
 
-					// 短縮URLの場合、URL展開を行う
-					if ( isShortURL( url ) && g_cmn.cmn_param['urlexpand'] == 1 )
-					{
-						anchor.removeClass( 'anchor' )
-							.addClass( 'expand' )
-							.removeAttr( 'href' );
-
-						if ( !noloading )
-						{
-							item.find( '.tweet' ).activity( { color: '#ffffff' } );
-						}
-
-						var org = url;
-
-						// URL展開
-						SendRequest(
-							{
-								action: 'url_expand',
-								url: url,
-							},
-							function( res )
-							{
-								var durl;
-
-								try {
-									durl = escapeHTML( decodeURI( res ) );
-								}
-								catch ( e )
-								{
-									console.log( 'decode error [' + res + ']' );
-									durl = res;
-								}
-
-								if ( res != '' )
-								{
-									anchor.attr( 'href', res );
-									anchor.html( res );
-								}
-								else
-								{
-									anchor.attr( 'href', org );
-									anchor.html( org );
-								}
-
-								anchor.removeClass( 'expand' )
-									.addClass( 'anchor' );
-
-								if ( !noloading )
-								{
-									item.find( '.tweet' ).activity( false );
-								}
-							}
-						);
-					}
-					else if ( g_cmn.cmn_param['thumbnail'] )
+					if ( g_cmn.cmn_param['thumbnail'] )
 					{
 						var add = item.find( '.additional' );
 						var id;
@@ -3083,53 +3029,13 @@ Contents.timeline = function( cp )
 							}
 						};
 
-						// movapic
-						if ( url.match( /http:\/\/movapic\.com\/pic\/(\w+)/ ) )
-						{
-							id = RegExp.$1;
-
-							MakeImgLink( 'http://image.movapic.com/pic/t_' + id + '.jpeg',
-										 'http://image.movapic.com/pic/m_' + id + '.jpeg', 1 );
-						}
-						// フォト蔵
-						else if ( url.match( /http:\/\/photozou\.jp\/photo\/show\/\d+\/(\d+)/ ) )
-						{
-							id = RegExp.$1;
-
-							if ( add.find( 'img[loaded="' + url + '"]' ).length == 0 )
-							{
-								if ( !noloading )
-								{
-									item.find( '.tweet' ).activity( { color: '#ffffff' } );
-								}
-
-								SendRequest(
-									{
-										action: 'photozou_url',
-										imgid: id,
-									},
-									function( res )
-									{
-										if ( res != '' )
-										{
-											MakeImgLink( res.thumb, res.original, 1 );
-										}
-
-										if ( !noloading )
-										{
-											item.find( '.tweet' ).activity( false );
-										}
-									}
-								);
-							}
-						}
 						// instagram
-						else if ( url.match( /https?:\/\/((www\.)?instagram\.com|instagram\.com|instagr\.am)\/p\/([\w\-]+)/ ) )
+						if ( url.match( /https?:\/\/((www\.)?instagram\.com|instagram\.com|instagr\.am)\/p\/([\w\-]+)/ ) )
 						{
 							id = RegExp.$3;
 
-							MakeImgLink( 'http://instagram.com/p/' + id + '/media/?size=t',
-										 'http://instagram.com/p/' + id + '/media/?size=l',
+							MakeImgLink( 'https://instagram.com/p/' + id + '/media/?size=t',
+										 'https://instagram.com/p/' + id + '/media/?size=l',
 										 1 );
 						}
 						// 公式
@@ -3183,7 +3089,7 @@ Contents.timeline = function( cp )
 								}
 
 								add.append( OutputTPL( 'thumbnail_movie', {
-									url: 'http://i.ytimg.com/vi/' + id + '/default.jpg',
+									url: 'https://i.ytimg.com/vi/' + id + '/default.jpg',
 									tooltip: url
 								} ) );
 
@@ -3218,40 +3124,8 @@ Contents.timeline = function( cp )
 								} );
 							}
 						}
-						// TINAMI
-						else if ( url.match( /http:\/\/tinami\.jp\/(\w+)$/ ) )
-						{
-							id = RegExp.$1;
-
-							if ( add.find( 'img[loaded="' + url + '"]' ).length == 0 )
-							{
-								if ( !noloading )
-								{
-									item.find( '.tweet' ).activity( { color: '#ffffff' } );
-								}
-
-								SendRequest(
-									{
-										action: 'tinami_url',
-										imgid: id,
-									},
-									function( res )
-									{
-										if ( res != '' )
-										{
-											MakeImgLink( res.thumb, res.original, 1 );
-										}
-
-										if ( !noloading )
-										{
-											item.find( '.tweet' ).activity( false );
-										}
-									}
-								);
-							}
-						}
 						// ニコニコ動画
-						else if ( url.match( /http:\/\/(www\.nicovideo\.jp\/watch|nico\.ms)\/(\w+)/ ) )
+						else if ( url.match( /https?:\/\/(www\.nicovideo\.jp\/watch|nico\.ms)\/(\w+)/ ) )
 						{
 							id = RegExp.$2;
 
@@ -3306,41 +3180,6 @@ Contents.timeline = function( cp )
 													e.stopPropagation();
 												} );
 											} );
-										}
-
-										if ( !noloading )
-										{
-											item.find( '.tweet' ).activity( false );
-										}
-									}
-								);
-							}
-						}
-						// Streamスクリーンショット
-						else if ( url.match( /(http:\/\/cloud(-\d)?\.steampowered\.com\/ugc\/\d+\/\w+\/)(\d+x\d+\.resizedimage)?$/ ) )
-						{
-							MakeImgLink( RegExp.$1 + '150x150.resizedimage', url, 1 );
-						}
-						// gyazo
-						else if ( url.match( /https?:\/\/gyazo\.com\/\w+$/ ) )
-						{
-							if ( add.find( 'img[loaded="' + url + '"]' ).length == 0 )
-							{
-								if ( !noloading )
-								{
-									item.find( '.tweet' ).activity( { color: '#ffffff' } );
-								}
-
-								SendRequest(
-									{
-										action: 'gyazo_url',
-										imgurl: url,
-									},
-									function( res )
-									{
-										if ( res != '' )
-										{
-											MakeImgLink( res.thumb, res.original, 1 );
 										}
 
 										if ( !noloading )

@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "KuroTwi",
 	"author": "KEN1",
-	"version": "1.9.7.4",
+	"version": "1.9.7.5",
 	"description": "__MSG_manifest_description__",
 	"default_locale": "en",
 	"content_security_policy": "script-src 'self' https://maps.googleapis.com ; object-src 'self'",
@@ -27,7 +27,11 @@
 
 	"permissions": [
 		"notifications",
-		"http://*/*",
-		"https://*/*"
+		"*://*.twitter.com/*",
+		"*://ext.nicovideo.jp/*"
+	],
+
+	"optional_permissions": [
+		"<all_urls>"
 	]
 }

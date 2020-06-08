@@ -58,6 +58,10 @@ div.contents.rss .rss_list .item .desc {
 	padding: 2px 4px;
 }
 
+div.contents.rss .rss_list .permission_request {
+	margin: 8px;
+}
+
 /* タイムライン設定 */
 div.contents.rss .setting {
 	overflow-x: hidden;
@@ -166,8 +170,3 @@ div.contents.rss .setting .feed_list .item .del span {
 	vertical-align: middle;
 }
 
-div.contents.rss iframe {
-	position: absolute;
-	width: 0;
-	height: 0;
-}
