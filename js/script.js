@@ -207,7 +207,7 @@ function Init()
 		success: function( data, status ) {
 			manifest = data;
 
-			$( '#main' ).append( '<div id="version"><a class="anchor version" href="https://www.jstwi.com/kurotwi/" rel="nofollow noopener noreferrer" target="_blank">' +
+			$( '#main' ).append( '<div id="version"><a class="anchor version" href="https://oken1.github.io/kurotwi/" rel="nofollow noopener noreferrer" target="_blank">' +
 				manifest.name + ' version ' + manifest.version + '</a></div>' );
 		},
 		async: false,
@@ -396,7 +396,7 @@ function Init()
 					{
 						MessageBox( i18nGetMessage( 'i18n_0345', [g_cmn.current_version, manifest.version] ) +
 							'<br><br>' +
-							'<a class="anchor version" href="https://www.jstwi.com/kurotwi/#update" rel="nofollow noopener noreferrer" target="_blank">https://www.jstwi.com/kurotwi/#update</a>',
+							'<a class="anchor version" href="https://oken1.github.io/kurotwi/#update" rel="nofollow noopener noreferrer" target="_blank">https://oken1.github.io/kurotwi/#update</a>',
 							5 * 1000 );
 					}
 				}

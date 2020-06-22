@@ -39,3 +39,7 @@ div.contents.nowbrowsing {
 	cursor: pointer;
 	opacity: 0.5;
 }
+
+#nowbrowsing_list .permission_request {
+	margin: 8px;
+}
