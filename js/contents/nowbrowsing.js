@@ -18,82 +18,65 @@ Contents.nowbrowsing = function( cp )
 	var ListMake = function( type ) {
 		var items = new Array();
 
-		const _get = function() {
-			chrome.tabs.query( { url: '*://*/*' }, function( tabs ) {
-				for ( var i = 0 ; i < tabs.length ; i++ )
+		chrome.tabs.query( { url: '*://*/*' }, function( tabs ) {
+			for ( var i = 0 ; i < tabs.length ; i++ )
+			{
+				items.push( {
+					title: escapeHTML( tabs[i].title ),
+					url: tabs[i].url,
+				} );
+			}
+
+			nowbrowsing_list.html( OutputTPL( 'nowbrowsing_list', { items: items } ) )
+				.scrollTop( 0 );
+
+			////////////////////////////////////////
+			// タイトル-URLクリック
+			////////////////////////////////////////
+			nowbrowsing_list.find( 'div.item .title > span' ).click( function( e ) {
+				var item = $( this ).parent().parent();
+
+				var text = $( '<div>' ).html( g_cmn.cmn_param['nowbrowsing_text'] ).text() + item.attr( 'pagetitle' ) + ' - ' + item.attr( 'url' );
+
+				var pid = IsUnique( 'tweetbox' );
+				var left = null;
+				var top = null;
+				var width = 324;
+
+				var SetText = function() {
+					var areatext = $( '#tweetbox_text' ).val();
+					var pos = $( '#tweetbox_text' ).get( 0 ).selectionStart;
+					var bef = areatext.substr( 0, pos );
+					var aft = areatext.substr( pos, areatext.length );
+
+					$( '#tweetbox_text' ).val( bef + text + aft )
+						.focus()
+						.trigger( 'keyup' );
+				};
+
+				// ツイートパネルが開いていない場合は開く
+				if ( pid == null )
 				{
-					items.push( {
-						title: escapeHTML( tabs[i].title ),
-						url: tabs[i].url,
-					} );
-				}
-
-				nowbrowsing_list.html( OutputTPL( 'nowbrowsing_list', { items: items } ) )
-					.scrollTop( 0 );
-
-				////////////////////////////////////////
-				// タイトル-URLクリック
-				////////////////////////////////////////
-				nowbrowsing_list.find( 'div.item .title > span' ).click( function( e ) {
-					var item = $( this ).parent().parent();
-
-					var text = $( '<div>' ).html( g_cmn.cmn_param['nowbrowsing_text'] ).text() + item.attr( 'pagetitle' ) + ' - ' + item.attr( 'url' );
-
-					var pid = IsUnique( 'tweetbox' );
-					var left = null;
-					var top = null;
-					var width = 324;
-
-					var SetText = function() {
-						var areatext = $( '#tweetbox_text' ).val();
-						var pos = $( '#tweetbox_text' ).get( 0 ).selectionStart;
-						var bef = areatext.substr( 0, pos );
-						var aft = areatext.substr( pos, areatext.length );
-
-						$( '#tweetbox_text' ).val( bef + text + aft )
-							.focus()
-							.trigger( 'keyup' );
-					};
-
-					// ツイートパネルが開いていない場合は開く
-					if ( pid == null )
-					{
-						var _cp = new CPanel( left, top, width, 240 );
-						_cp.SetType( 'tweetbox' );
-						_cp.SetParam( { account_id: '', rep_user: null, hashtag: null } );
-						_cp.Start( function() {
+					var _cp = new CPanel( left, top, width, 240 );
+					_cp.SetType( 'tweetbox' );
+					_cp.SetParam( { account_id: '', rep_user: null, hashtag: null } );
+					_cp.Start( function() {
+						if ( $( '#tweetbox_text' ).length ) {
 							SetText();
 							$( '#tweetbox_text' ).SetPos( 'start' );
-						} );
-					}
-					else
-					{
-						SetText();
-					}
-
-					e.stopPropagation();
-				} );
-
-				cont.trigger( 'contents_resize' );
-			} );
-		}
-
-		chrome.permissions.contains( { "permissions": [ 'tabs' ] }, result => {
-			if ( result ) {
-				_get()
-			} else {
-				// 仮
-				nowbrowsing_list.html( '<div class="btn permission_request">' + i18nGetMessage( 'i18n_0383' ) + '</div>' )
-
-				nowbrowsing_list.find( '.permission_request' ).on( 'click', function() {
-					chrome.permissions.request( { "permissions": [ 'tabs' ] }, granted => {
-						if ( granted ) {
-							_get()
 						}
-					} )
-				} )
-			}
-		} )
+					} );
+				}
+				else
+				{
+					SetText();
+				}
+
+				e.stopPropagation();
+			} );
+
+			cont.trigger( 'contents_resize' );
+		} );
 	};
 
 	////////////////////////////////////////////////////////////
