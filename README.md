@@ -3,11 +3,10 @@ KuroTwi
 
 This application is a twitter client. It works on Google Chrome.
 
-Installation
-=============
-[Chrome Webstore](https://chrome.google.com/webstore/detail/kurotwi/kcijnjkpackkklmkicldmkbhpdeilbgf)
-
-Usage
+使い方
 =============
 
-Click the KuroTwi icon from the application list of Google Chrome.
+1.ZIPファイルをダウンロードして展開する
+2.chromeの拡張機能画面でデベロッパーモードをONにして「パッケージ化されていない拡張機能を読み込む」を押す
+3.manifest.jsonが置いてあるフォルダを指定する
+
