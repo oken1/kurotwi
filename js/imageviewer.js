@@ -80,7 +80,7 @@ var imageviewer = {
 		
 		let thumbnails = ''
 
-		this.urls.map( value => {
+		this.urls.forEach( value => {
 			thumbnails += '<img class="thumbnail" src="' + value + '">'
 		} )
 

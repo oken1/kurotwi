@@ -3658,7 +3658,7 @@ $( document ).on( 'panellist_changed', function( e ) {
 		var _p = $( '#' + panel_id );
 		SetFront( _p );
 
-		$( 'body' ).animate( { scrollTop: _p.position().top - $( '#head' ).outerHeight(),  scrollLeft: _p.position().left }, 200 );
+		$( 'html' ).animate( { scrollTop: _p.position().top - $( '#head' ).outerHeight(),  scrollLeft: _p.position().left }, 200 );
 	} );
 } );
 
