@@ -430,16 +430,6 @@ div.contents.timeline .lines div.item > .tweet .bottomcontainer .additional .in_
 	display: none;
 }
 
-/* 位置情報 */
-div.contents.timeline .lines div.item > .tweet .bottomcontainer .additional .geo .icon-place {
-	color: #fa6e64;
-	font-size: 1.5rem;
-}
-
-div.contents.timeline .lines div.item > .tweet .bottomcontainer .additional .geo .icon-place:hover {
-	cursor: pointer;
-}
-
 /* サムネイル */
 div.contents.timeline .lines div.item > .tweet .bottomcontainer .additional > img {
 	width: 75px;

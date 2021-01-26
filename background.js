@@ -1,8 +1,6 @@
 "use strict";
 
-console.log( 'KuroTwi background loaded.' );
-
-chrome.browserAction.onClicked.addListener( function( tab ) {
+chrome.action.onClicked.addListener( function( tab ) {
 	chrome.tabs.query( { title: 'KuroTwi' }, function( tabs ) {
 		var multi = false;
 		
@@ -19,7 +17,8 @@ chrome.browserAction.onClicked.addListener( function( tab ) {
 
 		if ( multi == false )
 		{
-			chrome.tabs.create( { url: chrome.extension.getURL( 'index.html' ) } );
+			chrome.tabs.create( { url: chrome.runtime.getURL( 'index.html' ) } );
 		}
 	} );
 } );
+

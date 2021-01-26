@@ -313,8 +313,8 @@
 		</div>
 		<div class='group'>
 			<div class='checkboxcontainer'>
-				<span><input disabled type='checkbox' id='cset_urlexpand' {if $param->urlexpand==1}checked{/if}></span>
-				<span class='disabled_item'>(i18n_0154)</span>
+				<span><input type='checkbox' id='cset_urlexpand' {if $param->urlexpand==1}checked{/if}></span>
+				<span>(i18n_0154)</span>
 			</div>
 		</div>
 		<div class='group'>

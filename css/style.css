@@ -918,11 +918,6 @@ div.selectbox .selectitems .selectitem.selected {
 	background-color: var(--general-highlight);
 }
 
-div.mapdiv {
-	width: 100%;
-	height: 100%;
-}
-
 /* パネルリスト */
 #panellist {
 	display: none;

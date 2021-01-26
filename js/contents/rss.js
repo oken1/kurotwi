@@ -40,59 +40,35 @@ Contents.rss = function( cp )
 		loadcnt = len;
 		loadhtml = [];
 
-		const _send = function( index ) {
-			for ( let index = 0 ; index < len ; index++ ) {
-				SendRequest(
+		for ( var i = 0 ; i < len ; i++ )
+		{
+			SendRequest(
+				{
+					action: 'feed',
+					url: cp.param['urls'][i].url,
+					count: cp.param['count'],
+					index: i,
+				},
+				function( res )
+				{
+					loadcnt--;
+
+					if ( res.items[0].feedtitle != '' && res.items[0].feedlink != '' )
 					{
-						action: 'feed',
-						url: cp.param['urls'][index].url,
-						count: cp.param['count'],
-						index: index,
-					},
-					function( res )
-					{
-						loadcnt--;
-
-						if ( res.items[0].feedtitle != '' && res.items[0].feedlink != '' )
-						{
-							loadhtml[res.index] = OutputTPL( 'rss_list', { showdesc: cp.param['showdesc'], items: res.items } );
-						}
-
-						if ( loadcnt == 0 )
-						{
-							rss_list.html( loadhtml.join( '' ) );
-							loadhtml = [];
-							cont.trigger( 'contents_resize' );
-
-							lines.activity( false );
-						}
+						loadhtml[res.index] = OutputTPL( 'rss_list', { showdesc: cp.param['showdesc'], items: res.items } );
 					}
-				);
-			}
+
+					if ( loadcnt == 0 )
+					{
+						rss_list.html( loadhtml.join() );
+						loadhtml = [];
+						cont.trigger( 'contents_resize' );
+
+						lines.activity( false );
+					}
+				}
+			);
 		}
-
-		const urls = []
-
-		for ( let i = 0 ; i < len ; i++ ) {
-			urls.push( cp.param['urls'][i].url.replace( /^https?/, '*' ) )
-		}
-
-		chrome.permissions.contains( { "origins": urls }, result => {
-			if ( result ) {
-				_send()
-			} else {
-				// 仮
-				rss_list.html( '<div class="btn permission_request">' + i18nGetMessage( 'i18n_0383' ) + '</div>' )
-
-				rss_list.find( '.permission_request' ).on( 'click', function() {
-					chrome.permissions.request( { "origins": urls }, granted => {
-						if ( granted ) {
-							_send()
-						}
-					} )
-				} )
-			}
-		} )
 	};
 
 	////////////////////////////////////////////////////////////
@@ -388,65 +364,49 @@ Contents.rss = function( cp )
 				}
 			}
 
-			const _send = function() {
-				setting.find( '.rsssetting_items .kinditems' ).last().activity( { color: '#ffffff' } );
-				setting.find( '.feed_append' ).addClass( 'disabled' );
+			setting.find( '.rsssetting_items .kinditems' ).last().activity( { color: '#ffffff' } );
+			setting.find( '.feed_append' ).addClass( 'disabled' );
 
-				SendRequest(
+			SendRequest(
+				{
+					action: 'feed',
+					url: url,
+					count: 1,
+					index: 0,
+				},
+				function( res )
+				{
+					if ( res.items[0].feedtitle == '' || res.items[0].feedlink == '' )
 					{
-						action: 'feed',
-						url: url,
-						count: 1,
-						index: 0,
-					},
-					function( res )
-					{
-						if ( res.items[0].feedtitle == '' || res.items[0].feedlink == '' )
-						{
-							MessageBox( i18nGetMessage( 'i18n_0064' ) );
-							setting.find( '.set_feed' ).focus();
-							setting.find( '.feed_append' ).removeClass( 'disabled' );
+						MessageBox( i18nGetMessage( 'i18n_0064' ) );
+						setting.find( '.set_feed' ).focus();
+						setting.find( '.feed_append' ).removeClass( 'disabled' );
 
-							setting.find( '.rsssetting_items .kinditems' ).last().activity( false );
-						}
-						else
-						{
-							feedchange = true;
-							cp.param['urls'].push( { url: res.url, title: res.items[0].feedtitle } );
-							setting.find( '.rsssetting_apply' ).removeClass( 'disabled' )
-								.end()
-								.find( '.set_feed' ).val( '' ).focus();
-
-							// タイトル未設定の場合はフィードのタイトルを設定
-							var tit = setting.find( '.set_title' );
-
-							if ( ( tit.val() == 'RSS' || tit.val() == '' ) && res.items[0].feedtitle )
-							{
-								tit.val( res.items[0].feedtitle );
-							}
-
-							FeedList();
-
-							setting.find( '.rsssetting_items .kinditems' ).last().activity( false );
-						}
+						setting.find( '.rsssetting_items .kinditems' ).last().activity( false );
 					}
-				);
-			}
+					else
+					{
+						feedchange = true;
+						cp.param['urls'].push( { url: res.url, title: res.items[0].feedtitle } );
+						setting.find( '.rsssetting_apply' ).removeClass( 'disabled' )
+							.end()
+							.find( '.set_feed' ).val( '' ).focus();
 
-			const urls = [ url.replace( /^https?/, '*' ) ]
+						// タイトル未設定の場合はフィードのタイトルを設定
+						var tit = setting.find( '.set_title' );
 
-			chrome.permissions.contains( { "origins": urls }, result => {
-				if ( result ) {
-					_send()
-				} else {
-					chrome.permissions.request( { "origins": urls }, granted => {
-						if ( granted ) {
-							_send()
+						if ( ( tit.val() == 'RSS' || tit.val() == '' ) && res.items[0].feedtitle )
+						{
+							tit.val( res.items[0].feedtitle );
 						}
-					} )
+
+						FeedList();
+
+						setting.find( '.rsssetting_items .kinditems' ).last().activity( false );
+					}
 				}
-			} )
-			
+			);
+
 			e.stopPropagation();
 		} );
 

@@ -2930,7 +2930,61 @@ Contents.timeline = function( cp )
 						return;
 					}
 
-					if ( g_cmn.cmn_param['thumbnail'] )
+					// 短縮URLの場合、URL展開を行う
+					if ( isShortURL( url ) && g_cmn.cmn_param['urlexpand'] == 1 )
+					{
+						anchor.removeClass( 'anchor' )
+							.addClass( 'expand' )
+							.removeAttr( 'href' );
+
+						if ( !noloading )
+						{
+							item.find( '.tweet' ).activity( { color: '#ffffff' } );
+						}
+
+						var org = url;
+
+						// URL展開
+						SendRequest(
+							{
+								action: 'url_expand',
+								url: url,
+							},
+							function( res )
+							{
+								var durl;
+
+								try {
+									durl = escapeHTML( decodeURI( res ) );
+								}
+								catch ( e )
+								{
+									console.log( 'decode error [' + res + ']' );
+									durl = res;
+								}
+
+								if ( res != '' )
+								{
+									anchor.attr( 'href', res );
+									anchor.html( res );
+								}
+								else
+								{
+									anchor.attr( 'href', org );
+									anchor.html( org );
+								}
+
+								anchor.removeClass( 'expand' )
+									.addClass( 'anchor' );
+
+								if ( !noloading )
+								{
+									item.find( '.tweet' ).activity( false );
+								}
+							}
+						);
+					}
+					else if ( g_cmn.cmn_param['thumbnail'] )
 					{
 						var add = item.find( '.additional' );
 						var id;
@@ -3282,31 +3336,6 @@ Contents.timeline = function( cp )
 			} );
 
 			item.removeClass( 'resopen' );
-
-			e.stopPropagation();
-		} );
-
-		////////////////////////////////////////
-		// 位置情報クリック処理
-		////////////////////////////////////////
-		timeline_list.on( 'click', '> div.item div.tweet div.bottomcontainer div.additional div.geo span', function( e ) {
-			var geo = $( this ).parent();
-			var item = $( this ).parent().parent().parent().parent().parent();
-
-			if ( geo.attr( 'geo' ).match( /(.*),(.*)/ ) )
-			{
-				var lat = RegExp.$1;
-				var lng = RegExp.$2;
-
-				var _cp = new CPanel( null, null, 480, 360 );
-				_cp.SetType( 'googlemap' );
-				_cp.SetParam( {
-					lat: lat,
-					lng: lng,
-					zoom: 12,
-				} );
-				_cp.Start();
-			}
 
 			e.stopPropagation();
 		} );

@@ -59,16 +59,12 @@ div.contents.tweetbox {
 #tweetbox_reply {
 }
 
-/* 位置情報 */
-#tweetbox_geo {
-}
-
 /* 添付画像 */
 #tweetbox_image {
 	display: block;
 }
 
-.replyitem, .geoitem {
+.replyitem {
 	display: table;
 	width: 95%;
 	border: 1px solid rgba( 0, 0, 0, 0.4 );
@@ -87,7 +83,7 @@ div.contents.tweetbox {
 	text-align: left;
 }
 
-.replyitem > div, .geoitem > div {
+.replyitem > div {
 	display: table-cell;
 	vertical-align: middle;
 	word-break: break-all;
@@ -108,7 +104,7 @@ div.contents.tweetbox {
 }
 
 /* アイコン */
-.replyitem > div.icon img, .geoitem > div.icon span {
+.replyitem > div.icon img {
 	width: 24px;
 	height: 24px;
 	margin: 2px;
@@ -127,25 +123,15 @@ div.contents.tweetbox {
 }
 
 /* 削除ボタン */
-.replyitem > div.del span, .geoitem > div.del span, .imageitem > div.del span {
+.replyitem > div.del span, .imageitem > div.del span {
 	width: 12px;
 	height: 12px;
 	padding-right: 4px;
 	font-size: 8px;
 }
 
-.replyitem > div.del span:hover, .geoitem > div.del span:hover, .imageitem > div.del span:hover {
+.replyitem > div.del span:hover, .imageitem > div.del span:hover {
 	cursor: pointer;
-}
-
-/* 位置情報 */
-.geoitem > div.geopos {
-	padding-left: 4px;
-	width: 100%;
-}
-
-.geoitem > div.geopos > span {
-	font-size: 0.8rem;
 }
 
 /* 添付画像 */
@@ -164,9 +150,7 @@ div.contents.tweetbox {
 	padding: 4px;
 }
 
-.replyitem > div.reply:hover,
-.geoitem > div.geopos:hover,
-.imageitem > div.geopos:hover {
+.replyitem > div.reply:hover {
 	cursor: default;
 }
 

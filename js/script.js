@@ -207,7 +207,7 @@ function Init()
 		success: function( data, status ) {
 			manifest = data;
 
-			$( '#main' ).append( '<div id="version"><a class="anchor version" href="https://oken1.github.io/kurotwi/" rel="nofollow noopener noreferrer" target="_blank">' +
+			$( '#main' ).append( '<div id="version"><a class="anchor version" href="https://www.jstwi.com/kurotwi/" rel="nofollow noopener noreferrer" target="_blank">' +
 				manifest.name + ' version ' + manifest.version + '</a></div>' );
 		},
 		async: false,
@@ -396,7 +396,7 @@ function Init()
 					{
 						MessageBox( i18nGetMessage( 'i18n_0345', [g_cmn.current_version, manifest.version] ) +
 							'<br><br>' +
-							'<a class="anchor version" href="https://oken1.github.io/kurotwi/#update" rel="nofollow noopener noreferrer" target="_blank">https://oken1.github.io/kurotwi/#update</a>',
+							'<a class="anchor version" href="https://www.jstwi.com/kurotwi/#update" rel="nofollow noopener noreferrer" target="_blank">https://www.jstwi.com/kurotwi/#update</a>',
 							5 * 1000 );
 					}
 				}
@@ -4053,6 +4053,115 @@ function SendRequest( req, callback )
 		case 'stream_stop':
 			StopUserStream( req.id );
 			callback();
+			break;
+		// URL展開
+		// req : acsToken
+		//       acsSecret
+		//       url
+		case 'url_expand':
+			// 既に展開済み？
+			for ( var i = 0, _len = shorturls.length ; i < _len ; i++ )
+			{
+				if ( shorturls[i].shorturl == req.url )
+				{
+					callback( shorturls[i].longurl );
+					return true;
+				}
+			}
+
+			////////////////////////////////////////////////////////////
+			// 外部サービスを使わないURL展開
+			////////////////////////////////////////////////////////////
+			function ExtURL()
+			{
+				var _xhr = new XMLHttpRequest();
+
+				_xhr.open( 'HEAD', req.url );
+
+				_xhr.onload = function( e ) {
+					callback( _xhr.responseURL );
+				};
+
+				_xhr.onerror = function( e ) {
+					sendres( '' );
+				};
+
+				_xhr.send( null );
+			}
+
+			////////////////////////////////////////////////////////////
+			// bit.ly(j.mp)は本家に任せる
+			////////////////////////////////////////////////////////////
+			if ( req.url.match( '^https?:\/\/(bit\.ly|j\.mp)\/' ) )
+			{
+				$.ajax( {
+					url: 'https://api.bitly.com/v3/expand',
+					dataType: 'json',
+					type: 'GET',
+					success: function ( data, status, xhr ) {
+						if ( data.data.expand )
+						{
+							shorturls.push( { shorturl: req.url, longurl: data.data.expand[0].long_url } );
+							callback( data.data.expand[0].long_url );
+						}
+						else
+						{
+							callback( '' );
+						}
+					},
+					error: function ( xhr, status, errorThrown ) {
+						// bit.ly(j.mp)が使えないときは、ブラウザ側で処理
+						ExtURL();
+					},
+					data: {
+						format: 'json',
+						shortUrl: req.url,
+						login: 'jstwi',
+						apikey: 'R_26cedce380968a01d28df347bf5d16df',
+					},
+				} );
+
+				return true;
+			}
+			////////////////////////////////////////////////////////////
+			// htn.toは本家に任せる
+			////////////////////////////////////////////////////////////
+			if ( req.url.match( '^https?:\/\/htn\.to\/' ) )
+			{
+				$.ajax( {
+					url: 'https://b.hatena.ne.jp/api/htnto/expand',
+					dataType: 'json',
+					type: 'GET',
+					success: function ( data, status, xhr ) {
+						if ( data.data.expand )
+						{
+							shorturls.push( { shorturl: req.url, longurl: data.data.expand[0].long_url } );
+							callback( data.data.expand[0].long_url );
+						}
+						else
+						{
+							callback( '' );
+						}
+					},
+					error: function ( xhr, status, errorThrown ) {
+						// htn.toが使えないときは、ブラウザ側で処理
+						ExtURL();
+					},
+					data: {
+						shortUrl: req.url,
+					},
+				} );
+
+				return true;
+			}
+			////////////////////////////////////////////////////////////
+			// 外部サービスを使わないURL展開
+			////////////////////////////////////////////////////////////
+			else
+			{
+				ExtURL();
+			}
+
 			break;
 
 		// ニコニコ動画のサムネイルURL取得

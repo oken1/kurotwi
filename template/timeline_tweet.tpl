@@ -38,7 +38,7 @@
 
 		<div class='tweet_text'>{$text}</div>
 
-		{if $in_reply_to_status_id || $geo}
+		{if $in_reply_to_status_id}
 		<div class='bottomcontainer'>
 			<div class='additional'>
 				{if $in_reply_to_status_id}
@@ -47,12 +47,6 @@
 				</div>
 				<div class='in_reply_to_close' status_id='{$in_reply_to_status_id}'>
 					<span class='resicon icon-close tooltip' tooltip='(i18n_0273)'></span>
-				</div>
-				{/if}
-
-				{if $geo}
-				<div class='geo' geo='{$geo->coordinates}'>
-					<span class='tooltip icon-place' tooltip='(i18n_0252)({$geo->coordinates})'></span>
 				</div>
 				{/if}
 			</div>

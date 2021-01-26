@@ -164,22 +164,6 @@ Contents.tweetbox = function( cp )
 		};
 
 		////////////////////////////////////////
-		// 位置情報削除ボタンクリック処理
-		////////////////////////////////////////
-		var GeoDelClick = function() {
-			var index = $( '#tweetbox_geo' ).find( '.del' ).find( 'span' ).index( this );
-
-			var geoitem = $( this ).parent().parent();
-			var height = geoitem.outerHeight( true );
-
-			geoitem.remove();
-			cp.param['geo'].splice( index, 1 );
-
-			cont.height( cont.height() - height );
-			p.height( p.height() - height );
-		};
-
-		////////////////////////////////////////
 		// 添付画像削除ボタンクリック処理
 		////////////////////////////////////////
 		var ImageDelClick = function() {
@@ -389,7 +373,6 @@ Contents.tweetbox = function( cp )
 			var acc_h = cont.find( '.account_select' ).outerHeight();
 
 			var opt_h = $( '#tweetbox_reply' ).outerHeight() +
-						$( '#tweetbox_geo' ).outerHeight() +
 						$( '#tweetbox_image' ).outerHeight();
 
 			var btn_h = $( '#tweetbox_btn' ).parent().outerHeight( true );
@@ -611,13 +594,6 @@ Contents.tweetbox = function( cp )
 			if ( cp.param['reply'] )
 			{
 				data['in_reply_to_status_id'] = cp.param['reply'].status_id;
-			}
-
-			// 位置情報設定
-			if ( cp.param['geo'].length > 0 )
-			{
-				data['lat'] = cp.param['geo'][0].lat;
-				data['long'] = cp.param['geo'][0].lng;
 			}
 
 			data['status'] = status;
@@ -954,28 +930,6 @@ Contents.tweetbox = function( cp )
 		} );
 
 		////////////////////////////////////////
-		// 位置情報処理
-		////////////////////////////////////////
-		cont.on( 'geoapply', function( e, item ) {
-			// 現在設定されている情報を削除
-			$( '#tweetbox_geo' ).find( '.geoitem' ).find( '.del' ).find( 'span' ).trigger( 'click' );
-
-			cp.param['geo'][0] = item;
-
-			item.lat = Math.round( item.lat * 10000 ) / 10000;
-			item.lng = Math.round( item.lng * 10000 ) / 10000;
-
-			$( '#tweetbox_geo' ).append( OutputTPL( 'tweetbox_geo', { item: item } ) );
-
-			var height = $( '#tweetbox_geo' ).find( '.geoitem' ).outerHeight( true );
-
-			cont.height( cont.height() + height );
-			p.height( p.height() + height );
-
-			$( '#tweetbox_geo' ).find( '.del' ).last().find( 'span' ).click( GeoDelClick );
-		} );
-
-		////////////////////////////////////////
 		// 画像を添付ボタンクリック処理
 		////////////////////////////////////////
 		$( '#imageattach' ).click( function( e ) {
@@ -990,45 +944,6 @@ Contents.tweetbox = function( cp )
 		} );
 
 		$( '#imageattach_input' ).change( ImageAttachChange );
-
-		////////////////////////////////////////
-		// 位置情報設定ボタンクリック処理
-		////////////////////////////////////////
-		$( '#geoset' ).click( function( e ) {
-			// disabledなら処理しない
-			if ( $( this ).hasClass( 'disabled' ) )
-			{
-				return;
-			}
-
-			var pid = IsUnique( 'geosetting' );
-
-			if ( pid == null )
-			{
-				var _cp = new CPanel( null, null, 300, 300 );
-				_cp.SetType( 'geosetting' );
-
-				// 位置情報が既に設定されている場合
-				if ( cp.param['geo'].length > 0 )
-				{
-					_cp.SetParam( { lat: cp.param['geo'][0].lat, lng: cp.param['geo'][0].lng, zoom: cp.param['geo'][0].zoom } );
-				}
-				else
-				{
-					_cp.SetParam( { lat: 35.680909, lng: 139.767372, zoom: 12 } );
-				}
-
-				_cp.Start( function() {
-					SetFront( $( '#' + _cp.id ) );
-				} );
-				e.stopPropagation();
-			}
-			else
-			{
-				SetFront( $( '#' + pid ) );
-				e.stopPropagation();
-			}
-		} );
 	};
 
 	////////////////////////////////////////////////////////////
@@ -1041,8 +956,5 @@ Contents.tweetbox = function( cp )
 
 		// 返信先をクリア
 		$( '#tweetbox_reply' ).find( '.replyitem' ).find( '.del' ).find( 'span' ).trigger( 'click' );
-
-		// 位置情報をクリア
-		$( '#tweetbox_geo' ).find( '.geoitem' ).find( '.del' ).find( 'span' ).trigger( 'click' );
 	};
 }

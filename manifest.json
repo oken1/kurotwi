@@ -1,15 +1,17 @@
 {
-	"manifest_version": 2,
+	"manifest_version": 3,
 	"name": "KuroTwi",
 	"author": "KEN1",
-	"version": "1.9.7.8",
+	"version": "1.9.8",
 	"description": "__MSG_manifest_description__",
 	"default_locale": "en",
-	"content_security_policy": "script-src 'self' https://maps.googleapis.com ; object-src 'self'",
+	"content_security_policy": {
+		"extension-pages": "script-src 'self' ; object-src 'self'"
+	},
 
-	"minimum_chrome_version": "43.0",
+	"minimum_chrome_version": "88.0",
 
-	"browser_action": {
+	"action": {
 		"default_icon": "images/icon128.png",
 		"default_title": "KuroTwi"
 	},
@@ -22,18 +24,18 @@
 	},
 
 	"background" : {
-		"scripts": ["js/background.js"]
+		"service_worker": "background.js"
 	},
 
 	"permissions": [
-		"tabs",
 		"notifications",
-		"https://api.twitter.com/*",
-		"https://upload.twitter.com/*",
-		"https://ext.nicovideo.jp/*"
+		"tabs"
 	],
 
-	"optional_permissions": [
+	"host_permissions": [
+		"https://api.twitter.com/*",
+		"https://upload.twitter.com/*",
+		"https://ext.nicovideo.jp/*",
 		"*://*/*"
 	]
 }
