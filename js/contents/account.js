@@ -30,7 +30,6 @@ Contents.account = function( cp )
 						 ( '00' + dt.getSeconds() ).slice( -2 );
 
 			items.push( {
-				stream: g_cmn.account[id].notsave.stream,
 				name: g_cmn.account[id]['screen_name'],
 				icon: g_cmn.account[id]['icon'],
 				follow: g_cmn.account[id]['follow'],
@@ -62,46 +61,6 @@ Contents.account = function( cp )
 				$( '#account_posdown' ).removeClass( 'disabled' );
 			}
 		}
-
-		////////////////////////////////////////
-		// ユーザーストリーム接続状態クリック処理
-		////////////////////////////////////////
-		$( '#account_list' ).find( 'div.item' ).find( '.streamsts' ).find( 'div' ).click( function( e ) {
-			return false // UserStream廃止
-			
-			var account_id = $( this ).parent().parent().attr( 'account_id' );
-
-			// 接続しているときは切断
-			if ( $( this ).hasClass( 'on' ) || $( this ).hasClass( 'try' ) )
-			{
-				SendRequest(
-					{
-						action: 'stream_stop',
-						id: account_id,
-					},
-					function( res )
-					{
-					}
-				);
-			}
-			// 切断しているときは接続
-			else if ( $( this ).hasClass( 'off' ) )
-			{
-				SendRequest(
-					{
-						action: 'stream_start',
-						acsToken: g_cmn.account[account_id]['accessToken'],
-						acsSecret: g_cmn.account[account_id]['accessSecret'],
-						id: account_id,
-					},
-					function( res )
-					{
-					}
-				);
-			}
-
-			e.stopPropagation();
-		} );
 
 		////////////////////////////////////////
 		// クリック時処理
@@ -318,7 +277,6 @@ Contents.account = function( cp )
 									follower: res.json.followers_count,
 									statuses_count: res.json.statuses_count,
 									notsave: {
-										stream: 0,
 										protected: res.json.protected,
 									},
 								};
@@ -331,22 +289,6 @@ Contents.account = function( cp )
 								$( '#head' ).trigger( 'account_update' );
 
 								UpdateToolbarUser();
-
-								// ユーザーストリーム開始
-								if ( g_usestream )
-								{
-									SendRequest(
-										{
-											action: 'stream_start',
-											acsToken: acsToken,
-											acsSecret: acsSecret,
-											id: account_id,
-										},
-										function( res )
-										{
-										}
-									);
-								}
 
 								GetAccountInfo( account_id, function() {
 									Blackout( false );
@@ -537,16 +479,6 @@ Contents.account = function( cp )
 
 			if ( confirm( i18nGetMessage( 'i18n_0185', [g_cmn.account[$( this ).attr( 'delid' )].screen_name] ) ) )
 			{
-				SendRequest(
-					{
-						action: 'stream_stop',
-						id: $( this ).attr( 'delid' ),
-					},
-					function()
-					{
-					}
-				);
-
 				delete g_cmn.account[$( this ).attr( 'delid' )];
 
 				for ( var i = 0, _len = g_cmn.account_order.length ; i < _len ; i++ )
@@ -581,19 +513,6 @@ Contents.account = function( cp )
 
 			if ( confirm( i18nGetMessage( 'i18n_0073' ) ) )
 			{
-				for ( var id in g_cmn.account )
-				{
-					SendRequest(
-						{
-							action: 'stream_stop',
-							id: id,
-						},
-						function()
-						{
-						}
-					);
-				}
-
 				g_cmn.account = {};
 				g_cmn.account_order = [];
 

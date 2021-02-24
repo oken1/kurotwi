@@ -13,9 +13,6 @@
 					<div class='list'>
 					</div>
 				</div>
-				<a class='btn iconsize'>(i18n_0042)</a>
-				<div class='iconsizemenu'>
-				</div>
 				<a class='btn addfilter'>(i18n_0338)</a>
 				<a class='btn individual'>(i18n_0351)</a>
 				<a class='btn speech'>Speech</a>

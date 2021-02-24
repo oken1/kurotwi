@@ -12,9 +12,6 @@ var g_saveend = true;
 // 開発者モード
 var g_devmode = false;
 
-// ユーザーストリーム使用フラグ
-var g_usestream = false // UserStream廃止
-
 // NGチェック用フィルタ
 var g_ngregexp = {
 	word: null,
@@ -46,9 +43,8 @@ $( document ).ready( function() {
 	g_cmn = {
 		cmn_param:	{											// 共通パラメータ
 			font_family:		'',								// - フォント名
-			font_size:			12,								// - フォントサイズ
+			font_size:			13,								// - フォントサイズ
 			snap:				0,								// - パネルのスナップ
-			stream:				0,								// - ユーザーストリームを使う	// UserStream廃止
 			autoreadmore:		0,								// - もっと読むを自動実行
 			scroll_vertical:	1,								// - ページ全体のスクロールバー(縦)
 			scroll_horizontal:	1,								// - ページ全体のスクロールバー(横)
@@ -67,7 +63,6 @@ $( document ).ready( function() {
 			notify_alltweets:	0,								// - すべてのツイートを通知
 			notify_list_add:	1,								// - リストに追加
 
-			top_period:			0,								// - 複数リプライ時にピリオドをつける
 			tweetkey:			0,								// - ツイートショートカットキー
 
 			reload_time:		600,							// - 新着読み込み
@@ -79,7 +74,6 @@ $( document ).ready( function() {
 			newscroll:			1,								// - 新着ツイートにスクロール
 			auto_thumb:			1,								// - サムネイルの自動表示
 			follow_mark:		1,								// - 相互フォロー表示
-			iconsize:			32,								// - アイコンサイズ
 			onlyone_rt:			0,								// - リツイートを重複表示しない
 			confirm_rt:			1,								// - リツイートを確認する
 			ngwords:			null,							// - NG設定
@@ -125,8 +119,6 @@ $( document ).ready( function() {
 		mute:			null,			// 非表示ユーザ
 		toolbar_user:	null,			// ツールバーに登録しているユーザ
 		rss_panel:		null,			// RSSパネル
-		group_panel:	null,			// グループパネル
-		user_iconsize:	null,			// ユーザーごとのアイコンサイズ
 		twconfig:		{				// Twitterの設定値
 			short_url_length:				20,	// 2012/10/15現在の値
 			characters_reserved_per_media:	21,
@@ -161,8 +153,6 @@ function Init()
 	g_cmn.notsave.retweets = {};
 	g_cmn.notsave.tl_hashtag = new Array();
 	g_cmn.rss_panel = {};
-	g_cmn.group_panel = {};
-	g_cmn.user_iconsize = {};
 	g_cmn.cmn_param.ngwords = new Array();
 	g_cmn.account_order = new Array();
 
@@ -229,7 +219,6 @@ function Init()
 	// 保存データを読み込み、アカウント、パネルを復元する
 	////////////////////////////////////////////////////////////
 	var LoadData = function() {
-		userstream = {};
 		shorturls = new Array();
 
 		// localStorageからデータ読み込み
@@ -283,10 +272,6 @@ function Init()
 			$( 'body' ).css( { 'overflow-x': ( g_cmn.cmn_param['scroll_horizontal'] == 1 ) ? 'auto' : 'hidden' } );
 
 			MakeNGRegExp();
-
-			// ユーザーストリームを使う？
-			g_cmn.cmn_param['stream'] = 0 // UserStream廃止
-			g_usestream = ( g_cmn.cmn_param['stream'] == 1 ) ? true : false;
 
 			// 名前の表示形式
 			g_namedisp = g_cmn.cmn_param['namedisp'];
@@ -343,18 +328,6 @@ function Init()
 					g_cmn.rss_panel = _g_cmn.rss_panel;
 				}
 
-				// グループパネルの復元
-				if ( _g_cmn.group_panel != undefined )
-				{
-					g_cmn.group_panel = _g_cmn.group_panel;
-				}
-
-				// ユーザーごとのアイコンサイズの復元
-				if ( _g_cmn.user_iconsize != undefined )
-				{
-					g_cmn.user_iconsize = _g_cmn.user_iconsize;
-				}
-
 				// アカウントの並び順
 				if ( _g_cmn.account_order != undefined )
 				{
@@ -402,27 +375,6 @@ function Init()
 				}
 
 				g_cmn.current_version = manifest.version;
-
-				// アカウントの並び順にユーザーストリーム接続要求
-				for ( var i = 0, _len = g_cmn.account_order.length ; i < _len ; i++ )
-				{
-					g_cmn.account[g_cmn.account_order[i]].notsave.stream = 0;
-
-					if ( g_usestream )
-					{
-						SendRequest(
-							{
-								action: 'stream_start',
-								acsToken: g_cmn.account[g_cmn.account_order[i]]['accessToken'],
-								acsSecret: g_cmn.account[g_cmn.account_order[i]]['accessSecret'],
-								id: g_cmn.account_order[i],
-							},
-							function( res )
-							{
-							}
-						);
-					}
-				}
 
 				// パネルの復元
 				var cp;
@@ -594,28 +546,7 @@ function Init()
 							}
 							else
 							{
-								// 情報が取得出来なかったアカウントは削除(2013/06/30廃止)
-								//if ( res.status == 404 )
-								if ( 0 )
-								{
-									MessageBox( i18nGetMessage( 'i18n_0117', [g_cmn.account[res.id]['screen_name']] ) );
-
-									SendRequest(
-										{
-											action: 'stream_stop',
-											id: res.id,
-										},
-										function()
-										{
-										}
-									);
-
-									delete g_cmn.account[res.id];
-								}
-								else
-								{
-									ApiError( i18nGetMessage( 'i18n_0099', [g_cmn.account[res.id]['screen_name']] ), res );
-								}
+								ApiError( i18nGetMessage( 'i18n_0099', [g_cmn.account[res.id]['screen_name']] ), res );
 
 								$( '#info0_' + res.id ).append( ' ... completed' ).fadeOut( 'slow', function() { $( this ).remove() } );
 
@@ -783,32 +714,9 @@ function Init()
 				}
 
 				break;
-			// グループストリーム一覧
+
+				// インポート/エクスポート
 			case 4:
-				var pid = IsUnique( 'grouplist' );
-
-				if ( pid == null )
-				{
-					var _cp = new CPanel( null, null, 320, 360 );
-					_cp.SetType( 'grouplist' );
-					_cp.SetParam( {} );
-					_cp.Start();
-				}
-				else
-				{
-					SetFront( $( '#' + pid ) );
-
-					// 最小化している場合は元に戻す
-					if ( GetPanel( pid ).minimum.minimum == true )
-					{
-						$( '#' + pid ).find( 'div.titlebar' ).find( '.minimum' ).trigger( 'click' );
-					}
-				}
-
-				break;
-
-			// インポート/エクスポート
-			case 5:
 				var pid = IsUnique( 'impexp' );
 
 				if ( pid == null )
@@ -1065,14 +973,6 @@ window.onunload = window.onbeforeunload = function( e ) {
 			g_cmn.panel[i].contents.stop();
 		}
 	}
-
-	// ストリームを止める
-	for ( var id in userstream )
-	{
-		StopUserStream( id );
-	}
-
-	userstream = {};
 
 	if ( !g_saveend )
 	{
@@ -1657,6 +1557,7 @@ function MakeTimeline( json, account_id )
 		namedisp: g_namedisp,
 		dispdate: DateConv( json.created_at, ( g_timedisp == 1 ) ? 1 : 3 ),
 		favcnt: json.favorite_count,
+		blocked_account: IsBlockUser( account_id, json.user.id_str ),
 	};
 
 	return OutputTPL( 'timeline_tweet', assign );
@@ -1722,361 +1623,6 @@ function MakeTimeline_DM( json, type, account_id )
 	};
 
 	return OutputTPL( 'timeline_dm', assign );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// ストリームデータ解析
-////////////////////////////////////////////////////////////////////////////////
-function StreamDataAnalyze( data )
-{
-	var account_id = data.account_id;
-	var json = data.json;
-
-	////////////////////////////////////////////////////////////
-	// アカウントIDの一致するタイムラインパネルにデータを送信
-	////////////////////////////////////////////////////////////
-	var PutTimeline = function( panel_type, timeline_type ) {
-		for ( var i = 0, _len = g_cmn.panel.length ; i < _len ; i++ )
-		{
-			if ( g_cmn.panel[i].type == panel_type )
-			{
-				if ( g_cmn.panel[i].param['timeline_type'].match( timeline_type ) &&
-					 g_cmn.panel[i].param['account_id'] == account_id )
-				{
-					$( '#' + g_cmn.panel[i].id ).find( 'div.contents' ).trigger( 'getstream', [json] );
-				}
-			}
-		}
-	};
-
-	// 接続成功/エラー/切断
-	if ( json.error_id != undefined )
-	{
-		var current_stream = g_cmn.account[account_id].notsave.stream;
-
-		switch ( json.error_id )
-		{
-			// ユーザーストリーム接続エラー
-			case -1:
-				g_cmn.account[account_id].notsave.stream = 0;
-
-				if ( json.status )
-				{
-					MessageBox( g_cmn.account[account_id].screen_name + i18nGetMessage( 'i18n_0102' ) + '(' + json.status + ')' );
-				}
-
-				DisconnectUserStream( account_id );
-				break;
-			// ユーザーストリーム接続成功
-			case 2:
-				g_cmn.account[account_id].notsave.stream = 2;
-				break;
-			// ユーザーストリーム接続試行中
-			case 1:
-				g_cmn.account[account_id].notsave.stream = 1;
-				break;
-			// ユーザーストリーム切断
-			case 0:
-				if ( g_cmn.account[account_id] != undefined )
-				{
-					g_cmn.account[account_id].notsave.stream = 0;
-				}
-				// アカウントが削除されている場合
-				else
-				{
-					return;
-				}
-
-				DisconnectUserStream( account_id );
-				break;
-		}
-
-		// Streamのステータスに変更があった場合のみ
-		if ( current_stream != g_cmn.account[account_id].notsave.stream )
-		{
-			var pid = IsUnique( 'account' );
-
-			if ( pid != null )
-			{
-				$( '#' + pid ).find( 'div.contents' ).trigger( 'account_update' );
-			}
-
-			// ツールバーユーザーの更新
-			UpdateToolbarUser();
-
-			if ( g_cmn.account[account_id].notsave.stream == 0 ||
-				 g_cmn.account[account_id].notsave.stream == 2 )
-			{
-				for ( var i = 0, _len = g_cmn.panel.length ; i < _len ; i++ )
-				{
-					if ( g_cmn.panel[i].type == 'timeline' )
-					{
-						if ( g_cmn.panel[i].param['account_id'] == account_id )
-						{
-							$( '#' + g_cmn.panel[i].id ).find( 'div.contents' ).find( '.timeline_list' ).trigger( 'reload_timer' );
-						}
-					}
-				}
-			}
-		}
-
-		return;
-	}
-
-	if ( json.friends || json.friends_str )
-	{
-	}
-	else if ( json.retweeted_status )
-	{
-		// RT非表示
-		if ( IsNoRetweetUser( account_id, json.user.id_str ) )
-		{
-			return;
-		}
-
-		// ミュートユーザーチェック
-		if ( json.retweeted_status.user )
-		{
-			if ( IsMuteUser( account_id, json.retweeted_status.user.id_str ) )
-			{
-				return;
-			}
-		}
-
-		// ブロックユーザーチェック
-		if ( json.retweeted_status.user )
-		{
-			if ( IsBlockUser( account_id, json.retweeted_status.user.id_str ) )
-			{
-				return;
-			}
-		}
-
-		json = ConvertExtendedTweet( json, 'userstream' );
-
-		json = AppendQuotedStatusURL( json )
-
-		// NGチェック
-		if ( IsNGTweet( json, 'normal' ) )
-		{
-			return;
-		}
-
-		// 重複表示なし
-		if ( g_cmn.cmn_param['onlyone_rt'] == 1 )
-		{
-			// すでに表示済み？
-			if ( g_cmn.notsave.retweets[json.retweeted_status.id_str] )
-			{
-				return;
-			}
-		}
-
-		g_cmn.notsave.retweets[json.retweeted_status.id_str] = true;
-
-		var notified = false;
-
-		// 自分のアカウントのツイートがRTされたら通知
-		if ( IsMyAccount( json.retweeted_status.user.id_str ) )
-		{
-			// 自分の別アカウントでRTした分は通知しない
-			if ( !IsMyAccount( json.user.id_str ) || g_devmode )
-			{
-				OpenNotification( 'retweet', {
-					src: json.user.screen_name,
-					simg: json.user.profile_image_url_https,
-					target: json.retweeted_status.user.screen_name,
-					msg: json.retweeted_status.text,
-					date: DateConv( json.retweeted_status.created_at, 0 ),
-					account_id: account_id,
-				} );
-
-				notified = true;
-			}
-		}
-
-		// 全てのツイート通知
-		if ( !notified )
-		{
-			OpenNotification( 'alltweets', {
-							src: json.retweeted_status.user.screen_name,
-							simg: json.retweeted_status.user.profile_image_url_https,
-							msg: json.retweeted_status.text,
-							date: DateConv( json.retweeted_status.created_at, 0 ),
-							rtsrc: json.user.screen_name,
-							rtsimg: json.user.profile_image_url_https,
-							rtcnt: json.retweet_count - 1,
-							account_id: account_id,
-						} );
-		}
-
-		PutTimeline( 'timeline', 'home|group' );
-	}
-	else if ( json.event )
-	{
-		switch ( json.event )
-		{
-			case 'favorite':
-				// 自分が追加したもの以外をデスクトップ通知
-				if ( !IsMyAccount( json.source.id_str ) || g_devmode )
-				{
-					OpenNotification( 'favorite', {
-						src: json.source.screen_name,
-						simg: json.source.profile_image_url_https,
-						target: json.target.screen_name,
-						msg: json.target_object.text,
-						date: DateConv( json.target_object.created_at, 0 ),
-						account_id: account_id,
-					} );
-				}
-
-				break;
-			case 'follow':
-				// 自分がフォローしたもの以外をデスクトップ通知
-				if ( !IsMyAccount( json.source.id_str ) || g_devmode )
-				{
-					OpenNotification( 'follow', {
-						simg: json.source.profile_image_url_https,
-						src: json.source.screen_name,
-						timg: json.target.profile_image_url_https,
-						target: json.target.screen_name,
-						account_id: account_id,
-						num: json.target.followers_count + 1,
-					} );
-				}
-
-				break;
-			case 'list_member_added':
-				if ( !IsMyAccount( json.source.id_str ) || g_devmode )
-				{
-					OpenNotification( 'list_add', {
-						simg: json.source.profile_image_url_https,
-						src: json.source.screen_name,
-						timg: json.target.profile_image_url_https,
-						target: json.target.screen_name,
-						account_id: account_id,
-						num: json.target.followers_count + 1,
-						list_fullname: json.target_object.full_name,
-						list_id: json.target_object.id_str,
-						list_screen_name: json.target_object.user.screen_name,
-						list_slug: json.target_object.slug,
-					} );
-				}
-
-				break;
-			case 'quoted_tweet':
-				if ( !IsMyAccount( json.source.id_str ) || g_devmode )
-				{
-					OpenNotification( 'quoted_tweet', {
-									src: json.target_object.user.screen_name,
-									simg: json.target_object.user.profile_image_url_https,
-									msg: json.target_object.text,
-									date: DateConv( json.target_object.created_at, 0 ),
-									account_id: account_id,
-								} );
-				}
-
-				break;
-			default:
-				break;
-		}
-	}
-	else if ( json.direct_message )
-	{
-		json = json.direct_message;
-
-		if ( g_cmn.account[account_id].screen_name == json.recipient_screen_name )
-		{
-			// NGチェック
-			if ( IsNGTweet( json, 'dmrecv' ) )
-			{
-				return;
-			}
-
-			// デスクトップ通知
-			OpenNotification( 'dmrecv', {
-				simg: json.sender.profile_image_url_https,
-				src: json.sender.screen_name,
-				timg: json.recipient.profile_image_url_https,
-				target: json.recipient.screen_name,
-				account_id: account_id,
-			} );
-
-			PutTimeline( 'timeline', 'dmrecv' );
-		}
-
-		if ( g_cmn.account[account_id].screen_name == json.sender_screen_name )
-		{
-			PutTimeline( 'timeline', 'dmsent' );
-		}
-	}
-	else if ( json.delete )
-	{
-		$( '.contents.timeline' ).find( '.timeline_list' ).find( '.item[status_id="' + json.delete.status.id_str + '"]' ).addClass( 'deleted' )
-	}
-	else
-	{
-		if ( json.entities == undefined )
-		{
-			return;
-		}
-
-		// ミュートユーザーチェック
-		if ( IsMuteUser( account_id, json.user.id_str ) )
-		{
-			return;
-		}
-
-		// ブロックユーザーチェック
-		if ( IsBlockUser( account_id, json.user.id_str ) )
-		{
-			return;
-		}
-
-		json = ConvertExtendedTweet( json, 'userstream' );
-
-		json = AppendQuotedStatusURL( json )
-
-		// NGチェック
-		if ( IsNGTweet( json, 'normal' ) )
-		{
-			return;
-		}
-
-		// entitiesのmentionに自分のアカウントが含まれている場合
- 		for ( var i = 0, _len = json.entities.user_mentions.length ; i < _len ; i++ )
-		{
-			if ( json.entities.user_mentions[i].screen_name == g_cmn.account[account_id].screen_name )
-			{
-				// リプライのみ通知の場合、in_reply_to_screen_nameが自分のアカウントのときだけ通知
-				if ( g_cmn.cmn_param['notify_reponly'] == 0 ||
-					 ( g_cmn.cmn_param['notify_reponly'] == 1 && json.in_reply_to_screen_name == g_cmn.account[account_id].screen_name ) )
-				{
-					OpenNotification( 'mention', {
-						src: json.user.screen_name,
-						simg: json.user.profile_image_url_https,
-						msg: json.text,
-						date: DateConv( json.created_at, 0 ),
-						account_id: account_id,
-					} );
-				}
-
-				PutTimeline( 'timeline', 'mention' );
-				break;
-			}
-		}
-
-		// 全てのツイート通知
-		OpenNotification( 'alltweets', {
-						src: json.user.screen_name,
-						simg: json.user.profile_image_url_https,
-						msg: json.text,
-						date: DateConv( json.created_at, 0 ),
-						account_id: account_id,
-					} );
-
-		PutTimeline( 'timeline', 'home|group' );
-	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -2632,7 +2178,6 @@ function UpdateToolbarUser()
 		if ( g_cmn.toolbar_user[i].type == 'user' )
 		{
 			assign.myaccount = ( myacc != false ) ? true : false;
-			assign.stream = ( myacc != false ) ? g_cmn.account[myacc].notsave.stream : 0;
 		}
 
 		if ( g_cmn.toolbar_user[i].type == 'list' )
@@ -2738,59 +2283,19 @@ function UpdateToolbarUser()
 				$( '#tooltip' ).hide();
 			}
 		} );
-
-		////////////////////////////////////////////////////////////
-		// ユーザーストリーム接続状態クリック処理
-		////////////////////////////////////////////////////////////
-		$( this ).find( 'div.streamsts' ).find( 'div' ).on( 'click', function( e ) {
-			return false // UserStream廃止
-
-			var _account_id = IsMyAccount( user_id );
-
-			// 接続しているときは切断
-			if ( $( this ).hasClass( 'on' ) || $( this ).hasClass( 'try' ) )
-			{
-				SendRequest(
-					{
-						action: 'stream_stop',
-						id: _account_id,
-					},
-					function( res )
-					{
-					}
-				);
-			}
-			// 切断しているときは接続
-			else if ( $( this ).hasClass( 'off' ) )
-			{
-				SendRequest(
-					{
-						action: 'stream_start',
-						acsToken: g_cmn.account[_account_id]['accessToken'],
-						acsSecret: g_cmn.account[_account_id]['accessSecret'],
-						id: _account_id,
-					},
-					function( res )
-					{
-					}
-				);
-			}
-
-			e.stopPropagation();
-		} );
 	} );
 }
 
 ////////////////////////////////////////////////////////////
 // ツイートから画像のURLを抽出してサムネイル表示を呼び出す
 ////////////////////////////////////////////////////////////
-function OpenThumbnail( item, stream )
+function OpenThumbnail( item )
 {
 	item.find( '.tweet_text' ).find( 'a' ).each( function() {
 		// 画像URLなら
 		if ( isImageURL( $( this ).attr( 'href' ) ) )
 		{
-			$( this ).trigger( 'mouseover', [ true, stream ] );
+			$( this ).trigger( 'mouseover', [ true ] );
 		}
 	} );
 }
@@ -3413,20 +2918,6 @@ function GetAccountInfo( account_id, callback )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// ユーザーごとのアイコンサイズを適用する
-////////////////////////////////////////////////////////////////////////////////
-function SetUserIconSize( items )
-{
-	for ( var user_id in g_cmn.user_iconsize )
-	{
-		items.filter( '[user_id=' + user_id + ']' ).find( '.icon' ).css( { width: g_cmn.user_iconsize[user_id] } )
-				.find( '> img' ).css( { width: g_cmn.user_iconsize[user_id], height: g_cmn.user_iconsize[user_id] } )
-				.end()
-				.find( '.retweet img' ).css( { width: g_cmn.user_iconsize[user_id] * 0.7, height: g_cmn.user_iconsize[user_id] * 0.7 } );
-	}
-}
-
-////////////////////////////////////////////////////////////////////////////////
 // configurationを取得する
 ////////////////////////////////////////////////////////////////////////////////
 function GetConfiguration( callback )
@@ -3669,47 +3160,16 @@ function ConvertExtendedTweet( json, type )
 {
 	var _json = json;
 
-	// UserStream
-	if ( type == 'userstream' )
+	_json.text = json.full_text;
+
+	if ( json.retweeted_status )
 	{
-		if ( json.extended_tweet )
-		{
-			_json.text = json.extended_tweet.full_text;
-			_json.entities = json.extended_tweet.entities;
-		}
-
-		if ( json.retweeted_status )
-		{
-			if ( json.retweeted_status.extended_tweet )
-			{
-				_json.retweeted_status.text = json.retweeted_status.extended_tweet.full_text;
-				_json.retweeted_status.entities = json.retweeted_status.extended_tweet.entities;
-			}
-		}
-
-		if ( json.quoted_status )
-		{
-			if ( json.quoted_status.extended_tweet )
-			{
-				_json.quoted_status.text = json.quoted_status.extended_tweet.full_text;
-				_json.quoted_status.entities = json.quoted_status.extended_tweet.entities;
-			}
-		}
+		_json.retweeted_status.text = json.retweeted_status.full_text;
 	}
-	// other
-	else
+
+	if ( json.quoted_status )
 	{
-		_json.text = json.full_text;
-
-		if ( json.retweeted_status )
-		{
-			_json.retweeted_status.text = json.retweeted_status.full_text;
-		}
-
-		if ( json.quoted_status )
-		{
-			_json.quoted_status.text = json.quoted_status.full_text;
-		}
+		_json.quoted_status.text = json.quoted_status.full_text;
 	}
 
 	return _json;
@@ -4039,20 +3499,6 @@ function SendRequest( req, callback )
 				xhr.send( formdata );
 			}
 
-			break;
-		// ストリーミング開始
-		// req : acsToken
-		//       acsSecret
-		case 'stream_start':
-			ConnectUserStream( req, StreamDataAnalyze );
-			callback();
-			break;
-		// ストリーミング停止
-		// req : acsToken
-		//       acsSecret
-		case 'stream_stop':
-			StopUserStream( req.id );
-			callback();
 			break;
 		// URL展開
 		// req : acsToken

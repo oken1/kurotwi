@@ -180,18 +180,6 @@ Contents.cmnsetting = function( cp )
 			},
 		} );
 
-		$( '#cset_iconsize' ).slider( {
-			min: 8,
-			max: 64,
-			step: 2,
-			value: g_cmn.cmn_param['iconsize'],
-			animate: 'fast',
-			slide: function( e, ui ) {
-				$( '#cmnsetting_apply' ).removeClass( 'disabled' );
-				$( '#cset_iconsize_disp' ).html( ui.value + 'px' );
-			},
-		} );
-
 		////////////////////////////////////////
 		// 色入力変更処理
 		////////////////////////////////////////
@@ -657,9 +645,6 @@ Contents.cmnsetting = function( cp )
 			$( 'panel' ).draggable( 'option', 'snap', ( g_cmn.cmn_param['snap'] ) ? 'panel,#head,#panellist' : false );
 			$( 'panel' ).draggable( 'option', 'snapMode', ( g_cmn.cmn_param['snap'] ) ? 'outer' : '' );
 
-			// ユーザーストリーム使用
-			g_cmn.cmn_param['stream'] = ( $( '#cset_stream' ).prop( 'checked' ) ) ? 1 : 0;
-
 			// ページ全体のスクロールバー
 			var old_v = g_cmn.cmn_param['scroll_vertical'];
 			var old_h = g_cmn.cmn_param['scroll_horizontal'];
@@ -718,9 +703,6 @@ Contents.cmnsetting = function( cp )
 			// すべてのツイートを通知
 			g_cmn.cmn_param['notify_alltweets'] = ( $( '#cset_notify_alltweets' ).prop( 'checked' ) ) ? 1 : 0;
 
-			// 複数リプライ時にピリオドをつける
-			g_cmn.cmn_param['top_period'] = ( $( '#cset_top_period' ).prop( 'checked' ) ) ? 1 : 0;
-
 			// 新着読み込み
 			g_cmn.cmn_param['reload_time'] = $( '#cset_reload_time' ).slider( 'value' );
 
@@ -750,9 +732,6 @@ Contents.cmnsetting = function( cp )
 
 			// 相互フォロー表示
 			g_cmn.cmn_param['follow_mark'] = ( $( '#cset_follow_mark' ).prop( 'checked' ) ) ? 1: 0;
-
-			// アイコンサイズ
-			g_cmn.cmn_param['iconsize'] = $( '#cset_iconsize' ).slider( 'value' );
 
 			// リツイートを重複表示しない
 			g_cmn.cmn_param['onlyone_rt'] = ( $( '#cset_onlyone_rt' ).prop( 'checked' ) ) ? 1: 0;
@@ -834,16 +813,6 @@ Contents.cmnsetting = function( cp )
 			$( '#dmbox_text' ).trigger( 'keyup' );
 
 			MakeNGRegExp();
-
-			// タイムラインパネルのアイコンサイズを変更
-			var items = $( 'div.contents.timeline' ).find( 'div.item' );
-
-			items.find( '.icon' ).css( { width: g_cmn.cmn_param['iconsize'] } )
-				.find( '> img' ).css( { width: g_cmn.cmn_param['iconsize'], height: g_cmn.cmn_param['iconsize'] } )
-				.end()
-				.find( '.retweet img' ).css( { width: g_cmn.cmn_param['iconsize'] * 0.7, height: g_cmn.cmn_param['iconsize'] * 0.7 } );
-
-			SetUserIconSize( items );
 
 			// 色の設定
 			g_cmn.cmn_param.color = {

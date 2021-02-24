@@ -10,7 +10,6 @@
 			<span>(i18n_0094)</span>
 			<span>(i18n_0095)</span>
 			<span>(i18n_0029)</span>
-			<span>(i18n_0062)</span>
 			<span>(i18n_0052)/(i18n_0053)</span>
 		</div>
 	</span>

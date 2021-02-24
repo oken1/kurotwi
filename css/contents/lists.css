@@ -29,15 +29,15 @@ div.contents.lists .lists_list .item:hover {
 
 div.contents.lists .lists_list .item .icon {
 	display: table-cell;
-	width: 38px;
+	width: 3.2rem;
 	padding-top: 4px;
 	vertical-align: top;
 	text-align: center;
 }
 
 div.contents.lists .lists_list .item .icon > img {
-	width: 32px;
-	height: 32px;
+	width: 3rem;
+	height: 3rem;
 }
 
 div.contents.lists .lists_list .item .icon > img:hover {

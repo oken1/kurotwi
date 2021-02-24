@@ -16,7 +16,6 @@
 
 	<div class='kind'><span class='icon-arrow_down'></span>(i18n_0077)</div>
 	<div class='kinditems'>
-		{if $param->timeline_type!='group'}
 		<div class='group'>
 			<div class='title'>
 				(i18n_0240)
@@ -39,7 +38,6 @@
 				<span class='value_disp'>{$param->get_count}(i18n_0204)</span>
 			</div>
 		</div>
-		{/if}
 		<div class='group'>
 			<div class='title'>
 				(i18n_0078)
@@ -63,34 +61,4 @@
 		</div>
 		{/if}
 	</div>
-	{if $param->timeline_type=='group'}
-	<div class='kind'><span class='icon-arrow_down'></span>(i18n_0063)</div>
-	<div class='kinditems'>
-		<div class='group'>
-			<div class='textboxcontainer'>
-				<span>(i18n_0075)</span>
-				<span><input type='text' class='set_title' value='{$param->title}' maxlength='40'></span>
-			</div>
-		</div>
-		<div class='group'>
-			<div class='accsel'>
-				(i18n_0044)
-			</div>
-			<div class='acclist'>
-			</div>
-		</div>
-		<div class='group'>
-			<div class='member'>
-				<div>
-					(i18n_0156)
-				</div>
-				<div>
-					<span class='memcnt'></span>/300
-				</div>
-			</div>
-			<div class='member_list'>
-			</div>
-		</div>
-	</div>
-	{/if}
 </div>

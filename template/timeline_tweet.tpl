@@ -1,4 +1,4 @@
-<div class='item{if $warning} warning{/if}' screen_name='{$screen_name}' user_id='{$user_id}' status_id='{$status_id}' {if $rt_id!=''}rt_id='{$rt_id}' {/if}created_at='{$created_at}' protected='{if $protected}true{else}false{/if}'>
+<div class='item{if $warning} warning{/if}{if $blocked_account} blocked_account{/if}' screen_name='{$screen_name}' user_id='{$user_id}' status_id='{$status_id}' {if $rt_id!=''}rt_id='{$rt_id}' {/if}created_at='{$created_at}' protected='{if $protected}true{else}false{/if}'>
 	<div class='icon'>
 		{if $friends!='-'}<img class='tooltip' src='{$icon}' tooltip='(i18n_0083):{$statuses_count} (i18n_0125):{$friends} (i18n_0122):{$followers}'>{else}<img src='{$icon}'>{/if}
 		{if $rt_flg}

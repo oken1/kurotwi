@@ -1,10 +1,6 @@
 <div class='panel_btns'>
 	<div>
-		{if $type!='group'}
 		<a class='btn img panel_btn timeline_reload icon-redo tooltip' tooltip='(i18n_0218)'></a>
-		{else}
-		<a class='btn panel_btn timeline_clear'>(i18n_0060)</a>
-		{/if}
 
 		{if $type=='dmrecv'}
 		<a class='btn panel_btn timeline_dmsent'>(i18n_0251)</a>
@@ -17,9 +13,6 @@
 			<a class='btn disabled timeline_savesearch'>(i18n_0208)</a>
 		</div>
 		{/if}
-	</div>
-	<div class='ustbl'>
-		<span class='streamuse icon-forward'></span>
 	</div>
 	<div class='sctbl'>
 		<a class='tooltip icon-arrow_up' tooltip='(i18n_0194)'></a>

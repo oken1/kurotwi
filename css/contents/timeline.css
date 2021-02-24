@@ -24,23 +24,6 @@ div.contents.timeline .lines .panel_btns > div .searchagain_text {
 	vertical-align: bottom;
 }
 
-/* UserStream */
-div.contents.timeline .lines .panel_btns .ustbl {
-	text-align: right;
-}
-
-div.contents.timeline .lines .panel_btns .streamuse {
-	display: inline-block;
-	color: #30cf70;
-	margin-right: 4px;
-	vertical-align: middle;
-	font-size: 1.1rem;
-}
-
-div.contents.timeline .lines .panel_btns .streamuse.reconnect {
-	color: #dc4d4d;
-}
-
 /* リスト部 */
 div.contents.timeline .lines .timeline_list {
 	width: 100%;
@@ -71,10 +54,18 @@ div.contents.timeline .lines div.item.res {
 	padding-left: 22px;
 }
 
+div.contents.timeline .lines div.item.blocked_account {
+	filter: blur(0.2rem);
+}
+
+div.contents.timeline .lines div.item.blocked_account:hover {
+	filter: none;
+}
+
 /* アイコン */
 div.contents.timeline .lines div.item > .icon {
 	display: table-cell;
-	width: 38px;
+	width: 3.2rem;
 	padding-top: 4px;
 	padding-right: 4px;
 	vertical-align: top;
@@ -82,8 +73,8 @@ div.contents.timeline .lines div.item > .icon {
 }
 
 div.contents.timeline .lines div.item > .icon > img {
-	width: 32px;
-	height: 32px;
+	width: 3rem;
+	height: 3rem;
 }
 
 div.contents.timeline .lines div.item > .icon img:hover {
@@ -131,9 +122,15 @@ div.contents.timeline .lines div.item > .tweet > div.tweet_quote > div.tweet_quo
 }
 
 div.contents.timeline .lines div.item > .tweet > div.tweet_quote img.thumb {
-	width: 50px;
-	height: 50px;
+	width: 4rem;
+	height: 4rem;
 	padding: 2px;
+}
+
+div.contents.timeline .lines div.item > .tweet .tweet_quote > .headcontainer > .namedate > img {
+	width: 1.5rem;
+	height: 1.5rem;
+	vertical-align: middle;
 }
 
 /* 名前・日付・お気に入り */
@@ -285,8 +282,8 @@ div.contents.timeline .lines div.item > .tweet .headcontainer .options .accsel {
 }
 
 div.contents.timeline .lines div.item > .tweet .headcontainer .options .accsel img {
-	width: 32px;
-	height: 32px;
+	width: 2.4rem;
+	height: 2.4rem;
 	margin: 2px;
 	padding: 2px;
 }
@@ -359,13 +356,13 @@ div.contents.timeline .lines div.item > .tweet .bookmark.nomark:hover {
 /* リツイート */
 div.contents.timeline .lines div.item > .icon .retweet {
 	display: block;
-	margin-top: -6px;
-	margin-right: -6px;
+	margin-top: -1rem;
+	margin-right: -0.25rem;
 }
 
 div.contents.timeline .lines div.item > .icon .retweet img {
-	width: 16px;
-	height: 16px;
+	width: 1.5rem;
+	height: 1.5rem;
 }
 
 div.contents.timeline .lines div.item > .icon .retweet img:hover {
@@ -432,19 +429,19 @@ div.contents.timeline .lines div.item > .tweet .bottomcontainer .additional .in_
 
 /* サムネイル */
 div.contents.timeline .lines div.item > .tweet .bottomcontainer .additional > img {
-	width: 75px;
-	height: 75px;
+	width: 6rem;
+	height: 6rem;
 }
 
 div.contents.timeline .lines div.item > .tweet .bottomcontainer .additional > img.video {
-	width: 100px;
-	height: 75px;
+	width: 8rem;
+	height: 6rem;
 }
 
 /* 動画サムネイル */
 div.contents.timeline .lines div.item > .tweet .bottomcontainer .additional > img.thumb_mov {
-	width: 100px;
-	height: 75px;
+	width: 8rem;
+	height: 6rem;
 }
 
 div.contents.timeline .lines div.item > .tweet .bottomcontainer .additional img.link:hover {
@@ -498,12 +495,12 @@ div.contents.timeline .lines div.item > .tweet .menubox .listmenu div > span {
 
 div.contents.timeline .lines div.item > .tweet .menubox .listmenu div > span:hover {
 	cursor: pointer;
-	background: val(--general-highlight);
+	background: var(--general-highlight);
 }
 
 /* priv */
 div.contents.timeline .lines div.item > .tweet .menubox .listmenu div > span > span {
-	vertical-align: bottom;
+	vertical-align: baseline;
 	color: #a4a396;
 }
 
@@ -512,23 +509,6 @@ div.contents.timeline .lines .readmore {
 	width: 50%;
 	margin: 8px auto;
 	text-align: center;
-}
-
-/* アイコンサイズ変更 */
-div.contents.timeline .lines div.item > .tweet .menubox .iconsizemenu {
-	display: none;
-	position: absolute;
-	word-break: break-all;
-	word-wrap: break-word;
-	z-index: 8900;
-	border: 1px solid #101010;
-	box-shadow: 2px 2px 2px rgba( 0, 0, 0, 0.5 );
-	background: var(--panel-background);
-	padding: 8px;
-}
-
-div.contents.timeline .lines div.item > .tweet .menubox .iconsizemenu .set_iconsize {
-	width: 100px;
 }
 
 /* タイムライン設定 */
@@ -610,35 +590,6 @@ div.contents.timeline .setting .member div:last-child {
 	display: table-cell;
 	text-align: right;
 }
-
-/* メンバーリスト */
-div.contents.timeline .setting .member_list {
-	overflow-y: auto;
-	height: 180px;
-	border: 1px solid #101010;
-}
-
-div.contents.timeline .setting .member_list > span {
-	display: inline-block;
-	margin: 4px;
-}
-
-div.contents.timeline .setting .member_list > div {
-	display: inline-block;
-	text-align: center;
-	vertical-align: middle;
-	padding: 2px;
-}
-
-div.contents.timeline .setting .member_list > div img {
-	width: 32px;
-	height: 32px;
-}
-
-div.contents.timeline .setting .member_list > div:hover {
-	cursor: pointer;
-}
-
 
 /* アカウント選択 */
 div.contents.timeline .setting .accsel {

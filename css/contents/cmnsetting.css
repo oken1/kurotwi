@@ -80,11 +80,6 @@ div.contents.cmnsetting {
 	width: 50%;
 }
 
-/* アイコンサイズ設定 */
-#cset_iconsize {
-	width: 50%;
-}
-
 /* 通知の表示時間 */
 #cset_notify_time {
 	width: 50%;

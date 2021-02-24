@@ -457,6 +457,8 @@ Contents.show = function( cp )
 													}
 												}
 											}
+
+											$( 'panel > .timeline > .lines > .timeline_list > .item[user_id="' + res.json.id_str + '"]' ).removeClass( 'blocked_account' )
 										}
 										else
 										{
@@ -466,6 +468,8 @@ Contents.show = function( cp )
 											{
 												g_cmn.account[cp.param['account_id']].notsave.blockusers.push( id );
 											}
+
+											$( 'panel > .timeline > .lines > .timeline_list > .item[user_id="' + res.json.id_str + '"]' ).addClass( 'blocked_account' )
 										}
 									}
 									else

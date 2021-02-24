@@ -32,12 +32,6 @@
 			</div>
 		</div>
 		<div class='group'>
-			<div class='checkboxcontainer'>
-				<span><input disabled type='checkbox' id='cset_stream' {if $param->stream==1}checked{/if}></span>
-				<span class='disabled_item'>(i18n_0164)</span>
-			</div>
-		</div>
-		<div class='group'>
 			<div class='title'>
 				(i18n_0340)
 			</div>
@@ -241,12 +235,6 @@
 	<div class='kind'><span class='icon-arrow_down'></span>(i18n_0083)</div>
 	<div class='kinditems'>
 		<div class='group'>
-			<div class='checkboxcontainer'>
-				<span><input type='checkbox' id='cset_top_period' {if $param->top_period==1}checked{/if}></span>
-				<span>(i18n_0271)</span>
-			</div>
-		</div>
-		<div class='group'>
 			<div class='title'>
 				(i18n_0086)
 			</div>
@@ -291,17 +279,6 @@
 				<span id='cset_max_count'></span>
 				<span class='slidestr'></span>
 				<span id='cset_max_count_disp' class='value_disp'>{$param->max_count}(i18n_0204)</span>
-			</div>
-		</div>
-		<div class='group'>
-			<div class='title'>
-				(i18n_0042)
-			</div>
-			<div class='slidercontainer'>
-				<span class='slidestr'></span>
-				<span id='cset_iconsize'></span>
-				<span class='slidestr'></span>
-				<span id='cset_iconsize_disp' class='value_disp'>{$param->iconsize}px</span>
 			</div>
 		</div>
 

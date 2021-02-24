@@ -32,13 +32,13 @@
 }
 
 .notify .icon {
-	width: 32px;
+	width: 3rem;
 	text-align: center;
 	vertical-align: top;
 }
 
 .notify .tc.icon > span {
-	font-size: 24px;
+	font-size: 2.25rem;
 }
 
 .notify .tc.icon > span.icon-loop {
@@ -50,18 +50,18 @@
 }
 
 .notify img.normal {
-	width: 24px;
-	heigth: 24px;
+	width: 2.25rem;
+	heigth: 2.25rem;
 }
 
 .notify img.rt {
-	width: 16px;
-	heigth: 16px;
+	width: 1.5rem;
+	heigth: 1.5rem;
 }
 
 .notify img.arrow {
-	width: 16px;
-	height: 16px;
+	width: 1.5rem;
+	height: 1.5rem;
 	margin: 4px 4px;
 }
 

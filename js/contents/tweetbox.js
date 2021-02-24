@@ -303,14 +303,7 @@ Contents.tweetbox = function( cp )
 		////////////////////////////////////////
 		cont.on( 'userset', function( e, item ) {
 			var _text = $( '#tweetbox_text' );
-			var period = '';
 			var rep_users = '';
-
-			if ( _text.val().match( /^\./ ) )
-			{
-				period = '.';
-				_text.val( _text.val().replace( /^\./, '' ) );
-			}
 
 			if ( _text.val().match( /^(@\w+ )+/ ) )
 			{
@@ -318,18 +311,9 @@ Contents.tweetbox = function( cp )
 			}
 
 			// 重複
-			if ( rep_users.match( '@' + item + ' ' ) )
+			if ( !rep_users.match( '@' + item + ' ' ) )
 			{
-				_text.val( period + _text.val() );
-			}
-			else
-			{
-				_text.val( period + '@' + item + ' ' + _text.val() );
-
-				if ( period == '' && g_cmn.cmn_param['top_period'] && rep_users.length > 0 )
-				{
-					_text.val( '.' + _text.val() );
-				}
+				_text.val( '@' + item + ' ' + _text.val() );
 			}
 
 			$( '#tweetbox_text' ).focus().trigger( 'keyup' ).SetPos( 'end' );
