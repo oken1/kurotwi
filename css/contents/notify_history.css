@@ -25,26 +25,3 @@ div.contents.notify_history {
 #notify_history_list .notify:hover {
 	cursor: default;
 }
-
-#notify_history_list .notify .notify_username {
-	color: red;
-	font-weight: bold;
-}
-
-#notify_history_list .notify .notify_username,
-#notify_history_list .notify .notify_dmname,
-#notify_history_list .notify .notify_followname,
-#notify_history_list .notify .notify_listname
-{
-	color: var(--panel-text);
-	font-weight: bold;
-}
-
-#notify_history_list .notify .notify_username:hover,
-#notify_history_list .notify .notify_dmname:hover,
-#notify_history_list .notify .notify_followname:hover,
-#notify_history_list .notify .notify_listname:hover
-{
-	cursor: pointer;
-	opacity: 0.5;
-}

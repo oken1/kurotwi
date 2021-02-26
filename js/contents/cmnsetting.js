@@ -156,18 +156,6 @@ Contents.cmnsetting = function( cp )
 			},
 		} );
 
-		$( '#cset_notify_time' ).slider( {
-			min: 5,
-			max: 60,
-			step: 5,
-			value: g_cmn.cmn_param['notify_time'],
-			animate: 'fast',
-			slide: function( e, ui ) {
-				$( '#cmnsetting_apply' ).removeClass( 'disabled' );
-				$( '#cset_notify_time_disp' ).html( ui.value + i18nGetMessage( 'i18n_0270' ) );
-			},
-		} );
-
 		$( '#cset_notify_sound_volume' ).slider( {
 			min: 0.0,
 			max: 1.0,
@@ -565,21 +553,6 @@ Contents.cmnsetting = function( cp )
 		////////////////////////////////////////
 		// 設定変更時処理
 		////////////////////////////////////////
-		$( '#cset_notify_mention' ).change( function( e ) {
-			if ( $( this ).prop( 'checked' ) )
-			{
-				$( '#reponly_str' ).removeClass( 'disabled' );
-				$( '#cset_notify_reponly' ).attr( 'disabled', false );
-			}
-			else
-			{
-				$( '#reponly_str' ).addClass( 'disabled' );
-				$( '#cset_notify_reponly' ).attr( 'disabled', true );
-			}
-		} );
-
-		$( '#cset_notify_mention' ).trigger( 'change' );
-
 		cont.find( 'input' ).change( function( e ) {
 			$( '#cmnsetting_apply' ).removeClass( 'disabled' );
 		} );
@@ -664,44 +637,14 @@ Contents.cmnsetting = function( cp )
 				setTimeout( function() { $( 'body' ).hide(); setTimeout( function() { $( 'body' ).show(); }, 0 ) }, 0 );
 			}
 
-			// 通知表示時間
-			g_cmn.cmn_param['notify_time'] = $( '#cset_notify_time' ).slider( 'value' );
-
 			// 音量
 			g_cmn.cmn_param['notify_sound_volume'] = $( '#cset_notify_sound_volume' ).slider( 'value' );
 
 			// 新着あり通知
 			g_cmn.cmn_param['notify_new'] = ( $( '#cset_notify_new' ).prop( 'checked' ) ) ? 1 : 0;
 
-			// DM受信通知
-			g_cmn.cmn_param['notify_dmrecv'] = ( $( '#cset_notify_dmrecv' ).prop( 'checked' ) ) ? 1 : 0;
-
-			// お気に入り通知
-			g_cmn.cmn_param['notify_favorite'] = ( $( '#cset_notify_favorite' ).prop( 'checked' ) ) ? 1 : 0;
-
-			// フォロー通知
-			g_cmn.cmn_param['notify_follow'] = ( $( '#cset_notify_follow' ).prop( 'checked' ) ) ? 1 : 0;
-
-			// Mention通知
-			g_cmn.cmn_param['notify_mention'] = ( $( '#cset_notify_mention' ).prop( 'checked' ) ) ? 1 : 0;
-
-			// リプライのみ
-			g_cmn.cmn_param['notify_reponly'] = ( $( '#cset_notify_reponly' ).prop( 'checked' ) ) ? 1 : 0;
-
-			// リツイート通知
-			g_cmn.cmn_param['notify_retweet'] = ( $( '#cset_notify_retweet' ).prop( 'checked' ) ) ? 1 : 0;
-
 			// フォローリクエスト通知
 			g_cmn.cmn_param['notify_incoming'] = ( $( '#cset_notify_incoming' ).prop( 'checked' ) ) ? 1 : 0;
-
-			// リストに追加通知
-			g_cmn.cmn_param['notify_list_add'] = ( $( '#cset_notify_list_add' ).prop( 'checked' ) ) ? 1 : 0;
-
-			// 引用リツイート通知
-			g_cmn.cmn_param['notify_quoted_tweet'] = ( $( '#cset_notify_quoted_tweet' ).prop( 'checked' ) ) ? 1 : 0;
-
-			// すべてのツイートを通知
-			g_cmn.cmn_param['notify_alltweets'] = ( $( '#cset_notify_alltweets' ).prop( 'checked' ) ) ? 1 : 0;
 
 			// 新着読み込み
 			g_cmn.cmn_param['reload_time'] = $( '#cset_reload_time' ).slider( 'value' );

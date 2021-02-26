@@ -49,19 +49,9 @@ $( document ).ready( function() {
 			scroll_vertical:	1,								// - ページ全体のスクロールバー(縦)
 			scroll_horizontal:	1,								// - ページ全体のスクロールバー(横)
 
-			notify_time:		10,								// - 通知の表示時間
 			notify_sound_volume:1.0,							// - 音量
 			notify_new:			1,								// - 新着あり通知
-			notify_dmrecv:		1,								// - DM受信通知
-			notify_favorite:	1,								// - お気に入り通知
-			notify_follow:		1,								// - フォロー通知
-			notify_mention:		1,								// - Mention通知
-			notify_reponly:		0,								// - リプライのみ
-			notify_retweet:		1,								// - リツイート通知
 			notify_incoming:	1,								// - フォローリクエスト通知
-			notify_quoted_tweet:1,								// - 引用リツイート通知
-			notify_alltweets:	0,								// - すべてのツイートを通知
-			notify_list_add:	1,								// - リストに追加
 
 			tweetkey:			0,								// - ツイートショートカットキー
 
@@ -1304,85 +1294,23 @@ function OpenNotification( type, data )
 	}
 
 	switch ( type ) {
-		case 'retweet':
-			options.title = i18nGetMessage( 'i18n_0332', [data.src] );
-
-			options.message = data.msg + '\n' + data.date;
-			break;
-		case 'favorite':
-			options.title = i18nGetMessage( 'i18n_0330', [data.src] );
-			options.message = data.msg + '\n' + data.date;
-			break;
-		case 'follow':
-			options.title = i18nGetMessage( 'i18n_0329', [data.src, data.target] );
-			options.message = '';
-			options.buttons = [
-				{ title: data.src, iconUrl: data.simg },
-				{ title: data.target, iconUrl: data.timg }
-			];
-			break;
-		case 'dmrecv':
-			options.title = i18nGetMessage( 'i18n_0331', [data.src, data.target] );
-			options.message = '';
-			options.buttons = [
-				{ title: data.src, iconUrl: data.simg },
-				{ title: data.target, iconUrl: data.timg }
-			];
-			break;
-		case 'mention':
-			options.title = i18nGetMessage( 'i18n_0337', [data.src] );
-			options.message = data.msg + '\n' + data.date;
-			break;
 		case 'incoming':
 			options.title = i18nGetMessage( 'i18n_0333', [data.user, data.count] );
 			options.message = '';
-			break;
-		case 'list_add':
-			options.title = i18nGetMessage( 'i18n_0336', [data.src, data.target] );
-			options.message = data.list_fullname;
-			options.buttons = [
-				{ title: data.src, iconUrl: data.simg },
-				{ title: data.target, iconUrl: data.timg }
-			];
 			break;
 		case 'new':
 			options.title = i18nGetMessage( 'i18n_0237' );
 			options.message = data.user + ' ' + data.count + i18nGetMessage( 'i18n_0204' );
 			break;
-		case 'alltweets':
-		case 'quoted_tweet':
-			options.title = data.src;
-
-			if ( data.rtsrc )
-			{
-				if ( data.rtcnt > 0 )
-				{
-					options.message = i18nGetMessage( 'i18n_0335', [data.rtsrc, data.rtcnt] ) + '\n';
-				}
-				else
-				{
-					options.message = i18nGetMessage( 'i18n_0334', [data.rtsrc] ) + '\n';
-				}
-			}
-			else
-			{
-				options.message = '';
-			}
-
-			options.message += data.msg + '\n' + data.date;
-			break;
 	}
 
-	var pp = new Notification( options.title, {
-		body: options.message,
-		icon: options.iconUrl
-	} );
-
-	// 設定時間後に消去
-	pp.onshow = function() {
-		setTimeout( function() { pp.close() }, g_cmn.cmn_param['notify_time'] * 1000 );
-	};
-
+	chrome.notifications.create( {
+		type: 'basic',
+		title: options.title,
+		message: options.message,
+		iconUrl: options.iconUrl
+	} )
+	
 	// 音を鳴らす
 	$( '#notify_sound' ).get( 0 ).volume = g_cmn.cmn_param['notify_sound_volume'];
 	$( '#notify_sound' ).get( 0 ).play();

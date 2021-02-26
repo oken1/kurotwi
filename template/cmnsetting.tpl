@@ -145,17 +145,6 @@
 	<div class='kinditems'>
 		<div class='group'>
 			<div class='title'>
-				(i18n_0254)
-			</div>
-			<div class='slidercontainer'>
-				<span class='slidestr'></span>
-				<span id='cset_notify_time'></span>
-				<span class='slidestr'></span>
-				<span id='cset_notify_time_disp' class='value_disp'>{$param->notify_time}(i18n_0270)</span>
-			</div>
-		</div>
-		<div class='group'>
-			<div class='title'>
 				(i18n_0198)
 			</div>
 			<div class='slidercontainer'>
@@ -174,60 +163,8 @@
 		</div>
 		<div class='group'>
 			<div class='checkboxcontainer'>
-				<span><input type='checkbox' id='cset_notify_dmrecv' {if $param->notify_dmrecv==1}checked{/if}></span>
-				<span>(i18n_0023)</span>
-			</div>
-		</div>
-		<div class='group'>
-			<div class='checkboxcontainer'>
-				<span><input type='checkbox' id='cset_notify_favorite' {if $param->notify_favorite==1}checked{/if}></span>
-				<span>(i18n_0056)</span>
-			</div>
-		</div>
-		<div class='group'>
-			<div class='checkboxcontainer'>
-				<span><input type='checkbox' id='cset_notify_follow' {if $param->notify_follow==1}checked{/if}></span>
-				<span>(i18n_0126)</span>
-			</div>
-		</div>
-		<div class='group'>
-			<div class='checkboxcontainer'>
-				<span><input type='checkbox' id='cset_notify_mention' {if $param->notify_mention==1}checked{/if}></span>
-				<span>(i18n_0027)
-				<div id='reponly_str'>
-					(<input type='checkbox' id='cset_notify_reponly' {if $param->notify_reponly==1}checked{/if}>(i18n_0179))
-				</div>
-				</span>
-			</div>
-		</div>
-		<div class='group'>
-			<div class='checkboxcontainer'>
-				<span><input type='checkbox' id='cset_notify_retweet' {if $param->notify_retweet==1}checked{/if}></span>
-				<span>(i18n_0174)</span>
-			</div>
-		</div>
-		<div class='group'>
-			<div class='checkboxcontainer'>
 				<span><input type='checkbox' id='cset_notify_incoming' {if $param->notify_incoming==1}checked{/if}></span>
 				<span>(i18n_0130)</span>
-			</div>
-		</div>
-		<div class='group'>
-			<div class='checkboxcontainer'>
-				<span><input type='checkbox' id='cset_notify_list_add' {if $param->notify_list_add==1}checked{/if}></span>
-				<span>(i18n_0328)</span>
-			</div>
-		</div>
-		<div class='group'>
-			<div class='checkboxcontainer'>
-				<span><input type='checkbox' id='cset_notify_quoted_tweet' {if $param->notify_quoted_tweet==1}checked{/if}></span>
-				<span>(i18n_0355)</span>
-			</div>
-		</div>
-		<div class='group'>
-			<div class='checkboxcontainer'>
-				<span><input type='checkbox' id='cset_notify_alltweets' {if $param->notify_alltweets==1}checked{/if}></span>
-				<span>(i18n_0074)</span>
 			</div>
 		</div>
 	</div>

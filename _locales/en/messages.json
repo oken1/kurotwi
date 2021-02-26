@@ -3,34 +3,6 @@
 		"message": "This application allows you to freely arrange the Twitter timeline and RSS feed and more."
 	},
 
-	"i18n_0001": {
-		"message": "Retweet by {$$rt_screen_name}"
-	},
-
-	"i18n_0003": {
-		"message": "Retweet by {$$rtsrc}"
-	},
-
-	"i18n_0004": {
-		"message": "Retweet by {$$rtsrc} and {$$rtcnt} users"
-	},
-
-	"i18n_0005": {
-		"message": "<span class='notify_username' src='{$$src}'>{$$src}</span> was to follow <span class='notify_followname' num='{$$num}'>{$$target}</span>"
-	},
-
-	"i18n_0006": {
-		"message": "<span class='notify_username' src='{$$src}'>{$$src}</span> has added to likes"
-	},
-
-	"i18n_0007": {
-		"message": "Direct message from <span class='notify_username' src='{$$src}'>{$$src}</span> to <span class='notify_dmname'>{$$target}</span>"
-	},
-
-	"i18n_0008": {
-		"message": "Retweet by <span class='notify_username' src='{$$src}'>{$$src}</span>"
-	},
-
 	"i18n_0009": {
 		"message": "{$$user} has {$$count} follow requests"
 	},
@@ -60,28 +32,8 @@
 		"message": "DM"
 	},
 
-	"i18n_0022": {
-		"message": "Write a DM"
-	},
-
-	"i18n_0023": {
-		"message": "Notify the DM"
-	},
-
-	"i18n_0024": {
-		"message": "Google Feed API can not be used"
-	},
-
-	"i18n_0025": {
-		"message": "Google Map API can not be used"
-	},
-
 	"i18n_0026": {
 		"message": "Mention"
-	},
-
-	"i18n_0027": {
-		"message": "Notify the mention received"
 	},
 
 	"i18n_0028": {
@@ -92,20 +44,12 @@
 		"message": "Now Browsing"
 	},
 
-	"i18n_0031": {
-		"message": "PIN code"
-	},
-
 	"i18n_0032": {
 		"message": "RSS panel"
 	},
 
 	"i18n_0033": {
 		"message": "RSS panel list"
-	},
-
-	"i18n_0035": {
-		"message": "Failed to get the RT hide user"
 	},
 
 	"i18n_0037": {
@@ -116,20 +60,12 @@
 		"message": "How many days"
 	},
 
-	"i18n_0039": {
-		"message": "Select a services to expand URL"
-	},
-
 	"i18n_0040": {
 		"message": "Web"
 	},
 
 	"i18n_0041": {
 		"message": "Icon"
-	},
-
-	"i18n_0042": {
-		"message": "Icon size"
 	},
 
 	"i18n_0043": {
@@ -164,10 +100,6 @@
 		"message": "Upload"
 	},
 
-	"i18n_0051": {
-		"message": "Select service to upload"
-	},
-
 	"i18n_0052": {
 		"message": "Import"
 	},
@@ -180,32 +112,12 @@
 		"message": "Like"
 	},
 
-	"i18n_0056": {
-		"message": "Notify the like"
-	},
-
 	"i18n_0057": {
 		"message": "Could not registered the like."
 	},
 
 	"i18n_0059": {
 		"message": "Client"
-	},
-
-	"i18n_0060": {
-		"message": "Clear"
-	},
-
-	"i18n_0061": {
-		"message": "Group stream"
-	},
-
-	"i18n_0062": {
-		"message": "Group stream list"
-	},
-
-	"i18n_0063": {
-		"message": "Group setting"
 	},
 
 	"i18n_0064": {
@@ -232,10 +144,6 @@
 		"message": "Are you sure you want to delete all accounts?"
 	},
 
-	"i18n_0074": {
-		"message": "Notify the all tweets(for small number of follow)"
-	},
-
 	"i18n_0075": {
 		"message": "Title"
 	},
@@ -252,16 +160,8 @@
 		"message": "The maximum number of tweets to display in timeline"
 	},
 
-	"i18n_0079": {
-		"message": "White background color of the timeline"
-	},
-
 	"i18n_0081": {
 		"message": "Failed to send a direct message"
-	},
-
-	"i18n_0082": {
-		"message": "Twipple photo"
 	},
 
 	"i18n_0083": {
@@ -274,14 +174,6 @@
 
 	"i18n_0087": {
 		"message": "Could not tweet"
-	},
-
-	"i18n_0088": {
-		"message": "Hash tag is added when you drop to Tweet panel."
-	},
-
-	"i18n_0089": {
-		"message": "After you tweet, clear the target and reply"
 	},
 
 	"i18n_0090": {
@@ -312,10 +204,6 @@
 		"message": "Failed to get trend"
 	},
 
-	"i18n_0097": {
-		"message": " reset"
-	},
-
 	"i18n_0098": {
 		"message": "'s "
 	},
@@ -327,10 +215,6 @@
 				"content": "$1"
 			}
 		}
-	},
-
-	"i18n_0102": {
-		"message": " Could not connect the user stream"
 	},
 
 	"i18n_0105": {
@@ -363,18 +247,6 @@
 		"message": "Hash tag is invalid."
 	},
 
-	"i18n_0110": {
-		"message": "Import the hashtag."
-	},
-
-	"i18n_0111": {
-		"message": "Export the hashtag."
-	},
-
-	"i18n_0112": {
-		"message": "Please input a hash tag."
-	},
-
 	"i18n_0113": {
 		"message": "Fit the panel size"
 	},
@@ -385,15 +257,6 @@
 
 	"i18n_0116": {
 		"message": "Are you sure you want to close the panel?"
-	},
-
-	"i18n_0117": {
-		"message": "$screen_name$ is not found.\nDelete the account.",
-		"placeholders": {
-			"screen_name": {
-				"content": "$1"
-			}
-		}
 	},
 
 	"i18n_0118": {
@@ -426,10 +289,6 @@
 
 	"i18n_0125": {
 		"message": "Follow"
-	},
-
-	"i18n_0126": {
-		"message": "Notify that were followed"
 	},
 
 	"i18n_0127": {
@@ -561,16 +420,8 @@
 		"message": "Menu"
 	},
 
-	"i18n_0156": {
-		"message": "Member"
-	},
-
 	"i18n_0157": {
 		"message": "Read more"
-	},
-
-	"i18n_0158": {
-		"message": "Not connected User stream"
 	},
 
 	"i18n_0159": {
@@ -583,18 +434,6 @@
 
 	"i18n_0161": {
 		"message": "User"
-	},
-
-	"i18n_0162": {
-		"message": "Please drop a user icon. (Can be deleted by right-clicking the user that you added)"
-	},
-
-	"i18n_0163": {
-		"message": "Connected User stream"
-	},
-
-	"i18n_0164": {
-		"message": "Use the User stream(Restart required)"
 	},
 
 	"i18n_0166": {
@@ -629,10 +468,6 @@
 		"message": "Please input the name for list"
 	},
 
-	"i18n_0174": {
-		"message": "Notify that were retweeted"
-	},
-
 	"i18n_0175": {
 		"message": "Retweet?"
 	},
@@ -647,10 +482,6 @@
 
 	"i18n_0178": {
 		"message": "Do not show duplicate retweets"
-	},
-
-	"i18n_0179": {
-		"message": "Only reply"
 	},
 
 	"i18n_0180": {
@@ -706,20 +537,12 @@
 		"message": "Location"
 	},
 
-	"i18n_0190": {
-		"message": "Location setting"
-	},
-
 	"i18n_0191": {
 		"message": "The number of tweets to get at a time"
 	},
 
 	"i18n_0192": {
 		"message": "To bottom"
-	},
-
-	"i18n_0193": {
-		"message": "When scroll to the bottom, Automatically executes read more"
 	},
 
 	"i18n_0194": {
@@ -734,10 +557,6 @@
 		"message": "en->ja trans"
 	},
 
-	"i18n_0197": {
-		"message": "Play sounds"
-	},
-
 	"i18n_0198": {
 		"message": "Notification volume"
 	},
@@ -746,16 +565,8 @@
 		"message": "Image"
 	},
 
-	"i18n_0200": {
-		"message": "Upload image"
-	},
-
 	"i18n_0201": {
 		"message": "Image attached"
-	},
-
-	"i18n_0202": {
-		"message": "Release"
 	},
 
 	"i18n_0203": {
@@ -800,10 +611,6 @@
 
 	"i18n_0215": {
 		"message": "Return to original"
-	},
-
-	"i18n_0216": {
-		"message": "You are here"
 	},
 
 	"i18n_0217": {
@@ -870,10 +677,6 @@
 		"message": "Location"
 	},
 
-	"i18n_0234": {
-		"message": "Select color"
-	},
-
 	"i18n_0236": {
 		"message": "New"
 	},
@@ -894,16 +697,8 @@
 		"message": "Interval to get a new tweet"
 	},
 
-	"i18n_0241": {
-		"message": "Trying to connect"
-	},
-
 	"i18n_0242": {
 		"message": "Setting"
-	},
-
-	"i18n_0243": {
-		"message": "Set"
 	},
 
 	"i18n_0244": {
@@ -922,10 +717,6 @@
 		"message": "General"
 	},
 
-	"i18n_0248": {
-		"message": "Follow mutual"
-	},
-
 	"i18n_0249": {
 		"message": "Display the follow mutual mark"
 	},
@@ -938,16 +729,8 @@
 		"message": "Sent DM"
 	},
 
-	"i18n_0252": {
-		"message": "View map"
-	},
-
 	"i18n_0253": {
 		"message": "Add"
-	},
-
-	"i18n_0254": {
-		"message": "Display time of notification"
 	},
 
 	"i18n_0255": {
@@ -994,16 +777,8 @@
 		"message": "Private account"
 	},
 
-	"i18n_0269": {
-		"message": "Normal"
-	},
-
 	"i18n_0270": {
 		"message": "s"
-	},
-
-	"i18n_0271": {
-		"message": "When multiple replies, with a period at the beginning"
 	},
 
 	"i18n_0272": {
@@ -1068,10 +843,6 @@
 
 	"i18n_0288": {
 		"message": "Down"
-	},
-
-	"i18n_0289": {
-		"message": "Getting RT hide user"
 	},
 
 	"i18n_0290": {
@@ -1174,10 +945,6 @@
 		"message": "Retweet"
 	},
 
-	"i18n_0315": {
-		"message": "Reconnect to user stream. Please press the [Reload]  button to get  the tweet could not be obtained during the connection process."
-	},
-
 	"i18n_0316": {
 		"message": "Follows, Followers list"
 	},
@@ -1222,56 +989,6 @@
 		"message": "No retweet user ID"
 	},
 
-	"i18n_0327": {
-		"message": "<span class='notify_username' src='{$$src}'>{$$src}</span> added <span class='notify_username' src='{$$target}'>{$$target}</span> to list"
-	},
-
-	"i18n_0328": {
-		"message": "Notify added to the list"
-	},
-
-	"i18n_0329": {
-		"message": "$src$ was to follow $target$",
-		"placeholders": {
-			"src": {
-				"content": "$1"
-			},
-			"target": {
-				"content": "$2"
-			}
-		}
-	},
-
-	"i18n_0330": {
-		"message": "$src$ has added to likes",
-		"placeholders": {
-			"src": {
-				"content": "$1"
-			}
-		}
-	},
-
-	"i18n_0331": {
-		"message": "Direct message from $src$ to $target$",
-		"placeholders": {
-			"src": {
-				"content": "$1"
-			},
-			"target": {
-				"content": "$2"
-			}
-		}
-	},
-
-	"i18n_0332": {
-		"message": "Retweet by $src$",
-		"placeholders": {
-			"src": {
-				"content": "$1"
-			}
-		}
-	},
-
 	"i18n_0333": {
 		"message": "$user$ has $count$ follow requests",
 		"placeholders": {
@@ -1280,48 +997,6 @@
 			},
 			"count": {
 				"content": "$2"
-			}
-		}
-	},
-
-	"i18n_0334": {
-		"message": "Retweet by $rtsrc$",
-		"placeholders": {
-			"rtsrc": {
-				"content": "$1"
-			}
-		}
-	},
-
-	"i18n_0335": {
-		"message": "Retweet by $rtsrc$ and $rtcnt$ users",
-		"placeholders": {
-			"rtsrc": {
-				"content": "$1"
-			},
-			"rtcnt": {
-				"content": "$2"
-			}
-		}
-	},
-
-	"i18n_0336": {
-		"message": "$src$ added $target$ to list",
-		"placeholders": {
-			"src": {
-				"content": "$1"
-			},
-			"target": {
-				"content": "$2"
-			}
-		}
-	},
-
-	"i18n_0337": {
-		"message": "From $src$",
-		"placeholders": {
-			"src": {
-				"content": "$1"
 			}
 		}
 	},
@@ -1382,10 +1057,6 @@
 		"message": "Confirm retweet"
 	},
 
-	"i18n_0355": {
-		"message": "Notify the quoted retweets"
-	},
-
 	"i18n_0356": {
 		"message": "Exceeded the maximum number of characters ($cnt$/$max$)",
 		"placeholders": {
@@ -1406,10 +1077,6 @@
 		"message": "This URL has been rewritten to ln.is"
 	},
 
-	"i18n_0359": {
-		"message": "Mute?"
-	},
-
 	"i18n_0360": {
 		"message": "Mute"
 	},
@@ -1424,10 +1091,6 @@
 
 	"i18n_0363": {
 		"message": "Getting mute users ID"
-	},
-
-	"i18n_0364": {
-		"message": "Unmute?"
 	},
 
 	"i18n_0365": {

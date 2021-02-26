@@ -39,61 +39,6 @@ Contents.notify_history = function( cp )
 		notify_history_list.html( s )
 			.scrollTop( 0 );
 
-		notify_history_list.find( '.notify' ).each( function() {
-			var account_id = $( this ).attr( 'account_id' );
-
-			$( this ).find( '.notify_username' ).click( function( e ) {
-				OpenUserTimeline( $( this ).attr( 'src' ), account_id );
-				e.stopPropagation();
-			} );
-
-			$( this ).find( '.notify_dmname' ).click( function( e ) {
-				var _cp = new CPanel( null, null, 360, $( window ).height() * 0.75 );
-				_cp.SetType( 'timeline' );
-				_cp.SetParam( {
-					account_id: account_id,
-					timeline_type: 'dmrecv',
-					reload_time: g_cmn.cmn_param['reload_time'],
-				} );
-				_cp.Start();
-
-				e.stopPropagation();
-			} );
-
-			$( this ).find( '.notify_followname' ).click( function( e ) {
-				var _cp = new CPanel( null, null, 320, 360 );
-				var num = $( this ).attr( 'num' );
-
-				_cp.SetType( 'follow' );
-				_cp.SetParam( {
-					type: 'followers',
-					account_id: account_id,
-					screen_name: g_cmn.account[account_id].screen_name,
-					number: num,
-				} );
-				_cp.Start();
-
-				e.stopPropagation();
-			} );
-
-			$( this ).find( '.notify_listname' ).click( function( e ) {
-				var _cp = new CPanel( null, null, 360, $( window ).height() * 0.75 );
-
-				_cp.SetType( 'timeline' );
-				_cp.SetParam( {
-					account_id: account_id,
-					timeline_type: 'list',
-					list_id: $( this ).attr( 'list_id' ),
-					screen_name: $( this ).attr( 'screen_name' ),
-					slug: $( this ).attr( 'slug' ),
-					reload_time: g_cmn.cmn_param['reload_time'],
-				} );
-				_cp.Start();
-
-				e.stopPropagation();
-			} );
-		} );
-
 		cont.trigger( 'contents_resize' );
 	};
 

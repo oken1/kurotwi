@@ -22,7 +22,6 @@ Contents.timeline = function( cp )
 	var scrollHeight = null;
 	var loading = false;
 	var cursor_on_option = false;
-	var thumb_queue = new Array();
 	var status_cnt = 0;
 	var over_cnt = 0;
 
@@ -1004,24 +1003,23 @@ Contents.timeline = function( cp )
 
 								timeline_list.trigger( 'scroll' );
 
-								// notification
-								var img = {};
-
-								img['home'] = 'icon-home';
-								img['mention'] = 'icon-at';
-								img['user'] = 'icon-user';
-								img['list'] = 'icon-list';
-								img['search'] = 'icon-search';
-								img['dmrecv'] = 'icon-envelop';
-								img['dmsent'] = 'icon-envelop';
-
 								// タイトルからtitlenameのタグを外す
 								if ( cp.param['notify_new'] == 1 )
 								{
+									// notification
+									var img = {};
+
+									img['home'] = 'icon-home';
+									img['mention'] = 'icon-at';
+									img['user'] = 'icon-user';
+									img['list'] = 'icon-list';
+									img['search'] = 'icon-search';
+									img['dmrecv'] = 'icon-envelop';
+									img['dmsent'] = 'icon-envelop';
+
 									OpenNotification( 'new', {
 										img: img[cp.param['timeline_type']],
 										simg: g_cmn.account[cp.param['account_id']].icon,
-//										user: escapeHTML( cp.title.replace( /<span class=\"titlename\">(.*)<\/span>/, '$1' ) ),
 										user: cp.title.replace( /<span class=\"titlename\">(.*)<\/span>/, '$1' ),
 										count: addcnt,
 										date: DateYYYYMMDD( null, 4 ),
@@ -1035,7 +1033,6 @@ Contents.timeline = function( cp )
 									timeline_list.find( '> div.item:gt(' + ( status_cnt - addcnt - 1 ) + ')' ).each( function() {
 										delete status_ids[$( this ).attr( 'status_id' )];
 										status_cnt--;
-//										timeline_list.scrollTop( timeline_list.scrollTop() - $( this ).outerHeight() );
 										$( this ).remove();
 									} );
 
