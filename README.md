@@ -6,7 +6,7 @@ KuroTwi
 使い方
 =============
 
-1. ZIPファイルをダウンロードして展開する  
+1. Releasesからkurotwi.zipをダウンロードして展開する  
 ![download_zip](https://raw.githubusercontent.com/oken1/images/master/kurotwi_readme/download_zip.png)
 ![unzip](https://raw.githubusercontent.com/oken1/images/master/kurotwi_readme/unzip.png)
 
