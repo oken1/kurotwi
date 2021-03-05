@@ -8,6 +8,8 @@ Contents.account = function( cp )
 	var p = $( '#' + cp.id );
 	var cont = p.find( 'div.contents' );
 	var scrollPos = null;
+	let reqToken = ''
+	let reqSecret = ''
 
 	cp.SetIcon( 'icon-users' );
 
@@ -196,7 +198,7 @@ Contents.account = function( cp )
 	////////////////////////////////////////////////////////////
 	// アクセストークンを取得してアカウント追加
 	////////////////////////////////////////////////////////////
-	var GetAccessToken = function( reqToken, reqSecret, pin )
+	var GetAccessToken = function( pin )
 	{
 		Blackout( true );
 
@@ -214,6 +216,15 @@ Contents.account = function( cp )
 				var acsSecret = '';
 				var user_id = '';
 				var screen_name = '';
+
+				console.log( typeof res )
+
+
+				if ( typeof res != 'string' ) {
+					MessageBox( i18nGetMessage( 'i18n_0049' ) );
+					Blackout( false );
+					return;
+				}
 
 				if ( res.search( /oauth_token=([\w\-]+)\&/ ) != -1 )
 				{
@@ -391,9 +402,6 @@ Contents.account = function( cp )
 		// 追加ボタンクリック処理
 		////////////////////////////////////////
 		$( '#account_add' ).click( function( e ) {
-			var reqToken = '';
-			var reqSecret = '';
-
 			// リクエストトークン取得
 			SendRequest(
 				{
@@ -425,48 +433,64 @@ Contents.account = function( cp )
 						},
 						function( res )
 						{
-							var auth_tab;
-							var current;
-
-							chrome.tabs.query( { active: true }, function( tab ) {
-								current = tab;
-
-								chrome.tabs.create( { url: res }, function( tab ) {
-									auth_tab = tab;
-
-									// PINコードの画面に遷移するまでポーリング
-									var getPIN = function() {
-										chrome.tabs.executeScript( auth_tab.id, { file: 'js/getpin.js' }, function( res ) {
-											// Vivaldi対応
-											if ( !res )
-											{
-												setTimeout( getPIN, 500 );
-											}
-
-											// PINコードなし
-											if ( !res[0] )
-											{
-												setTimeout( getPIN, 500 );
-											}
-											// PINコードあり
-											else
-											{
-												chrome.tabs.remove( auth_tab.id );
-												chrome.tabs.update( current.id, { active: true } );
-												GetAccessToken( reqToken, reqSecret, res[0] );
-											}
-										} );
-									};
-
-									getPIN();
-								} );
-							} );
+							chrome.tabs.create( { url: res }, function () {
+								// PIN入力の表示
+								$( '#pin_input' ).show()
+								$( '#pin_input_text' ).val( '' )
+								$( '#pin_input_ok' ).addClass( 'disabled' )
+							} )
 						}
 					);
 				}
 			);
 		} );
 
+		////////////////////////////////////////
+		// 入力文字数によるボタン制御(コード)
+		////////////////////////////////////////
+		$( '#pin_input_text' ).on( 'keyup change', function() {
+			if ( $( '#pin_input_text' ).val().match( /^\d+$/ ) )
+			{
+				$( '#pin_input_ok' ).removeClass( 'disabled' );
+			}
+			else
+			{
+				$( '#pin_input_ok' ).addClass( 'disabled' );
+			}
+		} )
+
+		////////////////////////////////////////
+		// OKボタンクリック処理
+		////////////////////////////////////////
+		$( '#pin_input_ok' ).on( 'click', function() {
+			// disabledなら処理しない
+			if ( $( this ).hasClass( 'disabled' ) )
+			{
+				return;
+			}
+
+			GetAccessToken( $( '#pin_input_text' ).val() )
+
+			$( '#pin_input' ).hide();
+			$( '#pin_input_text' ).val( '' );
+			$( '#pin_input_ok' ).addClass( 'disabled' );
+		} )
+
+		////////////////////////////////////////
+		// Cancelボタンクリック処理
+		////////////////////////////////////////
+		$( '#pin_input_cancel' ).on( 'click', function() {
+			// disabledなら処理しない
+			if ( $( this ).hasClass( 'disabled' ) )
+			{
+				return;
+			}
+
+			$( '#pin_input' ).hide();
+			$( '#pin_input_text' ).val( '' );
+			$( '#pin_input_ok' ).addClass( 'disabled' );
+		} );
+	
 		////////////////////////////////////////
 		// 削除ボタンクリック処理
 		////////////////////////////////////////
@@ -617,6 +641,8 @@ Contents.account = function( cp )
 
 			e.stopPropagation();
 		} );
+
+		$( '#pin_input' ).hide()
 
 		// リスト部作成処理
 		cont.trigger( 'account_update' );

@@ -3,6 +3,10 @@
 		"message": "This application allows you to freely arrange the Twitter timeline and RSS feed and more."
 	},
 
+	"i18n_0001": {
+		"message": "Retweet by {$$rt_screen_name}"
+	},
+	
 	"i18n_0009": {
 		"message": "{$$user} has {$$count} follow requests"
 	},

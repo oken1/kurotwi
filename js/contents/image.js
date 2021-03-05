@@ -223,6 +223,17 @@ Contents.image = function( cp )
 				cont.find( '.resizebtn' ).hide();
 			} );
 
+			////////////////////////////////////////
+			// 音量
+			////////////////////////////////////////
+			if ( cp.param['video'] ) {
+				cont.find( 'video' )
+					.prop( 'volume', g_cmn.video_volume )
+					.on( 'volumechange', function() {
+						g_cmn.video_volume = this.volume
+					} )
+			}
+
 			// 初期表示
 			cont.find( '.img_panelsize' ).trigger( 'click' );
 		};

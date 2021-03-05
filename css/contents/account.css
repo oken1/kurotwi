@@ -72,3 +72,19 @@ div.contents.account {
 #account_list div.item.select {
 	background: var(--general-highlight);
 }
+
+/* PIN入力 */
+#pin_input {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 8900;
+	border: 1px solid #101010;
+	background: var(--panel-background);
+	padding: 0.25rem;
+}
+
+#pin_input_text {
+	width: 8rem;
+	padding: 5px;
+}

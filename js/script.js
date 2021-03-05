@@ -117,6 +117,7 @@ $( document ).ready( function() {
 		account_order:	null,			// アカウントの並び順
 		panellist_width: '200px',		// パネルリストの幅
 		current_version: '',			// 現在のバージョン
+		video_volume: 1,				// 動画の音量
 	};
 
 	Init();
@@ -366,6 +367,11 @@ function Init()
 
 				g_cmn.current_version = manifest.version;
 
+				// 動画の音量
+				if ( _g_cmn.video_volume != undefined ) {
+					g_cmn.video_volume = _g_cmn.video_volume
+				}
+								
 				// パネルの復元
 				var cp;
 
@@ -1775,6 +1781,8 @@ function OpenUserTimeline( screen_name, account_id )
 ////////////////////////////////////////////////////////////////////////////////
 function OpenSearchResult( q, account_id )
 {
+
+	console.log( q )
 	var _cp = new CPanel( null, null, 360, $( window ).height() * 0.75 );
 	_cp.SetType( 'timeline' );
 	_cp.SetParam( {
