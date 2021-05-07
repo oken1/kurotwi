@@ -97,6 +97,9 @@ Contents.cmnsetting = function( cp )
 
 		$( '#cmnsetting_apply' ).addClass( 'disabled' );
 
+		// 言語設定
+		$( '#cset_locale' ).val( g_cmn.cmn_param['locale'] );
+
 		// 現行値設定(スライダー)
 		$( '#cset_font_size' ).slider( {
 			min: 10,
@@ -557,6 +560,10 @@ Contents.cmnsetting = function( cp )
 			$( '#cmnsetting_apply' ).removeClass( 'disabled' );
 		} );
 
+		$( '#cset_locale' ).change( function() {
+			$( '#cmnsetting_apply' ).removeClass( 'disabled' );
+		} );
+
 		$( '#cset_font_family' ).keyup( function() {
 			if ( $( this ).val() != g_cmn.cmn_param['font_family'] )
 			{
@@ -601,6 +608,9 @@ Contents.cmnsetting = function( cp )
 			{
 				return;
 			}
+
+			// 言語
+			g_cmn.cmn_param['locale'] = $( '#cset_locale' ).val();
 
 			// フォントサイズ
 			g_cmn.cmn_param['font_size'] = $( '#cset_font_size' ).slider( 'value' );

@@ -6,6 +6,24 @@
 <div id='cmnsetting_items'>
 	<div class='kind'><span class='icon-arrow_down'></span>(i18n_0247)</div>
 	<div class='kinditems'>
+			<div class='group'>
+			<div class='title'>
+				(i18n_0389)
+			</div>
+			<div class='selectboxcontainer'>
+				<select id='cset_locale'>
+					<option value='en'>English</option>
+					<option value='zh_CN'>简体中文</option>
+					<option value='ja'>日本語</option>
+					<option value='de'>Deutsch</option>
+					<option value='fr'>français</option>
+					<option value='it'>italiano</option>
+					<option value='pt_BR'>português</option>
+					<option value='ru'>русский</option>
+					<option value='es'>español</option>
+				</select>
+			</div>
+		</div>
 		<div class='group'>
 			<div class='title'>
 				(i18n_0136)

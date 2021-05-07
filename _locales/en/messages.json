@@ -1,1191 +1,916 @@
 {
-	"manifest_description": {
-		"message": "This application allows you to freely arrange the Twitter timeline and RSS feed and more."
-	},
-
-	"i18n_0001": {
-		"message": "Retweet by {$$rt_screen_name}"
-	},
-	
-	"i18n_0009": {
-		"message": "{$$user} has {$$count} follow requests"
-	},
-
-	"i18n_0011": {
-		"message": "\nFailed to get timeline"
-	},
-
-	"i18n_0013": {
-		"message": "Retweet by $screen_name$",
-		"placeholders": {
-			"screen_name": {
-				"content": "$1"
-			}
-		}
-	},
-
-	"i18n_0015": {
-		"message": "Words"
-	},
-
-	"i18n_0019": {
-		"message": "Maximum size of 700k. JPG, GIF, PNG."
-	},
-
-	"i18n_0021": {
-		"message": "DM"
-	},
-
-	"i18n_0026": {
-		"message": "Mention"
-	},
-
-	"i18n_0028": {
-		"message": "Filter setting"
-	},
-
-	"i18n_0029": {
-		"message": "Now Browsing"
-	},
-
-	"i18n_0032": {
-		"message": "RSS panel"
-	},
-
-	"i18n_0033": {
-		"message": "RSS panel list"
-	},
-
-	"i18n_0037": {
-		"message": "TL speed"
-	},
-
-	"i18n_0038": {
-		"message": "How many days"
-	},
-
-	"i18n_0040": {
-		"message": "Web"
-	},
-
-	"i18n_0041": {
-		"message": "Icon"
-	},
-
-	"i18n_0043": {
-		"message": "Icon change"
-	},
-
-	"i18n_0044": {
-		"message": "Account"
-	},
-
-	"i18n_0045": {
-		"message": "Failed to add account"
-	},
-
-	"i18n_0046": {
-		"message": "Getting account information"
-	},
-
-	"i18n_0047": {
-		"message": "Account setting"
-	},
-
-	"i18n_0048": {
-		"message": "Change account"
-	},
-
-	"i18n_0049": {
-		"message": "Failed to get access token"
-	},
-
-	"i18n_0050": {
-		"message": "Upload"
-	},
-
-	"i18n_0052": {
-		"message": "Import"
-	},
-
-	"i18n_0053": {
-		"message": "Export"
-	},
-
-	"i18n_0054": {
-		"message": "Like"
-	},
-
-	"i18n_0057": {
-		"message": "Could not registered the like."
-	},
-
-	"i18n_0059": {
-		"message": "Client"
-	},
-
-	"i18n_0064": {
-		"message": "This URL can not be used."
-	},
-
-	"i18n_0069": {
-		"message": "Can not add any more"
-	},
-
-	"i18n_0070": {
-		"message": "Automatically displays thumbnail images"
-	},
-
-	"i18n_0071": {
-		"message": "Report for spam"
-	},
-
-	"i18n_0072": {
-		"message": "Failed to report spam"
-	},
-
-	"i18n_0073": {
-		"message": "Are you sure you want to delete all accounts?"
-	},
-
-	"i18n_0075": {
-		"message": "Title"
-	},
-
-	"i18n_0076": {
-		"message": "Please input a title"
-	},
-
-	"i18n_0077": {
-		"message": "Timeline"
-	},
-
-	"i18n_0078": {
-		"message": "The maximum number of tweets to display in timeline"
-	},
-
-	"i18n_0081": {
-		"message": "Failed to send a direct message"
-	},
-
-	"i18n_0083": {
-		"message": "Tweet"
-	},
-
-	"i18n_0086": {
-		"message": "Tweet shortcut key"
-	},
-
-	"i18n_0087": {
-		"message": "Could not tweet"
-	},
-
-	"i18n_0090": {
-		"message": "Tool"
-	},
-
-	"i18n_0091": {
-		"message": "Removed from the toolbar"
-	},
-
-	"i18n_0092": {
-		"message": "Registered in the toolbar"
-	},
-
-	"i18n_0093": {
-		"message": "Notification"
-	},
-
-	"i18n_0094": {
-		"message": "Notification history"
-	},
-
-	"i18n_0095": {
-		"message": "Trend"
-	},
-
-	"i18n_0096": {
-		"message": "Failed to get trend"
-	},
-
-	"i18n_0098": {
-		"message": "'s "
-	},
-
-	"i18n_0099": {
-		"message": "Failed to getting $screen_name$ account information.",
-		"placeholders": {
-			"screen_name": {
-				"content": "$1"
-			}
-		}
-	},
-
-	"i18n_0105": {
-		"message": "$q$ search result",
-		"placeholders": {
-			"q": {
-				"content": "$1"
-			}
-		}
-	},
-
-	"i18n_0106": {
-		"message": "Failed to get $follow$",
-		"placeholders": {
-			"follow": {
-				"content": "$1"
-			}
-		}
-	},
-
-	"i18n_0107": {
-		"message": "'s information"
-	},
-
-	"i18n_0108": {
-		"message": "Hash tag"
-	},
-
-	"i18n_0109": {
-		"message": "Hash tag is invalid."
-	},
-
-	"i18n_0113": {
-		"message": "Fit the panel size"
-	},
-
-	"i18n_0114": {
-		"message": "Enable the snap of panel"
-	},
-
-	"i18n_0116": {
-		"message": "Are you sure you want to close the panel?"
-	},
-
-	"i18n_0118": {
-		"message": "Failed to upload file"
-	},
-
-	"i18n_0119": {
-		"message": "Please select file"
-	},
-
-	"i18n_0120": {
-		"message": "Select file"
-	},
-
-	"i18n_0121": {
-		"message": "Register of feed"
-	},
-
-	"i18n_0122": {
-		"message": "Follower"
-	},
-
-	"i18n_0123": {
-		"message": "Getting followers ID"
-	},
-
-	"i18n_0124": {
-		"message": "Failed to get followers"
-	},
-
-	"i18n_0125": {
-		"message": "Follow"
-	},
-
-	"i18n_0127": {
-		"message": "Follow?"
-	},
-
-	"i18n_0128": {
-		"message": "Follow"
-	},
-
-	"i18n_0129": {
-		"message": "Could not follow"
-	},
-
-	"i18n_0130": {
-		"message": "Notify that you were requested follow"
-	},
-
-	"i18n_0131": {
-		"message": "Failed to get follow-up request"
-	},
-
-	"i18n_0132": {
-		"message": "Getting follow request"
-	},
-
-	"i18n_0133": {
-		"message": "Unfollow?"
-	},
-
-	"i18n_0134": {
-		"message": "Could not unfollow"
-	},
-
-	"i18n_0135": {
-		"message": "Unfollow"
-	},
-
-	"i18n_0136": {
-		"message": "Font size"
-	},
-
-	"i18n_0137": {
-		"message": "Getting friends ID"
-	},
-
-	"i18n_0138": {
-		"message": "Failed to get friends"
-	},
-
-	"i18n_0139": {
-		"message": "Block?"
-	},
-
-	"i18n_0140": {
-		"message": "Block"
-	},
-
-	"i18n_0141": {
-		"message": "Could not block"
-	},
-
-	"i18n_0142": {
-		"message": "Failed to get block user"
-	},
-
-	"i18n_0143": {
-		"message": "Getting block users ID"
-	},
-
-	"i18n_0144": {
-		"message": "Unblock?"
-	},
-
-	"i18n_0145": {
-		"message": "Could not unblock"
-	},
-
-	"i18n_0146": {
-		"message": "Unblock"
-	},
-
-	"i18n_0147": {
-		"message": "Failed to save profile"
-	},
-
-	"i18n_0148": {
-		"message": "Edit profile"
-	},
-
-	"i18n_0149": {
-		"message": "Direct message to $screen_name$",
-		"placeholders": {
-			"screen_name": {
-				"content": "$1"
-			}
-		}
-	},
-
-	"i18n_0150": {
-		"message": "Send a direct message to $to$ from $from$",
-		"placeholders": {
-			"from": {
-				"content": "$1"
-			},
-			"to": {
-				"content": "$2"
-			}
-		}
-	},
-
-	"i18n_0151": {
-		"message": "<span>Reply to </span>{$$item->status}"
-	},
-
-	"i18n_0152": {
-		"message": "Home"
-	},
-
-	"i18n_0153": {
-		"message": "Displays a thumbnail image, when hover the cursor on URL"
-	},
-
-	"i18n_0154": {
-		"message": "Expand the URL shortening, when hover the cursor on URL"
-	},
-
-	"i18n_0155": {
-		"message": "Menu"
-	},
-
-	"i18n_0157": {
-		"message": "Read more"
-	},
-
-	"i18n_0159": {
-		"message": "User search"
-	},
-
-	"i18n_0160": {
-		"message": "Failed to get user information"
-	},
-
-	"i18n_0161": {
-		"message": "User"
-	},
-
-	"i18n_0166": {
-		"message": "Failed to get request token."
-	},
-
-	"i18n_0167": {
-		"message": "List"
-	},
-
-	"i18n_0168": {
-		"message": "Add to list"
-	},
-
-	"i18n_0169": {
-		"message": "Failed to get list"
-	},
-
-	"i18n_0170": {
-		"message": "Failed to create the list"
-	},
-
-	"i18n_0171": {
-		"message": "List name"
-	},
-
-	"i18n_0172": {
-		"message": "The name of the list is too long"
-	},
-
-	"i18n_0173": {
-		"message": "Please input the name for list"
-	},
-
-	"i18n_0175": {
-		"message": "Retweet?"
-	},
-
-	"i18n_0176": {
-		"message": "Select the account when you retweet"
-	},
-
-	"i18n_0177": {
-		"message": "Could not retweet"
-	},
-
-	"i18n_0178": {
-		"message": "Do not show duplicate retweets"
-	},
-
-	"i18n_0180": {
-		"message": "RSS reader setting"
-	},
-
-	"i18n_0181": {
-		"message": "Word"
-	},
-
-	"i18n_0182": {
-		"message": "Add $screen_name$ to $name$",
-		"placeholders": {
-			"screen_name": {
-				"content": "$1"
-			},
-			"name": {
-				"content": "$2"
-			}
-		}
-	},
-
-	"i18n_0183": {
-		"message": "Could not added $screen_name$ to $name$",
-		"placeholders": {
-			"screen_name": {
-				"content": "$1"
-			},
-			"name": {
-				"content": "$2"
-			}
-		}
-	},
-
-	"i18n_0184": {
-		"message": "Report for spam?"
-	},
-
-	"i18n_0185": {
-		"message": "Are you sure you want to delete $name$?",
-		"placeholders": {
-			"name": {
-				"content": "$1"
-			}
-		}
-	},
-
-	"i18n_0188": {
-		"message": "Fix position"
-	},
-
-	"i18n_0189": {
-		"message": "Location"
-	},
-
-	"i18n_0191": {
-		"message": "The number of tweets to get at a time"
-	},
-
-	"i18n_0192": {
-		"message": "To bottom"
-	},
-
-	"i18n_0194": {
-		"message": "To top"
-	},
-
-	"i18n_0195": {
-		"message": "Quote"
-	},
-
-	"i18n_0196": {
-		"message": "en->ja trans"
-	},
-
-	"i18n_0198": {
-		"message": "Notification volume"
-	},
-
-	"i18n_0199": {
-		"message": "Image"
-	},
-
-	"i18n_0201": {
-		"message": "Image attached"
-	},
-
-	"i18n_0203": {
-		"message": "M"
-	},
-
-	"i18n_0204": {
-		"message": "tweets"
-	},
-
-	"i18n_0205": {
-		"message": "items"
-	},
-
-	"i18n_0206": {
-		"message": "Search"
-	},
-
-	"i18n_0207": {
-		"message": "Search memo"
-	},
-
-	"i18n_0208": {
-		"message": "Save search"
-	},
-
-	"i18n_0209": {
-		"message": "Failed to get search memo"
-	},
-
-	"i18n_0211": {
-		"message": "Could not save search"
-	},
-
-	"i18n_0212": {
-		"message": "Getting search memo"
-	},
-
-	"i18n_0213": {
-		"message": "Failed to get search results"
-	},
-
-	"i18n_0215": {
-		"message": "Return to original"
-	},
-
-	"i18n_0217": {
-		"message": "Public"
-	},
-
-	"i18n_0218": {
-		"message": "Reload"
-	},
-
-	"i18n_0219": {
-		"message": "Play"
-	},
-
-	"i18n_0221": {
-		"message": "Latest tweet"
-	},
-
-	"i18n_0222": {
-		"message": "Create"
-	},
-
-	"i18n_0223": {
-		"message": "Del"
-	},
-
-	"i18n_0224": {
-		"message": "Delete, Are you sure?"
-	},
-
-	"i18n_0225": {
-		"message": "Could not delete"
-	},
-
-	"i18n_0226": {
-		"message": "Listen"
-	},
-
-	"i18n_0227": {
-		"message": "Bio"
-	},
-
-	"i18n_0228": {
-		"message": "Auto reload time"
-	},
-
-	"i18n_0229": {
-		"message": "Real size"
-	},
-
-	"i18n_0230": {
-		"message": "Exec"
-	},
-
-	"i18n_0231": {
-		"message": "Number of entries"
-	},
-
-	"i18n_0232": {
-		"message": "Detail"
-	},
-
-	"i18n_0233": {
-		"message": "Location"
-	},
-
-	"i18n_0236": {
-		"message": "New"
-	},
-
-	"i18n_0237": {
-		"message": "New tweets"
-	},
-
-	"i18n_0238": {
-		"message": "Notify the new tweet"
-	},
-
-	"i18n_0239": {
-		"message": "Scroll to the new tweets"
-	},
-
-	"i18n_0240": {
-		"message": "Interval to get a new tweet"
-	},
-
-	"i18n_0242": {
-		"message": "Setting"
-	},
-
-	"i18n_0244": {
-		"message": "Description"
-	},
-
-	"i18n_0245": {
-		"message": "Description is too long"
-	},
-
-	"i18n_0246": {
-		"message": "Del All"
-	},
-
-	"i18n_0247": {
-		"message": "General"
-	},
-
-	"i18n_0249": {
-		"message": "Display the follow mutual mark"
-	},
-
-	"i18n_0250": {
-		"message": "Send"
-	},
-
-	"i18n_0251": {
-		"message": "Sent DM"
-	},
-
-	"i18n_0253": {
-		"message": "Add"
-	},
-
-	"i18n_0255": {
-		"message": "Apply"
-	},
-
-	"i18n_0256": {
-		"message": "Image"
-	},
-
-	"i18n_0257": {
-		"message": "Is registered."
-	},
-
-	"i18n_0258": {
-		"message": "Failed to load"
-	},
-
-	"i18n_0259": {
-		"message": "D"
-	},
-
-	"i18n_0260": {
-		"message": "ja->en trans"
-	},
-
-	"i18n_0261": {
-		"message": "Japan"
-	},
-
-	"i18n_0263": {
-		"message": "Verified account"
-	},
-
-	"i18n_0264": {
-		"message": "Y"
-	},
-
-	"i18n_0265": {
-		"message": "Private"
-	},
-
-	"i18n_0266": {
-		"message": "Private account"
-	},
-
-	"i18n_0270": {
-		"message": "s"
-	},
-
-	"i18n_0272": {
-		"message": "m"
-	},
-
-	"i18n_0273": {
-		"message": "Close"
-	},
-
-	"i18n_0274": {
-		"message": "Reply"
-	},
-
-	"i18n_0275": {
-		"message": "Failed to get tweet"
-	},
-
-	"i18n_0277": {
-		"message": "Reply to"
-	},
-
-	"i18n_0278": {
-		"message": "Save"
-	},
-
-	"i18n_0280": {
-		"message": "Disabled"
-	},
-
-	"i18n_0281": {
-		"message": "Name"
-	},
-
-	"i18n_0282": {
-		"message": "Enabled"
-	},
-
-	"i18n_0283": {
-		"message": "Failed to get trend locations"
-	},
-
-	"i18n_0285": {
-		"message": "Too many requests.<br>This API can be executed $limit$/15min.<br>Limit will be canceled at $date$.",
-		"placeholders": {
-			"limit": {
-				"content": "$1"
-			},
-			"date": {
-				"content": "$2"
-			}
-		}
-	},
-
-	"i18n_0286": {
-		"message": "Protected account."
-	},
-
-	"i18n_0287": {
-		"message": "Up"
-	},
-
-	"i18n_0288": {
-		"message": "Down"
-	},
-
-	"i18n_0290": {
-		"message": "After"
-	},
-
-	"i18n_0291": {
-		"message": "User timeline"
-	},
-
-	"i18n_0292": {
-		"message": "User information"
-	},
-
-	"i18n_0293": {
-		"message": "Get tweet"
-	},
-
-	"i18n_0294": {
-		"message": "Lists"
-	},
-
-	"i18n_0295": {
-		"message": "Trend locations"
-	},
-
-	"i18n_0296": {
-		"message": "API remaining"
-	},
-
-	"i18n_0297": {
-		"message": "Configuration"
-	},
-
-	"i18n_0298": {
-		"message": "Failed to get remaining API."
-	},
-
-	"i18n_0299": {
-		"message": "h"
-	},
-
-	"i18n_0300": {
-		"message": "Font name"
-	},
-
-	"i18n_0301": {
-		"message": "Search for language"
-	},
-
-	"i18n_0302": {
-		"message": "All languages"
-	},
-
-	"i18n_0303": {
-		"message": "Japanese"
-	},
-
-	"i18n_0304": {
-		"message": "The time display format (restart required)"
-	},
-
-	"i18n_0305": {
-		"message": "Absolute time"
-	},
-
-	"i18n_0306": {
-		"message": "Relative time"
-	},
-
-	"i18n_0307": {
-		"message": "Display format of the name (restart required)"
-	},
-
-	"i18n_0308": {
-		"message": "Username"
-	},
-
-	"i18n_0309": {
-		"message": "Other"
-	},
-
-	"i18n_0310": {
-		"message": "Now Browsing text"
-	},
-
-	"i18n_0311": {
-		"message": "Flip vertical"
-	},
-
-	"i18n_0312": {
-		"message": "Flip horizontal"
-	},
-
-	"i18n_0313": {
-		"message": "Rotation"
-	},
-
-	"i18n_0314": {
-		"message": "Retweet"
-	},
-
-	"i18n_0316": {
-		"message": "Follows, Followers list"
-	},
-
-	"i18n_0317": {
-		"message": "Draft"
-	},
-
-	"i18n_0318": {
-		"message": "Block user ID"
-	},
-
-	"i18n_0319": {
-		"message": "Follows user ID"
-	},
-
-	"i18n_0320": {
-		"message": "Followers user ID"
-	},
-
-	"i18n_0321": {
-		"message": "Follow request"
-	},
-
-	"i18n_0322": {
-		"message": "Save a draft"
-	},
-
-	"i18n_0323": {
-		"message": "Bookmark"
-	},
-
-	"i18n_0324": {
-		"message": "Getting no retweet user"
-	},
-
-	"i18n_0325": {
-		"message": "Failed to get no retweet user"
-	},
-
-	"i18n_0326": {
-		"message": "No retweet user ID"
-	},
-
-	"i18n_0333": {
-		"message": "$user$ has $count$ follow requests",
-		"placeholders": {
-			"user": {
-				"content": "$1"
-			},
-			"count": {
-				"content": "$2"
-			}
-		}
-	},
-
-	"i18n_0338": {
-		"message": "Add to filter"
-	},
-
-	"i18n_0340": {
-		"message": "Scrollbar of whole page"
-	},
-
-	"i18n_0341": {
-		"message": "Vertical scroll"
-	},
-
-	"i18n_0342": {
-		"message": "Horizontal scroll"
-	},
-
-	"i18n_0343": {
-		"message": "Exclude retweets from search result"
-	},
-
-	"i18n_0344": {
-		"message": "Panel list"
-	},
-
-	"i18n_0345": {
-		"message": "Upgraded from Ver.$from$ to Ver.$to$",
-		"placeholders": {
-			"from": {
-				"content": "$1"
-			},
-			"to": {
-				"content": "$2"
-			}
-		}
-	},
-
-	"i18n_0346": {
-		"message": "State & Settings"
-	},
-
-	"i18n_0347": {
-		"message": "Export Error"
-	},
-
-	"i18n_0348": {
-		"message": "Import Error"
-	},
-
-	"i18n_0351": {
-		"message": "individual"
-	},
-
-	"i18n_0352": {
-		"message": "Confirm retweet"
-	},
-
-	"i18n_0356": {
-		"message": "Exceeded the maximum number of characters ($cnt$/$max$)",
-		"placeholders": {
-			"cnt": {
-				"content": "$1"
-			},
-			"max": {
-				"content": "$2"
-			}
-		}
-	},
-
-	"i18n_0357": {
-		"message": "Show description"
-	},
-
-	"i18n_0358": {
-		"message": "This URL has been rewritten to ln.is"
-	},
-
-	"i18n_0360": {
-		"message": "Mute"
-	},
-
-	"i18n_0361": {
-		"message": "Could not mute"
-	},
-
-	"i18n_0362": {
-		"message": "Failed to get mute user"
-	},
-
-	"i18n_0363": {
-		"message": "Getting mute users ID"
-	},
-
-	"i18n_0365": {
-		"message": "Could not unmute"
-	},
-
-	"i18n_0366": {
-		"message": "Unmute"
-	},
-
-	"i18n_0367": {
-		"message": "Mute user ID"
-	},
-
-	"i18n_0368": {
-		"message": "Color settings"
-	},
-
-	"i18n_0369": {
-		"message": "Panel"
-	},
-
-	"i18n_0370": {
-		"message": "Tweet"
-	},
-
-	"i18n_0371": {
-		"message": "Titlebar"
-	},
-
-	"i18n_0372": {
-		"message": "Button"
-	},
-
-	"i18n_0373": {
-		"message": "Background"
-	},
-
-	"i18n_0374": {
-		"message": "Text"
-	},
-
-	"i18n_0375": {
-		"message": "Link"
-	},
-
-	"i18n_0376": {
-		"message": "Fixed panel"
-	},
-
-	"i18n_0377": {
-		"message": "Reset"
-	},
-
-	"i18n_0378": {
-		"message": "Tweet color settings"
-	},
-
-	"i18n_0379": {
-		"message": "Import color settings"
-	},
-
-	"i18n_0380": {
-		"message": "Scrollbar"
-	},
-
-	"i18n_0381": {
-		"message": "Thumb"
-	},
-
-	"i18n_0382": {
-		"message": "Open in panel"
-	},
-
-
-
-
-
-
-
-
-
-	"i18n_9997": {
-		"message": ""
-	},
-
-	"i18n_9998": {
-		"message": ""
-	},
-
-	"i18n_9999": {
-		"message": "------------------------"
-	}
+    "manifest_description": {
+        "message": "This is an application that allows you to freely place Twitter timelines, RSS feeds, etc."
+    },
+    "locale": {
+        "message": "en"
+    },
+    "i18n_0001": {
+        "message": "Retweeted by {$$rt_screen_name}"
+    },
+    "i18n_0009": {
+        "message": "{$$user} has {$count} follow requests."
+    },
+    "i18n_0011": {
+        "message": "Failed to retrieve the timeline."
+    },
+    "i18n_0013": {
+        "message": "Retweeted by $$screen_name$.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0015": {
+        "message": "Text"
+    },
+    "i18n_0019": {
+        "message": "PNG, JPEG, GIF under 700KB"
+    },
+    "i18n_0021": {
+        "message": "DM"
+    },
+    "i18n_0026": {
+        "message": "Mention"
+    },
+    "i18n_0028": {
+        "message": "NG Settings"
+    },
+    "i18n_0029": {
+        "message": "Now Browsing"
+    },
+    "i18n_0032": {
+        "message": "RSS Panel"
+    },
+    "i18n_0033": {
+        "message": "RSS Panel List"
+    },
+    "i18n_0037": {
+        "message": "TL flow speed"
+    },
+    "i18n_0038": {
+        "message": "Twitter history"
+    },
+    "i18n_0040": {
+        "message": "Web"
+    },
+    "i18n_0041": {
+        "message": "Icons"
+    },
+    "i18n_0043": {
+        "message": "Change Icon"
+    },
+    "i18n_0044": {
+        "message": "Account"
+    },
+    "i18n_0045": {
+        "message": "Failed to add your account."
+    },
+    "i18n_0046": {
+        "message": "Get account information"
+    },
+    "i18n_0047": {
+        "message": "Account settings"
+    },
+    "i18n_0048": {
+        "message": "Change account"
+    },
+    "i18n_0049": {
+        "message": "Failed to obtain an access token."
+    },
+    "i18n_0050": {
+        "message": "Upload"
+    },
+    "i18n_0052": {
+        "message": "Importing"
+    },
+    "i18n_0053": {
+        "message": "Export"
+    },
+    "i18n_0054": {
+        "message": "Like"
+    },
+    "i18n_0057": {
+        "message": "Failed to register as a favorite."
+    },
+    "i18n_0059": {
+        "message": "Client"
+    },
+    "i18n_0064": {
+        "message": "This URL is not available."
+    },
+    "i18n_0069": {
+        "message": "No more can be added."
+    },
+    "i18n_0070": {
+        "message": "Automatically display thumbnail images"
+    },
+    "i18n_0071": {
+        "message": "Report Spam"
+    },
+    "i18n_0072": {
+        "message": "Could not report spam."
+    },
+    "i18n_0073": {
+        "message": "All accounts will be deleted. Are you sure?"
+    },
+    "i18n_0075": {
+        "message": "Title"
+    },
+    "i18n_0076": {
+        "message": "Please enter a title"
+    },
+    "i18n_0077": {
+        "message": "Timeline"
+    },
+    "i18n_0078": {
+        "message": "Maximum number of tweets to be displayed in the timeline"
+    },
+    "i18n_0081": {
+        "message": "Failed to send a direct message."
+    },
+    "i18n_0083": {
+        "message": "Tweet"
+    },
+    "i18n_0086": {
+        "message": "Tweet shortcut key"
+    },
+    "i18n_0087": {
+        "message": "Failed to tweet."
+    },
+    "i18n_0090": {
+        "message": "Tools"
+    },
+    "i18n_0091": {
+        "message": "Remove from Toolbar"
+    },
+    "i18n_0092": {
+        "message": "Add to Toolbar"
+    },
+    "i18n_0093": {
+        "message": "Desktop Notifications"
+    },
+    "i18n_0094": {
+        "message": "Desktop Notification History"
+    },
+    "i18n_0095": {
+        "message": "Trend"
+    },
+    "i18n_0096": {
+        "message": "Failed to get the trend."
+    },
+    "i18n_0098": {
+        "message": " "
+    },
+    "i18n_0099": {
+        "message": "An error occurred in obtaining account information for $screen_name$.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0105": {
+        "message": "$q$",
+        "placeholders": {
+            "q": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0106": {
+        "message": "Failed to retrieve $follow$.",
+        "placeholders": {
+            "follow": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0107": {
+        "message": "Information for"
+    },
+    "i18n_0108": {
+        "message": "Hashtag"
+    },
+    "i18n_0109": {
+        "message": "Invalid hashtag."
+    },
+    "i18n_0113": {
+        "message": "Fit to panel size"
+    },
+    "i18n_0114": {
+        "message": "Enable panel snapping."
+    },
+    "i18n_0116": {
+        "message": "Close the panel. Are you sure?"
+    },
+    "i18n_0118": {
+        "message": "Failed to upload the file."
+    },
+    "i18n_0119": {
+        "message": "Please select a file."
+    },
+    "i18n_0120": {
+        "message": "Select File"
+    },
+    "i18n_0121": {
+        "message": "Register feed"
+    },
+    "i18n_0122": {
+        "message": "Follower"
+    },
+    "i18n_0123": {
+        "message": "Get Follower ID"
+    },
+    "i18n_0124": {
+        "message": "Failed to get follower."
+    },
+    "i18n_0125": {
+        "message": "Follow"
+    },
+    "i18n_0127": {
+        "message": "I want to follow you. Are you sure?"
+    },
+    "i18n_0128": {
+        "message": "Follow me"
+    },
+    "i18n_0129": {
+        "message": "Could not follow you."
+    },
+    "i18n_0130": {
+        "message": "Notify me that you have a follow request."
+    },
+    "i18n_0131": {
+        "message": "Failed to get follow request."
+    },
+    "i18n_0132": {
+        "message": "Get follow request"
+    },
+    "i18n_0133": {
+        "message": "I want to unfollow you. Are you sure?"
+    },
+    "i18n_0134": {
+        "message": "Could not unfollow you."
+    },
+    "i18n_0135": {
+        "message": "Unfollow"
+    },
+    "i18n_0136": {
+        "message": "Font size"
+    },
+    "i18n_0137": {
+        "message": "Get Friend ID"
+    },
+    "i18n_0138": {
+        "message": "Failed to get friend ID."
+    },
+    "i18n_0139": {
+        "message": "I will block you. Are you sure?"
+    },
+    "i18n_0140": {
+        "message": "Block"
+    },
+    "i18n_0141": {
+        "message": "Failed to block."
+    },
+    "i18n_0142": {
+        "message": "Failed to get blocked user."
+    },
+    "i18n_0143": {
+        "message": "Obtaining block user ID"
+    },
+    "i18n_0144": {
+        "message": "Unblock. Are you sure?"
+    },
+    "i18n_0145": {
+        "message": "Failed to unblock."
+    },
+    "i18n_0146": {
+        "message": "Unblock"
+    },
+    "i18n_0147": {
+        "message": "Failed to save your profile."
+    },
+    "i18n_0148": {
+        "message": "Edit Profile"
+    },
+    "i18n_0149": {
+        "message": "Direct message to $screen_name$.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0150": {
+        "message": "Send a direct message from $from$ to $to$. Are you sure?",
+        "placeholders": {
+            "from": {
+                "content": "$1"
+            },
+            "to": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0151": {
+        "message": "<span>Reply to </span>{$$item->status}."
+    },
+    "i18n_0152": {
+        "message": "Home"
+    },
+    "i18n_0153": {
+        "message": "Display a thumbnail image on mouseover"
+    },
+    "i18n_0154": {
+        "message": "Expand a shortened URL on mouse-over"
+    },
+    "i18n_0155": {
+        "message": "Menu"
+    },
+    "i18n_0157": {
+        "message": "Read more"
+    },
+    "i18n_0159": {
+        "message": "User Search"
+    },
+    "i18n_0160": {
+        "message": "Failed to retrieve user information."
+    },
+    "i18n_0161": {
+        "message": "User"
+    },
+    "i18n_0166": {
+        "message": "Failed to retrieve the request token. <br>Please make sure your PC clock is not out of sync."
+    },
+    "i18n_0167": {
+        "message": "List"
+    },
+    "i18n_0168": {
+        "message": "Add to list"
+    },
+    "i18n_0169": {
+        "message": "Failed to retrieve the list."
+    },
+    "i18n_0170": {
+        "message": "Failed to create the list."
+    },
+    "i18n_0171": {
+        "message": "List name"
+    },
+    "i18n_0172": {
+        "message": "List name is too long."
+    },
+    "i18n_0173": {
+        "message": "Please enter a list name."
+    },
+    "i18n_0175": {
+        "message": "Retweeting. Are you sure?"
+    },
+    "i18n_0176": {
+        "message": "Select an account to retweet."
+    },
+    "i18n_0177": {
+        "message": "Could not retweet."
+    },
+    "i18n_0178": {
+        "message": "Do not display duplicate retweets."
+    },
+    "i18n_0180": {
+        "message": "Reader settings"
+    },
+    "i18n_0181": {
+        "message": "Word"
+    },
+    "i18n_0182": {
+        "message": "$screen_name$ was added to $name$.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            },
+            "name": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0183": {
+        "message": "Could not add $screen_name$ to $name$.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            },
+            "name": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0184": {
+        "message": "I'm reporting this as spam. Are you sure?"
+    },
+    "i18n_0185": {
+        "message": "Delete $name$. Are you sure?",
+        "placeholders": {
+            "name": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0188": {
+        "message": "Location Fix"
+    },
+    "i18n_0189": {
+        "message": "Location Information"
+    },
+    "i18n_0191": {
+        "message": "Number of tweets to retrieve at a time"
+    },
+    "i18n_0192": {
+        "message": "Go to the bottom"
+    },
+    "i18n_0194": {
+        "message": "Top"
+    },
+    "i18n_0195": {
+        "message": "Quote"
+    },
+    "i18n_0196": {
+        "message": "English to Japanese translation"
+    },
+    "i18n_0198": {
+        "message": "Notification volume"
+    },
+    "i18n_0199": {
+        "message": "Image"
+    },
+    "i18n_0201": {
+        "message": "Attach image"
+    },
+    "i18n_0203": {
+        "message": "Month"
+    },
+    "i18n_0204": {
+        "message": "Items"
+    },
+    "i18n_0205": {
+        "message": "Items"
+    },
+    "i18n_0206": {
+        "message": "Search"
+    },
+    "i18n_0207": {
+        "message": "Search memo"
+    },
+    "i18n_0208": {
+        "message": "Save search"
+    },
+    "i18n_0209": {
+        "message": "Failed to retrieve the search memo."
+    },
+    "i18n_0211": {
+        "message": "The search could not be saved."
+    },
+    "i18n_0212": {
+        "message": "Get search memo"
+    },
+    "i18n_0213": {
+        "message": "Failed to retrieve the search results."
+    },
+    "i18n_0215": {
+        "message": "Revert to original text"
+    },
+    "i18n_0217": {
+        "message": "Published"
+    },
+    "i18n_0218": {
+        "message": "Update"
+    },
+    "i18n_0219": {
+        "message": "Playback"
+    },
+    "i18n_0221": {
+        "message": "Latest Tweets"
+    },
+    "i18n_0222": {
+        "message": "Create"
+    },
+    "i18n_0223": {
+        "message": "Delete"
+    },
+    "i18n_0224": {
+        "message": "I want to delete my tweet. Are you sure?"
+    },
+    "i18n_0225": {
+        "message": "Could not delete."
+    },
+    "i18n_0226": {
+        "message": "Listen"
+    },
+    "i18n_0227": {
+        "message": "About Me"
+    },
+    "i18n_0228": {
+        "message": "Auto Update"
+    },
+    "i18n_0229": {
+        "message": "View in Real Size"
+    },
+    "i18n_0230": {
+        "message": "Execution"
+    },
+    "i18n_0231": {
+        "message": "Number of entries retrieved"
+    },
+    "i18n_0232": {
+        "message": "Details"
+    },
+    "i18n_0233": {
+        "message": "Location"
+    },
+    "i18n_0236": {
+        "message": "Created"
+    },
+    "i18n_0237": {
+        "message": "New Arrivals"
+    },
+    "i18n_0238": {
+        "message": "Notify me of new arrivals"
+    },
+    "i18n_0239": {
+        "message": "Scroll to new tweets"
+    },
+    "i18n_0240": {
+        "message": "Read new arrivals"
+    },
+    "i18n_0242": {
+        "message": "Settings"
+    },
+    "i18n_0244": {
+        "message": "Description"
+    },
+    "i18n_0245": {
+        "message": "Description is too long."
+    },
+    "i18n_0246": {
+        "message": "Delete all"
+    },
+    "i18n_0247": {
+        "message": "General"
+    },
+    "i18n_0249": {
+        "message": "Show mutual follow mark"
+    },
+    "i18n_0250": {
+        "message": "Send"
+    },
+    "i18n_0251": {
+        "message": "Sent DMs"
+    },
+    "i18n_0253": {
+        "message": "Add"
+    },
+    "i18n_0255": {
+        "message": "Apply"
+    },
+    "i18n_0256": {
+        "message": "Attached image"
+    },
+    "i18n_0257": {
+        "message": "Already registered."
+    },
+    "i18n_0258": {
+        "message": "Failed to load"
+    },
+    "i18n_0259": {
+        "message": "Japanese"
+    },
+    "i18n_0260": {
+        "message": "Japanese to English Translation"
+    },
+    "i18n_0261": {
+        "message": "Japan"
+    },
+    "i18n_0263": {
+        "message": "Verified account"
+    },
+    "i18n_0264": {
+        "message": "Year"
+    },
+    "i18n_0265": {
+        "message": "Private"
+    },
+    "i18n_0266": {
+        "message": "Private account"
+    },
+    "i18n_0270": {
+        "message": "Second"
+    },
+    "i18n_0272": {
+        "message": "Minutes"
+    },
+    "i18n_0273": {
+        "message": "Close"
+    },
+    "i18n_0274": {
+        "message": "Reply"
+    },
+    "i18n_0275": {
+        "message": "Failed to retrieve your tweet."
+    },
+    "i18n_0277": {
+        "message": "Show reply"
+    },
+    "i18n_0278": {
+        "message": "Save"
+    },
+    "i18n_0280": {
+        "message": "Invalid"
+    },
+    "i18n_0281": {
+        "message": "Name"
+    },
+    "i18n_0282": {
+        "message": "Valid"
+    },
+    "i18n_0283": {
+        "message": "Failed to retrieve the city list."
+    },
+    "i18n_0285": {
+        "message": "The number of times it can be executed has been exceeded. <br>This function can be executed $limit$ times / 15 minutes. <br>The limit will be lifted on $date$.",
+        "placeholders": {
+            "limit": {
+                "content": "$1"
+            },
+            "date": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0286": {
+        "message": "This is a private account."
+    },
+    "i18n_0287": {
+        "message": "Move up"
+    },
+    "i18n_0288": {
+        "message": "Move Down"
+    },
+    "i18n_0290": {
+        "message": "more"
+    },
+    "i18n_0291": {
+        "message": "User Timeline"
+    },
+    "i18n_0292": {
+        "message": "User Info"
+    },
+    "i18n_0293": {
+        "message": "Get Reply From"
+    },
+    "i18n_0294": {
+        "message": "List of Lists"
+    },
+    "i18n_0295": {
+        "message": "Trending Cities List"
+    },
+    "i18n_0296": {
+        "message": "API Remaining"
+    },
+    "i18n_0297": {
+        "message": "Configuration"
+    },
+    "i18n_0298": {
+        "message": "Failed to get the number of remaining APIs."
+    },
+    "i18n_0299": {
+        "message": "Time"
+    },
+    "i18n_0300": {
+        "message": "Font name"
+    },
+    "i18n_0301": {
+        "message": "Language to search"
+    },
+    "i18n_0302": {
+        "message": "All"
+    },
+    "i18n_0303": {
+        "message": "Japanese only"
+    },
+    "i18n_0304": {
+        "message": "Tweet time display format (requires restart)"
+    },
+    "i18n_0305": {
+        "message": "Absolute time"
+    },
+    "i18n_0306": {
+        "message": "Relative time"
+    },
+    "i18n_0307": {
+        "message": "Name display format (requires reboot)"
+    },
+    "i18n_0308": {
+        "message": "User name"
+    },
+    "i18n_0309": {
+        "message": "Other"
+    },
+    "i18n_0310": {
+        "message": "Now Browsing text"
+    },
+    "i18n_0311": {
+        "message": "Flip up/down"
+    },
+    "i18n_0312": {
+        "message": "Flip Left/Right"
+    },
+    "i18n_0313": {
+        "message": "Rotate"
+    },
+    "i18n_0314": {
+        "message": "Retweet"
+    },
+    "i18n_0316": {
+        "message": "Followers and Follower List"
+    },
+    "i18n_0317": {
+        "message": "Draft"
+    },
+    "i18n_0318": {
+        "message": "Get Block User ID"
+    },
+    "i18n_0319": {
+        "message": "Get Followers User ID"
+    },
+    "i18n_0320": {
+        "message": "Get Follower User ID"
+    },
+    "i18n_0321": {
+        "message": "Get Follow Request"
+    },
+    "i18n_0322": {
+        "message": "Save Draft"
+    },
+    "i18n_0323": {
+        "message": "Bookmarks"
+    },
+    "i18n_0324": {
+        "message": "Get RT hidden user"
+    },
+    "i18n_0325": {
+        "message": "Failed to get RT hidden user."
+    },
+    "i18n_0326": {
+        "message": "Get RT hidden user ID"
+    },
+    "i18n_0333": {
+        "message": "There are $count$ follow requests for $user$.",
+        "placeholders": {
+            "user": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0338": {
+        "message": "Add to NG"
+    },
+    "i18n_0340": {
+        "message": "Scroll bar across the page"
+    },
+    "i18n_0341": {
+        "message": "Vertical scroll"
+    },
+    "i18n_0342": {
+        "message": "Horizontal scroll"
+    },
+    "i18n_0343": {
+        "message": "Exclude retweets from search results"
+    },
+    "i18n_0344": {
+        "message": "Panel list"
+    },
+    "i18n_0345": {
+        "message": "Upgraded from Ver.$from$ to Ver.$to$!",
+        "placeholders": {
+            "from": {
+                "content": "$1"
+            },
+            "to": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0346": {
+        "message": "Status and Settings"
+    },
+    "i18n_0347": {
+        "message": "Export error"
+    },
+    "i18n_0348": {
+        "message": "Import error"
+    },
+    "i18n_0351": {
+        "message": "Individual Display"
+    },
+    "i18n_0352": {
+        "message": "Check Retweet"
+    },
+    "i18n_0356": {
+        "message": "The maximum number of characters has been exceeded ($cnt$/$max$)",
+        "placeholders": {
+            "cnt": {
+                "content": "$1"
+            },
+            "max": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0357": {
+        "message": "Show summary"
+    },
+    "i18n_0358": {
+        "message": "This URL has been rewritten to ln.is"
+    },
+    "i18n_0360": {
+        "message": "Mute"
+    },
+    "i18n_0361": {
+        "message": "Failed to mute user."
+    },
+    "i18n_0362": {
+        "message": "Failed to get mute user."
+    },
+    "i18n_0363": {
+        "message": "Get mute user ID"
+    },
+    "i18n_0365": {
+        "message": "Could not unmute."
+    },
+    "i18n_0366": {
+        "message": "Unmute"
+    },
+    "i18n_0367": {
+        "message": "Get Mute User ID"
+    },
+    "i18n_0368": {
+        "message": "Color Settings"
+    },
+    "i18n_0369": {
+        "message": "Panel"
+    },
+    "i18n_0370": {
+        "message": "Tweets"
+    },
+    "i18n_0371": {
+        "message": "Title Bar"
+    },
+    "i18n_0372": {
+        "message": "Buttons"
+    },
+    "i18n_0373": {
+        "message": "Background"
+    },
+    "i18n_0374": {
+        "message": "Text"
+    },
+    "i18n_0375": {
+        "message": "Link"
+    },
+    "i18n_0376": {
+        "message": "Fixed Position Panel"
+    },
+    "i18n_0377": {
+        "message": "Reset"
+    },
+    "i18n_0378": {
+        "message": "Tweet Color Settings"
+    },
+    "i18n_0379": {
+        "message": "Import color settings"
+    },
+    "i18n_0380": {
+        "message": "Scroll bars"
+    },
+    "i18n_0381": {
+        "message": "Pinch"
+    },
+    "i18n_0382": {
+        "message": "Open in panel"
+    },
+    "i18n_0389": {
+        "message": "Language (reboot required)"
+    },
+    "i18n_9997": {
+        "message": ""
+    },
+    "i18n_9998": {
+        "message": ""
+    },
+    "i18n_9999": {
+        "message": ""
+    }
 }

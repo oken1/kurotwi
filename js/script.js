@@ -48,6 +48,7 @@ $( document ).ready( function() {
 			autoreadmore:		0,								// - もっと読むを自動実行
 			scroll_vertical:	1,								// - ページ全体のスクロールバー(縦)
 			scroll_horizontal:	1,								// - ページ全体のスクロールバー(横)
+			locale:				'',								// - 言語
 
 			notify_sound_volume:1.0,							// - 音量
 			notify_new:			1,								// - 新着あり通知
@@ -163,10 +164,6 @@ function Init()
 		e.stopPropagation();
 	} );
 
-	// ツールバー
-	$( '#head' ).html( OutputTPL( 'header', {} ) );
-	$( '#head' ).find( '.header_sub' ).hide();
-
 	// パネルリスト
 	$( '#panellist' ).resizable( {
 		handles: 'e',
@@ -254,6 +251,18 @@ function Init()
 						break;
 				}
 			}
+
+			// 言語未設定
+			if ( g_cmn.cmn_param.locale == '' ) {
+				g_cmn.cmn_param.locale = chrome.i18n.getMessage( 'locale' );
+			}
+
+			// 言語ファイル設定
+			SetLocaleFile();
+
+			// ツールバー
+			$( '#head' ).html( OutputTPL( 'header', {} ) );
+			$( '#head' ).find( '.header_sub' ).hide();
 
 			// フォントサイズ
 			SetFont();
@@ -556,16 +565,35 @@ function Init()
 		}
 		else
 		{
-			g_loaded = true;
 			// 初回起動
+
+			Blackout( false );
+			$( '#blackout' ).activity( false );
 
 			// フォントサイズ
 			SetFont();
 
-			// アカウント画面を開く
-			Blackout( false );
-			$( '#blackout' ).activity( false );
-			$( '#head_account' ).trigger( 'click' );
+			// 言語選択
+			$( '#main' ).html( OutputTPL( 'select_locale', {} ) );
+			$( '#select_locale' ).find( 'select' ).val( g_cmn.cmn_param['locale'] );
+
+			$( '#select_locale' ).find( '.btn' ).on( 'click', function() {
+				g_cmn.cmn_param['locale'] = $( '#select_locale' ).find( 'select' ).val();
+
+				g_loaded = true;
+
+				// 言語ファイル設定
+				SetLocaleFile();
+
+				$( '#select_locale' ).remove();
+
+				// ツールバー
+				$( '#head' ).html( OutputTPL( 'header', {} ) );
+				$( '#head' ).find( '.header_sub' ).hide();
+
+				// アカウント画面を開く
+				$( '#head_account' ).trigger( 'click' );
+			} )
 		}
 
 		// 相対時間書き換え
@@ -616,7 +644,7 @@ function Init()
 	////////////////////////////////////////////////////////////
 	// ツールボタンのクリック処理
 	////////////////////////////////////////////////////////////
-	$( '#head_tool' ).on( 'click', function( e ) {
+	$( document ).on( 'click', '#head_tool', function( e ) {
 		// disabledなら処理しない
 		if ( $( this ).hasClass( 'disabled' ) )
 		{
@@ -630,7 +658,7 @@ function Init()
 	////////////////////////////////////////////////////////////
 	// ツールメニューのクリック処理
 	////////////////////////////////////////////////////////////
-	$( '#head_tool_sub' ).on( 'click', function( e ) {
+	$( document ).on( 'click', '#head_tool_sub', function( e ) {
 		switch ( $( e.target ).index() )
 		{
 			// RSSパネル一覧
@@ -743,7 +771,7 @@ function Init()
 	////////////////////////////////////////////////////////////
 	// 検索ボタンのクリック処理
 	////////////////////////////////////////////////////////////
-	$( '#head_search' ).on( 'click', function( e ) {
+	$( document ).on( 'click', '#head_search', function( e ) {
 		// disabledなら処理しない
 		if ( $( this ).hasClass( 'disabled' ) )
 		{
@@ -776,7 +804,7 @@ function Init()
 	////////////////////////////////////////////////////////////
 	// ツイートボタンのクリック処理
 	////////////////////////////////////////////////////////////
-	$( '#head_tweet' ).on( 'click', function( e ) {
+	$( document ).on( 'click', '#head_tweet', function( e ) {
 		// disabledなら処理しない
 		if ( $( this ).hasClass( 'disabled' ) )
 		{
@@ -813,7 +841,7 @@ function Init()
 	////////////////////////////////////////////////////////////
 	// アカウントボタンのクリック処理
 	////////////////////////////////////////////////////////////
-	$( '#head_account' ).on( 'click', function( e ) {
+	$( document ).on( 'click', '#head_account', function( e ) {
 		var pid = IsUnique( 'account' );
 
 		if ( pid == null )
@@ -838,7 +866,7 @@ function Init()
 	////////////////////////////////////////////////////////////
 	// 設定ボタンのクリック処理
 	////////////////////////////////////////////////////////////
-	$( '#head_setting' ).on( 'click', function( e ) {
+	$( document ).on( 'click', '#head_setting', function( e ) {
 		var pid = IsUnique( 'cmnsetting' );
 
 		if ( pid == null )
@@ -863,7 +891,7 @@ function Init()
 	////////////////////////////////////////////////////////////
 	// アカウント数変更時の処理
 	////////////////////////////////////////////////////////////
-	$( '#head' ).on( 'account_update', function()
+	$( document ).on( 'account_update', '#head', function()
 		{
 			// ツイート、検索ボタンの有効/無効
 			if ( AccountCount() > 0 )
@@ -885,7 +913,7 @@ function Init()
 	////////////////////////////////////////////////////////////////////////////////
 	// パネルリスト表示
 	////////////////////////////////////////////////////////////////////////////////
-	$( '#head_panellist' ).on( 'click', function() {
+	$( document ).on( 'click', '#head_panellist', function() {
 		if ( $( '#panellist' ).css( 'display' ) == 'none' )
 		{
 			// パネルリストを被せない対応
@@ -1781,8 +1809,6 @@ function OpenUserTimeline( screen_name, account_id )
 ////////////////////////////////////////////////////////////////////////////////
 function OpenSearchResult( q, account_id )
 {
-
-	console.log( q )
 	var _cp = new CPanel( null, null, 360, $( window ).height() * 0.75 );
 	_cp.SetType( 'timeline' );
 	_cp.SetParam( {
@@ -3707,10 +3733,70 @@ function SendRequest( req, callback )
 	}
 }
 
+var g_message_data = null;
+
+function SetLocaleFile()
+{
+	$.ajax( {
+		url: '_locales/' + g_cmn.cmn_param.locale + '/messages.json',
+		dataType: 'json',
+		type: 'GET',
+		async: false,
+	} ).done( function( data ) {
+		g_message_data = data;
+	} ).fail( function( data ) {
+		g_message_data = null;
+	} );
+}
+
 ////////////////////////////////////////////////////////////////////////////////
-// i18n
+// 言語選択対応i18n.getMessageもどき
 ////////////////////////////////////////////////////////////////////////////////
 function i18nGetMessage( id, options )
 {
-	return chrome.i18n.getMessage( id, options );
+	if ( g_message_data != null )
+	{
+		if ( g_message_data[id] )
+		{
+			if ( g_message_data[id].placeholders )
+			{
+				var cnt = 0;
+				var msg = g_message_data[id].message;
+
+				for ( var p in g_message_data[id].placeholders )
+				{
+					if ( cnt < options.length )
+					{
+						msg = msg.replace( '$' + p + '$', options[cnt] );
+					}
+					else
+					{
+						msg = msg.replace( '$' + p + '$', '' );
+					}
+
+					cnt++;
+				}
+
+				if ( msg == '' && g_devmode )
+				{
+					console.log( 'i18nGetMessage error [' + id + ']' );
+				}
+				
+				return msg;
+			}
+			else
+			{
+				if ( g_message_data[id].message == '' && g_devmode )
+				{
+					console.log( 'i18nGetMessage error [' + id + ']' );
+				}
+				
+				return g_message_data[id].message;
+			}
+		}
+	}
+	else
+	{
+		return '';
+	}
 }

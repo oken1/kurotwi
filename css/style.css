@@ -515,6 +515,17 @@ input[type=text] {
 	outline: none;
 }
 
+/* セレクトボックス */
+select {
+	display: inline-block;
+	padding: 7px 6px 5px 6px;
+	border: 1px solid #101010;
+	box-shadow: 1px 1px 2px rgba( 0, 0, 0, 0.5 ) inset;
+	color: #000000;
+	background-color: #e7e7d4;
+	outline: none;
+}
+
 /* テキストエリア */
 textarea {
 	display: block;
@@ -632,15 +643,15 @@ input[type=file] {
 /* スライダー */
 .ui-slider {
 	display: inline-block;
-	border: 1px solid #101010;
-	background: -webkit-gradient(linear, left top, left bottom, from(#000404), to(#202424));
+	border: 1px solid #101010 !important;
+	background: -webkit-gradient(linear, left top, left bottom, from(#000404), to(#202424)) !important;
 	margin: 0 4px 0 4px;
 }
 
 .ui-slider .ui-slider-handle {
-	border: 1px solid #101010;
-	box-shadow: 1px 1px 2px #505050 inset;
-	background: -webkit-gradient(linear, left top, left bottom, from(#383838), to(#242424));
+	border: 1px solid #101010 !important;
+	box-shadow: 1px 1px 2px #505050 inset !important;
+	background: -webkit-gradient(linear, left top, left bottom, from(#383838), to(#242424)) !important;
 	cursor: pointer;
 }
 
@@ -952,4 +963,18 @@ div.selectbox .selectitems .selectitem.selected {
 
 	color: #ffffff;
 	background-color: #dc2d2d;
+}
+
+/* 初回言語選択 */
+#select_locale {
+	display: table;
+	position: relative;
+	margin: 0 auto;
+	top: 50%;
+}
+
+#select_locale > div {
+	display: table-cell;
+	vertical-align: middle;
+	padding: 0 4px;
 }

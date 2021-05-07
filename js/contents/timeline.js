@@ -1,5 +1,7 @@
 "use strict";
 
+const sim_stream = false
+
 ////////////////////////////////////////////////////////////////////////////////
 // タイムライン表示
 ////////////////////////////////////////////////////////////////////////////////
@@ -411,6 +413,7 @@ Contents.timeline = function( cp )
 			            			}
 
 									res.json = AppendQuotedStatusURL( res.json )
+
 
 									if ( res.json.extended_entities ) {
 										if ( res.json.extended_entities.media ) {
@@ -1038,6 +1041,21 @@ Contents.timeline = function( cp )
 
 									first_status_id = timeline_list.find( '> div.item' ).last().attr( 'status_id' );
 								}
+
+								if ( sim_stream ) {
+									timeline_list.find( '> div.item:lt(' + addcnt + ')' ).addClass( 'hiddentweet' ).hide()
+									
+									function ShowHiddenTweet() {
+										const _target = timeline_list.find( '> div.item.hiddentweet:last' )
+
+										if ( _target.length ) {
+											_target.removeClass( 'hiddentweet new' ).show()
+											setTimeout( ShowHiddenTweet, Math.floor( cp.param['reload_time'] / addcnt * 1000 ) )
+										}
+									}
+
+									ShowHiddenTweet()
+								}
 							}
 
 							break;
@@ -1193,7 +1211,8 @@ Contents.timeline = function( cp )
 				$( document ).trigger( 'panellist_changed' );
 
 				// 更新
-				lines.find( '.panel_btns' ).find( '.timeline_reload' ).trigger( 'click' );
+				timeline_list.trigger( 'reload_timer' );
+				ListMake( cp.param['get_count'], 'reload' );
 			}
 		} );
 

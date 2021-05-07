@@ -1,0 +1,916 @@
+{
+    "manifest_description": {
+        "message": "Dies ist eine Anwendung, mit der Sie Twitter-Timelines, RSS-Feeds usw. frei platzieren können."
+    },
+    "locale": {
+        "message": "de"
+    },
+    "i18n_0001": {
+        "message": "Retweeted von {$$rt_screen_name}"
+    },
+    "i18n_0009": {
+        "message": "{$$user} hat {$count} Follow-Anfragen."
+    },
+    "i18n_0011": {
+        "message": "Die Timeline konnte nicht abgerufen werden."
+    },
+    "i18n_0013": {
+        "message": "Retweeted von $$$screen_name$.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0015": {
+        "message": "Text"
+    },
+    "i18n_0019": {
+        "message": "PNG, JPEG, GIF unter 700KB"
+    },
+    "i18n_0021": {
+        "message": "DM"
+    },
+    "i18n_0026": {
+        "message": "Erwähnung"
+    },
+    "i18n_0028": {
+        "message": "NG-Einstellungen"
+    },
+    "i18n_0029": {
+        "message": "Jetzt durchsuchen"
+    },
+    "i18n_0032": {
+        "message": "RSS-Panel"
+    },
+    "i18n_0033": {
+        "message": "RSS-Panel-Liste"
+    },
+    "i18n_0037": {
+        "message": "TL-Flussgeschwindigkeit"
+    },
+    "i18n_0038": {
+        "message": "Twitter-Verlauf"
+    },
+    "i18n_0040": {
+        "message": "Web"
+    },
+    "i18n_0041": {
+        "message": "Icons"
+    },
+    "i18n_0043": {
+        "message": "Icon ändern"
+    },
+    "i18n_0044": {
+        "message": "Konto"
+    },
+    "i18n_0045": {
+        "message": "Konnte Ihr Konto nicht hinzufügen."
+    },
+    "i18n_0046": {
+        "message": "Kontoinformationen abrufen"
+    },
+    "i18n_0047": {
+        "message": "Konto-Einstellungen"
+    },
+    "i18n_0048": {
+        "message": "Konto ändern"
+    },
+    "i18n_0049": {
+        "message": "Zugriffstoken konnte nicht abgerufen werden."
+    },
+    "i18n_0050": {
+        "message": "Hochladen"
+    },
+    "i18n_0052": {
+        "message": "importieren"
+    },
+    "i18n_0053": {
+        "message": "Exportieren"
+    },
+    "i18n_0054": {
+        "message": "Wie"
+    },
+    "i18n_0057": {
+        "message": "Die Registrierung als Favorit ist fehlgeschlagen."
+    },
+    "i18n_0059": {
+        "message": "Client"
+    },
+    "i18n_0064": {
+        "message": "Diese URL ist nicht verfügbar."
+    },
+    "i18n_0069": {
+        "message": "Es können keine weiteren hinzugefügt werden."
+    },
+    "i18n_0070": {
+        "message": "Automatisch Miniaturbilder anzeigen"
+    },
+    "i18n_0071": {
+        "message": "Spam melden"
+    },
+    "i18n_0072": {
+        "message": "Konnte keinen Spam melden."
+    },
+    "i18n_0073": {
+        "message": "Alle Konten werden gelöscht. Sind Sie sicher?"
+    },
+    "i18n_0075": {
+        "message": "Titel"
+    },
+    "i18n_0076": {
+        "message": "Bitte geben Sie einen Titel ein"
+    },
+    "i18n_0077": {
+        "message": "Zeitleiste"
+    },
+    "i18n_0078": {
+        "message": "Maximale Anzahl von Tweets, die in der Timeline angezeigt werden sollen"
+    },
+    "i18n_0081": {
+        "message": "Eine Direktnachricht konnte nicht gesendet werden."
+    },
+    "i18n_0083": {
+        "message": "Tweet"
+    },
+    "i18n_0086": {
+        "message": "Schnelltaste für Tweet"
+    },
+    "i18n_0087": {
+        "message": "Konnte nicht tweeten."
+    },
+    "i18n_0090": {
+        "message": "Werkzeuge"
+    },
+    "i18n_0091": {
+        "message": "Aus Symbolleiste entfernen"
+    },
+    "i18n_0092": {
+        "message": "Zur Symbolleiste hinzufügen"
+    },
+    "i18n_0093": {
+        "message": "Desktop-Benachrichtigungen"
+    },
+    "i18n_0094": {
+        "message": "Desktop-Benachrichtigungsverlauf"
+    },
+    "i18n_0095": {
+        "message": "Trend"
+    },
+    "i18n_0096": {
+        "message": "Der Trend konnte nicht abgerufen werden."
+    },
+    "i18n_0098": {
+        "message": " "
+    },
+    "i18n_0099": {
+        "message": "Beim Abrufen der Kontoinformationen für $screen_name$ ist ein Fehler aufgetreten.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0105": {
+        "message": "$q$",
+        "placeholders": {
+            "q": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0106": {
+        "message": "Das Abrufen von $follow$ ist fehlgeschlagen.",
+        "placeholders": {
+            "follow": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0107": {
+        "message": "Informationen für"
+    },
+    "i18n_0108": {
+        "message": "Hashtag"
+    },
+    "i18n_0109": {
+        "message": "Ungültiger Hashtag."
+    },
+    "i18n_0113": {
+        "message": "An Panelgröße anpassen"
+    },
+    "i18n_0114": {
+        "message": "Aktivieren Sie das Einrasten des Panels."
+    },
+    "i18n_0116": {
+        "message": "Schließen Sie das Panel. Sind Sie sicher?"
+    },
+    "i18n_0118": {
+        "message": "Die Datei konnte nicht hochgeladen werden."
+    },
+    "i18n_0119": {
+        "message": "Bitte wählen Sie eine Datei aus."
+    },
+    "i18n_0120": {
+        "message": "Datei auswählen"
+    },
+    "i18n_0121": {
+        "message": "Feed registrieren"
+    },
+    "i18n_0122": {
+        "message": "Follower"
+    },
+    "i18n_0123": {
+        "message": "Follower-ID abrufen"
+    },
+    "i18n_0124": {
+        "message": "Follower kann nicht abgerufen werden."
+    },
+    "i18n_0125": {
+        "message": "Folgen Sie"
+    },
+    "i18n_0127": {
+        "message": "Ich möchte Ihnen folgen. Sind Sie sicher?"
+    },
+    "i18n_0128": {
+        "message": "Folgen Sie mir"
+    },
+    "i18n_0129": {
+        "message": "Konnte Ihnen nicht folgen."
+    },
+    "i18n_0130": {
+        "message": "Benachrichtigen Sie mich, dass Sie eine Follow-Anfrage haben."
+    },
+    "i18n_0131": {
+        "message": "Konnte keine Folgeanforderung erhalten."
+    },
+    "i18n_0132": {
+        "message": "Folge-Anfrage erhalten"
+    },
+    "i18n_0133": {
+        "message": "Ich möchte Ihnen nicht folgen. Sind Sie sicher?"
+    },
+    "i18n_0134": {
+        "message": "Ich konnte Ihnen nicht folgen."
+    },
+    "i18n_0135": {
+        "message": "Unfollow"
+    },
+    "i18n_0136": {
+        "message": "Schriftgröße"
+    },
+    "i18n_0137": {
+        "message": "Freundes-ID abrufen"
+    },
+    "i18n_0138": {
+        "message": "Konnte keine Freundes-ID erhalten."
+    },
+    "i18n_0139": {
+        "message": "Ich werde Sie blockieren. Sind Sie sicher?"
+    },
+    "i18n_0140": {
+        "message": "Blockieren"
+    },
+    "i18n_0141": {
+        "message": "Blockieren fehlgeschlagen."
+    },
+    "i18n_0142": {
+        "message": "Der blockierte Benutzer konnte nicht ermittelt werden."
+    },
+    "i18n_0143": {
+        "message": "Blockierte Benutzer-ID abrufen"
+    },
+    "i18n_0144": {
+        "message": "Entsperren. Sind Sie sicher?"
+    },
+    "i18n_0145": {
+        "message": "Entsperrung fehlgeschlagen."
+    },
+    "i18n_0146": {
+        "message": "Aufheben der Blockierung"
+    },
+    "i18n_0147": {
+        "message": "Das Speichern des Profils ist fehlgeschlagen."
+    },
+    "i18n_0148": {
+        "message": "Profil bearbeiten"
+    },
+    "i18n_0149": {
+        "message": "Direkte Nachricht an $screen_name$.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0150": {
+        "message": "Senden Sie eine Direktnachricht von $von$ an $zu$. Sind Sie sicher?",
+        "placeholders": {
+            "from": {
+                "content": "$1"
+            },
+            "to": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0151": {
+        "message": "<span>Antworten Sie auf </span>{$$item->status}."
+    },
+    "i18n_0152": {
+        "message": "Startseite"
+    },
+    "i18n_0153": {
+        "message": "Ein Miniaturbild bei Mouseover anzeigen"
+    },
+    "i18n_0154": {
+        "message": "Bei Mouseover eine verkürzte URL ausklappen"
+    },
+    "i18n_0155": {
+        "message": "Menü"
+    },
+    "i18n_0157": {
+        "message": "Mehr lesen"
+    },
+    "i18n_0159": {
+        "message": "Benutzer-Suche"
+    },
+    "i18n_0160": {
+        "message": "Fehler beim Abrufen von Benutzerinformationen."
+    },
+    "i18n_0161": {
+        "message": "Benutzer"
+    },
+    "i18n_0166": {
+        "message": "Das Anfrage-Token konnte nicht abgerufen werden. <br>Bitte stellen Sie sicher, dass Ihre PC-Uhr nicht aus dem Takt geraten ist."
+    },
+    "i18n_0167": {
+        "message": "Liste"
+    },
+    "i18n_0168": {
+        "message": "Zur Liste hinzufügen"
+    },
+    "i18n_0169": {
+        "message": "Das Abrufen der Liste ist fehlgeschlagen."
+    },
+    "i18n_0170": {
+        "message": "Das Erstellen der Liste ist fehlgeschlagen."
+    },
+    "i18n_0171": {
+        "message": "Listenname"
+    },
+    "i18n_0172": {
+        "message": "Der Name der Liste ist zu lang."
+    },
+    "i18n_0173": {
+        "message": "Bitte geben Sie einen Listennamen ein."
+    },
+    "i18n_0175": {
+        "message": "Retweeten. Sind Sie sicher?"
+    },
+    "i18n_0176": {
+        "message": "Wählen Sie ein Konto zum Retweeten aus."
+    },
+    "i18n_0177": {
+        "message": "Konnte nicht retweeten."
+    },
+    "i18n_0178": {
+        "message": "Keine doppelten Retweets anzeigen."
+    },
+    "i18n_0180": {
+        "message": "Leser-Einstellungen"
+    },
+    "i18n_0181": {
+        "message": "Wort"
+    },
+    "i18n_0182": {
+        "message": "$screen_name$ wurde zu $name$ hinzugefügt.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            },
+            "name": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0183": {
+        "message": "Konnte $screen_name$ nicht zu $name$ hinzufügen.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            },
+            "name": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0184": {
+        "message": "Ich melde dies als Spam. Sind Sie sicher?"
+    },
+    "i18n_0185": {
+        "message": "Löschen Sie $name$. Sind Sie sich sicher?",
+        "placeholders": {
+            "name": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0188": {
+        "message": "Standort-Fix"
+    },
+    "i18n_0189": {
+        "message": "Standort-Informationen"
+    },
+    "i18n_0191": {
+        "message": "Anzahl der abzurufenden Tweets auf einmal"
+    },
+    "i18n_0192": {
+        "message": "Nach unten gehen"
+    },
+    "i18n_0194": {
+        "message": "Nach oben"
+    },
+    "i18n_0195": {
+        "message": "Zitat"
+    },
+    "i18n_0196": {
+        "message": "Englisch-Japanisch-Übersetzung"
+    },
+    "i18n_0198": {
+        "message": "Lautstärke der Benachrichtigung"
+    },
+    "i18n_0199": {
+        "message": "Bild"
+    },
+    "i18n_0201": {
+        "message": "Bild anhängen"
+    },
+    "i18n_0203": {
+        "message": "Monat"
+    },
+    "i18n_0204": {
+        "message": "Artikel"
+    },
+    "i18n_0205": {
+        "message": "Artikel"
+    },
+    "i18n_0206": {
+        "message": "Suche"
+    },
+    "i18n_0207": {
+        "message": "Memo suchen"
+    },
+    "i18n_0208": {
+        "message": "Suche speichern"
+    },
+    "i18n_0209": {
+        "message": "Das Suchmemo konnte nicht abgerufen werden."
+    },
+    "i18n_0211": {
+        "message": "Die Suche konnte nicht gespeichert werden."
+    },
+    "i18n_0212": {
+        "message": "Suchmemo abrufen"
+    },
+    "i18n_0213": {
+        "message": "Das Suchergebnis konnte nicht abgerufen werden."
+    },
+    "i18n_0215": {
+        "message": "Zum Originaltext zurückkehren"
+    },
+    "i18n_0217": {
+        "message": "Veröffentlicht"
+    },
+    "i18n_0218": {
+        "message": "Aktualisieren"
+    },
+    "i18n_0219": {
+        "message": "Wiedergeben"
+    },
+    "i18n_0221": {
+        "message": "Letzte Tweets"
+    },
+    "i18n_0222": {
+        "message": "Erstellen"
+    },
+    "i18n_0223": {
+        "message": "Löschen"
+    },
+    "i18n_0224": {
+        "message": "Ich möchte meinen Tweet löschen. Sind Sie sicher?"
+    },
+    "i18n_0225": {
+        "message": "Kann nicht gelöscht werden."
+    },
+    "i18n_0226": {
+        "message": "Hören Sie"
+    },
+    "i18n_0227": {
+        "message": "Über mich"
+    },
+    "i18n_0228": {
+        "message": "Automatisch aktualisieren"
+    },
+    "i18n_0229": {
+        "message": "Ansicht in Realgröße"
+    },
+    "i18n_0230": {
+        "message": "Ausführung"
+    },
+    "i18n_0231": {
+        "message": "Anzahl der abgerufenen Einträge"
+    },
+    "i18n_0232": {
+        "message": "Details"
+    },
+    "i18n_0233": {
+        "message": "Standort"
+    },
+    "i18n_0236": {
+        "message": "Erstellt"
+    },
+    "i18n_0237": {
+        "message": "Neue Eingänge"
+    },
+    "i18n_0238": {
+        "message": "Über Neuzugänge benachrichtigen"
+    },
+    "i18n_0239": {
+        "message": "Zu neuen Tweets blättern"
+    },
+    "i18n_0240": {
+        "message": "Neu eingetroffene Tweets lesen"
+    },
+    "i18n_0242": {
+        "message": "Einstellungen"
+    },
+    "i18n_0244": {
+        "message": "Beschreibung"
+    },
+    "i18n_0245": {
+        "message": "Die Beschreibung ist zu lang."
+    },
+    "i18n_0246": {
+        "message": "Alles löschen"
+    },
+    "i18n_0247": {
+        "message": "Allgemein"
+    },
+    "i18n_0249": {
+        "message": "Markierung für gegenseitiges Folgen anzeigen"
+    },
+    "i18n_0250": {
+        "message": "Senden"
+    },
+    "i18n_0251": {
+        "message": "Gesendete DMs"
+    },
+    "i18n_0253": {
+        "message": "Hinzufügen"
+    },
+    "i18n_0255": {
+        "message": "Anwenden"
+    },
+    "i18n_0256": {
+        "message": "Angefügtes Bild"
+    },
+    "i18n_0257": {
+        "message": "Bereits registriert."
+    },
+    "i18n_0258": {
+        "message": "Konnte nicht geladen werden"
+    },
+    "i18n_0259": {
+        "message": "Japanisch"
+    },
+    "i18n_0260": {
+        "message": "Übersetzung Japanisch-Englisch"
+    },
+    "i18n_0261": {
+        "message": "Japan"
+    },
+    "i18n_0263": {
+        "message": "Verifiziertes Konto"
+    },
+    "i18n_0264": {
+        "message": "Jahr"
+    },
+    "i18n_0265": {
+        "message": "Privat"
+    },
+    "i18n_0266": {
+        "message": "Privates Konto"
+    },
+    "i18n_0270": {
+        "message": "Zweite"
+    },
+    "i18n_0272": {
+        "message": "Minuten"
+    },
+    "i18n_0273": {
+        "message": "Schließen"
+    },
+    "i18n_0274": {
+        "message": "Antworten"
+    },
+    "i18n_0275": {
+        "message": "Ihr Tweet konnte nicht abgerufen werden."
+    },
+    "i18n_0277": {
+        "message": "Antwort anzeigen"
+    },
+    "i18n_0278": {
+        "message": "Speichern"
+    },
+    "i18n_0280": {
+        "message": "Ungültig"
+    },
+    "i18n_0281": {
+        "message": "Name"
+    },
+    "i18n_0282": {
+        "message": "Gültig"
+    },
+    "i18n_0283": {
+        "message": "Das Abrufen der Städteliste ist fehlgeschlagen."
+    },
+    "i18n_0285": {
+        "message": "Die Anzahl der Ausführungsmöglichkeiten wurde überschritten. <br>Diese Funktion kann $limit$ mal / 15 Minuten ausgeführt werden. <br>Das Limit wird am $Datum$ aufgehoben.",
+        "placeholders": {
+            "limit": {
+                "content": "$1"
+            },
+            "date": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0286": {
+        "message": "Dies ist ein privates Konto."
+    },
+    "i18n_0287": {
+        "message": "Nach oben verschieben"
+    },
+    "i18n_0288": {
+        "message": "Nach unten verschieben"
+    },
+    "i18n_0290": {
+        "message": "mehr"
+    },
+    "i18n_0291": {
+        "message": "Benutzer-Zeitleiste"
+    },
+    "i18n_0292": {
+        "message": "Benutzer-Infos"
+    },
+    "i18n_0293": {
+        "message": "Antwort erhalten von"
+    },
+    "i18n_0294": {
+        "message": "Liste der Listen"
+    },
+    "i18n_0295": {
+        "message": "Trending Cities Liste"
+    },
+    "i18n_0296": {
+        "message": "API verbleibend"
+    },
+    "i18n_0297": {
+        "message": "Konfiguration"
+    },
+    "i18n_0298": {
+        "message": "Konnte die Anzahl der verbleibenden APIs nicht abrufen."
+    },
+    "i18n_0299": {
+        "message": "Zeit"
+    },
+    "i18n_0300": {
+        "message": "Name der Schriftart"
+    },
+    "i18n_0301": {
+        "message": "Zu suchende Sprache"
+    },
+    "i18n_0302": {
+        "message": "Alle"
+    },
+    "i18n_0303": {
+        "message": "Nur Japanisch"
+    },
+    "i18n_0304": {
+        "message": "Tweet-Zeitanzeigeformat (erfordert Neustart)"
+    },
+    "i18n_0305": {
+        "message": "Absolute Zeit"
+    },
+    "i18n_0306": {
+        "message": "Relative Zeit"
+    },
+    "i18n_0307": {
+        "message": "Namensanzeigeformat (erfordert Neustart)"
+    },
+    "i18n_0308": {
+        "message": "Name des Benutzers"
+    },
+    "i18n_0309": {
+        "message": "Andere"
+    },
+    "i18n_0310": {
+        "message": "Jetzt blätternder Text"
+    },
+    "i18n_0311": {
+        "message": "Nach oben/unten spiegeln"
+    },
+    "i18n_0312": {
+        "message": "Nach links/rechts spiegeln"
+    },
+    "i18n_0313": {
+        "message": "Drehen"
+    },
+    "i18n_0314": {
+        "message": "Retweeten"
+    },
+    "i18n_0316": {
+        "message": "Follower und Follower-Liste"
+    },
+    "i18n_0317": {
+        "message": "Entwerfen"
+    },
+    "i18n_0318": {
+        "message": "Block-Benutzer-ID abrufen"
+    },
+    "i18n_0319": {
+        "message": "Follower-Benutzer-ID abrufen"
+    },
+    "i18n_0320": {
+        "message": "Follower-Benutzer-ID abrufen"
+    },
+    "i18n_0321": {
+        "message": "Follow-Anfrage abrufen"
+    },
+    "i18n_0322": {
+        "message": "Entwurf speichern"
+    },
+    "i18n_0323": {
+        "message": "Lesezeichen"
+    },
+    "i18n_0324": {
+        "message": "Versteckten RT-Benutzer abrufen"
+    },
+    "i18n_0325": {
+        "message": "Fehler beim Abrufen des versteckten RT-Benutzers."
+    },
+    "i18n_0326": {
+        "message": "RT-versteckte Benutzer-ID abrufen"
+    },
+    "i18n_0333": {
+        "message": "Es gibt $count$ Folgeanfragen für $user$.",
+        "placeholders": {
+            "user": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0338": {
+        "message": "Zu NG hinzufügen"
+    },
+    "i18n_0340": {
+        "message": "Bildlaufleiste über die Seite"
+    },
+    "i18n_0341": {
+        "message": "Vertikaler Bildlauf"
+    },
+    "i18n_0342": {
+        "message": "Horizontaler Bildlauf"
+    },
+    "i18n_0343": {
+        "message": "Retweets aus den Suchergebnissen ausschließen"
+    },
+    "i18n_0344": {
+        "message": "Panel-Liste"
+    },
+    "i18n_0345": {
+        "message": "Aktualisiert von Ver.$from$ auf Ver.$to$!",
+        "placeholders": {
+            "from": {
+                "content": "$1"
+            },
+            "to": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0346": {
+        "message": "Status und Einstellungen"
+    },
+    "i18n_0347": {
+        "message": "Export-Fehler"
+    },
+    "i18n_0348": {
+        "message": "Import-Fehler"
+    },
+    "i18n_0351": {
+        "message": "Individuelle Anzeige"
+    },
+    "i18n_0352": {
+        "message": "Retweet prüfen"
+    },
+    "i18n_0356": {
+        "message": "Die maximale Anzahl von Zeichen wurde überschritten ($cnt$/$max$)",
+        "placeholders": {
+            "cnt": {
+                "content": "$1"
+            },
+            "max": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0357": {
+        "message": "Zusammenfassung anzeigen"
+    },
+    "i18n_0358": {
+        "message": "Diese URL wurde in ln.is umgeschrieben"
+    },
+    "i18n_0360": {
+        "message": "Stummschalten"
+    },
+    "i18n_0361": {
+        "message": "Benutzer konnte nicht stummgeschaltet werden."
+    },
+    "i18n_0362": {
+        "message": "Fehler beim Abrufen des stummen Benutzers."
+    },
+    "i18n_0363": {
+        "message": "Stummgeschaltete Benutzer-ID abrufen"
+    },
+    "i18n_0365": {
+        "message": "Konnte Stummschaltung nicht aufheben."
+    },
+    "i18n_0366": {
+        "message": "Stummschaltung aufheben"
+    },
+    "i18n_0367": {
+        "message": "Stummgeschaltete Benutzer-ID abrufen"
+    },
+    "i18n_0368": {
+        "message": "Farbeinstellungen"
+    },
+    "i18n_0369": {
+        "message": "Bedienfeld"
+    },
+    "i18n_0370": {
+        "message": "Tweets"
+    },
+    "i18n_0371": {
+        "message": "Titelleiste"
+    },
+    "i18n_0372": {
+        "message": "Schaltflächen"
+    },
+    "i18n_0373": {
+        "message": "Hintergrund"
+    },
+    "i18n_0374": {
+        "message": "Text"
+    },
+    "i18n_0375": {
+        "message": "Link"
+    },
+    "i18n_0376": {
+        "message": "Panel mit fester Position"
+    },
+    "i18n_0377": {
+        "message": "Zurücksetzen"
+    },
+    "i18n_0378": {
+        "message": "Tweet-Farbeinstellungen"
+    },
+    "i18n_0379": {
+        "message": "Farbeinstellungen importieren"
+    },
+    "i18n_0380": {
+        "message": "Bildlaufleisten"
+    },
+    "i18n_0381": {
+        "message": "Einklemmen"
+    },
+    "i18n_0382": {
+        "message": "Im Panel öffnen"
+    },
+    "i18n_0389": {
+        "message": "Sprache (Neustart erforderlich)"
+    },
+    "i18n_9997": {
+        "message": ""
+    },
+    "i18n_9998": {
+        "message": ""
+    },
+    "i18n_9999": {
+        "message": ""
+    }
+}

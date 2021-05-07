@@ -1,0 +1,916 @@
+{
+    "manifest_description": {
+        "message": "Esta é uma aplicação que permite colocar livremente linhas de tempo do Twitter, feeds RSS, etc."
+    },
+    "locale": {
+        "message": "pt_BR"
+    },
+    "i18n_0001": {
+        "message": "Retweeted by {$$rt_screen_name}"
+    },
+    "i18n_0009": {
+        "message": "{$$usuário} tem {$conta} seguido os pedidos."
+    },
+    "i18n_0011": {
+        "message": "Não conseguiu recuperar a linha do tempo."
+    },
+    "i18n_0013": {
+        "message": "Retweeted por $$nome_da_tela$.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0015": {
+        "message": "Texto"
+    },
+    "i18n_0019": {
+        "message": "PNG, JPEG, GIF abaixo de 700KB"
+    },
+    "i18n_0021": {
+        "message": "DM"
+    },
+    "i18n_0026": {
+        "message": "Mencione"
+    },
+    "i18n_0028": {
+        "message": "Configurações NG"
+    },
+    "i18n_0029": {
+        "message": "Agora navegando"
+    },
+    "i18n_0032": {
+        "message": "Painel RSS"
+    },
+    "i18n_0033": {
+        "message": "Lista de painéis RSS"
+    },
+    "i18n_0037": {
+        "message": "Velocidade de fluxo TL"
+    },
+    "i18n_0038": {
+        "message": "História do Twitter"
+    },
+    "i18n_0040": {
+        "message": "Web"
+    },
+    "i18n_0041": {
+        "message": "Ícones"
+    },
+    "i18n_0043": {
+        "message": "Ícone de mudança"
+    },
+    "i18n_0044": {
+        "message": "Conta"
+    },
+    "i18n_0045": {
+        "message": "Falha ao adicionar sua conta."
+    },
+    "i18n_0046": {
+        "message": "Obtenha informações sobre sua conta"
+    },
+    "i18n_0047": {
+        "message": "Configurações da conta"
+    },
+    "i18n_0048": {
+        "message": "Mudança de conta"
+    },
+    "i18n_0049": {
+        "message": "Falha na obtenção de um token de acesso."
+    },
+    "i18n_0050": {
+        "message": "Upload"
+    },
+    "i18n_0052": {
+        "message": "Importando"
+    },
+    "i18n_0053": {
+        "message": "Exportação"
+    },
+    "i18n_0054": {
+        "message": "Como"
+    },
+    "i18n_0057": {
+        "message": "Não conseguiu se registrar como um favorito."
+    },
+    "i18n_0059": {
+        "message": "Cliente"
+    },
+    "i18n_0064": {
+        "message": "Esta URL não está disponível."
+    },
+    "i18n_0069": {
+        "message": "Não é mais possível adicionar."
+    },
+    "i18n_0070": {
+        "message": "Exibição automática de imagens em miniatura"
+    },
+    "i18n_0071": {
+        "message": "Relatar Spam"
+    },
+    "i18n_0072": {
+        "message": "Não foi possível reportar spam."
+    },
+    "i18n_0073": {
+        "message": "Todas as contas serão apagadas. Você tem certeza?"
+    },
+    "i18n_0075": {
+        "message": "Título"
+    },
+    "i18n_0076": {
+        "message": "Por favor, digite um título"
+    },
+    "i18n_0077": {
+        "message": "Linha do tempo"
+    },
+    "i18n_0078": {
+        "message": "Número máximo de tweets a serem exibidos na linha do tempo"
+    },
+    "i18n_0081": {
+        "message": "Falha no envio de uma mensagem direta."
+    },
+    "i18n_0083": {
+        "message": "Tweet"
+    },
+    "i18n_0086": {
+        "message": "Tecla de atalho do Twitter"
+    },
+    "i18n_0087": {
+        "message": "Falha no tweet."
+    },
+    "i18n_0090": {
+        "message": "Ferramentas"
+    },
+    "i18n_0091": {
+        "message": "Remover da barra de ferramentas"
+    },
+    "i18n_0092": {
+        "message": "Adicionar à barra de ferramentas"
+    },
+    "i18n_0093": {
+        "message": "Notificações de mesa"
+    },
+    "i18n_0094": {
+        "message": "Histórico de Notificações de Mesa"
+    },
+    "i18n_0095": {
+        "message": "Tendência"
+    },
+    "i18n_0096": {
+        "message": "Falhou em obter a tendência."
+    },
+    "i18n_0098": {
+        "message": " "
+    },
+    "i18n_0099": {
+        "message": "Ocorreu um erro na obtenção de informações de conta por $screen_name$.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0105": {
+        "message": "$q$",
+        "placeholders": {
+            "q": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0106": {
+        "message": "Falha na obtenção de $segundo $.",
+        "placeholders": {
+            "follow": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0107": {
+        "message": "Informações para"
+    },
+    "i18n_0108": {
+        "message": "Hashtag"
+    },
+    "i18n_0109": {
+        "message": "Hashtag inválido."
+    },
+    "i18n_0113": {
+        "message": "Adequado ao tamanho do painel"
+    },
+    "i18n_0114": {
+        "message": "Habilitar a abertura do painel."
+    },
+    "i18n_0116": {
+        "message": "Fechar o painel. Você tem certeza?"
+    },
+    "i18n_0118": {
+        "message": "Falha ao fazer o upload do arquivo."
+    },
+    "i18n_0119": {
+        "message": "Por favor, selecione um arquivo."
+    },
+    "i18n_0120": {
+        "message": "Selecione o arquivo"
+    },
+    "i18n_0121": {
+        "message": "Alimentação de registro"
+    },
+    "i18n_0122": {
+        "message": "Seguidor"
+    },
+    "i18n_0123": {
+        "message": "Obter identificação do seguidor"
+    },
+    "i18n_0124": {
+        "message": "Falha em obter seguidor."
+    },
+    "i18n_0125": {
+        "message": "Siga"
+    },
+    "i18n_0127": {
+        "message": "Eu quero segui-lo. Você tem certeza?"
+    },
+    "i18n_0128": {
+        "message": "Siga-me"
+    },
+    "i18n_0129": {
+        "message": "Não pude segui-lo."
+    },
+    "i18n_0130": {
+        "message": "Notifique-me que você tem um pedido de acompanhamento."
+    },
+    "i18n_0131": {
+        "message": "Falha em obter uma solicitação de acompanhamento."
+    },
+    "i18n_0132": {
+        "message": "Receba a seguinte solicitação"
+    },
+    "i18n_0133": {
+        "message": "Quero desatendê-lo. Você tem certeza?"
+    },
+    "i18n_0134": {
+        "message": "Não poderia lhe desatar a seguir."
+    },
+    "i18n_0135": {
+        "message": "Não poderia desatendê-lo"
+    },
+    "i18n_0136": {
+        "message": "Tamanho de letra"
+    },
+    "i18n_0137": {
+        "message": "Obter a identificação do amigo"
+    },
+    "i18n_0138": {
+        "message": "Falha na obtenção de identificação de amigo."
+    },
+    "i18n_0139": {
+        "message": "Eu vou bloqueá-lo. Você tem certeza?"
+    },
+    "i18n_0140": {
+        "message": "Bloqueio"
+    },
+    "i18n_0141": {
+        "message": "Falha no bloqueio."
+    },
+    "i18n_0142": {
+        "message": "Falha em ser bloqueado usuário."
+    },
+    "i18n_0143": {
+        "message": "Obtenção de identificação do usuário bloqueado."
+    },
+    "i18n_0144": {
+        "message": "Desbloquear. Você tem certeza?"
+    },
+    "i18n_0145": {
+        "message": "Falha no desbloqueio."
+    },
+    "i18n_0146": {
+        "message": "Desbloquear"
+    },
+    "i18n_0147": {
+        "message": "Falha em salvar seu perfil."
+    },
+    "i18n_0148": {
+        "message": "Editar perfil"
+    },
+    "i18n_0149": {
+        "message": "Mensagem direta para $screen_name$.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0150": {
+        "message": "Envie uma mensagem direta de $from$ a $to$. Você tem certeza?",
+        "placeholders": {
+            "from": {
+                "content": "$1"
+            },
+            "to": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0151": {
+        "message": "<span>Responder a </span>{$$item->status}."
+    },
+    "i18n_0152": {
+        "message": "Home"
+    },
+    "i18n_0153": {
+        "message": "Mostrar uma imagem em miniatura no mouseover"
+    },
+    "i18n_0154": {
+        "message": "Expandir um URL abreviado em cima do mouse"
+    },
+    "i18n_0155": {
+        "message": "Menu"
+    },
+    "i18n_0157": {
+        "message": "Leia mais"
+    },
+    "i18n_0159": {
+        "message": "Busca do usuário"
+    },
+    "i18n_0160": {
+        "message": "Falha na recuperação de informações do usuário."
+    },
+    "i18n_0161": {
+        "message": "Usuário"
+    },
+    "i18n_0166": {
+        "message": "Falha em recuperar a ficha de solicitação. <br>Por favor, certifique-se de que o relógio do seu PC não esteja fora de sincronia."
+    },
+    "i18n_0167": {
+        "message": "Lista"
+    },
+    "i18n_0168": {
+        "message": "Adicionar à lista"
+    },
+    "i18n_0169": {
+        "message": "Falha em recuperar a lista."
+    },
+    "i18n_0170": {
+        "message": "Falha em criar a lista."
+    },
+    "i18n_0171": {
+        "message": "Nome da lista"
+    },
+    "i18n_0172": {
+        "message": "O nome da lista é muito longo."
+    },
+    "i18n_0173": {
+        "message": "Por favor, digite um nome de lista."
+    },
+    "i18n_0175": {
+        "message": "Retweeting. Você tem certeza?"
+    },
+    "i18n_0176": {
+        "message": "Selecione uma conta para redobrar."
+    },
+    "i18n_0177": {
+        "message": "Não foi possível redobrar."
+    },
+    "i18n_0178": {
+        "message": "Não mostrar retoques duplicados."
+    },
+    "i18n_0180": {
+        "message": "Configurações do leitor"
+    },
+    "i18n_0181": {
+        "message": "Palavra"
+    },
+    "i18n_0182": {
+        "message": "$nome_da_tela$ foi adicionado a $nome$.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            },
+            "name": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0183": {
+        "message": "Não foi possível adicionar $nome_da_tela$ a $nome$.",
+        "placeholders": {
+            "screen_name": {
+                "content": "$1"
+            },
+            "name": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0184": {
+        "message": "Estou reportando isto como spam. Você tem certeza?"
+    },
+    "i18n_0185": {
+        "message": "Excluir $name$. Você tem certeza?",
+        "placeholders": {
+            "name": {
+                "content": "$1"
+            }
+        }
+    },
+    "i18n_0188": {
+        "message": "Correção do local"
+    },
+    "i18n_0189": {
+        "message": "Informações sobre a localização"
+    },
+    "i18n_0191": {
+        "message": "Número de tweets a serem recuperados de cada vez"
+    },
+    "i18n_0192": {
+        "message": "Ir para o fundo"
+    },
+    "i18n_0194": {
+        "message": "Top"
+    },
+    "i18n_0195": {
+        "message": "Citação"
+    },
+    "i18n_0196": {
+        "message": "Tradução de inglês para japonês"
+    },
+    "i18n_0198": {
+        "message": "Volume de notificação"
+    },
+    "i18n_0199": {
+        "message": "Imagem"
+    },
+    "i18n_0201": {
+        "message": "Anexar imagem"
+    },
+    "i18n_0203": {
+        "message": "Mês"
+    },
+    "i18n_0204": {
+        "message": "Itens"
+    },
+    "i18n_0205": {
+        "message": "Itens"
+    },
+    "i18n_0206": {
+        "message": "Busca"
+    },
+    "i18n_0207": {
+        "message": "Memorando de busca"
+    },
+    "i18n_0208": {
+        "message": "Salvar busca"
+    },
+    "i18n_0209": {
+        "message": "Falha em recuperar o memorando de busca."
+    },
+    "i18n_0211": {
+        "message": "A busca não pôde ser salva."
+    },
+    "i18n_0212": {
+        "message": "Obter o memorando de busca"
+    },
+    "i18n_0213": {
+        "message": "Falha na recuperação dos resultados da busca."
+    },
+    "i18n_0215": {
+        "message": "Voltar ao texto original"
+    },
+    "i18n_0217": {
+        "message": "Publicado em"
+    },
+    "i18n_0218": {
+        "message": "Atualização"
+    },
+    "i18n_0219": {
+        "message": "Reprodução"
+    },
+    "i18n_0221": {
+        "message": "Últimos Tweets"
+    },
+    "i18n_0222": {
+        "message": "Criar"
+    },
+    "i18n_0223": {
+        "message": "Excluir"
+    },
+    "i18n_0224": {
+        "message": "Eu quero apagar meu tweet. Você tem certeza?"
+    },
+    "i18n_0225": {
+        "message": "Não foi possível apagar."
+    },
+    "i18n_0226": {
+        "message": "Ouça"
+    },
+    "i18n_0227": {
+        "message": "Sobre mim"
+    },
+    "i18n_0228": {
+        "message": "Atualização automática"
+    },
+    "i18n_0229": {
+        "message": "Vista em tamanho real"
+    },
+    "i18n_0230": {
+        "message": "Execução"
+    },
+    "i18n_0231": {
+        "message": "Número de entradas recuperadas"
+    },
+    "i18n_0232": {
+        "message": "Detalhes"
+    },
+    "i18n_0233": {
+        "message": "Localização"
+    },
+    "i18n_0236": {
+        "message": "Criado em"
+    },
+    "i18n_0237": {
+        "message": "Novas Chegadas"
+    },
+    "i18n_0238": {
+        "message": "Notifique-me sobre os recém-chegados"
+    },
+    "i18n_0239": {
+        "message": "Rolar para novos tweets"
+    },
+    "i18n_0240": {
+        "message": "Leia os recém-chegados"
+    },
+    "i18n_0242": {
+        "message": "Configurações"
+    },
+    "i18n_0244": {
+        "message": "Descrição"
+    },
+    "i18n_0245": {
+        "message": "A descrição é muito longa."
+    },
+    "i18n_0246": {
+        "message": "Excluir todos"
+    },
+    "i18n_0247": {
+        "message": "Geral"
+    },
+    "i18n_0249": {
+        "message": "Mostrar marca de acompanhamento mútuo"
+    },
+    "i18n_0250": {
+        "message": "Enviar"
+    },
+    "i18n_0251": {
+        "message": "Enviados DMs"
+    },
+    "i18n_0253": {
+        "message": "Adicione"
+    },
+    "i18n_0255": {
+        "message": "Aplicar"
+    },
+    "i18n_0256": {
+        "message": "Imagem anexada"
+    },
+    "i18n_0257": {
+        "message": "Já registrado."
+    },
+    "i18n_0258": {
+        "message": "Falha no carregamento"
+    },
+    "i18n_0259": {
+        "message": "Japonês"
+    },
+    "i18n_0260": {
+        "message": "Tradução do japonês para o inglês"
+    },
+    "i18n_0261": {
+        "message": "Japão"
+    },
+    "i18n_0263": {
+        "message": "Conta verificada"
+    },
+    "i18n_0264": {
+        "message": "Ano"
+    },
+    "i18n_0265": {
+        "message": "Particular"
+    },
+    "i18n_0266": {
+        "message": "Conta privada"
+    },
+    "i18n_0270": {
+        "message": "Segundo"
+    },
+    "i18n_0272": {
+        "message": "Ata"
+    },
+    "i18n_0273": {
+        "message": "Fechar"
+    },
+    "i18n_0274": {
+        "message": "Resposta"
+    },
+    "i18n_0275": {
+        "message": "Falha na recuperação de seu tweet."
+    },
+    "i18n_0277": {
+        "message": "Mostrar resposta"
+    },
+    "i18n_0278": {
+        "message": "Salvar"
+    },
+    "i18n_0280": {
+        "message": "Inválido"
+    },
+    "i18n_0281": {
+        "message": "Nome"
+    },
+    "i18n_0282": {
+        "message": "Válido"
+    },
+    "i18n_0283": {
+        "message": "Falha em recuperar a lista da cidade."
+    },
+    "i18n_0285": {
+        "message": "O número de vezes que ela pode ser executada foi excedido. <br>Esta função pode ser executada $limit$ vezes / 15 minutos. <br>O limite será levantado em $date$.",
+        "placeholders": {
+            "limit": {
+                "content": "$1"
+            },
+            "date": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0286": {
+        "message": "Esta é uma conta privada."
+    },
+    "i18n_0287": {
+        "message": "Subir"
+    },
+    "i18n_0288": {
+        "message": "Descer"
+    },
+    "i18n_0290": {
+        "message": "mais"
+    },
+    "i18n_0291": {
+        "message": "Linha do tempo do usuário"
+    },
+    "i18n_0292": {
+        "message": "Informações do usuário"
+    },
+    "i18n_0293": {
+        "message": "Obter resposta de"
+    },
+    "i18n_0294": {
+        "message": "Lista de Listas"
+    },
+    "i18n_0295": {
+        "message": "Lista de Cidades com Tendências"
+    },
+    "i18n_0296": {
+        "message": "API restante"
+    },
+    "i18n_0297": {
+        "message": "Configuração"
+    },
+    "i18n_0298": {
+        "message": "Falha em obter o número de APIs restantes."
+    },
+    "i18n_0299": {
+        "message": "Hora"
+    },
+    "i18n_0300": {
+        "message": "Nome da fonte"
+    },
+    "i18n_0301": {
+        "message": "Idioma a pesquisar"
+    },
+    "i18n_0302": {
+        "message": "Todos"
+    },
+    "i18n_0303": {
+        "message": "Somente japonês"
+    },
+    "i18n_0304": {
+        "message": "Formato de exibição do tempo de tweet (requer reinício)"
+    },
+    "i18n_0305": {
+        "message": "Tempo absoluto"
+    },
+    "i18n_0306": {
+        "message": "Tempo relativo"
+    },
+    "i18n_0307": {
+        "message": "Formato de exibição de nomes (requer reinicialização)"
+    },
+    "i18n_0308": {
+        "message": "Nome do usuário"
+    },
+    "i18n_0309": {
+        "message": "Outros"
+    },
+    "i18n_0310": {
+        "message": "Agora navegando pelo texto"
+    },
+    "i18n_0311": {
+        "message": "Acima/abaixo"
+    },
+    "i18n_0312": {
+        "message": "Virar à esquerda/direita"
+    },
+    "i18n_0313": {
+        "message": "Girar"
+    },
+    "i18n_0314": {
+        "message": "Retweet"
+    },
+    "i18n_0316": {
+        "message": "Seguidores e lista de seguidores"
+    },
+    "i18n_0317": {
+        "message": "Rascunho"
+    },
+    "i18n_0318": {
+        "message": "Obter ID do usuário do bloco"
+    },
+    "i18n_0319": {
+        "message": "Obter o ID do usuário dos seguidores"
+    },
+    "i18n_0320": {
+        "message": "Obter ID de usuário do seguidor"
+    },
+    "i18n_0321": {
+        "message": "Obter Pedido de acompanhamento"
+    },
+    "i18n_0322": {
+        "message": "Salvar Esboço"
+    },
+    "i18n_0323": {
+        "message": "Favoritos"
+    },
+    "i18n_0324": {
+        "message": "Obter RT usuário oculto"
+    },
+    "i18n_0325": {
+        "message": "Falha em obter RT usuário oculto."
+    },
+    "i18n_0326": {
+        "message": "Obter o ID de usuário oculto de RT"
+    },
+    "i18n_0333": {
+        "message": "Há $count$ seguir pedidos de $user$.",
+        "placeholders": {
+            "user": {
+                "content": "$1"
+            },
+            "count": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0338": {
+        "message": "Adicione ao NG"
+    },
+    "i18n_0340": {
+        "message": "Barra de rolagem através da página"
+    },
+    "i18n_0341": {
+        "message": "Pergaminho vertical"
+    },
+    "i18n_0342": {
+        "message": "Rolagem horizontal"
+    },
+    "i18n_0343": {
+        "message": "Excluir os retweets dos resultados da busca"
+    },
+    "i18n_0344": {
+        "message": "Lista de painéis"
+    },
+    "i18n_0345": {
+        "message": "Atualizado de Ver.$from$ para Ver.$to$!",
+        "placeholders": {
+            "from": {
+                "content": "$1"
+            },
+            "to": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0346": {
+        "message": "Status e configurações"
+    },
+    "i18n_0347": {
+        "message": "Erro de exportação"
+    },
+    "i18n_0348": {
+        "message": "Erro de importação"
+    },
+    "i18n_0351": {
+        "message": "Exibição individual"
+    },
+    "i18n_0352": {
+        "message": "Verificar Retweet"
+    },
+    "i18n_0356": {
+        "message": "O número máximo de caracteres foi excedido ($cnt$/$max$)",
+        "placeholders": {
+            "cnt": {
+                "content": "$1"
+            },
+            "max": {
+                "content": "$2"
+            }
+        }
+    },
+    "i18n_0357": {
+        "message": "Mostrar resumo"
+    },
+    "i18n_0358": {
+        "message": "Este URL foi reescrito para ln.is"
+    },
+    "i18n_0360": {
+        "message": "Mudo"
+    },
+    "i18n_0361": {
+        "message": "Falha em silenciar o usuário."
+    },
+    "i18n_0362": {
+        "message": "Falha em obter o usuário mudo."
+    },
+    "i18n_0363": {
+        "message": "Obter a identificação do usuário mudo"
+    },
+    "i18n_0365": {
+        "message": "Não podia ser indiscutível."
+    },
+    "i18n_0366": {
+        "message": "Indutela"
+    },
+    "i18n_0367": {
+        "message": "Obter o ID de usuário do Mudo"
+    },
+    "i18n_0368": {
+        "message": "Configurações de cor"
+    },
+    "i18n_0369": {
+        "message": "Painel"
+    },
+    "i18n_0370": {
+        "message": "Tweets"
+    },
+    "i18n_0371": {
+        "message": "Barra de título"
+    },
+    "i18n_0372": {
+        "message": "Botões"
+    },
+    "i18n_0373": {
+        "message": "Antecedentes"
+    },
+    "i18n_0374": {
+        "message": "Texto"
+    },
+    "i18n_0375": {
+        "message": "Link"
+    },
+    "i18n_0376": {
+        "message": "Painel de Posição Fixa"
+    },
+    "i18n_0377": {
+        "message": "Reinicialização"
+    },
+    "i18n_0378": {
+        "message": "Configurações de cor dos tweets"
+    },
+    "i18n_0379": {
+        "message": "Configurações de cores de importação"
+    },
+    "i18n_0380": {
+        "message": "Barras de rolagem"
+    },
+    "i18n_0381": {
+        "message": "Pinch"
+    },
+    "i18n_0382": {
+        "message": "Aberto em painel"
+    },
+    "i18n_0389": {
+        "message": "Idioma (reinicialização necessária)"
+    },
+    "i18n_9997": {
+        "message": ""
+    },
+    "i18n_9998": {
+        "message": ""
+    },
+    "i18n_9999": {
+        "message": ""
+    }
+}
