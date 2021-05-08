@@ -9,13 +9,13 @@
         "message": "Retweeted von {$$rt_screen_name}"
     },
     "i18n_0009": {
-        "message": "{$$user} hat {$count} Follow-Anfragen."
+        "message": "{$$user} hat {$$count} Follow-Anfragen."
     },
     "i18n_0011": {
         "message": "Die Timeline konnte nicht abgerufen werden."
     },
     "i18n_0013": {
-        "message": "Retweeted von $$$screen_name$.",
+        "message": "Retweeted von $screen_name$.",
         "placeholders": {
             "screen_name": {
                 "content": "$1"
@@ -304,7 +304,7 @@
         }
     },
     "i18n_0150": {
-        "message": "Senden Sie eine Direktnachricht von $von$ an $zu$. Sind Sie sicher?",
+        "message": "Senden Sie eine Direktnachricht von $from$ an $to$. Sind Sie sicher?",
         "placeholders": {
             "from": {
                 "content": "$1"
@@ -636,7 +636,7 @@
         "message": "Das Abrufen der Städteliste ist fehlgeschlagen."
     },
     "i18n_0285": {
-        "message": "Die Anzahl der Ausführungsmöglichkeiten wurde überschritten. <br>Diese Funktion kann $limit$ mal / 15 Minuten ausgeführt werden. <br>Das Limit wird am $Datum$ aufgehoben.",
+        "message": "Die Anzahl der Ausführungsmöglichkeiten wurde überschritten. <br>Diese Funktion kann $limit$ mal / 15 Minuten ausgeführt werden. <br>Das Limit wird am $date$ aufgehoben.",
         "placeholders": {
             "limit": {
                 "content": "$1"

@@ -9,13 +9,13 @@
         "message": "转发者：{$$rt_screen_name}。"
     },
     "i18n_0009": {
-        "message": "{$$user}有{$count}个关注请求。"
+        "message": "{$$user}有{$$count}个关注请求。"
     },
     "i18n_0011": {
         "message": "检索时间线失败。"
     },
     "i18n_0013": {
-        "message": "由$$screen_name$转发的。",
+        "message": "由$screen_name$转发的。",
         "placeholders": {
             "screen_name": {
                 "content": "$1"

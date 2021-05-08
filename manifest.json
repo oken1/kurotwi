@@ -2,7 +2,7 @@
 	"manifest_version": 3,
 	"name": "KuroTwi",
 	"author": "KEN1",
-	"version": "2.0",
+	"version": "2.0.0.1",
 	"description": "__MSG_manifest_description__",
 	"default_locale": "en",
 	"content_security_policy": {

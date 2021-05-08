@@ -9,13 +9,13 @@
         "message": "Retweeted by {$$rt_screen_name}"
     },
     "i18n_0009": {
-        "message": "{$$user} ha {$count} richieste di follow."
+        "message": "{$$user} ha {$$count} richieste di follow."
     },
     "i18n_0011": {
         "message": "Fallito il recupero della timeline."
     },
     "i18n_0013": {
-        "message": "Retweeted da $$screen_name$.",
+        "message": "Retweeted da $screen_name$.",
         "placeholders": {
             "screen_name": {
                 "content": "$1"
@@ -164,7 +164,7 @@
         "message": " "
     },
     "i18n_0099": {
-        "message": "Si è verificato un errore nell'ottenere le informazioni sull'account per $nome_schermo$.",
+        "message": "Si è verificato un errore nell'ottenere le informazioni sull'account per $screen_name$.",
         "placeholders": {
             "screen_name": {
                 "content": "$1"
@@ -296,7 +296,7 @@
         "message": "Modifica profilo"
     },
     "i18n_0149": {
-        "message": "Messaggio diretto a $nome_schermo$.",
+        "message": "Messaggio diretto a $screen_name$.",
         "placeholders": {
             "screen_name": {
                 "content": "$1"
@@ -384,7 +384,7 @@
         "message": "Parola"
     },
     "i18n_0182": {
-        "message": "$nome_schermo$ è stato aggiunto a $nome$.",
+        "message": "$screen_name$ è stato aggiunto a $name$.",
         "placeholders": {
             "screen_name": {
                 "content": "$1"
@@ -409,7 +409,7 @@
         "message": "Lo sto segnalando come spam. Sei sicuro?"
     },
     "i18n_0185": {
-        "message": "Cancella $nome$. Sei sicuro?",
+        "message": "Cancella $name$. Sei sicuro?",
         "placeholders": {
             "name": {
                 "content": "$1"
@@ -636,7 +636,7 @@
         "message": "Impossibile recuperare l'elenco delle città."
     },
     "i18n_0285": {
-        "message": "Il numero di volte che può essere eseguito è stato superato. <br>Questa funzione può essere eseguita $limit$ volte / 15 minuti. <br>Il limite sarà rimosso il $data$.",
+        "message": "Il numero di volte che può essere eseguito è stato superato. <br>Questa funzione può essere eseguita $limit$ volte / 15 minuti. <br>Il limite sarà rimosso il $date$.",
         "placeholders": {
             "limit": {
                 "content": "$1"

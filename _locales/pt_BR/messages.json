@@ -9,13 +9,13 @@
         "message": "Retweeted by {$$rt_screen_name}"
     },
     "i18n_0009": {
-        "message": "{$$usuário} tem {$conta} seguido os pedidos."
+        "message": "{$$user} tem {$$count} seguido os pedidos."
     },
     "i18n_0011": {
         "message": "Não conseguiu recuperar a linha do tempo."
     },
     "i18n_0013": {
-        "message": "Retweeted por $$nome_da_tela$.",
+        "message": "Retweeted por $screen_name$.",
         "placeholders": {
             "screen_name": {
                 "content": "$1"
@@ -180,7 +180,7 @@
         }
     },
     "i18n_0106": {
-        "message": "Falha na obtenção de $segundo $.",
+        "message": "Falha na obtenção de $follow$.",
         "placeholders": {
             "follow": {
                 "content": "$1"
@@ -384,7 +384,7 @@
         "message": "Palavra"
     },
     "i18n_0182": {
-        "message": "$nome_da_tela$ foi adicionado a $nome$.",
+        "message": "$screen_name$ foi adicionado a $name$.",
         "placeholders": {
             "screen_name": {
                 "content": "$1"
@@ -395,7 +395,7 @@
         }
     },
     "i18n_0183": {
-        "message": "Não foi possível adicionar $nome_da_tela$ a $nome$.",
+        "message": "Não foi possível adicionar $screen_name$ a $name$.",
         "placeholders": {
             "screen_name": {
                 "content": "$1"

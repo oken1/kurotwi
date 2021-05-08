@@ -9,13 +9,13 @@
         "message": "Retuiteado por {$$rt_screen_name}"
     },
     "i18n_0009": {
-        "message": "{$$user} tiene {$count} solicitudes de seguimiento."
+        "message": "{$$user} tiene {$$count} solicitudes de seguimiento."
     },
     "i18n_0011": {
         "message": "No se ha podido recuperar la línea de tiempo."
     },
     "i18n_0013": {
-        "message": "Retuiteado por $$screen_name$.",
+        "message": "Retuiteado por $screen_name$.",
         "placeholders": {
             "screen_name": {
                 "content": "$1"
@@ -304,7 +304,7 @@
         }
     },
     "i18n_0150": {
-        "message": "Envía un mensaje directo de $de$ a $a$. ¿Estás seguro?",
+        "message": "Envía un mensaje directo de $from$ a $to$. ¿Estás seguro?",
         "placeholders": {
             "from": {
                 "content": "$1"
@@ -384,7 +384,7 @@
         "message": "Palabra"
     },
     "i18n_0182": {
-        "message": "Se ha añadido $nombre_de_pantalla$ a $nombre$.",
+        "message": "Se ha añadido $screen_name$ a $name$.",
         "placeholders": {
             "screen_name": {
                 "content": "$1"
@@ -395,7 +395,7 @@
         }
     },
     "i18n_0183": {
-        "message": "No se ha podido añadir $nombre_de_pantalla$ a $nombre$.",
+        "message": "No se ha podido añadir $screen_name$ a $name$.",
         "placeholders": {
             "screen_name": {
                 "content": "$1"
@@ -409,7 +409,7 @@
         "message": "Voy a reportar esto como spam. ¿Estás seguro?"
     },
     "i18n_0185": {
-        "message": "Borra $nombre$. ¿Estás seguro?",
+        "message": "Borra $name$. ¿Estás seguro?",
         "placeholders": {
             "name": {
                 "content": "$1"
@@ -636,7 +636,7 @@
         "message": "No se ha podido recuperar la lista de ciudades."
     },
     "i18n_0285": {
-        "message": "Se ha superado el número de veces que se puede ejecutar. <br>Esta función se puede ejecutar $limit$ veces / 15 minutos. <br>El límite se levantará en $fecha$.",
+        "message": "Se ha superado el número de veces que se puede ejecutar. <br>Esta función se puede ejecutar $limit$ veces / 15 minutos. <br>El límite se levantará en $date$.",
         "placeholders": {
             "limit": {
                 "content": "$1"

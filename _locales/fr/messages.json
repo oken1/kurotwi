@@ -9,13 +9,13 @@
         "message": "Retweeté par {$$rt_screen_name}"
     },
     "i18n_0009": {
-        "message": "{$$user} a {$count} demandes de suivi."
+        "message": "{$$user} a {$$count} demandes de suivi."
     },
     "i18n_0011": {
         "message": "Échec de la récupération de la timeline."
     },
     "i18n_0013": {
-        "message": "Retweeté par $$$screen_name$.",
+        "message": "Retweeté par $screen_name$.",
         "placeholders": {
             "screen_name": {
                 "content": "$1"
