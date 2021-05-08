@@ -2574,15 +2574,17 @@ Contents.timeline = function( cp )
 						visibility: 'hidden',
 					} );
 
+
+
 					_heart.css( {
 						position: 'absolute',
 						left: targ.offset().left,
 						top: targ.offset().top,
-						zIndex: targ.zIndex() + 1,
+//						zIndex: targ.zIndex() + 1,
+						zIndex: 9999,
 						fontSize: '1.3rem',
 						color: '#a4a396'
 					} );
-
 					var _mag = 4;
 
 					_heart.animate(
