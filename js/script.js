@@ -575,7 +575,7 @@ function Init()
 
 			// 言語選択
 			$( '#main' ).html( OutputTPL( 'select_locale', {} ) );
-			$( '#select_locale' ).find( 'select' ).val( g_cmn.cmn_param['locale'] );
+			$( '#select_locale' ).find( 'select' ).val( chrome.i18n.getMessage( 'locale' ) );
 
 			$( '#select_locale' ).find( '.btn' ).on( 'click', function() {
 				g_cmn.cmn_param['locale'] = $( '#select_locale' ).find( 'select' ).val();
