@@ -122,3 +122,9 @@ div.contents.usersearch .usersearch_list .readmore {
 	margin: 8px auto;
 	text-align: center;
 }
+
+/* sleeping user */
+div.contents.usersearch .usersearch_list div.item.sleeping_user {
+	backdrop-filter: brightness(75%);
+	filter:brightness(50%);
+}

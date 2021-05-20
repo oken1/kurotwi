@@ -147,3 +147,9 @@ div.contents.follow .follow_list .readmore {
 	margin: 8px auto;
 	text-align: center;
 }
+
+/* sleeping user */
+div.contents.follow .follow_list div.item.sleeping_user {
+	backdrop-filter: brightness(75%);
+	filter:brightness(50%);
+}

@@ -122,6 +122,11 @@ Contents.follow = function( cp )
 							var isfriend = IsFriend( cp.param['account_id'], _json[i].id_str );
 							var isfollower = IsFollower( cp.param['account_id'], _json[i].id_str );
 
+							const dt = new Date()
+							const cr = DateConv( created_at, 0 )
+							const compdate = CompareDate( dt.getFullYear(), dt.getMonth() + 1, dt.getDate(),
+								cr.substring( 0, 4 ), cr.substring( 5, 7 ), cr.substring( 8, 10 ) );
+
 							item = {
 								icon: _json[i].profile_image_url_https,
 								screen_name: _json[i].screen_name,
@@ -137,6 +142,7 @@ Contents.follow = function( cp )
 								isfriend: isfriend & !isfollower,
 								isfollower: !isfriend & isfollower,
 								latest_date: ( _json[i].status && _json[i].status.created_at ) ? DateConv( _json[i].status.created_at, 0 ) : null,
+								sleeping: ( compdate > 30 )
 							};
 
 							items.push( item );
