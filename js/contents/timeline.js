@@ -2744,7 +2744,7 @@ Contents.timeline = function( cp )
 								var durl;
 
 								try {
-									durl = escapeHTML( decodeURI( res ) );
+									durl = escapeHTML( decodeURIComponent( res ) );
 								}
 								catch ( e )
 								{

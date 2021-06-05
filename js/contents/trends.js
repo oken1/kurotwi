@@ -13,6 +13,185 @@ Contents.trends = function( cp )
 	cp.SetIcon( 'icon-search' );
 
 	////////////////////////////////////////////////////////////
+	// 特定サイト由来のトレンドに警告表示＆表示順を下げる
+	// 現在の対象:
+	//  shindanmaker.com
+	//  4ndan.com
+	//  kuizy.net
+	////////////////////////////////////////////////////////////
+	const useless_flags = {}
+
+	const uselessTrend = ( res ) => {
+		const icon_html = '<span class="useless_trends">❌</span>'
+		const target_url_re = /(shindanmaker\.com|4ndan\.com|kuizy\.net)/
+
+		const api_version = '1.1'	// API(v1.1/v2)の切り替え
+
+		if ( g_devmode ) {
+			console.time( 'TM' )
+		}
+
+		// 検索用に対象のトレンドを10件ずつに分ける
+		const query_strings = []
+		let query = []
+
+		$.each( res.json[0].trends, function( i, val ) {
+			if ( useless_flags[val.query] === undefined ) {
+				useless_flags[val.query] = false
+
+				if ( query.length == 10 ) {
+					query_strings.push( query )
+					query = []
+				}
+
+				query.push( val.query.replace( /^%22|%22$/g, "" ) )
+			} else {
+				if ( useless_flags[val.query] === true ) {
+					cont.find( '.trends_list' ).find( `span[query="${val.query}"]` ).prepend( icon_html ).closest( '.item' ).appendTo( '.trends_list' )
+				}
+			}
+		} );
+
+		if ( query.length > 0 ) {
+			query_strings.push( query )
+		}
+
+		let current_index = 0
+
+		const checkSearchResult = () => {
+			let q = `"${query_strings[current_index][0]}"`
+
+			for ( let i = 1 ; i < query_strings[current_index].length ; i++ ) {
+				q += ` OR "${query_strings[current_index][i]}"`
+			}
+
+			if ( g_devmode ) {
+				if ( api_version == '1.1' ) {
+					console.log( `(${decodeURIComponent( q )})  exclude:retweets` )
+				} else {
+					console.log( `(${decodeURIComponent( q )}) -is:retweet` )
+				}
+			}
+
+			let request_url, request_data
+
+			if ( api_version == '1.1' ) {
+				request_url = ApiUrl( '1.1' ) + 'search/tweets.json'
+				request_data = {
+					count: 100,
+					q: `(${decodeURIComponent( q )})  exclude:retweets`,
+					include_entities: true,
+					include_rts: false,
+				}
+			} else {
+				request_url = ApiUrl( '2' ) + 'tweets/search/recent'
+				request_data = {
+					max_results: 100,
+					query: `(${decodeURIComponent( q )}) -is:retweet`,
+					'tweet.fields': 'entities'
+				}
+			}
+
+			SendRequest(
+				{
+					action: 'oauth_send',
+					acsToken: g_cmn.account[cp.param['account_id']]['accessToken'],
+					acsSecret: g_cmn.account[cp.param['account_id']]['accessSecret'],
+					param: {
+						type: 'GET',
+						url: request_url,
+						data: request_data
+					},
+					id: cp.param['account_id']
+				},
+				function( res )
+				{
+					if ( g_devmode ) {
+						console.log( res )
+					}
+
+					let response_data
+
+					if ( api_version == '1.1' ) {
+						response_data = res.json.statuses
+					} else {
+						response_data = res.json.data
+					}
+
+					if ( res.status == 200 && response_data !== undefined )
+					{
+						const checkUselessUrl = ( urls ) => {
+							if ( urls === undefined ) {
+								return false
+							}
+
+							for ( let i = 0 ; i < urls.length ; i++ ) {
+								if ( urls[i].expanded_url.match( target_url_re ) ) {
+									return true
+								}
+							}
+
+							return false
+						}
+
+						// トレンドの単語を含む検索結果のうち、3件以上もしくは40%以上に対象のURLが含まれているかで判別
+						for ( let i = 0 ; i < query_strings[current_index].length ; i++ ) {
+							let safe_count = 0, out_count = 0
+							const q = query_strings[current_index][i]
+
+							for ( let j = 0 ; j < response_data.length ; j++ ) {
+								if ( response_data[j].text.indexOf( decodeURIComponent( q ) ) == -1 ) {
+									continue
+								}
+
+								if ( response_data[j].entities !== undefined ) {
+									if ( checkUselessUrl( response_data[j].entities.urls ) ) {
+										out_count++
+
+										if ( out_count >= 3 ) {
+											break
+										}
+									} else {
+										safe_count++
+									}
+								} else {
+									safe_count++
+								}
+							}
+
+							if ( g_devmode ) {
+								console.log( `${decodeURIComponent( q )} ${out_count}/${(safe_count+out_count)}`)
+							}
+
+							if ( out_count >= 3 || out_count / ( safe_count + out_count ) > 0.4 ) {
+								useless_flags[q] = true
+								cont.find( '.trends_list' ).find( `span[query="${q}"]` ).prepend( icon_html ).closest( '.item' ).appendTo( '.trends_list' )
+							}
+						}
+					}
+
+					if ( current_index < query_strings.length - 1 ) {
+						current_index++
+						checkSearchResult()
+					} else {
+						if ( g_devmode ) {
+							console.timeEnd( 'TM' )
+						}
+					}
+				}
+			)
+		}
+
+		if ( query_strings.length > 0 ) {
+			checkSearchResult()
+		} else {
+			if ( g_devmode ) {
+				console.timeEnd( 'TM' )
+			}
+		}
+	}
+
+	////////////////////////////////////////////////////////////
 	// リスト部作成
 	////////////////////////////////////////////////////////////
 	var ListMake = function() {
@@ -75,12 +254,16 @@ Contents.trends = function( cp )
 					////////////////////////////////////////
 					// クリック時処理
 					////////////////////////////////////////
-					cont.find( '.trends_list' ).find( '.item span' ).click( function( e ) {
+					cont.find( '.trends_list' ).find( '.item .title > span' ).click( function( e ) {
 
 						OpenSearchResult( decodeURIComponent( $( this ).attr( 'query' ) ), cp.param['account_id'] );
 
 						e.stopPropagation();
 					} );
+
+					if ( g_cmn.cmn_param.experiments.useless_trend == 1 ) {
+						uselessTrend( res )
+					}
 				}
 				else
 				{

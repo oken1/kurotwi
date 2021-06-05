@@ -102,6 +102,10 @@ $( document ).ready( function() {
 					thumb: $( ':root' ).css( '--default-scrollbar-thumb' ),
 				},
 			},
+
+			experiments: {										// - 実験的機能
+				useless_trend: 0
+			}
 		},
 		panel:			null,			// パネル
 		account:		null,			// アカウント
@@ -238,14 +242,19 @@ function Init()
 								{
 									g_cmn.cmn_param[p][q][r] = _g_cmn.cmn_param[p][q][r];
 								}
-								else
-								{
-								console.log(q + ' undefined ' );
-								}
 							}
 						}
 						break;
-
+					
+					// 実験的機能
+					case 'experiments':
+						for ( var q in g_cmn.cmn_param[p] ) {
+							if ( _g_cmn.cmn_param[p][q] != undefined ) {
+								g_cmn.cmn_param[p][q] = _g_cmn.cmn_param[p][q]
+							}
+						}
+						break;
+						
 					default:
 						g_cmn.cmn_param[p] = _g_cmn.cmn_param[p];
 						break;
@@ -2364,7 +2373,7 @@ function IsNGTweet( json, tltype )
 					var durl;
 
 					try {
-						durl = escapeHTML( decodeURI( url ) );
+						durl = escapeHTML( decodeURIComponent( url ) );
 					}
 					catch ( e )
 					{
@@ -3192,7 +3201,7 @@ function SendRequest( req, callback )
 			};
 
 			var message = {
-				method: 'GET', 
+				method: 'POST', 
 				action: 'https://api.twitter.com/oauth/request_token',
 				parameters: {
 					oauth_signature_method: 'HMAC-SHA1',
@@ -3203,12 +3212,14 @@ function SendRequest( req, callback )
 
 			OAuth.setTimestampAndNonce( message );
 			OAuth.SignatureMethod.sign( message, accessor );
-			var target = OAuth.addToURL( message.action, message.parameters );
 
 			$.ajax( {
-				url: target,
+				url: message.action,
 				dataType: 'text',
-				type: 'GET',
+				type: 'POST',
+				headers: {
+					'authorization': OAuth.getAuthorizationHeader( '', message.parameters )
+				}
 			} ).done( function( data ) {
 				callback( data );
 			} ).fail( function( data ) {
@@ -3220,6 +3231,7 @@ function SendRequest( req, callback )
 		// req : reqToken
 		//       reqSecret
 		case 'oauth_window':
+
 			var accessor = {
 				consumerSecret: consumerSecret,
 				tokenSecret: req.reqSecret
@@ -3265,12 +3277,14 @@ function SendRequest( req, callback )
 
 			OAuth.setTimestampAndNonce( message );
 			OAuth.SignatureMethod.sign( message, accessor );
-			var target = OAuth.addToURL( message.action, message.parameters );
 
 			$.ajax( {
-				url: target,
+				url: message.action,
 				dataType: 'text',
 				type: 'POST',
+				headers: {
+					'authorization': OAuth.getAuthorizationHeader( '', message.parameters )
+				}
 			} ).done( function( data ) {
 				callback( data );
 			} ).fail( function( data ) {
@@ -3309,12 +3323,14 @@ function SendRequest( req, callback )
 
 				OAuth.setTimestampAndNonce( message );
 				OAuth.SignatureMethod.sign( message, accessor );
-				var target = OAuth.addToURL( message.action, message.parameters );
 
 				$.ajax( {
-					url: target,
+					url: OAuth.addToURL( message.action, req.param.data ),
 					dataType: 'json',
 					type: req.param.type,
+					headers: {
+						'authorization': OAuth.getAuthorizationHeader( '', message.parameters )
+					}
 				} ).done( function( data ) {
 					callback( {
 						status: 200,
@@ -3385,11 +3401,11 @@ function SendRequest( req, callback )
 
 				OAuth.setTimestampAndNonce( message );
 				OAuth.SignatureMethod.sign( message, accessor );
-				var target = OAuth.addToURL( message.action, message.parameters );
 
 				var xhr = new XMLHttpRequest();
 
-				xhr.open( 'POST', target, true );
+				xhr.open( 'POST', OAuth.addToURL( message.action, req.param.data ), true );
+				xhr.setRequestHeader( 'authorization', OAuth.getAuthorizationHeader( '', message.parameters ) )
 
 				xhr.onreadystatechange = function() {
 					if ( xhr.readyState != 4 )
@@ -3623,11 +3639,10 @@ function SendRequest( req, callback )
 
 			OAuth.setTimestampAndNonce( message );
 			OAuth.SignatureMethod.sign( message, accessor );
-			var target = OAuth.addToURL( message.action, message.parameters );
 
 			var xhr = new XMLHttpRequest();
-
-			xhr.open( 'POST', target, true );
+			xhr.open( 'POST', message.action, true );
+			xhr.setRequestHeader( 'authorization', OAuth.getAuthorizationHeader( '', message.parameters ) )
 
 			var formdata = new FormData();
 

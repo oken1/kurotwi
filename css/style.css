@@ -249,7 +249,7 @@ img.emoji {
 /* ツールチップ */
 #tooltip {
 	position: absolute;
-	max-width: 300px;
+	max-width: 50rem;
 	width: auto;
 	height: auto;
 	padding: 4px;

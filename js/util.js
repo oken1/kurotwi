@@ -357,10 +357,7 @@ function Txt2Link( text, entities )
 ////////////////////////////////////////////////////////////////////////////////
 function GetURL( text )
 {
-	var urls = text.match( /(https?:\/\/){1}([-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]{1,})/g );
-
-	// '
-	return urls;
+	return text.match( /(https?:\/\/){1}([-_.!~*\'()a-zA-Z0-9;\/?:\@&=+\$,%#]{1,})/g )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -368,9 +365,7 @@ function GetURL( text )
 ////////////////////////////////////////////////////////////////////////////////
 function NumFormat( num )
 {
-	if ( num == null ) return "";
-
-	return num.toString().replace( /([0-9]+?)(?=(?:[0-9]{3})+$)/g , '$1,' );
+	return new Intl.NumberFormat().format( num )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -378,14 +373,7 @@ function NumFormat( num )
 ////////////////////////////////////////////////////////////////////////////////
 function getUserInfo( key )
 {
-	if ( localStorage[key] )
-	{
-		return localStorage[key];
-	}
-	else
-	{
-		return "";
-	}
+	return ( localStorage[key] ) ? localStorage[key] : ''
 }
 
 ////////////////////////////////////////////////////////////////////////////////

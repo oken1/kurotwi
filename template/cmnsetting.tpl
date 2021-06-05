@@ -366,4 +366,14 @@
 			</div>
 		</div>
 	</div>
+
+	<div class='kind'><span class='icon-arrow_down'></span>(i18n_0004)</div>
+	<div class='kinditems'>
+		<div class='group'>
+			<div class='checkboxcontainer'>
+				<span><input type='checkbox' id='cset_experiments_useless_trend' {if $param->experiments->useless_trend==1}checked{/if}></span>
+				<span>(i18n_0005)</span>
+			</div>
+		</div>
+	</div>
 </div>

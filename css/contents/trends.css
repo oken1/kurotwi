@@ -33,13 +33,12 @@ div.contents.trends .trends_list .item .container {
 	padding: 4px;
 }
 
-div.contents.trends .trends_list .item .container .title span {
+div.contents.trends .trends_list .item .container .title > span {
 	font-weight: bold;
 	user-select: text;
 }
 
-div.contents.trends .trends_list .item .container .title span:hover {
+div.contents.trends .trends_list .item .container .title > span:hover {
 	opacity: 0.5;
 	cursor: pointer;
 }
-

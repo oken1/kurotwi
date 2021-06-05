@@ -8,6 +8,18 @@
     "i18n_0001": {
         "message": "Retweeted von {$$rt_screen_name}"
     },
+    "i18n_0002": {
+        "message": "rückgängig machen"
+    },
+    "i18n_0003": {
+        "message": "Senden rückgängig machen"
+    },
+    "i18n_0004": {
+		"message": "Experimente"
+	},
+	"i18n_0005": {
+		"message": "Markierung X für von der Diagnose abgeleitete Trends"
+	},
     "i18n_0009": {
         "message": "{$$user} hat {$$count} Follow-Anfragen."
     },

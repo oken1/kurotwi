@@ -8,6 +8,18 @@
     "i18n_0001": {
         "message": "Retweeted by {$$rt_screen_name}"
     },
+    "i18n_0002": {
+        "message": "Desfazer"
+    },
+    "i18n_0003": {
+        "message": "Desfazer enviar"
+    },
+	"i18n_0004": {
+		"message": "Experimentos"
+	},
+	"i18n_0005": {
+		"message": "Marcação X para tendências derivadas do diagnóstico"
+	},
     "i18n_0009": {
         "message": "{$$user} tem {$$count} seguido os pedidos."
     },

@@ -217,9 +217,6 @@ Contents.account = function( cp )
 				var user_id = '';
 				var screen_name = '';
 
-				console.log( typeof res )
-
-
 				if ( typeof res != 'string' ) {
 					MessageBox( i18nGetMessage( 'i18n_0049' ) );
 					Blackout( false );

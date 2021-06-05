@@ -8,7 +8,19 @@
     "i18n_0001": {
         "message": "Retuiteado por {$$rt_screen_name}"
     },
-    "i18n_0009": {
+    "i18n_0002": {
+        "message": "Deshacer"
+    },
+    "i18n_0003": {
+        "message": "Deshacer el envío"
+    },
+    "i18n_0004": {
+		"message": "Experimentos"
+	},
+	"i18n_0005": {
+		"message": "Marcado X de las tendencias derivadas del diagnóstico"
+	},
+   "i18n_0009": {
         "message": "{$$user} tiene {$$count} solicitudes de seguimiento."
     },
     "i18n_0011": {

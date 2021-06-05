@@ -544,8 +544,6 @@ Contents.tweetbox = function( cp )
 				obj.setSelectionRange( np, np );
 			}
 
-//			$( this ).parent().hide();
-
 			e.stopPropagation();
 		} );
 
