@@ -146,7 +146,7 @@ function Txt2Link( text, entities )
 		// URL
 		if ( entities.urls )
 		{
-			$.each( entities.urls, function( i, val ) {
+			entities.urls.forEach( ( val, i ) => {
 				map[val.indices[0]] = {
 					end: val.indices[1],
 					func: function() {
@@ -169,7 +169,7 @@ function Txt2Link( text, entities )
 		// @user
 		if ( entities.user_mentions )
 		{
-			$.each( entities.user_mentions, function( i, val ) {
+			entities.user_mentions.forEach( ( val, i ) => {
 				map[val.indices[0]] = {
 					end: val.indices[1],
 					func: function() {
@@ -182,7 +182,7 @@ function Txt2Link( text, entities )
 		// #hashtag
 		if ( entities.hashtags )
 		{
-			$.each( entities.hashtags, function( i, val ) {
+			entities.hashtags.forEach( ( val, i ) => {
 				map[val.indices[0]] = {
 					end: val.indices[1],
 					func: function() {
@@ -237,7 +237,7 @@ function Txt2Link( text, entities )
 			videourls = videourls.replace( /,$/, '' );
 			contenttypes = contenttypes.replace( /,$/, '' );
 
-			$.each( entities.media, function( i, val ) {
+			entities.media.forEach( ( val, i ) => {
 				map[val.indices[0]] = {
 					end: val.indices[1],
 					func: function() {
@@ -294,7 +294,7 @@ function Txt2Link( text, entities )
 			text = text.replace( urls[i], '__REP' + repcnt + '__' );
 
 			try {
-				durl = escapeHTML( decodeURI( urls[i] ) );
+				durl = escapeHTML( decodeURIComponent_space( urls[i] ) );
 			}
 			catch ( e )
 			{
@@ -521,4 +521,22 @@ function HSLConvert( col, ll )
 	}
 
 	return 'hsl( ' + h * 360 + ',' + s * 100 + '%,' + l * 100 + '% )';
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// decodeURIComponent＋'+'を' 'に変換
+////////////////////////////////////////////////////////////////////////////////
+const decodeURIComponent_space = ( src ) => decodeURIComponent( src ).replace( /\+/g, ' ' )
+
+////////////////////////////////////////////////////////////////////////////////
+// 全角英数字を半角に変換
+////////////////////////////////////////////////////////////////////////////////
+const zenToHan = ( src ) => {
+	if ( src === undefined ) {
+		return ''
+	}
+
+	return src.replace(/[Ａ-Ｚａ-ｚ０-９]/g, function( s ) {
+		return String.fromCharCode( s.charCodeAt( 0 ) - 0xFEE0 )
+	} )
 }

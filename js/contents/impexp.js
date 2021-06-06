@@ -101,7 +101,7 @@ Contents.impexp = function( cp )
 			reader.onload = ( function( thefile ) {
 				return function( e ) {
 					try {
-						var _g_cmn = JSON.parse( decodeURIComponent( e.target.result ) );
+						var _g_cmn = JSON.parse( decodeURIComponent_space( e.target.result ) );
 					}
 					catch( e ) {
 						console.log( e );

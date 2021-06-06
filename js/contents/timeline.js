@@ -540,8 +540,8 @@ Contents.timeline = function( cp )
 						count: count,
 						q: cp.param['q'],
 						include_entities: true,
-						include_rts: false,
 						tweet_mode: 'extended',
+						result_type: 'recent'
 					},
 				};
 
@@ -2744,7 +2744,7 @@ Contents.timeline = function( cp )
 								var durl;
 
 								try {
-									durl = escapeHTML( decodeURIComponent( res ) );
+									durl = escapeHTML( decodeURIComponent_space( res ) );
 								}
 								catch ( e )
 								{

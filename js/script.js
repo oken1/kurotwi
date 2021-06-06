@@ -218,7 +218,7 @@ function Init()
 
 		if ( text != '' )
 		{
-			text = decodeURIComponent( text );
+			text = decodeURIComponent_space( text );
 			var _g_cmn = JSON.parse( text );
 
 			// 共通パラメータの復元
@@ -1440,7 +1440,7 @@ function MakeTimeline( json, account_id )
 	var text = Txt2Link( json.text, json.entities );
 
 	// ハッシュタグを保存
-	$.each( json.entities.hashtags, function( i, val ) {
+	json.entities.hashtags.forEach( ( val, i ) => {
 		var chk = true;
 		for ( var j = 0, _len = g_cmn.notsave.tl_hashtag.length ; j < _len ; j++ )
 		{
@@ -2365,7 +2365,7 @@ function IsNGTweet( json, tltype )
 	{
 		var map = {};
 
-		$.each( json.entities.urls, function( i, val ) {
+		json.entities.urls.forEach( ( val, i ) => {
 			map[val.indices[0]] = {
 				end: val.indices[1],
 				func: function() {
@@ -2373,7 +2373,7 @@ function IsNGTweet( json, tltype )
 					var durl;
 
 					try {
-						durl = escapeHTML( decodeURIComponent( url ) );
+						durl = escapeHTML( decodeURIComponent_space( url ) );
 					}
 					catch ( e )
 					{
@@ -2906,7 +2906,7 @@ function GetConfiguration( callback )
 
 		if ( text != '' )
 		{
-			text = decodeURIComponent( text );
+			text = decodeURIComponent_space( text );
 			var _g_cmn = JSON.parse( text );
 
 			if ( _g_cmn.twconfig != undefined && _g_cmn.twconfig != null )

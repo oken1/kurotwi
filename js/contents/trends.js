@@ -35,7 +35,7 @@ Contents.trends = function( cp )
 		const query_strings = []
 		let query = []
 
-		$.each( res.json[0].trends, function( i, val ) {
+		res.json[0].trends.reverse().forEach( ( val, i ) => {
 			if ( useless_flags[val.query] === undefined ) {
 				useless_flags[val.query] = false
 
@@ -67,9 +67,9 @@ Contents.trends = function( cp )
 
 			if ( g_devmode ) {
 				if ( api_version == '1.1' ) {
-					console.log( `(${decodeURIComponent( q )})  exclude:retweets` )
+					console.log( `(${decodeURIComponent_space( q )})  exclude:retweets` )
 				} else {
-					console.log( `(${decodeURIComponent( q )}) -is:retweet` )
+					console.log( `(${decodeURIComponent_space( q )}) -is:retweet` )
 				}
 			}
 
@@ -79,15 +79,16 @@ Contents.trends = function( cp )
 				request_url = ApiUrl( '1.1' ) + 'search/tweets.json'
 				request_data = {
 					count: 100,
-					q: `(${decodeURIComponent( q )})  exclude:retweets`,
+					q: `(${decodeURIComponent_space( q )})  exclude:retweets`,
 					include_entities: true,
-					include_rts: false,
-				}
+					tweet_mode: 'extended',
+					result_type: 'recent'
+			}
 			} else {
 				request_url = ApiUrl( '2' ) + 'tweets/search/recent'
 				request_data = {
 					max_results: 100,
-					query: `(${decodeURIComponent( q )}) -is:retweet`,
+					query: `(${decodeURIComponent_space( q )}) -is:retweet`,
 					'tweet.fields': 'entities'
 				}
 			}
@@ -106,10 +107,6 @@ Contents.trends = function( cp )
 				},
 				function( res )
 				{
-					if ( g_devmode ) {
-						console.log( res )
-					}
-
 					let response_data
 
 					if ( api_version == '1.1' ) {
@@ -126,7 +123,11 @@ Contents.trends = function( cp )
 							}
 
 							for ( let i = 0 ; i < urls.length ; i++ ) {
-								if ( urls[i].expanded_url.match( target_url_re ) ) {
+								if ( g_devmode ) {
+									console.log( `${urls[i].expanded_url} ... ${target_url_re.test( urls[i].expanded_url )}`)
+								}
+
+								if ( target_url_re.test( urls[i].expanded_url ) ) {
 									return true
 								}
 							}
@@ -134,13 +135,22 @@ Contents.trends = function( cp )
 							return false
 						}
 
-						// トレンドの単語を含む検索結果のうち、3件以上もしくは40%以上に対象のURLが含まれているかで判別
+						for ( let i = 0 ; i < response_data.length ; i++ ) {
+							if ( api_version == '1.1' ) {
+								response_data[i].text = response_data[i].full_text
+							}
+
+							response_data[i].text = zenToHan( response_data[i].text ).toLowerCase()
+						}
+
+						// トレンドの単語を含む検索結果を元に判定
 						for ( let i = 0 ; i < query_strings[current_index].length ; i++ ) {
 							let safe_count = 0, out_count = 0
 							const q = query_strings[current_index][i]
+							const _q = zenToHan( q ).toLowerCase()
 
 							for ( let j = 0 ; j < response_data.length ; j++ ) {
-								if ( response_data[j].text.indexOf( decodeURIComponent( q ) ) == -1 ) {
+								if ( response_data[j].text.indexOf( decodeURIComponent_space( _q ) ) == -1 ) {
 									continue
 								}
 
@@ -159,13 +169,25 @@ Contents.trends = function( cp )
 								}
 							}
 
-							if ( g_devmode ) {
-								console.log( `${decodeURIComponent( q )} ${out_count}/${(safe_count+out_count)}`)
-							}
-
 							if ( out_count >= 3 || out_count / ( safe_count + out_count ) > 0.4 ) {
+								// 3件以上もしくは40%以上に対象のURLが含まれている
 								useless_flags[q] = true
 								cont.find( '.trends_list' ).find( `span[query="${q}"]` ).prepend( icon_html ).closest( '.item' ).appendTo( '.trends_list' )
+
+								if ( g_devmode ) {
+									console.log( `${decodeURIComponent_space( q )} ${out_count}/${(safe_count+out_count)} x`)
+								}
+							} else if ( safe_count + out_count <= 5 ) {
+								// 検索結果が5件以下の場合は、判定を保留する
+								delete useless_flags[q]
+
+								if ( g_devmode ) {
+									console.log( `${decodeURIComponent_space( q )} ${out_count}/${(safe_count+out_count)} 保留`)
+								}
+							} else {
+								if ( g_devmode ) {
+									console.log( `${decodeURIComponent_space( q )} ${out_count}/${(safe_count+out_count)} o`)
+								}
 							}
 						}
 					}
@@ -176,6 +198,7 @@ Contents.trends = function( cp )
 					} else {
 						if ( g_devmode ) {
 							console.timeEnd( 'TM' )
+							console.log( useless_flags )
 						}
 					}
 				}
@@ -187,6 +210,7 @@ Contents.trends = function( cp )
 		} else {
 			if ( g_devmode ) {
 				console.timeEnd( 'TM' )
+				console.log( useless_flags )
 			}
 		}
 	}
@@ -220,7 +244,7 @@ Contents.trends = function( cp )
 					cont.find( '.trends_list' ).html( OutputTPL( 'trends_list', { items: res.json[0].trends } ) )
 						.trigger( 'contents_resize' );
 
-					$.each( res.json[0].trends, function( i, val ) {
+					res.json[0].trends.forEach( ( val, i ) => {
 						var chk = true;
 						var txt;
 
@@ -256,7 +280,7 @@ Contents.trends = function( cp )
 					////////////////////////////////////////
 					cont.find( '.trends_list' ).find( '.item .title > span' ).click( function( e ) {
 
-						OpenSearchResult( decodeURIComponent( $( this ).attr( 'query' ) ), cp.param['account_id'] );
+						OpenSearchResult( decodeURIComponent_space( $( this ).attr( 'query' ) ), cp.param['account_id'] );
 
 						e.stopPropagation();
 					} );

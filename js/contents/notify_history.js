@@ -25,7 +25,7 @@ Contents.notify_history = function( cp )
 			for ( var arg in g_cmn.notsave.notify_history[i].data )
 			{
 				try {
-					assign[arg] = decodeURIComponent( g_cmn.notsave.notify_history[i].data[arg] );
+					assign[arg] = decodeURIComponent_space( g_cmn.notsave.notify_history[i].data[arg] );
 				}
 				catch ( err )
 				{
