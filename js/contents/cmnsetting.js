@@ -797,7 +797,7 @@ Contents.cmnsetting = function( cp )
 
 			// 実験的な機能
 			g_cmn.cmn_param.experiments = {
-				useless_trend: ( $( '#cset_experiments_useless_trend' ).prop( 'checked' ) ) ? 1 : 0
+				useless_trend: ( $( '#cset_experiments_useless_trend' ).prop( 'checked' ) ) ? 1 : 0,
 			}
 
 			SaveData();

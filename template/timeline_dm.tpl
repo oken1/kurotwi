@@ -1,6 +1,6 @@
 	<div class='item' screen_name='{$screen_name}' user_id='{$user_id}' status_id='{$status_id}' created_at='{$created_at}'>
 		<div class='icon'>
-			<img src='{$icon}'>
+			<img src='{$icon}' loading='lazy'>
 		</div>
 		<div class='tweet'>
 			<div class='headcontainer'>

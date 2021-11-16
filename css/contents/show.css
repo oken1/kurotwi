@@ -40,10 +40,6 @@ div.contents.show .showcontainer .desc > div {
 	padding: 2px 0;
 }
 
-div.contents.show .showcontainer .desc .name img {
-	vertical-align: bottom;
-}
-
 div.contents.show .showcontainer .desc .name {
 	display: table;
 	font-size: 1.2rem;

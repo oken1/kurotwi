@@ -8,12 +8,6 @@
     "i18n_0001": {
         "message": "转发者：{$$rt_screen_name}。"
     },
-    "i18n_0002": {
-        "message": "撤销"
-    },
-    "i18n_0003": {
-        "message": "撤销发送"
-    },
 	"i18n_0004": {
 		"message": "实验"
 	},

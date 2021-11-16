@@ -8,12 +8,6 @@
     "i18n_0001": {
         "message": "Retuiteado por {$$rt_screen_name}"
     },
-    "i18n_0002": {
-        "message": "Deshacer"
-    },
-    "i18n_0003": {
-        "message": "Deshacer el envío"
-    },
     "i18n_0004": {
 		"message": "Experimentos"
 	},

@@ -93,7 +93,7 @@ img.emoji {
 	height: 1.25rem;
 	width: 1.25rem;
 	padding: 0.05em 0.1em;
-	vertical-align: -0.2em;
+	vertical-align: text-top;
 }
 
 /* URL展開中 */
@@ -428,6 +428,7 @@ panel div.titlebar .titlecontainer .titlename_list span:hover {
 /* パネル-コンテンツ */
 panel div.contents {
 	display: block;
+	content-visibility: auto;
 }
 
 /* パネル-コンテンツ-タイムライン表示 */

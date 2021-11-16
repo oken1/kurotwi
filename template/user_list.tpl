@@ -1,7 +1,7 @@
 	{foreach item=item from=$items}
 	<div class='item{if $item->sleeping} sleeping_user{/if}' screen_name='{$item->screen_name}' user_id='{$item->user_id}' created_at='{$item->created_at}'>
 		<div class='icon' tooltip='{$item->screen_name}'>
-			<img src='{$item->icon}'>
+			<img src='{$item->icon}' loading='lazy'>
 		</div>
 		<div class='container'>
 			<div class='names'>

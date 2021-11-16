@@ -1,6 +1,10 @@
 <div>
 {if $video}
-<video src='{$url}' type='{$contenttype}' controls loop></video>
+<video preload='metadata' poster='{$poster}' controls playsinline>
+	{foreach item=item from=$items}
+		<source src='{$item->url}' type='{$item->contenttype}'>
+	{/foreach}
+</video>
 {else}
 <img class='image' src='{$url}'>
 {/if}

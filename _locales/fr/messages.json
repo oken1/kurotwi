@@ -8,12 +8,6 @@
     "i18n_0001": {
         "message": "Retweeté par {$$rt_screen_name}"
     },
-    "i18n_0002": {
-        "message": "Annuler"
-    },
-    "i18n_0003": {
-        "message": "Annuler l'envoi"
-    },
 	"i18n_0004": {
 		"message": "Expériences"
 	},

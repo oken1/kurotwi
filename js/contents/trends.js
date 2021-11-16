@@ -23,12 +23,23 @@ Contents.trends = function( cp )
 
 	const uselessTrend = ( res ) => {
 		const icon_html = '<span class="useless_trends">❌</span>'
-		const target_url_re = /(shindanmaker\.com|4ndan\.com|kuizy\.net)/
+		const target_url_re = /(shindanmaker\.com|4ndan\.com|kuizy\.net|hoyme\.jp)/
 
 		const api_version = '1.1'	// API(v1.1/v2)の切り替え
 
 		if ( g_devmode ) {
-			console.time( 'TM' )
+			//console.time( 'TM' )
+		}
+
+		// 古い情報を消す
+		for ( let key in useless_flags ) {
+			if ( useless_flags[key] !== true ) {
+				useless_flags[key]++
+
+				if ( useless_flags[key] >= 10 ) {
+					delete useless_flags[key]
+				}
+			}
 		}
 
 		// 検索用に対象のトレンドを10件ずつに分ける
@@ -37,7 +48,7 @@ Contents.trends = function( cp )
 
 		res.json[0].trends.reverse().forEach( ( val, i ) => {
 			if ( useless_flags[val.query] === undefined ) {
-				useless_flags[val.query] = false
+				useless_flags[val.query] = 1
 
 				if ( query.length == 10 ) {
 					query_strings.push( query )
@@ -67,9 +78,9 @@ Contents.trends = function( cp )
 
 			if ( g_devmode ) {
 				if ( api_version == '1.1' ) {
-					console.log( `(${decodeURIComponent_space( q )})  exclude:retweets` )
+					//console.log( `(${decodeURIComponent_space( q )}) exclude:retweets` )
 				} else {
-					console.log( `(${decodeURIComponent_space( q )}) -is:retweet` )
+					//console.log( `(${decodeURIComponent_space( q )}) -is:retweet` )
 				}
 			}
 
@@ -79,11 +90,11 @@ Contents.trends = function( cp )
 				request_url = ApiUrl( '1.1' ) + 'search/tweets.json'
 				request_data = {
 					count: 100,
-					q: `(${decodeURIComponent_space( q )})  exclude:retweets`,
+					q: `(${decodeURIComponent_space( q )}) exclude:retweets`,
 					include_entities: true,
 					tweet_mode: 'extended',
 					result_type: 'recent'
-			}
+				}
 			} else {
 				request_url = ApiUrl( '2' ) + 'tweets/search/recent'
 				request_data = {
@@ -124,7 +135,7 @@ Contents.trends = function( cp )
 
 							for ( let i = 0 ; i < urls.length ; i++ ) {
 								if ( g_devmode ) {
-									console.log( `${urls[i].expanded_url} ... ${target_url_re.test( urls[i].expanded_url )}`)
+									//console.log( `${urls[i].expanded_url} ... ${target_url_re.test( urls[i].expanded_url )}`)
 								}
 
 								if ( target_url_re.test( urls[i].expanded_url ) ) {
@@ -143,7 +154,6 @@ Contents.trends = function( cp )
 							response_data[i].text = zenToHan( response_data[i].text ).toLowerCase()
 						}
 
-						// トレンドの単語を含む検索結果を元に判定
 						for ( let i = 0 ; i < query_strings[current_index].length ; i++ ) {
 							let safe_count = 0, out_count = 0
 							const q = query_strings[current_index][i]
@@ -175,18 +185,18 @@ Contents.trends = function( cp )
 								cont.find( '.trends_list' ).find( `span[query="${q}"]` ).prepend( icon_html ).closest( '.item' ).appendTo( '.trends_list' )
 
 								if ( g_devmode ) {
-									console.log( `${decodeURIComponent_space( q )} ${out_count}/${(safe_count+out_count)} x`)
+									//console.log( `${decodeURIComponent_space( q )} ${out_count}/${(safe_count+out_count)} x`)
 								}
 							} else if ( safe_count + out_count <= 5 ) {
 								// 検索結果が5件以下の場合は、判定を保留する
 								delete useless_flags[q]
 
 								if ( g_devmode ) {
-									console.log( `${decodeURIComponent_space( q )} ${out_count}/${(safe_count+out_count)} 保留`)
+									//console.log( `${decodeURIComponent_space( q )} ${out_count}/${(safe_count+out_count)} 保留`)
 								}
 							} else {
 								if ( g_devmode ) {
-									console.log( `${decodeURIComponent_space( q )} ${out_count}/${(safe_count+out_count)} o`)
+									//console.log( `${decodeURIComponent_space( q )} ${out_count}/${(safe_count+out_count)} o`)
 								}
 							}
 						}
@@ -197,8 +207,8 @@ Contents.trends = function( cp )
 						checkSearchResult()
 					} else {
 						if ( g_devmode ) {
-							console.timeEnd( 'TM' )
-							console.log( useless_flags )
+							//console.timeEnd( 'TM' )
+							//console.log( useless_flags )
 						}
 					}
 				}
@@ -209,8 +219,8 @@ Contents.trends = function( cp )
 			checkSearchResult()
 		} else {
 			if ( g_devmode ) {
-				console.timeEnd( 'TM' )
-				console.log( useless_flags )
+				//console.timeEnd( 'TM' )
+				//console.log( useless_flags )
 			}
 		}
 	}

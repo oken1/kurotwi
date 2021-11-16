@@ -14,7 +14,7 @@ Contents.dmbox = function( cp )
 	// 開始処理
 	////////////////////////////////////////////////////////////
 	this.start = function() {
-		cp.param.maxlen = g_cmn.twconfig['dm_text_character_limit'];
+		cp.param.maxlen = 10000;
 
 		cont.addClass( 'dmbox' )
 			.html( OutputTPL( 'dmbox', { maxlen: cp.param['maxlen'] } ) );
@@ -157,7 +157,7 @@ Contents.dmbox = function( cp )
 		} );
 
 		var dmbox_text = $( '#dmbox_text' );
-		var tco = new String( '_______________________________' ).slice( 0, g_cmn.twconfig.short_url_length );
+		var tco = new String( '_______________________________' ).slice( 0, 23 );
 
 		////////////////////////////////////////
 		// 入力文字数によるボタン制御

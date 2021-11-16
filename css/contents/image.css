@@ -30,18 +30,6 @@ div.contents.image .resizebtn:hover {
 	opacity: 1.0;
 }
 
-/* volume control */
-div.contents.image .volume_control {
-	position: absolute;
-	left: 1rem;
-	top: 1rem;
-	display: flex;
-	flex-direction: row;
+div.contents.image video.error {
+	filter: brightness(0.2)
 }
-
-div.contents.image .volume_control > span.speaker-icon {
-	width: 2rem;
-	font-size: 2rem;
-	margin: 0 0.25rem;
-}
-

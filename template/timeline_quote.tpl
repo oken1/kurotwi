@@ -1,7 +1,7 @@
 <div class='tweet_quote'>
 	<div class='headcontainer'>
 		<div class='namedate'>
-			<img src='{$icon}'>
+			<img src='{$icon}' loading='lazy'>
 			{if $namedisp==0}
 				<span class='atmark ndr'>@</span><span class='screen_name ndr'>{$screen_name}</span> {if $name}<span class='name ndr'>{$name}</span>{/if}
 			{else}
@@ -14,7 +14,7 @@
 	<div class='tweet_quote_text'>{$text}</div>
 	<div>
 		{foreach item=media_file from=$media}
-			<img class='thumb' src='{$media_file}'>
+			<img class='thumb' src='{$media_file}' loading='lazy'>
 		{/foreach}
 	</div>
 </div>

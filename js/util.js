@@ -196,8 +196,7 @@ function Txt2Link( text, entities )
 		if ( entities.media )
 		{
 			var mediaurls = '';
-			var videourls = '';
-			var contenttypes = '';
+			let media_id = ''
 
 			// 複数画像対応
 			for ( var i = 0, _len = entities.media.length ; i < _len ; i++ )
@@ -207,35 +206,12 @@ function Txt2Link( text, entities )
 					mediaurls += entities.media[i].media_url_https + ',';
 				}
 
-				if ( entities.media[i].type == 'animated_gif' || entities.media[i].type == 'video' )
-				{
-					var variant, maxrate = 0;
-
-					for ( var j = 0, __len = entities.media[i].video_info.variants.length ; j < __len ; j++ )
-					{
-						if ( entities.media[i].video_info.variants[j].content_type == 'video/mp4' )
-						{
-							if ( entities.media[i].video_info.variants[j].bitrate >= maxrate )
-							{
-								maxrate = entities.media[i].video_info.variants[j].bitrate;
-								variant = entities.media[i].video_info.variants[j];
-							}
-						}
-					}
-
-					videourls += variant.url + ',';
-					contenttypes += variant.content_type + ',';
-				}
-				else
-				{
-					videourls += ',';
-					contenttypes += ',';
+				if ( entities.media[i].type == 'animated_gif' || entities.media[i].type == 'video' ) {
+					media_id = entities.media[i].id_str
 				}
 			}
 
 			mediaurls = mediaurls.replace( /,$/, '' );
-			videourls = videourls.replace( /,$/, '' );
-			contenttypes = contenttypes.replace( /,$/, '' );
 
 			entities.media.forEach( ( val, i ) => {
 				map[val.indices[0]] = {
@@ -243,12 +219,10 @@ function Txt2Link( text, entities )
 					func: function() {
 						switch ( val.type )
 						{
-							// 画像
 							case 'photo':
 							case 'animated_gif':
 							case 'video':
-								return "<a href='" + val.expanded_url + "' class='url anchor' mediaurl='" + mediaurls + "' mediatype='" + val.type + "' videourl='" +
-									videourls + "' contenttype='" + contenttypes + "'>" + val.display_url + "</a>";
+								return "<a href='" + val.expanded_url + "' class='url anchor' media_id='" + media_id + "' mediaurl='" + mediaurls + "' mediatype='" + val.type + "'>" + val.display_url + "</a>";
 								break;
 						}
 					}
@@ -412,7 +386,7 @@ function isShortURL( url )
 ////////////////////////////////////////////////////////////////////////////////
 function isImageURL( url )
 {
-	if ( url.match( /^https?:\/\/(((www\.)?instagram\.com|instagr\.am)\/p\/([\w\-]+)|twitter\.com.*\/(photo|video)\/1$|twitter\.com.*\/messages\/media\/\d+|(?:(www|m)\.youtube\.com\/watch\?.*v=|youtu\.be\/)([\w-]+)|(www\.nicovideo\.jp\/watch|nico\.ms)\/\w+|.*\.(png|jpg|jpeg|gif)$)/i ) )
+	if ( url.match( /^https?:\/\/(twitter\.com.*\/(photo|video)\/1$|twitter\.com.*\/messages\/media\/\d+|(?:(www|m)\.youtube\.com\/watch\?.*v=|youtu\.be\/)([\w-]+)|(www\.nicovideo\.jp\/watch|nico\.ms)\/\w+|.*\.(png|jpg|jpeg|gif)$)/i ) )
 	{
 		return true;
 	}

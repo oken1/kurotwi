@@ -29,6 +29,47 @@ Contents.timeline = function( cp )
 
 	var quote_cache = {};
 
+	let video_info = {}
+
+	////////////////////////////////////////////////////////////
+	// ツイートから画像のURLを抽出してサムネイル表示を呼び出す
+	////////////////////////////////////////////////////////////
+	function OpenThumbnail( item )
+	{
+		item.find( '.tweet_text' ).find( 'a' ).each( function() {
+			// 画像URLなら
+			if ( isImageURL( $( this ).attr( 'href' ) ) )
+			{
+				$( this ).trigger( 'mouseover', [ true ] );
+			}
+		} );
+	}
+	
+	////////////////////////////////////////
+	// Video情報に追加
+	////////////////////////////////////////
+	const addVideoInfo = ( json ) => {
+		if ( json.retweeted_status ) {
+			json = json.retweeted_status
+		}
+		
+		if ( json.extended_entities ) {
+			if ( json.extended_entities.media ) {
+				json.entities.media = json.extended_entities.media
+			}
+		}
+
+		if ( json.entities.media ) {
+			for ( let i = 0 ; i < json.entities.media.length ; i++ ) {
+				const media = json.entities.media[i]
+
+				if ( media.type === 'video' || media.type === 'animated_gif' ) {
+					video_info[media.id_str] = { variants: media.video_info.variants }
+				}
+			}
+		}
+	}
+
 	////////////////////////////////////////
 	// 引用元キャッシュに追加
 	////////////////////////////////////////
@@ -158,6 +199,8 @@ Contents.timeline = function( cp )
 						AddQuoteCache( res.json );
 
 						MakeReplyTweet( res.json, wait );
+
+						addVideoInfo( res.json )
 					}
 					else
 					{
@@ -502,6 +545,7 @@ Contents.timeline = function( cp )
 						include_rts: true,
 						include_entities: true,
 						tweet_mode: 'extended',
+//						exclude_replies: true,
 					},
 				};
 
@@ -702,6 +746,9 @@ Contents.timeline = function( cp )
 								if ( IsNGTweet( json[i], 'normal' ) == false )
 								{
 									s += MakeTimeline( json[i], cp.param['account_id'] );
+
+									addVideoInfo( json[i] )
+
 									status_ids[json[i].id_str] = true;
 									status_cnt++;
 									addcnt++;
@@ -760,6 +807,9 @@ Contents.timeline = function( cp )
 								if ( IsNGTweet( json.statuses[i], 'search' ) == false )
 								{
 									s += MakeTimeline( json.statuses[i], cp.param['account_id'] );
+
+									addVideoInfo( json.statuses[i] )
+
 									status_ids[json.statuses[i].id_str] = true;
 									status_cnt++;
 									addcnt++;
@@ -860,6 +910,9 @@ Contents.timeline = function( cp )
 								if ( IsNGTweet( json[i], 'normal' ) == false )
 								{
 									s += MakeTimeline( json[i], cp.param['account_id'] );
+
+									addVideoInfo( json[i] )
+
 									status_ids[json[i].id_str] = true;
 									status_cnt++;
 									addcnt++;
@@ -909,6 +962,9 @@ Contents.timeline = function( cp )
 						if ( IsNGTweet( json, 'normal' ) == false )
 						{
 							s += MakeTimeline( json, cp.param['account_id'] );
+
+							addVideoInfo( json )
+
 							status_ids[json.id_str] = true;
 							status_cnt++;
 							addcnt++;
@@ -2828,7 +2884,7 @@ Contents.timeline = function( cp )
 										$( this ).addClass( 'link' )
 
 										// 公式動画
-										if ( contenttype ) {
+										if ( isvideo ) {
 											$( this ).addClass( 'video' )
 											
 											$( this ).click( function( e ) {
@@ -2838,6 +2894,7 @@ Contents.timeline = function( cp )
 													url: original,
 													video: isvideo,
 													contenttype: contenttype,
+													poster: thumb
 												} );
 												_cp.Start();
 												e.stopPropagation();
@@ -2872,35 +2929,39 @@ Contents.timeline = function( cp )
 							}
 						};
 
-						// instagram
-						if ( url.match( /https?:\/\/((www\.)?instagram\.com|instagram\.com|instagr\.am)\/p\/([\w\-]+)/ ) )
+						// 公式画像/動画
+						if ( url.match( /https?:\/\/twitter\.com.*\/(photo|video)\/1$/ ) )
 						{
-							id = RegExp.$3;
+							const mediaurl = anchor.attr( 'mediaurl' )
 
-							MakeImgLink( 'https://instagram.com/p/' + id + '/media/?size=t',
-										 'https://instagram.com/p/' + id + '/media/?size=l',
-										 1 );
-						}
-						// 公式
-						else if ( url.match( /https?:\/\/twitter\.com.*\/(photo|video)\/1$/ ) )
-						{
-							if ( anchor.attr( 'mediaurl' ) )
-							{
-								var mediaurls = anchor.attr( 'mediaurl' ).split( ',' );
-								var videourls = anchor.attr( 'videourl' ).split( ',' );
-								var contenttypes = anchor.attr( 'contenttype' ).split( ',' );
+							if ( mediaurl ) {
 
-								for ( var i = 0, _len = mediaurls.length ; i < _len ; i++ )
-								{
-									if ( videourls[i] == '' )
+								if ( anchor.attr( 'mediatype' ) === 'photo' ) {
+									var mediaurls = mediaurl.split( ',' );
+
+									for ( var i = 0, _len = mediaurls.length ; i < _len ; i++ )
 									{
 										MakeImgLink( mediaurls[i] + ':thumb',
 													 mediaurls[i] + ':orig', mediaurls.length );
 									}
-									else
-									{
-										MakeImgLink( mediaurls[i],
-													 videourls[i], mediaurls.length, true, contenttypes[i] );
+								} else {
+									const videourls = [], contenttypes = []
+									const media_id = anchor.attr( 'media_id' )
+	 
+									if ( video_info[media_id] ) {
+										video_info[media_id].variants.sort( ( a, b ) => {
+											a.bitrate = ( a.bitrate == undefined ) ? 0 : a.bitrate
+											b.bitrate = ( b.bitrate == undefined ) ? 0 : b.bitrate
+
+											return ( a.bitrate == b.bitrate ) ? 0 : ( ( a.bitrate > b.bitrate ) ? -1 : 1 )
+										} )
+	
+										for ( let i = 0 ; i < video_info[media_id].variants.length ; i++ ) {
+											videourls.push( video_info[media_id].variants[i].url )
+											contenttypes.push( video_info[media_id].variants[i].content_type )
+										}
+
+										MakeImgLink( mediaurl, videourls, 1, true, contenttypes )
 									}
 								}
 							}

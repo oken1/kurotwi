@@ -13,23 +13,47 @@ Contents.image = function( cp )
 	cp.SetIcon( 'icon-image' );
 
 	////////////////////////////////////////////////////////////
-	// 開始処理
+	// タイトル設定
 	////////////////////////////////////////////////////////////
-	this.start = function() {
-		var title_url = cp.param['url'].replace( /api_key=\w+\&/, '' );
+	const setTitle = ( append ) => {
+		let title_url = ( cp.param['video'] && Array.isArray( cp.param['url'] ) ) ? cp.param['url'][0] : cp.param['url']
+		title_url = title_url.replace( /api_key=\w+\&/, '' )
 
 		if ( title_url.match( /^data:image\// ) )
 		{
-			title_url = i18nGetMessage( 'i18n_0256' );
+			title_url = i18nGetMessage( 'i18n_0256' )
 		}
 
-		cp.SetTitle( i18nGetMessage( 'i18n_0199' ) + ' - ' + title_url, false );
+		cp.SetTitle( i18nGetMessage( 'i18n_0199' ) + ' - ' + title_url + append, false )
+	}
+
+	////////////////////////////////////////////////////////////
+	// 開始処理
+	////////////////////////////////////////////////////////////
+	this.start = function() {
+		setTitle()
 		setTimeout( function() { cont.activity( { color: '#ffffff' } ); }, 0 );
 
 		if ( cp.param['video'] )
 		{
+			let items = []
+
+			if ( Array.isArray( cp.param['url'] ) ) {
+				for ( let i = 0 ; i < cp.param['url'].length ; i++ ) {
+					items.push( {
+						url: cp.param['url'][i],
+						contenttype: cp.param['contenttype'][i]
+					} )
+				}
+			} else {
+				items.push( {
+					url: cp.param['url'],
+					contenttype: cp.param['contenttype']
+				} )
+			}
+
 			cont.addClass( 'image' )
-				.html( OutputTPL( 'image', { url: cp.param['url'], video: true, contenttype: cp.param['contenttype'] } ) );
+				.html( OutputTPL( 'image', { items: items, video: true, poster: cp.param['poster'] } ) );
 		}
 		else
 		{
@@ -50,8 +74,10 @@ Contents.image = function( cp )
 
 			if ( cp.param['video'] )
 			{
-				nw = cont.find( 'video' ).get( 0 ).videoWidth;
-				nh = cont.find( 'video' ).get( 0 ).videoHeight;
+				if ( cont.find( 'video' ).length ) {
+					nw = cont.find( 'video' ).get( 0 ).videoWidth;
+					nh = cont.find( 'video' ).get( 0 ).videoHeight;
+				}
 			}
 			else
 			{
@@ -105,13 +131,13 @@ Contents.image = function( cp )
 			{
 				nw = $( this ).get( 0 ).videoWidth;
 				nh = $( this ).get( 0 ).videoHeight;
-				cp.SetTitle( i18nGetMessage( 'i18n_0199' ) + ' - ' + cp.param['url'] + ' (' + nw + '×' + nh + ')', false );
+				setTitle( ' (' + nw + '×' + nh + ')')
 			}
 			else
 			{
 				nw = $( this ).get( 0 ).naturalWidth;
 				nh = $( this ).get( 0 ).naturalHeight;
-				cp.SetTitle( i18nGetMessage( 'i18n_0199' ) + ' - ' + title_url + ' (' + nw + '×' + nh + ')', false );
+				setTitle( ' (' + nw + '×' + nh + ')' )
 			}
 
 			setTimeout( function() {cont.activity( false ); }, 0 );
@@ -241,20 +267,33 @@ Contents.image = function( cp )
 		cont.find( 'img.image' ).on( 'load', LoadedEvent );
 		cont.find( 'video' ).on( 'loadedmetadata', LoadedEvent );
 
+		if ( g_devmode ) {
+			console.log( '--event-----------' )
+			cont.find( 'video' ).on( 'loadstart', () => { console.log('loadstart') } )
+			cont.find( 'video' ).on( 'suspend', () => { console.log('suspend') } )
+			cont.find( 'video' ).on( 'abort', () => { console.log('abort') } )
+			cont.find( 'video' ).on( 'error', () => { console.log('error') } )
+			cont.find( 'video' ).on( 'emptied', () => { console.log('emptied') } )
+			cont.find( 'video' ).on( 'stalled', () => { console.log('stalled') } )
+			cont.find( 'video' ).on( 'loadedmetadata', () => { console.log('loadedmetadata') } )
+			cont.find( 'video' ).on( 'canplay', () => { console.log('canplay') } )
+			cont.find( 'video' ).on( 'playing', () => { console.log('playing') } )
+		}
+
 		////////////////////////////////////////
 		// 読み込み失敗
 		////////////////////////////////////////
-		var ErrorEvent = function() {
-			if ( cp.param['video'] )
-			{
-				cp.SetTitle( i18nGetMessage( 'i18n_0199' ) + ' - ' + cp.param['url'] + ' (' + i18nGetMessage( 'i18n_0258' ) + ')', false );
-			}
-			else
-			{
-				cp.SetTitle( i18nGetMessage( 'i18n_0199' ) + ' - ' + title_url + ' (' + i18nGetMessage( 'i18n_0258' ) + ')', false );
+		var ErrorEvent = function( e ) {
+			if ( g_devmode ) {
+				console.log( '読み込み失敗' )
+				console.log( cont.find( 'video' ).get(0).error )
 			}
 
+			setTitle( ' (' + i18nGetMessage( 'i18n_0258' ) + ')' )
 			setTimeout( function() { cont.activity( false ); }, 0 );
+
+			cont.find( 'video' ).addClass( 'error' )
+			//cont.find( 'video' ).remove()
 		};
 
 		cont.find( 'img.image,video' ).on( 'error', ErrorEvent );

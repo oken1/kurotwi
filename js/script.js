@@ -104,7 +104,7 @@ $( document ).ready( function() {
 			},
 
 			experiments: {										// - 実験的機能
-				useless_trend: 0
+				useless_trend: 0,								// - 診断系由来のトレンドに×印を付ける
 			}
 		},
 		panel:			null,			// パネル
@@ -114,10 +114,6 @@ $( document ).ready( function() {
 		mute:			null,			// 非表示ユーザ
 		toolbar_user:	null,			// ツールバーに登録しているユーザ
 		rss_panel:		null,			// RSSパネル
-		twconfig:		{				// Twitterの設定値
-			short_url_length:				20,	// 2012/10/15現在の値
-			characters_reserved_per_media:	21,
-		},
 
 		account_order:	null,			// アカウントの並び順
 		panellist_width: '200px',		// パネルリストの幅
@@ -454,12 +450,10 @@ function Init()
 					var _next = function() {
 						if ( $( '#blackout' ).find( 'div.info' ).length == 0 )
 						{
-							GetConfiguration( function() {
-								Blackout( false );
-								$( '#blackout' ).activity( false );
-								Subsequent();
-								$( '#head' ).trigger( 'account_update' );
-							} );
+							Blackout( false );
+							$( '#blackout' ).activity( false );
+							Subsequent();
+							$( '#head' ).trigger( 'account_update' );
 						}
 						else
 						{
@@ -477,7 +471,7 @@ function Init()
 				// 後続処理を実行
 				Blackout( false );
 				$( '#blackout' ).activity( false );
-				GetConfiguration( function() { Subsequent(); } );
+				Subsequent()
 			}
 			// アカウント情報あり
 			else
@@ -2257,20 +2251,6 @@ function UpdateToolbarUser()
 	} );
 }
 
-////////////////////////////////////////////////////////////
-// ツイートから画像のURLを抽出してサムネイル表示を呼び出す
-////////////////////////////////////////////////////////////
-function OpenThumbnail( item )
-{
-	item.find( '.tweet_text' ).find( 'a' ).each( function() {
-		// 画像URLなら
-		if ( isImageURL( $( this ).attr( 'href' ) ) )
-		{
-			$( this ).trigger( 'mouseover', [ true ] );
-		}
-	} );
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 // NGチェック用フィルタ作成
 ////////////////////////////////////////////////////////////////////////////////
@@ -2335,8 +2315,6 @@ function IsNGTweet( json, tltype )
 			{
 				if ( !json.retweeted_status.user )
 				{
-					console.log( 'INVALID DATA - retweeted_status.user is not found.' );
-					console.log( json );
 					return true;
 				}
 
@@ -2886,77 +2864,6 @@ function GetAccountInfo( account_id, callback )
 	};
 
 	GetSearchMemo( 0 );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// configurationを取得する
-////////////////////////////////////////////////////////////////////////////////
-function GetConfiguration( callback )
-{
-	var account_id = null;
-
-	for ( var id in g_cmn.account )
-	{
-		account_id = id;
-		break;
-	}
-
-	var LastConfig = function() {
-		var text = getUserInfo( 'g_cmn_V1' );
-
-		if ( text != '' )
-		{
-			text = decodeURIComponent_space( text );
-			var _g_cmn = JSON.parse( text );
-
-			if ( _g_cmn.twconfig != undefined && _g_cmn.twconfig != null )
-			{
-				g_cmn.twconfig = _g_cmn.twconfig;
-			}
-		}
-	};
-
-	if ( account_id == null )
-	{
-		LastConfig();
-		callback();
-		return;
-	}
-
-	var param = {
-		type: 'GET',
-		url: ApiUrl( '1.1' ) + 'help/configuration.json',
-		data: {
-		}
-	};
-
-	SendRequest(
-		{
-			action: 'oauth_send',
-			acsToken: g_cmn.account[account_id]['accessToken'],
-			acsSecret: g_cmn.account[account_id]['accessSecret'],
-			param: param,
-			id: account_id
-		},
-		function( res )
-		{
-			if ( res.status == 200 )
-			{
-				if ( g_devmode )
-				{
-					console.log( res.json );
-				}
-
-				g_cmn.twconfig = res.json;
-			}
-			else
-			{
-				LastConfig();
-			}
-
-			callback();
-		}
-	);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
