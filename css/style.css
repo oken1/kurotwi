@@ -428,13 +428,13 @@ panel div.titlebar .titlecontainer .titlename_list span:hover {
 /* パネル-コンテンツ */
 panel div.contents {
 	display: block;
-	content-visibility: auto;
 }
 
 /* パネル-コンテンツ-タイムライン表示 */
 panel div.contents > .lines {
 	width: 100%;
 	height: 100%;
+	content-visibility: auto;
 }
 
 /* パネル-コンテンツ-設定表示 */
